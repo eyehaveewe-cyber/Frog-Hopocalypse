@@ -11,7 +11,12 @@
    Windows export completed. Five focused browser checks and staged production
    startup pass without runtime errors. Exact WASM hash verified.
    See docs/VALIDATION.md for evidence and device/hosted-test limitations.
-4. Prior private Site version 4 remains available for rollback. RiverSim and
+4. Published privately as version 5: https://hopan.fiiendward.chatgpt.site.
+   Deployment appgdep_6ad4d62ea4c0819186f70177ea8d9afa succeeded.
+   Saved version appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_0a0d278b6fd48191896dda8a8b38eb5b.
+   Sites source 0581c291c23f835cc92dba7a4358fb17a5533fc2.
+   Game source d94513bbc9501e2047681806a4f1c30dda825314.
+   Prior private Site version 4 remains available for rollback. RiverSim and
    the existing WASM hosting adapter are preserved. Audio integration remains
    blocked by the supported Library download transport (HTTP 403).
 

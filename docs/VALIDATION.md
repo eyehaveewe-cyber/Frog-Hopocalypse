@@ -19,6 +19,9 @@ frog-hat-staged-results.json and frog-hat-play.png.
 Real iPhone/Safari and Windows execution remain untested. Hosted gameplay
 inspection remains blocked by executor DNS/proxy restrictions.
 
+Sites confirms successful private version 5 publication at
+https://hopan.fiiendward.chatgpt.site. Owner-only access is preserved.
+
 --- Earlier validation history ---
 
 # Baby Mode update — 2026-10-18
