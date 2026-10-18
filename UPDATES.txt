@@ -1,3 +1,21 @@
+2026-10-18 — Android compatibility scene shader mitigation
+
+1. Integrated d5dc97b3d292fd508aae841b8222af75d554afef atop public v12.
+   Compatibility materials are unshaded, omit emission, and omit scene light.
+   Full graphics remains available with compat=0. Compatibility appears flatter
+   and brighter. This does not eliminate every internal engine scene shader.
+2. Add ?compat=1&graphics-debug=1 for actual engine-context GPU/limits, first
+   linker failures and attached shader sources. Save graphics report downloads
+   hopan-graphics.json from the startup recovery panel; nothing is uploaded.
+3. User-reported Moto G5 shader error was not reproduced on physical hardware.
+   Worker passed 53 focused native checks and four desktop SwiftShader browser
+   scenarios; integration export/startup checks are recorded separately. These
+   checks cannot confirm a fix on the phone. Preserve the diagnostic report
+   from the device to identify any remaining driver/engine failure.
+4. Shelby, compact menus, audio, profile format, public audience and RiverSim
+   remain unchanged. Rollback keeps public audience and redeploys saved v12:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_d2070083abc48191bbf5c0b654886b8f.
+
 2026-10-18 — Compact stage selectors and immediate Shelby Bonus set (published version 12)
 
 1. Each set now has a main play button and a collapsed + stage picker, with
