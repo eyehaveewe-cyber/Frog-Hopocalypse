@@ -1,4 +1,4 @@
-2026-10-18 — Purple frog reward and five stable scenery variations
+2026-10-18 — Purple frog reward and five stable scenery variations (published v20)
 
 1. Baby Mode completion unlocks the purple frog skin. First-time clears equip
    it alongside the baby hat; existing completed profiles gain the choice.
@@ -13,6 +13,15 @@
    rendered scenery, with no browser errors. Perspective and overhead images
    were inspected. Godot 4.7.2 Web/Windows release exports rebuilt. Physical
    phones/Safari and formal photosensitivity evaluation remain unverified.
+4. Published public v20 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: 57536574c2aa9f58501f878a1d482df13ee83afc.
+   Branch: feature/purple-skin-tile-variants; original source main preserved.
+   Site source: 779dad606d67492f7d680ee2ce76ffedc8a4f214.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_5ec4e263e158819192dbd10480b0beff.
+   Deployment succeeded: appgdep_6ad54dc26a1081918d0359cefd88eb88.
+   All 17 protected hosting/RiverSim files match their previous hashes.
+   Rollback retains public access and redeploys v19:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_431ad313e44c8191974666752bf9f0a2.
 
 2026-10-18 — Remove Retry after terminal set clears (published v19)
 

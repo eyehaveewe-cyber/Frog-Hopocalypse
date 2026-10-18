@@ -18,5 +18,16 @@
     "hopan-tree-variations.png"
   ],
   "visual_review": "Perspective and overhead images inspected",
-  "formal_photosensitivity_evaluation": false
+  "formal_photosensitivity_evaluation": false,
+  "publication": {
+    "url": "https://hopan.fiiendward.chatgpt.site/",
+    "version": 20,
+    "access": "public",
+    "game_source": "57536574c2aa9f58501f878a1d482df13ee83afc",
+    "site_source": "779dad606d67492f7d680ee2ce76ffedc8a4f214",
+    "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_5ec4e263e158819192dbd10480b0beff",
+    "deployment_id": "appgdep_6ad54dc26a1081918d0359cefd88eb88",
+    "status": "succeeded",
+    "protected_files_unchanged": 17
+  }
 }
