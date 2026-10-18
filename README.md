@@ -165,5 +165,5 @@ identifiers are recorded in `UPDATES.txt`.
 
 Baby Mode also unlocks the **Purple frog** skin. Use **Skin: Green/Purple** on
 its main menu to switch independently of hats; your selection survives reloads.
-Trees and ground textures have five fixed variations, with broader foliage
-patches and reduced grass/moss contrast. Shapes and patterns stay fixed in play.
+Trees have five fixed variations with broader foliage patches. Tree shapes
+and patterns stay fixed in play; original ground textures are retained.

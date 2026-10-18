@@ -1,3 +1,11 @@
+2026-10-18 — Tree variations only
+
+1. Scope correction: keep the five tree shapes and foliage variations; restore
+   the original grass/moss textures and single ground texture selection.
+   Purple reward, saved skin choices and terminal-result Retry behavior remain.
+2. Focused skin/tree checks and release exports verify this correction. Ground
+   texture pixel bytes are compared with the pre-variation source at cc61f50.
+
 2026-10-18 — Purple frog reward and five stable scenery variations (published v20)
 
 1. Baby Mode completion unlocks the purple frog skin. First-time clears equip

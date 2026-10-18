@@ -12,7 +12,7 @@ static func get_texture(kind: String) -> Texture2D:
 	for y in range(32):
 		for x in range(32):
 			var n := random.randf()
-			if base_kind in ["grass", "moss", "leaf", "violet_leaf", "bark"]:
+			if base_kind in ["leaf", "violet_leaf", "bark"]:
 				# Broad static clusters avoid one-pixel speckle while moving the camera.
 				n = float(posmod(hash([kind, x / 4, y / 4]), 1000)) / 1000.0
 			var color := Color.WHITE
@@ -28,13 +28,13 @@ static func get_texture(kind: String) -> Texture2D:
 					if y < 2 and x < 20:
 						color = Color("e5dbae")
 				"grass":
-					color = Color("5e8933").lerp(Color("a0ac48"), 0.2 + n * 0.35)
-					if n < 0.08:
-						color = Color("63863e")
+					color = Color("5e8933").lerp(Color("a0ac48"), n * 0.65)
+					if n < 0.16:
+						color = Color("3f662d")
 					if n > 0.92:
-						color = Color("929e52")
+						color = Color("b5bc61")
 				"moss":
-					color = Color("384d43").lerp(Color("82915e"), 0.25 + n * 0.4)
+					color = Color("384d43").lerp(Color("82915e"), n)
 				"stone", "swamp_stone":
 					var mortar := y % 8 == 0 or (x + (8 if (y / 8) % 2 == 0 else 0)) % 16 == 0
 					if base_kind == "stone":

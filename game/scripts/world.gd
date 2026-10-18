@@ -136,7 +136,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 				if tile == "path":
 					color = Color("b4ad8c") if swamp else Color("ead69b")
 				var texture_kind := "road" if tile == "road" else (("swamp_stone" if swamp else "stone") if tile == "path" else ("moss" if swamp else "grass"))
-				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind + ("@%d" % posmod(hash([x,z]),5) if tile != "road" else ""))
+				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
 			if tile == "cheese_wall":
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.65, CELL), p + Vector3(0, 0.325, 0), Color.WHITE), "cheese")
 				var cheese_body := Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))

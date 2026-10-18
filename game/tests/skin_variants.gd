@@ -41,11 +41,11 @@ func run() -> void:
   var tree=Art.scenery("tree","egypt",i)
   silhouettes[str([tree.get_child_count(),tree.get_child(0).position.y,tree.get_child(1).rotation.y])]=true
   tree.free()
-  var texture=Pixels.get_texture("grass@%d"%i)
+  var texture=Pixels.get_texture("leaf@%d"%i)
   var data=texture.get_image().get_data()
   hashes[data.hex_encode().sha256_text()]=true
-  suite.check(texture==Pixels.get_texture("grass@%d"%i),"Ground variant %d is fixed and cached"%i)
- suite.check(hashes.size()==5 and silhouettes.size()==5,"Five distinct fixed ground textures and tree silhouettes exist")
+  suite.check(texture==Pixels.get_texture("leaf@%d"%i),"Tree foliage variant %d is fixed and cached"%i)
+ suite.check(hashes.size()==5 and silhouettes.size()==5,"Five distinct fixed foliage textures and tree silhouettes exist")
  app.completed_stages=[0,1,2]
  app.skin="purple"
  app.save_profile()

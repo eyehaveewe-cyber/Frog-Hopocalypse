@@ -29,5 +29,18 @@
     "deployment_id": "appgdep_6ad54dc26a1081918d0359cefd88eb88",
     "status": "succeeded",
     "protected_files_unchanged": 17
+  },
+  "tree_only_correction": {
+    "native_checks": 15,
+    "original_ground_pixel_match": [
+      "grass",
+      "moss",
+      "stone",
+      "swamp_stone",
+      "road"
+    ],
+    "ground_reference_source": "cc61f50fcd23cdde3b7f8c24ed3612c4b5802cb0",
+    "release_build": "passed",
+    "browser_rerun": false
   }
 }
