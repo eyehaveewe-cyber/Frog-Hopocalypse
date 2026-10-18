@@ -1,4 +1,4 @@
-2026-10-18 — Sound controls, main-screen editor entry and checkpoint tool
+2026-10-18 — Sound controls, main-screen editor entry and checkpoint tool (published v16)
 
 1. Added Sound: On/Off in the play header and synchronized Sound on the main
    screen. Off stops current and queued voices; the preference survives reloads.
@@ -18,7 +18,17 @@
    This is NOT Safari, iOS Simulator or a physical iPhone. Playwright WebKit
    download was blocked with HTTP 403 Domain forbidden, so Safari/device audio
    compatibility remains unverified. No known iPhone recovery guarantee is made.
-5. Existing public audience, source main, campaign layouts, audio, graphics
+5. Published public v16 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: 42e76d02e84d6f4042f9f77cbe8b6ea87435b823.
+   Branch: feature/sound-checkpoints-v16; source main preserved.
+   Site source: a522a9ddb72e7f2bad690680c2c2e2c9cf6786af.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9928314e6e288191a8fa34d6470bf247.
+   Deployment succeeded: appgdep_6ad50a1c49f8819193346dcbe238f9fd.
+   Browser: 7 iPhone-profile audio/touch checks and 7 editor/checkpoint checks,
+   including actual movement to a flag and retry. Final compressed production
+   first frame passes without a debug probe; all 17 protected files match.
+   Native Sites confirms publication; hosted gameplay not directly inspected.
+6. Existing public audience, source main, campaign layouts, audio, graphics
    mitigation and RiverSim are preserved. Rollback keeps public access and
    redeploys saved version 15:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_c8283d6972648191a6bc4ce26118e5a9.

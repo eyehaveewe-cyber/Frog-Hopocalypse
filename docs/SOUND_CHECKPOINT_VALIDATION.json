@@ -1,0 +1,66 @@
+{
+  "source": "42e76d02e84d6f4042f9f77cbe8b6ea87435b823",
+  "branch": "feature/sound-checkpoints-v16",
+  "native_checks": {
+    "sound_checkpoints": 24,
+    "voice_regression": 19
+  },
+  "iphone_profile": {
+    "profile": "iPhone 13 landscape",
+    "engine": "Desktop Chromium with iPhone UA/touch/viewport; NOT Safari, iOS Simulator or hardware",
+    "webkitAttempt": "Playwright WebKit installation blocked: download HTTP 403 Domain forbidden",
+    "checks": [
+      "No voice before trusted input",
+      "Touch starts game audio with nonzero output",
+      "Sound button remains within landscape viewport",
+      "Editor entry absent during play",
+      "Sound off stops active output",
+      "Mute survives reload",
+      "Sound on restores nonzero output after touch"
+    ],
+    "firstPeak": 0.4716268479824066,
+    "audio": {
+      "peak": 0.476661741733551,
+      "states": [
+        "running"
+      ]
+    },
+    "errors": []
+  },
+  "checkpoint_browser": {
+    "checks": [
+      "Editor places two checkpoint flags",
+      "Local save succeeds with checkpoints",
+      "Playtest hides editor entry",
+      "Actual keyboard movement reaches checkpoint",
+      "Retry returns to exact claimed flag",
+      "Main screen opens editor with level intact",
+      "Erase removes a flag"
+    ],
+    "errors": []
+  },
+  "production": {
+    "productionFirstFrame": true,
+    "compressedWasm": true,
+    "canvas": [
+      844,
+      390
+    ],
+    "debugProbeAbsent": true,
+    "errors": [],
+    "device": "Desktop Chromium Android emulation; physical phone not tested"
+  },
+  "protected_files_unchanged": 17,
+  "rollback_version": 15,
+  "webKit_blocker": {
+    "action": "Install Playwright WebKit 26.5 v2336 for Safari-like browser checks",
+    "target": "https://playwright.download.prss.microsoft.com/dbazure/download/playwright/builds/webkit/2336/webkit-debian-13.zip",
+    "reason": "HTTP 403 Domain forbidden",
+    "outcome": "download denied; browser unavailable, not executed",
+    "independent_completion": "Chromium iPhone landscape touch and nonzero/muted/restored audio verified; checkpoints/menu checks and publication continued"
+  },
+  "limitations": [
+    "Not Safari, an iOS Simulator, or physical iPhone",
+    "Physical device and hosted gameplay not directly inspected"
+  ]
+}
