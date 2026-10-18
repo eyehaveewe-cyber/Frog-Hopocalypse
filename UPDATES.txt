@@ -1,4 +1,4 @@
-2026-10-18 — Editor recovery, turret spinner and brick shimmer fixes
+2026-10-18 — Editor recovery, turret spinner and brick shimmer fixes (published v21)
 
 1. New Egypt / New Swamp editor maps now create an Autosave recovery entry
    every 40 actual undoable edits. Paint strokes count once, and checkpoints
@@ -27,6 +27,21 @@
    Final compressed release first frames pass in desktop full rendering and
    Android compatibility emulation, without browser errors or a debug probe.
    Desktop movement and the final wall view were visually checked.
+6. Published public v21 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: 5ded804e463766df556a86d842a6b2e53eb96b78.
+   Branch: fix/editor-recovery-walls-turrets; original source main preserved.
+   Site source: fc76442f5ef60d6eabb8c9aea071ecc5aea97769.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_6eae605ea9a481919ff58674f118660f.
+   Deployment succeeded: appgdep_6ad55363846481919dbe07d9d0ef3fe1.
+   All 17 protected hosting/RiverSim files match their previous hashes.
+   80 native assertions pass; exact validation evidence is recorded in
+   docs/EDITOR_RECOVERY_VALIDATION.json. Native Sites confirms publication;
+   hosted gameplay was not directly inspected, and physical phones/Safari
+   remain unverified. No pending blocker.
+7. Rollback keeps public access and redeploys v20:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_5ec4e263e158819192dbd10480b0beff.
+   Export recovery maps first: v20 does not offer unfinished autosaves that
+   fail its normal map validation. Version-1 valid map files remain readable.
 
 2026-10-18 — Tree variations only
 

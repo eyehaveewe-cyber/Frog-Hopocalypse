@@ -52,5 +52,18 @@
   },
   "ground_pixels_match_reference": "cc61f50fcd23cdde3b7f8c24ed3612c4b5802cb0",
   "protected_hosting_riversim_hashes_unchanged": 17,
-  "formal_photosensitivity_evaluation": false
+  "formal_photosensitivity_evaluation": false,
+  "publication": {
+    "url": "https://hopan.fiiendward.chatgpt.site/",
+    "version": 21,
+    "access": "public",
+    "game_source": "5ded804e463766df556a86d842a6b2e53eb96b78",
+    "game_branch": "fix/editor-recovery-walls-turrets",
+    "site_source": "fc76442f5ef60d6eabb8c9aea071ecc5aea97769",
+    "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_6eae605ea9a481919ff58674f118660f",
+    "deployment_id": "appgdep_6ad55363846481919dbe07d9d0ef3fe1",
+    "status": "succeeded",
+    "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_5ec4e263e158819192dbd10480b0beff",
+    "hosted_gameplay_directly_checked": false
+  }
 }
