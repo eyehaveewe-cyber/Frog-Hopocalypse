@@ -1,0 +1,38 @@
+{
+  "source": "ddd2b4ae769484649828777657b4a1ec3ccd1899",
+  "native_checks": 17,
+  "browser": {
+    "checks": [
+      "Compact Loop shares Draw route row",
+      "Loop toggles saved setting",
+      "R rotates worm to upper-right seam",
+      "180 degrees moves worm to left seam",
+      "Draw route connects from moved position",
+      "Route and worm pivot together",
+      "Rotated level starts playtest",
+      "Overhead map remains available"
+    ],
+    "errors": [],
+    "physicalPhoneTested": false
+  },
+  "protected_files_unchanged": 17,
+  "rollback_version": 14,
+  "rotation_mapping": {
+    "0": "lower-right",
+    "90": "upper-right",
+    "180": "upper-left",
+    "270": "lower-left"
+  },
+  "physical_phone_tested": false,
+  "production": {
+    "productionFirstFrame": true,
+    "compressedWasm": true,
+    "canvas": [
+      844,
+      390
+    ],
+    "debugProbeAbsent": true,
+    "errors": [],
+    "device": "Desktop Chromium Android emulation; physical phone not tested"
+  }
+}

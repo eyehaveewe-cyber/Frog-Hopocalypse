@@ -1,4 +1,4 @@
-2026-10-18 — Compact Loop toggle and rotating seam-worm placement
+2026-10-18 — Compact Loop toggle and rotating seam-worm placement (published v15)
 
 1. Replaced the full-width Loop route control with a small Loop checkbox beside
    Draw route. Saved looping behavior and defaults remain unchanged.
@@ -13,7 +13,17 @@
    existing tile positions. Campaign layouts, audio and RiverSim are unchanged.
 4. Seventeen focused native checks pass. Browser editor controls and playtest
    are checked separately. Physical phone interaction remains unverified.
-5. Rollback retains public access and redeploys saved v14:
+5. Published public v15: https://hopan.fiiendward.chatgpt.site/ .
+   Game source: ddd2b4ae769484649828777657b4a1ec3ccd1899.
+   Branch: fix/compact-loop-seam-rotation; main preserved.
+   Site source: 48f096568c732e568dcf684a7fcb2f20d14fda77.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_c8283d6972648191a6bc4ce26118e5a9.
+   Deployment succeeded: appgdep_6ad506ab58fc8191979d22c045a88195.
+   Browser: 8 editor/playtest checks, no errors. Compressed production first
+   frame passes; no debug probe. All 17 protected hosting/RiverSim files match.
+   Hosted gameplay and physical phone remain unverified. No actual execution
+   blocker occurred here despite a reported client environment disconnect.
+6. Rollback retains public access and redeploys saved v14:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_a27be5e8c7308191bb1081a90fb1d967.
 
 2026-10-18 — Single-take bugsploded death recording (published v14)
