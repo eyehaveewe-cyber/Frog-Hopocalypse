@@ -11,8 +11,13 @@
 3. Audio remains unintegrated. No verified usable audio input existed here.
    A separate candidate transport test is quarantined outside the game after
    failing byte-count/SHA verification; no mapping or publication of that clip.
-4. Publish to the same public Site, preserving access revision 2 and all
-   RiverSim/adapter/header bytes. Rollback: ordinary deployment of saved v8
+4. Published PUBLIC version 9 at https://hopan.fiiendward.chatgpt.site .
+   Deployment appgdep_6ad4ecc398c4819189246538a51f3240 succeeded.
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_e61b1975886c819190f61dbe72d985e2.
+   Site source: f668dac63ee71e8db1bac5de2cc285229ac38534.
+   Game source: 5dd714d0ddcc976cdc3d2dba8c8d9c24ec493740.
+   Access re-read confirms public revision 2 unchanged. All 17 protected
+   RiverSim/adapter/header file hashes match. Rollback: saved v8
    with public access retained:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_acc0c608efc8819180263f359fbdef81.
 

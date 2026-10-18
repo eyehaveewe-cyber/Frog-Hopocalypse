@@ -11,6 +11,9 @@ No unrelated broad suite was repeated for this menu-only change. Physical
 Android feedback, prior device/performance limitations and blocked hosted
 inspection remain unchanged.
 
+Sites confirms PUBLIC version 9 deployment succeeded, access revision 2
+unchanged, with all 17 protected RiverSim/header/adapter hashes matching.
+
 --- Earlier validation history ---
 
 # Not as Hard as It Looks — 2026-10-18
