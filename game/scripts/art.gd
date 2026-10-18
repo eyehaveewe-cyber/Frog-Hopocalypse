@@ -17,7 +17,9 @@ static func retro_mat(kind: String, color: Color = Color.WHITE) -> Material:
 			safe.albedo_color = color
 			safe.albedo_texture = Pixels.get_texture(kind)
 			safe.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
-			safe.shading_mode = BaseMaterial3D.SHADING_MODE_PER_VERTEX
+			# Android drivers can fail linking the lit GLES3 scene variant even
+			# without custom shaders. Keep the fallback free of lighting varyings.
+			safe.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 			materials[safe_key] = safe
 		return materials[safe_key]
 	var key := kind + str(color)
@@ -52,8 +54,8 @@ static func mat(color: Color, glow: float = 0.0) -> StandardMaterial3D:
 	m.albedo_color = color
 	m.roughness = 0.9
 	m.metallic_specular = 0.0
-	m.shading_mode = BaseMaterial3D.SHADING_MODE_PER_VERTEX
-	if glow > 0:
+	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED if compatibility_mode else BaseMaterial3D.SHADING_MODE_PER_VERTEX
+	if glow > 0 and not compatibility_mode:
 		m.emission_enabled = true
 		m.emission = color
 		m.emission_energy_multiplier = glow

@@ -1,0 +1,129 @@
+{
+  "base_commit": "0a6bf1f8325d61626e96523a4e82668ef66d6588",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "browser": "Chromium 154.0.8037.57",
+  "execution": "Desktop ANGLE SwiftShader with Android UA/touch; not Android hardware",
+  "physical_device_reproduced": false,
+  "native_checks": {
+    "cheese_seam": 18,
+    "car_tree": 16,
+    "v12_menu_shelby": 19,
+    "failures": 0
+  },
+  "web_checks": [
+    {
+      "mode": "android",
+      "programs": 48,
+      "scenePrograms": 30,
+      "vertexLit": 0,
+      "unshaded": 26,
+      "materialScenePrograms": 26,
+      "errors": [],
+      "graphics": {
+        "userAgent": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 Chrome/130.0.0.0 Mobile Safari/537.36",
+        "contexts": [
+          {
+            "VERSION": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "SHADING_LANGUAGE_VERSION": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+            "VENDOR": "WebKit",
+            "RENDERER": "WebKit WebGL",
+            "MAX_VARYING_VECTORS": 31,
+            "MAX_VERTEX_OUTPUT_COMPONENTS": 128,
+            "MAX_FRAGMENT_INPUT_COMPONENTS": 128,
+            "MAX_VERTEX_TEXTURE_IMAGE_UNITS": 32,
+            "MAX_TEXTURE_IMAGE_UNITS": 32,
+            "MAX_COMBINED_TEXTURE_IMAGE_UNITS": 64,
+            "MAX_VERTEX_UNIFORM_VECTORS": 4096,
+            "MAX_FRAGMENT_UNIFORM_VECTORS": 4096,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "fragmentHighFloat": {
+              "rangeMin": 127,
+              "rangeMax": 127,
+              "precision": 23
+            }
+          }
+        ],
+        "failures": [],
+        "args": [
+          "--browser-test",
+          "--compat"
+        ]
+      }
+    },
+    {
+      "mode": "injected-link-failure",
+      "log": "Types of varying 'mismatch' differ between VERTEX and FRAGMENT shaders.\nFRAGMENT varying mismatch does not match any VERTEX varying\n",
+      "reportDownload": true,
+      "recovery": true
+    },
+    {
+      "mode": "compat",
+      "programs": 48,
+      "scenePrograms": 30,
+      "vertexLit": 0,
+      "unshaded": 26,
+      "materialScenePrograms": 26,
+      "errors": [],
+      "graphics": null
+    },
+    {
+      "mode": "retro",
+      "programs": 59,
+      "scenePrograms": 36,
+      "vertexLit": 27,
+      "unshaded": 5,
+      "materialScenePrograms": 32,
+      "errors": [],
+      "graphics": {
+        "userAgent": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 Chrome/130.0.0.0 Mobile Safari/537.36",
+        "contexts": [
+          {
+            "VERSION": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "SHADING_LANGUAGE_VERSION": "WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium)",
+            "VENDOR": "WebKit",
+            "RENDERER": "WebKit WebGL",
+            "MAX_VARYING_VECTORS": 31,
+            "MAX_VERTEX_OUTPUT_COMPONENTS": 128,
+            "MAX_FRAGMENT_INPUT_COMPONENTS": 128,
+            "MAX_VERTEX_TEXTURE_IMAGE_UNITS": 32,
+            "MAX_TEXTURE_IMAGE_UNITS": 32,
+            "MAX_COMBINED_TEXTURE_IMAGE_UNITS": 64,
+            "MAX_VERTEX_UNIFORM_VECTORS": 4096,
+            "MAX_FRAGMENT_UNIFORM_VECTORS": 4096,
+            "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)",
+            "fragmentHighFloat": {
+              "rangeMin": 127,
+              "rangeMax": 127,
+              "precision": 23
+            }
+          }
+        ],
+        "failures": [],
+        "args": [
+          "--browser-test"
+        ]
+      }
+    },
+    {
+      "mode": "baseline",
+      "programs": 54,
+      "scenePrograms": 36,
+      "vertexLit": 27,
+      "unshaded": 5,
+      "materialScenePrograms": 32,
+      "errors": [],
+      "graphics": null
+    }
+  ],
+  "reported_device": "Moto G5 (corrected from tentative G6); exact subvariant unknown",
+  "offline_compatibility_material_accounting": {
+    "method": "C-preprocessed captured GLSL interfaces; includes unused sampler declarations; not a driver test",
+    "material_variants": 26,
+    "max_simple_vector_interface_declarations": 4,
+    "max_declared_fragment_samplers_including_unused": 8,
+    "es3_min_varying_vectors": 15,
+    "es3_min_fragment_texture_units": 16
+  }
+}
