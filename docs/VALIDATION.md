@@ -7,6 +7,20 @@ frozen player/time, pause, map skip, disabling/cancel, return to frog, 30/120 Hz
 timing, visible poses before result screens, delayed screens and early retry.
 Original Baby Mode and active crossing checks continue to pass.
 
+Nine focused Chromium checks passed across the preview and editor/result
+scenarios: saved toggle, exit view with frozen player/time, return to play,
+large-map far-edge paint/undo/redo, large JSON export, actual splash/victory
+animation holds, retry and zero runtime errors. Death/victory were triggered
+by keyboard movement in imported 5 × 5 test fixtures, not diagnostic writes.
+The staged production release starts without the debug bridge and decodes
+raw gzip to the exact original WASM hash with the preserved adapter.
+Web release/debug and Windows exports completed. Real iPhone/Safari and
+Windows execution remain untested; hosted gameplay inspection remains
+blocked by executor DNS/proxy restrictions.
+Evidence: /workspace/exit-preview-native.log, exit-preview-browser-results.json,
+exit-preview-staged-results.json, large-editor.png, exit-preview-at-exit.png
+and victory-before-result.png.
+
 User-uploaded levels and audio could not be materialized (download failed).
 The user explicitly deferred the four-level set for a later pass. No duplicate
 recording or supplied level is claimed inspected or integrated.

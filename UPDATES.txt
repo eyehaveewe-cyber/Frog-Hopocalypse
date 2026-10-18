@@ -12,6 +12,9 @@
    bounded depth. Early retry cancels the pending screen.
 4. 75 native checks pass, including large-map far-edge edits and roundtrip,
    preview pause/cancel and timing at 30/120 Hz, presentation hold and retry.
+   Nine focused browser checks and staged production startup passed with
+   zero runtime errors. Exact decoded WASM hash verified; real device and
+   hosted-runtime limitations remain (see docs/VALIDATION.md).
 5. User deferred the four uploaded levels to a later pass after attachment
    downloads failed. Preserve intended set title Not as Hard as It Looks and
    unlock after all four Baby Mode clears. No substitute layouts are added.
