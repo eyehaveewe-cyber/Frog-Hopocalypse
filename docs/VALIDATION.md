@@ -1,3 +1,18 @@
+# Larger editor and Exit Preview — 2026-10-18
+
+75 native runtime checks pass. New coverage verifies large-map validation and
+reachability, far-edge paint/undo/redo, standard-size availability, JSON
+roundtrip, saved Exit Preview preference, actual camera target at the exit,
+frozen player/time, pause, map skip, disabling/cancel, return to frog, 30/120 Hz
+timing, visible poses before result screens, delayed screens and early retry.
+Original Baby Mode and active crossing checks continue to pass.
+
+User-uploaded levels and audio could not be materialized (download failed).
+The user explicitly deferred the four-level set for a later pass. No duplicate
+recording or supplied level is claimed inspected or integrated.
+
+--- Earlier validation history ---
+
 # Baby frog-head hat correction — 2026-10-18
 
 55 native checks passed. New checks cover locked reward on entry, cycling only

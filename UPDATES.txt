@@ -1,4 +1,29 @@
-2026-10-18 — Baby frog-head hat correction (latest)
+2026-10-18 — Larger workshop and exit preview (latest)
+
+1. New maze size selector: Standard 17 × 13 or Large 21 × 16 (+52% area).
+   It changes the next new maze, preserving the current document. Large maps
+   use the existing editor, undo/redo, save, import/export and playtest.
+2. Optional Exit Preview sweeps to the exit, holds briefly and returns to
+   the frog. Player movement, hazards and clock wait during its 4.2 seconds.
+   Preference saves per device. Space or Map skips it; pause freezes it.
+   Retries do not replay the sweep. New levels/editor reset it cleanly.
+3. Death poses show for 1.6 seconds and victory for 2.2 seconds before the
+   result screen. Hit deaths have a short recoil hop; splash sinks to a
+   bounded depth. Early retry cancels the pending screen.
+4. 75 native checks pass, including large-map far-edge edits and roundtrip,
+   preview pause/cancel and timing at 30/120 Hz, presentation hold and retry.
+5. User deferred the four uploaded levels to a later pass after attachment
+   downloads failed. Preserve intended set title Not as Hard as It Looks and
+   unlock after all four Baby Mode clears. No substitute layouts are added.
+   Recording 57 and both 58 uploads also failed to download; no audio bytes
+   were read, deduplicated, normalized or integrated.
+6. Publish to the same owner-private Site. Preserve all RiverSim files and
+   hosting adapter. Prior private version 5 remains the rollback target:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_0a0d278b6fd48191896dda8a8b38eb5b.
+
+--- Earlier feature history follows ---
+
+2026-10-18 — Baby frog-head hat correction (version 5)
 
 1. The reward is now a full baby frog-head cap: raised green eye lobes,
    white eyes, small cheeks and a stitched smile. No bonnet ties or bow.

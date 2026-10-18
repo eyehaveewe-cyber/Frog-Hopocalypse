@@ -25,6 +25,9 @@ The browser entry point is `build/web/index.html`. Serve the **whole directory**
 
 ## Implemented
 
+- **Exit Preview** in the menu optionally sweeps to the exit and back before each stage starts; the frog, hazards and timer wait. Space skips it on desktop; Map skips it on touch. Retries resume immediately.
+- Death animations remain visible for 1.6 seconds and victory for 2.2 seconds before the result screen; retry can skip the hold.
+- The workshop size selector offers Standard **17 × 13** or Large **21 × 16**, about **52% more area**, for new mazes. Current documents retain their dimensions; both sizes save/export/import normally.
 - **Baby Mode**, the first difficulty set: Moonlit Oasis, Pharaoh's Courtyard, Violet Mire, then Little Frog Crossing. The original three layouts are unchanged. The finale crosses two slow traffic lanes, three long-log lanes, a safe checkpoint bank, then three slightly faster traffic lanes.
 - Completing all four distinct Baby Mode stages unlocks and equips a baby frog-head hat, with raised eyes and a stitched smile. **Hat** cycles bare head, the pharaoh headdress and the earned frog hat; selection and stage completion save locally on the device.
 - Continuous WASD/arrow movement, animated hopping, physical collisions and an interchangeable pharaoh hat.

@@ -26,6 +26,9 @@ var touch_mode := false
 var camera_target := Vector3.ZERO
 var map_view := false
 var ocean_material: ShaderMaterial
+var intro_active := false
+var intro_time := 0.0
+const INTRO_DURATION = 4.2
 var crossing: Node3D
 
 func _ready() -> void:
@@ -68,6 +71,8 @@ func inside(p: Vector2i) -> bool:
 
 func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") -> void:
 	active = false
+	intro_active = false
+	intro_time = 0
 	if is_instance_valid(geometry):
 		remove_child(geometry)
 		geometry.queue_free()
@@ -189,6 +194,9 @@ func fit_camera() -> void:
 	update_camera(1.0)
 
 func update_camera(weight: float) -> void:
+	if intro_active:
+		preview_camera()
+		return
 	if not editing and not map_view and is_instance_valid(player):
 		camera_target = camera_target.lerp(player.position + Vector3(0, 0.25, -2.5), weight)
 		camera.position = camera_target + Vector3(0, 5.8, 9.0)
@@ -196,7 +204,38 @@ func update_camera(weight: float) -> void:
 		camera.position = camera_target + Vector3(0, 30, 22)
 	camera.look_at(camera_target)
 
+func begin_exit_preview() -> void:
+	if editing or not active:
+		return
+	intro_time = 0
+	intro_active = true
+	preview_camera()
+
+func cancel_exit_preview() -> void:
+	if not intro_active:
+		return
+	intro_active = false
+	input_vector = Vector2.ZERO
+	fit_camera()
+
+func preview_camera() -> void:
+	var home := player.position + Vector3(0, 0.25, -2.5)
+	var goal := cell_position(level.exit) + Vector3(0, 0.25, 0)
+	var blend := 0.0
+	if intro_time < 1.7:
+		blend = smoothstep(0.0, 1.7, intro_time)
+	elif intro_time < 2.5:
+		blend = 1.0
+	else:
+		blend = 1.0 - smoothstep(2.5, INTRO_DURATION, intro_time)
+	camera_target = home.lerp(goal, blend)
+	var lift := sin(clampf(intro_time / INTRO_DURATION, 0, 1) * PI)
+	camera.position = camera_target + Vector3(0, 5.8 + lift * 5.0, 9.0 + lift * 3.0)
+	camera.look_at(camera_target)
+
 func set_map_view(enabled: bool) -> void:
+	if intro_active:
+		cancel_exit_preview()
 	map_view = enabled and not editing
 	Art.set_retro(not editing and not map_view, level.theme == "swamp")
 	ocean_material.set_shader_parameter("retro_amount", 0.0 if map_view else 1.0)
@@ -240,12 +279,20 @@ func show_route(obj: Dictionary) -> void:
 func _physics_process(delta: float) -> void:
 	if halted or map_view:
 		return
+	if intro_active:
+		intro_time += delta
+		if intro_time >= INTRO_DURATION:
+			cancel_exit_preview()
+		else:
+			preview_camera()
+		return
 	if not result.is_empty():
 		result_time += delta
 		if result == "SPLASHED!":
-			player.visual.position.y -= delta * 0.8
+			player.visual.position.y = -minf(result_time * 0.8, 1.4)
 		elif result != "LEVEL COMPLETE!":
-			player.visual.rotation.z = lerpf(player.visual.rotation.z, PI / 2, delta * 8)
+			player.visual.rotation.z = lerpf(player.visual.rotation.z, PI / 2, minf(1.0, delta * 8))
+			player.visual.position.y = sin(minf(result_time / 0.65, 1.0) * PI) * 0.4
 		else:
 			player.visual.rotation.y += delta * 3
 			player.visual.position.y = absf(sin(result_time * 7)) * 0.3
@@ -315,7 +362,9 @@ func spawn_projectile(pos: Vector3, dir: Vector3) -> void:
 func finish(reason: String) -> void:
 	if not result.is_empty():
 		return
+	intro_active = false
 	result = reason
+	result_time = 0
 	active = false
 	var color := Color("9be7d9") if reason == "SPLASHED!" else Color("e9ce77")
 	for i in range(14):

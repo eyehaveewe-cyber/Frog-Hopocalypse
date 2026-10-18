@@ -5,15 +5,15 @@ const MAX_SIDE = 25
 const TILES = ["floor", "wall", "water", "path", "road"]
 const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "log"]
 
-static func blank(title: String = "My magnificent maze", theme_name: String = "egypt") -> Dictionary:
+static func blank(title: String = "My magnificent maze", theme_name: String = "egypt", w: int = 17, h: int = 13) -> Dictionary:
 	var tiles: Array = []
-	for y in range(13):
+	for y in range(h):
 		var row: Array = []
-		for x in range(17):
-			row.append("wall" if x == 0 or y == 0 or x == 16 or y == 12 else "floor")
+		for x in range(w):
+			row.append("wall" if x == 0 or y == 0 or x == w - 1 or y == h - 1 else "floor")
 		tiles.append(row)
-	return {"version": VERSION, "name": title, "theme": theme_name, "width": 17, "height": 13,
-		"tiles": tiles, "spawn": [1, 11], "exit": [15, 1], "objects": []}
+	return {"version": VERSION, "name": title, "theme": theme_name, "width": w, "height": h,
+		"tiles": tiles, "spawn": [1, h - 2], "exit": [w - 2, 1], "objects": []}
 
 static func finite_number(v: Variant) -> bool:
 	return (v is int or v is float) and is_finite(float(v))

@@ -23,6 +23,12 @@ var map_button: Button
 var retro_filter: ShaderMaterial
 var level_banner: Label
 var name_field: LineEdit
+var size_picker: OptionButton
+var exit_preview := false
+var preview_toggle: CheckButton
+var pending_result := ""
+var pending_set_complete := false
+var pending_earned_hat := false
 var theme_picker: OptionButton
 var saved_picker: OptionButton
 var tool_label: Label
@@ -214,6 +220,11 @@ func build_ui() -> void:
 	theme_picker.add_item("Purple Swamp-Woods")
 	theme_picker.item_selected.connect(change_theme)
 	tools.add_child(theme_picker)
+	size_picker = OptionButton.new()
+	size_picker.add_item("Standard · 17 × 13")
+	size_picker.add_item("Large · 21 × 16 · +52% area")
+	size_picker.tooltip_text = "Size for the next new maze. Your current level stays intact."
+	tools.add_child(size_picker)
 	var new_row := row(tools)
 	button(new_row, "New Egypt", func(): new_level("egypt"))
 	button(new_row, "New Swamp", func(): new_level("swamp"))
@@ -361,6 +372,12 @@ func show_menu() -> void:
 		button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): load_builtin(index); start_play(false), i == 0)
 	if not completed_stages.is_empty():
 		paragraph(overlay_box, "%d / 4 Baby Mode stages cleared" % completed_stages.size(), 12)
+	preview_toggle = CheckButton.new()
+	preview_toggle.text = "Exit Preview"
+	preview_toggle.tooltip_text = "At stage start, sweep to the exit and back. Hazards and the timer wait."
+	preview_toggle.button_pressed = exit_preview
+	preview_toggle.toggled.connect(set_exit_preview)
+	overlay_box.add_child(preview_toggle)
 	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
 	if not library.is_empty():
 		var custom := OptionButton.new()
@@ -399,6 +416,7 @@ func load_builtin(index: int) -> void:
 	sync_editor()
 
 func start_play(from_editor: bool = true) -> void:
+	pending_result = ""
 	commit_name()
 	var error := Data.validate(level)
 	if not error.is_empty():
@@ -417,6 +435,8 @@ func start_play(from_editor: bool = true) -> void:
 	map_button.text = "Map"
 	map_button.show()
 	configure_view()
+	if exit_preview:
+		world.begin_exit_preview()
 	mode_label.text = "PLAYTEST" if from_editor else ("BABY MODE · %d / 4" % (builtin_index + 1) if campaign_level else "CUSTOM LEVEL")
 	edit_button.text = "Back to editor" if from_editor else "Editor"
 	pause_button.text = "Pause"
@@ -426,6 +446,7 @@ func start_play(from_editor: bool = true) -> void:
 	reset_touch()
 
 func enter_editor() -> void:
+	pending_result = ""
 	campaign_level = false
 	checkpoint_spawn = []
 	mode = "edit"
@@ -446,6 +467,7 @@ func playtest() -> void:
 	start_play(true)
 
 func retry() -> void:
+	pending_result = ""
 	paused = false
 	overlay.hide()
 	world.load_level(level, false, hat)
@@ -468,9 +490,30 @@ func on_finished(reason: String) -> void:
 	var earned_hat := set_complete and "baby" not in unlocked_hats
 	if earned_hat:
 		unlock_baby_hat()
-	reset_overlay("BABY MODE COMPLETE!" if set_complete else reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths + (0 if reason == "LEVEL COMPLETE!" else 1)])
+	pending_result = reason
+	pending_set_complete = set_complete
+	pending_earned_hat = earned_hat
 	if reason != "LEVEL COMPLETE!":
 		deaths += 1
+	reset_touch()
+	joystick.hide()
+
+func update_result_presentation() -> void:
+	if pending_result.is_empty():
+		return
+	if world.result != pending_result:
+		pending_result = ""
+		return
+	var delay := 2.2 if pending_result == "LEVEL COMPLETE!" else 1.6
+	if world.result_time < delay or world.halted or overlay.visible:
+		return
+	var reason := pending_result
+	pending_result = ""
+	present_result(reason, pending_set_complete, pending_earned_hat)
+
+func present_result(reason: String, set_complete: bool, earned_hat: bool) -> void:
+	reset_overlay("BABY MODE COMPLETE!" if set_complete else reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths])
+	if reason != "LEVEL COMPLETE!":
 		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "Ride the logs to stay above the water.", "HIT!": "Ancient security systems still work.", "SQUISHED!": "Wait on the bank for a wider gap in traffic."}.get(reason, ""))
 	else:
 		paragraph(overlay_box, "One small frog. One magnificent escape.")
@@ -527,6 +570,12 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(world) and mode in ["play", "test"] and world.active and not paused and not overlay.visible:
 		toggle_pause()
 
+func set_exit_preview(enabled: bool) -> void:
+	exit_preview = enabled
+	if not enabled and is_instance_valid(world):
+		world.cancel_exit_preview()
+	save_profile()
+
 func toggle_hat() -> void:
 	var index := unlocked_hats.find(hat)
 	hat = unlocked_hats[(index + 1) % unlocked_hats.size()]
@@ -548,6 +597,7 @@ func unlock_baby_hat() -> void:
 
 func save_profile() -> void:
 	var profile := ConfigFile.new()
+	profile.set_value("settings", "exit_preview", exit_preview)
 	profile.set_value("hats", "baby_unlocked", "baby" in unlocked_hats)
 	profile.set_value("hats", "equipped", hat)
 	profile.set_value("baby_mode", "completed", completed_stages)
@@ -561,6 +611,7 @@ func load_profile() -> void:
 	var profile := ConfigFile.new()
 	if profile.load("user://profile.cfg") != OK:
 		return
+	exit_preview = profile.get_value("settings", "exit_preview", false) == true
 	var saved_stages: Variant = profile.get_value("baby_mode", "completed", [])
 	if saved_stages is Array:
 		for value in saved_stages:
@@ -927,7 +978,7 @@ func import_text(text: String) -> bool:
 
 func new_level(theme_name: String = "egypt") -> void:
 	record_undo()
-	level = Data.blank("My magnificent maze", theme_name)
+	level = Data.blank("My magnificent maze", theme_name, 21 if size_picker.selected == 1 else 17, 16 if size_picker.selected == 1 else 13)
 	slot_id = ""
 	selection = ""
 	enter_editor()
@@ -951,8 +1002,9 @@ func _process(delta: float) -> void:
 		last_render_size = view.size
 		configure_view()
 		world.fit_camera()
+	update_result_presentation()
 	level_banner.visible = mode in ["play", "test"] and not world.map_view and not overlay.visible
-	level_banner.text = str(level.name).to_upper()
+	level_banner.text = ("EXIT PREVIEW · MAP TO SKIP" if mobile_ui else "EXIT PREVIEW · SPACE TO SKIP") if world.intro_active else str(level.name).to_upper()
 	level_banner.position = view_container.global_position + Vector2(0, 10)
 	level_banner.size = Vector2(view_container.size.x, 38)
 	var focused := get_viewport().gui_get_focus_owner()
@@ -963,7 +1015,7 @@ func _process(delta: float) -> void:
 		if thumb.length() > 0.05:
 			movement = thumb
 	world.input_vector = movement.limit_length()
-	time_label.text = "%.1fs  /  %d croaks" % [world.elapsed, deaths] if mode in ["play", "test"] else "17 × 13 · v1 JSON"
+	time_label.text = "%.1fs  /  %d croaks" % [world.elapsed, deaths] if mode in ["play", "test"] else "%d × %d · v1 JSON" % [level.width, level.height]
 	if mode == "edit" and not overlay.visible:
 		var local := viewport_position(get_global_mouse_position())
 		var cell: Vector2i = world.pick(local)
@@ -1014,11 +1066,17 @@ func publish_browser_probe() -> void:
 		"hat": hat, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
 		"ui_size": [size.x, size.y], "saved": library.size(), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
+		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
+		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
 		"map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:
 	if not is_instance_valid(world):
+		return
+	if world.intro_active and event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
+		world.cancel_exit_preview()
+		get_viewport().set_input_as_handled()
 		return
 	var focused := get_viewport().gui_get_focus_owner()
 	if event is InputEventKey and event.pressed and not event.echo and not (focused is LineEdit or focused is TextEdit):

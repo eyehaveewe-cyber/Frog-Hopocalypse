@@ -156,6 +156,7 @@ func run(app: Control) -> void:
 				break
 		check(traversed and app.world.player.position.distance_to(app.world.cell_position(demo.exit)) < 0.15, "Full dry route physically traversable with hazards paused: " + demo.name)
 	await preload("res://tests/baby_mode.gd").new().run(app, self)
+	await preload("res://tests/presentation.gd").new().run(app, self)
 	app.set_process(true)
 	print("INTEGRATION: %d checks, %d failures" % [checks, failures.size()])
 	app.get_tree().quit(0 if failures.is_empty() else 1)

@@ -46,7 +46,7 @@ Projectiles travel at 7 units/second. Each tick raycasts their swept segment aga
 }
 ```
 
-The abbreviated tile row is illustrative. Valid documents contain exactly `height` rows of `width` tile names. Themes: `egypt`, `swamp`. Objects: `pillar`, `tree`, `mushroom`, `decoration`, `critter`, `emitter`. Limits: 5–25 cells per side, 180 objects, 64 waypoints per critter. The editor creates 17 × 13 maps; imported sizes within the limits use the shared loader. Trap rotation: 0° north, 90° west, 180° south, 270° east. Intervals: 0.5–10 seconds; critter speed: 0.3–5 units/second.
+The abbreviated tile row is illustrative. Valid documents contain exactly `height` rows of `width` tile names. Themes: `egypt`, `swamp`. Objects: `pillar`, `tree`, `mushroom`, `decoration`, `critter`, `emitter`. Limits: 5–25 cells per side, 180 objects, 64 waypoints per critter. The editor creates 17 × 13 or 21 × 16 maps; imported sizes within the limits use the shared loader. Trap rotation: 0° north, 90° west, 180° south, 270° east. Intervals: 0.5–10 seconds; critter speed: 0.3–5 units/second.
 
 The importer validates before replacing the document. Whole JSON numbers are normalized to integers, preserving grid-coordinate equality after loading. All saves use the same serializer. The local library is written to a temporary file and renamed into place.
 
@@ -68,6 +68,20 @@ are complete and equips immediately. Repeated clears and editor playtests do
 not advance this reward. Hat cycling includes bare head and skips locked
 headwear. Loading an early version-4 unlock without four clears corrects the
 reward state while retaining valid stage progress.
+
+## Start and result presentation
+
+`world.intro_active` owns the optional 4.2-second exit sweep in physics time.
+Its early return freezes gameplay, movers and elapsed time. The camera moves
+to the exit, holds, then restores the follow target. Pause suspends the sweep;
+Space/Map, disabling the preference or loading another world cancels it.
+`profile.cfg` stores the Exit Preview preference, off by default.
+
+Finishing remains immediate for collisions, reward progress and persistence.
+The world then owns bounded visual death/victory poses. The UI watches
+`result_time` and presents the screen after 1.6 seconds for death or 2.2 for
+victory. Pending presentation is cleared on retry, play start and editor entry;
+matching world result prevents a stale screen from reaching a new world.
 
 ## Presentation modes
 
