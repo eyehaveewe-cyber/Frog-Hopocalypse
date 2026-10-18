@@ -1,0 +1,55 @@
+{
+  "native_assertions": {
+    "editor_recovery_and_controls": 21,
+    "skin_tree": 15,
+    "seam_rotation": 17,
+    "set_menu": 25
+  },
+  "browser": {
+    "checks": [
+      "Typing zero then using the turret up arrow remains responsive",
+      "Holding the turret spinner repeats without the scene-tree timer error",
+      "40 actual editor changes create an autosave",
+      "Immediate browser recovery backup contains the map",
+      "Reload and local picker recover the exact new map",
+      "Playtest and movement render filtered brick walls"
+    ],
+    "errors": [],
+    "physicalDevicesTested": false,
+    "formalPhotosensitivityTested": false,
+    "note": "Two passes: actual arrow/hold and 40 UI edits created the captured backup; a fresh context recovered that exact backup by clicking its picker row and entered playtest. Keyboard popup navigation was replaced with a direct mouse click in QA."
+  },
+  "production_android_emulation": {
+    "productionFirstFrame": true,
+    "compressedWasm": true,
+    "canvas": [
+      844,
+      390
+    ],
+    "debugProbeAbsent": true,
+    "errors": [],
+    "device": "Desktop Chromium Android emulation; physical phone not tested"
+  },
+  "production_desktop": {
+    "productionFirstFrame": true,
+    "compressedWasm": true,
+    "canvas": [
+      1280,
+      1000
+    ],
+    "debugProbeAbsent": true,
+    "errors": [],
+    "device": "Desktop Chromium full renderer; startup and keyboard movement screenshot"
+  },
+  "autosave": {
+    "changes_per_checkpoint": 40,
+    "edit_unit": "Undoable change; one paint stroke counts once; undo/redo count; no-ops excluded",
+    "scope": "Maps created through New Egypt / New Swamp, including renamed and recovered copies",
+    "recovery": "Load a local level picker, original name restored, manual slot separate",
+    "unfinished_layouts": "Supported with structural validation; normal playtest/save validation preserved",
+    "storage": "Atomic local library plus immediate browser localStorage backup"
+  },
+  "ground_pixels_match_reference": "cc61f50fcd23cdde3b7f8c24ed3612c4b5802cb0",
+  "protected_hosting_riversim_hashes_unchanged": 17,
+  "formal_photosensitivity_evaluation": false
+}

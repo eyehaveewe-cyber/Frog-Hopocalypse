@@ -8,7 +8,7 @@ static func get_texture(kind: String) -> Texture2D:
 	var image := Image.create(32, 32, false, Image.FORMAT_RGB8)
 	var random := RandomNumberGenerator.new()
 	random.seed = hash(kind)
-	var base_kind := kind.get_slice("@", 0)
+	var base_kind := kind.get_slice("@", 0).trim_suffix("_wall")
 	for y in range(32):
 		for x in range(32):
 			var n := random.randf()
@@ -44,9 +44,8 @@ static func get_texture(kind: String) -> Texture2D:
 				"brick":
 					var row_id := y / 8
 					var mortar := y % 8 == 0 or (x + (8 if row_id % 2 == 0 else 0)) % 16 == 0
-					color = Color("bbaa8b") if mortar else Color("854d43").lerp(Color("c58563"), n * 0.65)
-					if not mortar and y % 8 == 1:
-						color = color.lightened(0.14)
+					# Muted mortar avoids a sharp light/dark grid at grazing angles.
+					color = Color("9b786a") if mortar else Color("a57262").lerp(Color("b58170"), n * 0.45)
 				"water", "swamp_water":
 					var wave := sin(float(x) * 0.6 + sin(float(y) * 0.4) * 2.2) + cos(float(y) * 0.67 + sin(float(x) * 0.3))
 					var base := Color("187c9d") if base_kind == "water" else Color("43406e")
@@ -69,7 +68,11 @@ static func get_texture(kind: String) -> Texture2D:
 					color = Color("87ae4c").lerp(Color("d1d772"), n * 0.5)
 					if n < 0.12:
 						color = Color("546e36")
+			if kind.ends_with("_wall"):
+				color = color.lerp(Color("b6a080") if base_kind == "stone" else Color("95859b"),0.4)
 			image.set_pixel(x, y, color)
+	if base_kind == "brick" or kind.ends_with("_wall"):
+		image.generate_mipmaps()
 	var texture := ImageTexture.create_from_image(image)
 	cache[kind] = texture
 	return texture

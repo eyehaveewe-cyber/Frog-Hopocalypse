@@ -54,6 +54,8 @@ var redo_button: Button
 var level: Dictionary = {}
 var library: Array = []
 var slot_id := ""
+var editor_change_counts: Dictionary = {}
+var editor_autosave_due := false
 var builtin_index := 0
 var mode := "menu"
 var tool := "floor"
@@ -894,7 +896,7 @@ func status(text: String) -> void:
 	if is_instance_valid(status_label):
 		status_label.text = text
 
-func sync_editor() -> void:
+func sync_editor(refresh_selection: bool = true) -> void:
 	if level.is_empty():
 		return
 	ui_busy = true
@@ -906,7 +908,8 @@ func sync_editor() -> void:
 	undo_button.disabled = undo_stack.is_empty()
 	redo_button.disabled = redo_stack.is_empty()
 	ui_busy = false
-	refresh_inspector()
+	if refresh_selection:
+		refresh_inspector()
 
 func commit_name() -> void:
 	if ui_busy or level.is_empty() or not is_instance_valid(name_field):
@@ -926,6 +929,8 @@ func change_theme(index: int) -> void:
 	rebuild()
 
 func record_undo() -> void:
+	if mode == "edit" and level.has("editor_autosave_id"):
+		editor_change_finished.call_deferred(level.duplicate(true))
 	undo_stack.append(level.duplicate(true))
 	if undo_stack.size() > 80:
 		undo_stack.pop_front()
@@ -936,8 +941,10 @@ func record_undo() -> void:
 func undo() -> void:
 	if mode != "edit" or undo_stack.is_empty():
 		return
-	redo_stack.append(level.duplicate(true))
+	var previous := level.duplicate(true)
+	redo_stack.append(previous)
 	level = undo_stack.pop_back()
+	editor_change_finished.call_deferred(previous)
 	selection = ""
 	rebuild()
 	status("Undid the last edit.")
@@ -945,8 +952,10 @@ func undo() -> void:
 func redo() -> void:
 	if mode != "edit" or redo_stack.is_empty():
 		return
-	undo_stack.append(level.duplicate(true))
+	var previous := level.duplicate(true)
+	undo_stack.append(previous)
 	level = redo_stack.pop_back()
+	editor_change_finished.call_deferred(previous)
 	selection = ""
 	rebuild()
 	status("Redid the last edit.")
@@ -957,9 +966,9 @@ func set_tool(key: String) -> void:
 	if key == "route":
 		status("Select a critter or patrol car, then draw waypoints on its permitted terrain.")
 
-func rebuild() -> void:
+func rebuild(refresh_selection: bool = true) -> void:
 	world.load_level(level, true, hat, skin)
-	sync_editor()
+	sync_editor(refresh_selection)
 	if not selected_object().is_empty():
 		world.show_route(selected_object())
 
@@ -1112,7 +1121,7 @@ func refresh_inspector() -> void:
 	rot.step = 90
 	rot.suffix = "° rotation"
 	rot.value = fposmod(float(obj.get("rotation", 0)), 360)
-	rot.value_changed.connect(func(v: float): change_property("rotation", v))
+	rot.value_changed.connect(func(v: float): change_property("rotation", v, false))
 	inspector.add_child(rot)
 	if obj.type == "critter":
 		var behavior := OptionButton.new()
@@ -1131,7 +1140,7 @@ func refresh_inspector() -> void:
 		speed.step = 0.1
 		speed.value = obj.get("speed", 1.6)
 		speed.suffix = "speed"
-		speed.value_changed.connect(func(v: float): change_property("speed", v))
+		speed.value_changed.connect(func(v: float): change_property("speed", v, false))
 		if level.get("game_mode") == "tile":
 			speed.queue_free()
 			paragraph(inspector,"Tile mode · one tile per beat",12)
@@ -1154,12 +1163,12 @@ func refresh_inspector() -> void:
 		button(inspector, "Clear route (%d points)" % obj.get("waypoints", []).size(), func(): change_property("waypoints", []))
 	if obj.type == "emitter":
 		var interval := SpinBox.new()
-		interval.min_value = 0.5
+		interval.min_value = 1.0 if level.get("game_mode") == "tile" else 0.5
 		interval.max_value = 10
 		interval.step = 1.0 if level.get("game_mode") == "tile" else 0.25
-		interval.value = obj.get("interval", 2.5)
+		interval.value = ceilf(float(obj.get("interval", 2.5))) if level.get("game_mode") == "tile" else obj.get("interval", 2.5)
 		interval.suffix = "beats / shot" if level.get("game_mode") == "tile" else "sec / shot"
-		interval.value_changed.connect(func(v: float): change_property("interval", v))
+		interval.value_changed.connect(func(v: float): change_property("interval", v, false))
 		inspector.add_child(interval)
 		paragraph(inspector, "0° fires north · 90° west\n180° south · 270° east", 11)
 	if obj.type in ["car", "patrol_car", "log"]:
@@ -1172,7 +1181,7 @@ func refresh_inspector() -> void:
 			value.step = 0.1
 			value.value = obj.get(key, 1.5 if key == "length" else 1.0)
 			value.suffix = field[3]
-			value.value_changed.connect(func(v: float): change_property(key, v))
+			value.value_changed.connect(func(v: float): change_property(key, v, false))
 			inspector.add_child(value)
 		if level.get("game_mode") == "tile": paragraph(inspector,"Tile mode · one tile per beat",12)
 		var direction_text := "right →" if obj.get("direction", 1) == 1 else "← left"
@@ -1202,7 +1211,7 @@ func refresh_inspector() -> void:
 		selection = ""
 		rebuild())
 
-func change_property(key: String, value: Variant) -> void:
+func change_property(key: String, value: Variant, refresh_controls: bool = true) -> void:
 	var obj := selected_object()
 	if obj.is_empty():
 		return
@@ -1210,13 +1219,16 @@ func change_property(key: String, value: Variant) -> void:
 		status("Move the checkpoint before making this object solid.")
 		return
 	if key == "rotation" and obj.get("behavior") == "seam_patrol":
-		rotate_seam_worm(obj, float(value))
+		rotate_seam_worm(obj, float(value), refresh_controls)
 		return
+	if key == "interval":
+		value = clampf(ceilf(float(value)) if level.get("game_mode") == "tile" else float(value), 1.0 if level.get("game_mode") == "tile" else 0.5, 10.0)
 	record_undo()
 	obj[key] = value
-	rebuild()
+	# Keep a SpinBox attached throughout its own input callback and repeat timer.
+	rebuild(refresh_controls)
 
-func rotate_seam_worm(obj: Dictionary, degrees: float) -> void:
+func rotate_seam_worm(obj: Dictionary, degrees: float, refresh_controls: bool = true) -> void:
 	var anchor: Array = obj.get("seam_anchor", [floori(float(obj.pos[0])), floori(float(obj.pos[1]))])
 	var pivot := Vector2(anchor[0], anchor[1])
 	var angle := -deg_to_rad(degrees - float(obj.get("rotation", 0)))
@@ -1230,7 +1242,7 @@ func rotate_seam_worm(obj: Dictionary, degrees: float) -> void:
 		route.append(rotated[1])
 	for i in range(route.size()):
 		if not Data.seam_point_open(level, route[i]) or (i > 0 and not Data.seam_segment_open(level, route[i - 1], route[i])):
-			refresh_inspector()
+			refresh_inspector.call_deferred()
 			status("Rotation blocked: the worm and route need clear, dry tile seams inside the level.")
 			return
 	record_undo()
@@ -1239,14 +1251,23 @@ func rotate_seam_worm(obj: Dictionary, degrees: float) -> void:
 	if obj.has("waypoints"):
 		obj.waypoints = rotated.slice(1)
 	obj.rotation = fposmod(degrees, 360)
-	rebuild()
+	rebuild(refresh_controls)
 
 func load_library() -> void:
 	var stored: Variant = JSON.parse_string(FileAccess.get_file_as_string("user://library.json")) if FileAccess.file_exists("user://library.json") else []
 	if stored is Array:
 		for item in stored:
-			if item is Dictionary and item.get("id") is String and Data.validate(item.get("level")) == "":
+			if item is Dictionary and item.get("id") is String and Data.validate(item.get("level"), item.get("autosave",false) == true) == "":
 				library.append(Data.normalize(item))
+	if OS.has_feature("web"):
+		var backup: Variant = JavaScriptBridge.eval("(function(){try{return localStorage.getItem('hopan.editor.autosaves.v1');}catch(e){return null;}})()",true)
+		if backup is String and backup.length() < 8000000:
+			var entries: Variant = JSON.parse_string(backup)
+			if entries is Array:
+				for entry in entries:
+					if entry is Dictionary and entry.get("id") is String and entry.get("autosave") == true and Data.validate(entry.get("level"), true) == "":
+						library = library.filter(func(item: Dictionary): return item.id != entry.id)
+						library.append(Data.normalize(entry))
 
 func refresh_library_picker() -> void:
 	saved_picker.clear()
@@ -1297,7 +1318,10 @@ func load_saved(index: int) -> void:
 func load_library_entry(index: int) -> void:
 	campaign_level = false
 	level = library[index].level.duplicate(true)
-	slot_id = library[index].id
+	slot_id = "" if library[index].get("autosave",false) else library[index].id
+	if library[index].get("autosave",false):
+		level.name = library[index].original_name if library[index].get("original_name") is String else level.name
+	editor_autosave_due = false
 	selection = ""
 	undo_stack.clear()
 	redo_stack.clear()
@@ -1365,10 +1389,57 @@ func import_text(text: String) -> bool:
 
 func new_level(theme_name: String = "egypt") -> void:
 	record_undo()
-	level = Data.blank("My magnificent maze", theme_name, [17,21,33][size_picker.selected], [13,16,49][size_picker.selected])
+	level = Data.blank("New Egypt" if theme_name == "egypt" else "New Swamp", theme_name, [17,21,33][size_picker.selected], [13,16,49][size_picker.selected])
+	level.editor_autosave_id = "new_%d_%d" % [Time.get_unix_time_from_system(),Time.get_ticks_usec()]
+	editor_autosave_due = false
 	slot_id = ""
 	selection = ""
 	enter_editor()
+
+func editor_change_finished(previous: Dictionary) -> void:
+	var identity: String = str(level.get("editor_autosave_id", ""))
+	if identity.is_empty() or previous.get("editor_autosave_id", "") != identity or previous == level:
+		return
+	editor_change_counts[identity] = int(editor_change_counts.get(identity,0)) + 1
+	if int(editor_change_counts[identity]) % 40 == 0:
+		editor_autosave_due = true
+
+func save_editor_checkpoint() -> bool:
+	if not level.has("editor_autosave_id"):
+		return false
+	var error := Data.validate(level,true)
+	if not error.is_empty():
+		status("Autosave waiting: " + error)
+		return false
+	var identity: String = "autosave_" + str(level.editor_autosave_id)
+	var checkpoint := {"id": identity, "level": level.duplicate(true), "autosave": true, "original_name": level.name}
+	checkpoint.level.name = str(level.name).left(65) + " · Autosave"
+	var next_library := library.duplicate(true)
+	var existing := -1
+	for i in range(next_library.size()):
+		if next_library[i].id == identity: existing = i
+	if existing >= 0: next_library[existing] = checkpoint
+	else: next_library.append(checkpoint)
+	var file := FileAccess.open("user://library.pending.json",FileAccess.WRITE)
+	if file == null:
+		status("Autosave failed. Use Export to keep a copy.")
+		return false
+	file.store_string(JSON.stringify(next_library,"\t"))
+	file.close()
+	if DirAccess.rename_absolute("user://library.pending.json","user://library.json") != OK:
+		status("Autosave failed. Use Export to keep a copy.")
+		return false
+	library = next_library
+	refresh_library_picker()
+	if OS.has_feature("web"):
+		var backups: Array = library.filter(func(item: Dictionary): return item.get("autosave",false))
+		var payload := JSON.stringify(backups)
+		var backed_up := bool(JavaScriptBridge.eval("(function(){try{localStorage.setItem('hopan.editor.autosaves.v1', " + JSON.stringify(payload) + ");return true;}catch(e){return false;}})()",true))
+		if not backed_up:
+			status("Autosave saved locally; immediate browser backup unavailable. Export for a portable copy.")
+			return true
+	status("Autosave checkpoint: " + str(level.name) + " · Recover from Load a local level.")
+	return true
 
 func reset_touch() -> void:
 	thumb = Vector2.ZERO
@@ -1378,6 +1449,9 @@ func reset_touch() -> void:
 		touch_knob.position = Vector2(42, 42)
 
 func _process(delta: float) -> void:
+	if editor_autosave_due and mode == "edit" and not stroke:
+		editor_autosave_due = false
+		save_editor_checkpoint()
 	if not is_instance_valid(world) or level.is_empty():
 		return
 	if browser_test:
@@ -1445,6 +1519,11 @@ func publish_browser_probe() -> void:
 		if node.is_visible_in_tree() and (not overlay.visible or overlay.is_ancestor_of(node)):
 			var rect: Rect2 = node.get_global_rect()
 			buttons.append({"text": node.text, "x": rect.get_center().x, "y": rect.get_center().y})
+	var fields: Array = []
+	for control in inspector.get_children():
+		if control is SpinBox and control.is_visible_in_tree():
+			var rect: Rect2 = control.get_global_rect()
+			fields.append({"suffix":control.suffix,"value":control.value,"x":rect.position.x,"y":rect.position.y,"w":rect.size.x,"h":rect.size.y})
 	var cells: Array = []
 	for z in range(int(level.height)):
 		var cell_row: Array = []
@@ -1456,7 +1535,7 @@ func publish_browser_probe() -> void:
 		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
 		"hat": hat, "skin": skin, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
-		"ui_size": [size.x, size.y], "saved": library.size(), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
+		"ui_size": [size.x, size.y], "saved": library.size(), "fields": fields, "editor_changes": editor_change_counts.get(str(level.get("editor_autosave_id","")),0), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,

@@ -144,8 +144,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 			if tile == "wall":
 				var perimeter: bool = x == 0 or z == 0 or x == level.width - 1
 				var height := 1.45 if perimeter else (0.3 if z == level.height - 1 else 0.55)
-				Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), "swamp_stone" if swamp else "brick")
-				Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), "swamp_stone" if swamp else "stone")
+				Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), "swamp_stone_wall" if swamp else "brick")
+				Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), "swamp_stone_wall" if swamp else "stone_wall")
 				Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
 	# Invisible boundary colliders prevent a painted-out perimeter from escaping the map.
 	var w: float = level.width * CELL

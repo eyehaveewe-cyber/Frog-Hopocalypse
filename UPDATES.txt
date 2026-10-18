@@ -1,3 +1,32 @@
+2026-10-18 — Editor recovery, turret spinner and brick shimmer fixes
+
+1. New Egypt / New Swamp editor maps now create an Autosave recovery entry
+   every 40 actual undoable edits. Paint strokes count once, and checkpoints
+   wait for the stroke to finish. Undo/redo also count; no-op changes do not.
+   Each map updates its own recovery slot without replacing manual saves.
+   Use Load a local level to recover it; the original map name is restored.
+2. Recovery saves unfinished route/terrain edits while retaining structural
+   validation. Manual Save and Playtest still require normal validation.
+   Atomic local files and an immediate localStorage autosave backup support
+   browser reload recovery. These are separate from in-level gameplay flags.
+3. Numeric inspector edits retain their SpinBox controls while rebuilding the
+   world. This prevents detaching a spinner during its input/repeat timer.
+   Turrets in tile mode show whole beats with a minimum of one, including
+   legacy zero values; normal-mode intervals retain the 0.5-second minimum.
+   Rotation, length and speed spinners use the same fix. Undo remains intact.
+4. Brick mortar and wall caps use lower contrast with mipmaps and filtered angled/distant
+   sampling, including the shader-free compatibility renderer. Brick sampling
+   also avoids the distant UV coarsening step. Ground textures are restored;
+   five fixed tree variants and the purple skin reward are retained.
+5. Native checks: editor/recovery 21, skin/tree 15, seam rotation 17 and menu 25
+   pass. Six browser checks cover zero/up/hold turret inputs, the forty-edit
+   checkpoint and exact recovery from its captured backup in a fresh context.
+   Ground pixel comparison and renderer filter checks pass. Physical-device
+   behavior and formal photosensitivity evaluation remain unverified.
+   Final compressed release first frames pass in desktop full rendering and
+   Android compatibility emulation, without browser errors or a debug probe.
+   Desktop movement and the final wall view were visually checked.
+
 2026-10-18 — Tree variations only
 
 1. Scope correction: keep the five tree shapes and foliage variations; restore

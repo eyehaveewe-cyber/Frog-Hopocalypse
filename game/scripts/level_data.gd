@@ -21,7 +21,7 @@ static func finite_number(v: Variant) -> bool:
 static func point_valid(p: Variant, w: int, h: int) -> bool:
 	return p is Array and p.size() == 2 and finite_number(p[0]) and finite_number(p[1]) and p[0] >= 0 and p[0] < w and p[1] >= 0 and p[1] < h
 
-static func validate(d: Variant) -> String:
+static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 	if not d is Dictionary:
 		return "Expected a JSON level object."
 	if not finite_number(d.get("version")) or float(d.version) != VERSION:
@@ -84,7 +84,7 @@ static func validate(d: Variant) -> String:
 		if obj.has("solid") and not obj.solid is bool:
 			return "Solid must be true or false."
 		if obj.type in ["car", "patrol_car", "log"]:
-			if obj.pos[1] != int(obj.pos[1]) or d.tiles[int(obj.pos[1])][int(obj.pos[0])] != ("water" if obj.type == "log" else "road"):
+			if obj.pos[1] != int(obj.pos[1]) or (not editor_snapshot and d.tiles[int(obj.pos[1])][int(obj.pos[0])] != ("water" if obj.type == "log" else "road")):
 				return "Place logs on water and cars on road lanes."
 			if not finite_number(obj.get("speed", 1.0)) or obj.get("speed", 1.0) < 0.3 or obj.get("speed", 1.0) > 4:
 				return "Lane speed must be between 0.3 and 4."
@@ -107,12 +107,12 @@ static func validate(d: Variant) -> String:
 			if obj.get("waypoints", []).size() > 1:
 				route.append(obj.waypoints[0])
 			for i in range(route.size()):
-				if not point_valid(route[i], w, h) or route[i][0] != int(route[i][0]) or route[i][1] != int(route[i][1]) or not road_cell_open(d, Vector2i(route[i][0],route[i][1])):
+				if not point_valid(route[i], w, h) or route[i][0] != int(route[i][0]) or route[i][1] != int(route[i][1]) or (not editor_snapshot and not road_cell_open(d, Vector2i(route[i][0],route[i][1]))):
 					return "Car patrol waypoints need open road tiles."
-				if i > 0 and not road_segment_open(d, route[i-1],route[i]):
+				if not editor_snapshot and i > 0 and not road_segment_open(d, route[i-1],route[i]):
 					return "Car patrol routes must follow connected road tiles with square turns."
 		if obj.type in ["pillar", "tree", "critter", "emitter"] or obj.get("solid", false):
-			if d.tiles[int(obj.pos[1])][int(obj.pos[0])] in ["wall", "cheese_wall", "water"]:
+			if not editor_snapshot and d.tiles[int(obj.pos[1])][int(obj.pos[0])] in ["wall", "cheese_wall", "water"]:
 				return "Place solid objects, critters and traps on dry terrain."
 		if obj.type == "critter":
 			if obj.has("patrol_loop") and not obj.patrol_loop is bool:
@@ -124,7 +124,7 @@ static func validate(d: Variant) -> String:
 			if not obj.get("waypoints", []) is Array or obj.get("waypoints", []).size() > 64:
 				return "A patrol supports up to 64 waypoints."
 			for point in obj.get("waypoints", []):
-				if not point_valid(point, w, h) or d.tiles[int(point[1])][int(point[0])] in ["wall", "cheese_wall", "water"]:
+				if not point_valid(point, w, h) or (not editor_snapshot and d.tiles[int(point[1])][int(point[0])] in ["wall", "cheese_wall", "water"]):
 					return "Patrol waypoints must be on dry terrain."
 			if obj.get("behavior") == "seam_patrol":
 				if obj.has("seam_anchor"):
@@ -135,9 +135,9 @@ static func validate(d: Variant) -> String:
 				if obj.get("patrol_loop", true) and obj.get("waypoints", []).size() > 1:
 					route.append(obj.waypoints[0])
 				for i in range(route.size()):
-					if not seam_point_open(d, route[i]):
+					if not editor_snapshot and not seam_point_open(d, route[i]):
 						return "Seam worms need open tile corners."
-					if i > 0 and not seam_segment_open(d, route[i - 1], route[i]):
+					if not editor_snapshot and i > 0 and not seam_segment_open(d, route[i - 1], route[i]):
 						return "Seam worm routes must follow clear horizontal or vertical tile edges. Add a corner before turning."
 		if obj.type == "emitter":
 			if not finite_number(obj.get("interval", 2.5)) or obj.get("interval", 2.5) < 0.5 or obj.get("interval", 2.5) > 10:
@@ -151,7 +151,7 @@ static func validate(d: Variant) -> String:
 		return "A level supports up to 16 editor checkpoints."
 	var seen_checkpoints: Array = []
 	for p in d.get("checkpoints", []):
-		if not point_valid(p, w, h) or p[0] != int(p[0]) or p[1] != int(p[1]) or not checkpoint_open(d, p):
+		if not point_valid(p, w, h) or p[0] != int(p[0]) or p[1] != int(p[1]) or (not editor_snapshot and not checkpoint_open(d, p)):
 			return "Checkpoints need whole cells on clear, safe ground."
 		if p in seen_checkpoints or p == d.spawn or p == d.exit or p == d.get("checkpoint", []):
 			return "Checkpoints need distinct tiles away from the start and exit."

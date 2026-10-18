@@ -18,6 +18,8 @@ static func retro_mat(kind: String, color: Color = Color.WHITE) -> Material:
 			safe.albedo_color = color
 			safe.albedo_texture = Pixels.get_texture(kind)
 			safe.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+			if kind == "brick" or kind.ends_with("_wall"):
+				safe.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 			# Android drivers can fail linking the lit GLES3 scene variant even
 			# without custom shaders. Keep the fallback free of lighting varyings.
 			safe.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -30,6 +32,9 @@ static func retro_mat(kind: String, color: Color = Color.WHITE) -> Material:
 	material.shader = RetroSurface
 	material.set_shader_parameter("albedo_color", color)
 	material.set_shader_parameter("pixel_texture", Pixels.get_texture(kind))
+	material.set_shader_parameter("filtered_wall", kind == "brick" or kind.ends_with("_wall"))
+	if kind == "brick" or kind.ends_with("_wall"):
+		material.set_shader_parameter("wall_texture", Pixels.get_texture(kind))
 	material.set_shader_parameter("animated_water", kind in ["water", "swamp_water"])
 	material.set_shader_parameter("distance_limit",draw_limit)
 	material.set_shader_parameter("retro_amount", 1.0 if retro_enabled else 0.0)

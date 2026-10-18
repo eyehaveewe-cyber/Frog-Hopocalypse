@@ -167,3 +167,14 @@ Baby Mode also unlocks the **Purple frog** skin. Use **Skin: Green/Purple** on
 its main menu to switch independently of hats; your selection survives reloads.
 Trees have five fixed variations with broader foliage patches. Tree shapes
 and patterns stay fixed in play; original ground textures are retained.
+
+**Editor recovery:** maps started with **New Egypt** or **New Swamp** keep an
+**Autosave** recovery copy every 40 undoable edits (one paint stroke counts as
+one edit). Select it from **Load a local level…** to recover your map. Manual
+saves remain separate. Recovery also preserves unfinished layouts; Playtest
+still checks them. Browser recovery uses device-local storage; Export makes a
+portable backup.
+
+Turret interval, rotation, speed and length spinners stay attached during edits.
+Tile turrets fire at intervals of at least one whole beat. Brick walls and stone caps use lower-contrast mortar and filtered mipmaps
+to reduce shimmer at oblique angles.
