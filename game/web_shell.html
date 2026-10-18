@@ -9,27 +9,78 @@
 <title>Hopán — Hopocalypse</title>
 $GODOT_HEAD_INCLUDE
 <style>
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#132c23;color:#f7f0d8;font:16px system-ui,sans-serif;touch-action:none}#canvas{display:block;width:100%;height:100%;outline:none}#loading{position:fixed;inset:0;display:grid;place-content:center;text-align:center;background:#132c23;z-index:5;padding:24px}h1{font-size:64px;letter-spacing:-4px;color:#d5ec8d;margin:0 0 16px}p{color:#b7c8b9;max-width:440px;line-height:1.6}progress{width:100%;accent-color:#d5ec8d}#orientation{display:none;position:fixed;inset:0;background:#132c23;place-content:center;text-align:center;z-index:4;padding:30px}@media(orientation:portrait) and (max-width:600px){#orientation{display:grid}}button{padding:14px 22px;background:#d5ec8d;color:#18352b;border:0;border-radius:6px;font-weight:700;cursor:pointer}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#132c23;color:#f7f0d8;font:16px system-ui,sans-serif;touch-action:none}#canvas{display:block;width:100%;height:100%;outline:none}#loading{position:fixed;inset:0;display:grid;place-content:center;text-align:center;background:#132c23;z-index:5;padding:24px;overflow:auto}h1{font-size:64px;letter-spacing:-4px;color:#d5ec8d;margin:0 0 16px}p{color:#b7c8b9;max-width:480px;line-height:1.6}progress{width:100%;accent-color:#d5ec8d}#orientation{display:none;position:fixed;inset:0;background:#132c23;place-content:center;text-align:center;z-index:4;padding:30px}@media(orientation:portrait) and (max-width:600px){#orientation{display:grid}}button{padding:14px 22px;background:#d5ec8d;color:#18352b;border:0;border-radius:6px;font-weight:700;cursor:pointer;margin:5px}#recovery[hidden]{display:none}details{max-width:480px;margin:12px auto;color:#b7c8b9;font-size:13px;overflow-wrap:anywhere}pre{white-space:pre-wrap;text-align:left;max-height:160px;overflow:auto}
 </style>
 </head>
 <body>
 <canvas id="canvas" tabindex="0" aria-label="Hopán 3D game and level editor. Use WASD or arrow keys to move, R to retry, and Escape to pause.">Your browser needs canvas and WebGL 2 to play Hopán.</canvas>
-<div id="loading"><h1>hopán ↗</h1><p id="message">Waking the frog. Dusting the ruins.</p><progress id="progress"></progress></div>
+<div id="loading" role="status" aria-live="polite"><h1>hopán ↗</h1><p id="message">Loading Hopán. The first visit downloads the game engine.</p><progress id="progress" aria-label="Game download"></progress><div id="recovery" hidden><button id="reload">Reload game</button><button id="compat">Try compatibility mode</button><p>On Android, open this same address in an up-to-date Chrome or Firefox browser if it is currently inside another app.</p><details><summary>Startup details</summary><pre id="detail"></pre></details></div></div>
 <div id="orientation"><h2>A little more room to hop.</h2><p>Rotate your phone to landscape for the game. The level editor is designed for a desktop mouse and keyboard.</p><button onclick="this.parentElement.style.display='none'">Continue in portrait</button></div>
 <noscript>Hopán requires JavaScript and WebGL 2.</noscript>
-<script src="$GODOT_URL"></script>
 <script>
-const config=$GODOT_CONFIG;
-const engine=new Engine(config);
-const message=document.getElementById('message');
-const progress=document.getElementById('progress');
-const missing=Engine.getMissingFeatures({threads:false});
-if(missing.length){message.textContent='This browser is missing: '+missing.join(', ')+'. Try a current Safari, Chrome, Firefox, or Edge.';progress.hidden=true;}
-else{
-  if(new URLSearchParams(location.search).has('browser-test')) config.args=['--browser-test'];
-  engine.startGame({canvas:document.getElementById('canvas'),args:config.args||[],onProgress:(current,total)=>{if(total){progress.max=total;progress.value=current;}}}).then(()=>{document.getElementById('loading').remove();document.getElementById('canvas').focus();}).catch(error=>{message.textContent='The frog could not start: '+error.message;progress.hidden=true;});
-}
-document.addEventListener('contextmenu',e=>e.preventDefault());
+(() => {
+  const loading=document.getElementById('loading'), message=document.getElementById('message'), progress=document.getElementById('progress'), recovery=document.getElementById('recovery'), detail=document.getElementById('detail'), canvas=document.getElementById('canvas');
+  let ready=false, failed=false, lastUpdate=Date.now(), lastBytes=-1;
+  const diagnostics=[];
+  window.hopanBoot={
+    fail(text,reason){
+      failed=true;
+      if(!loading.isConnected) document.body.appendChild(loading);
+      message.textContent=text; progress.hidden=true; recovery.hidden=false;
+      if(reason) diagnostics.push(String(reason).slice(0,500));
+      detail.textContent=diagnostics.slice(-5).join('\n');
+    },
+    progress(current,total){
+      if(failed) return;
+      if(current!==lastBytes){lastUpdate=Date.now();lastBytes=current;}
+      if(total){progress.max=total;progress.value=current;}
+      message.textContent=current>0?'Downloading Hopán… '+(current/1048576).toFixed(1)+' MB received.':'Preparing the game engine…';
+    },
+    started(){if(!failed&&!ready){message.textContent='Drawing the first frame…';lastUpdate=Date.now();}},
+    ready(){if(failed)return;ready=true;loading.remove();canvas.focus();},
+    log(text){
+      diagnostics.push(String(text).slice(0,500));
+      if(/SCRIPT ERROR|ERROR:|out of memory|failed to initialize|shader.*(error|failed)/i.test(text)) this.fail('The game could not draw. Try compatibility mode or reload.',text);
+    }
+  };
+  document.getElementById('reload').onclick=()=>location.reload();
+  document.getElementById('compat').onclick=()=>{const url=new URL(location.href);url.searchParams.set('compat','1');location.assign(url.href);};
+  addEventListener('error',event=>hopanBoot.fail('The game could not load. Reload or try compatibility mode.',event.message||'A game file did not load.'));
+  addEventListener('unhandledrejection',event=>hopanBoot.fail('The game could not start. Reload or try compatibility mode.',event.reason?.message||event.reason));
+  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();hopanBoot.fail('The browser lost the game graphics. Reload or try compatibility mode.','WebGL context lost.');});
+  setInterval(()=>{if(!ready&&!failed&&Date.now()-lastUpdate>20000){message.textContent='Still starting Hopán. Keep this tab open, or try compatibility mode if loading stays here.';recovery.hidden=false;}},2000);
+  document.addEventListener('contextmenu',event=>event.preventDefault());
+})();
+</script>
+<script src="hopan-wasm.js" onerror="hopanBoot.fail('The game download helper could not load. Please reload.')"></script>
+<script src="$GODOT_URL" onerror="hopanBoot.fail('The game engine file could not load. Please reload.')"></script>
+<script>
+(async()=>{
+  try {
+    if(typeof Engine!=='function')throw new Error('The game engine did not load.');
+    const config=$GODOT_CONFIG;
+    const query=new URLSearchParams(location.search);
+    const android=/Android/i.test(navigator.userAgent);
+    const mobile=android||(/iPhone|iPad|iPod/i.test(navigator.userAgent))||matchMedia('(pointer:coarse)').matches;
+    const compatibility=query.has('compat')?query.get('compat')!=='0':android;
+    config.args=[];
+    if(query.has('browser-test'))config.args.push('--browser-test');
+    if(compatibility)config.args.push('--compat');
+    config.onPrintError=(...args)=>{console.error(...args);hopanBoot.log(args.join(' '));};
+    config.onExit=code=>hopanBoot.fail('The game stopped. Reload to hop again.','Engine exit '+code);
+    const canvas=document.getElementById('canvas');
+    if(mobile||compatibility){
+      config.canvasResizePolicy=0;
+      const resize=()=>{canvas.width=Math.max(1,Math.round(innerWidth));canvas.height=Math.max(1,Math.round(innerHeight));canvas.style.width='100%';canvas.style.height='100%';};
+      resize();addEventListener('resize',resize);
+    }
+    const missing=Engine.getMissingFeatures({threads:false});
+    if(missing.length){hopanBoot.fail('This browser cannot run the 3D game. Open this address in a current browser with WebGL 2 enabled.','Missing: '+missing.join(', '));return;}
+    const engine=new Engine(config);
+    await engine.startGame({canvas,args:config.args,onProgress:(current,total)=>hopanBoot.progress(current,total)});
+    hopanBoot.started();
+  }catch(error){hopanBoot.fail('The frog could not start. Reload or try compatibility mode.',error.message||error);}
+})();
 </script>
 </body>
 </html>

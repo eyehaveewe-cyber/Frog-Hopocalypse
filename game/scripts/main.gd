@@ -69,8 +69,11 @@ var test_runner: RefCounted
 var browser_test := false
 var probe_timer := 0.0
 var mobile_ui := false
+var compatibility_mode := false
 
 func _ready() -> void:
+	compatibility_mode = "--compat" in OS.get_cmdline_args() or "--compat" in OS.get_cmdline_user_args()
+	World.Art.compatibility_mode = compatibility_mode
 	mobile_ui = DisplayServer.is_touchscreen_available()
 	resize_mobile_ui()
 	test_mode = "--integration-test" in OS.get_cmdline_user_args()
@@ -81,9 +84,14 @@ func _ready() -> void:
 	build_ui()
 	load_builtin(0)
 	show_menu()
+	if OS.has_feature("web"):
+		RenderingServer.frame_post_draw.connect(notify_web_ready, CONNECT_ONE_SHOT)
 	if test_mode:
 		test_runner = preload("res://tests/integration.gd").new()
 		test_runner.call_deferred("run", self)
+
+func notify_web_ready() -> void:
+	JavaScriptBridge.eval("if (window.hopanBoot) window.hopanBoot.ready();", true)
 
 func make_theme() -> void:
 	var t := Theme.new()
@@ -560,7 +568,7 @@ func toggle_map() -> void:
 func configure_view() -> void:
 	var retro: bool = not world.editing and not world.map_view
 	view_container.stretch_shrink = maxi(1, roundi(view_container.size.y / 240.0)) if retro else 1
-	view_container.material = retro_filter if retro else null
+	view_container.material = retro_filter if retro and not compatibility_mode else null
 	retro_filter.set_shader_parameter("source_size", Vector2(view.size))
 
 func viewport_position(global: Vector2) -> Vector2:
@@ -1068,7 +1076,7 @@ func publish_browser_probe() -> void:
 		"ui_size": [size.x, size.y], "saved": library.size(), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:

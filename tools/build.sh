@@ -8,3 +8,9 @@ bash "$HOPAN_PROJECT_ROOT/tools/godot.sh" --headless --export-release "Windows D
 if [[ "${1:-}" == "--with-browser-test" ]]; then
   bash "$HOPAN_PROJECT_ROOT/tools/godot.sh" --headless --export-debug Web "$HOPAN_PROJECT_ROOT/build/test-web/index.html"
 fi
+
+# The custom shell loads this streaming hosting adapter beside the engine.
+cp "$HOPAN_PROJECT_ROOT/game/hopan-wasm.js" "$HOPAN_PROJECT_ROOT/build/web/hopan-wasm.js"
+if [[ "${1:-}" == "--with-browser-test" ]]; then
+  cp "$HOPAN_PROJECT_ROOT/game/hopan-wasm.js" "$HOPAN_PROJECT_ROOT/build/test-web/hopan-wasm.js"
+fi

@@ -1,3 +1,41 @@
+# Android startup and recovery — 2026-10-18
+
+Baseline Android UA/touch/DPR-3 emulation started successfully, so it did not
+reproduce the user's physical Android failure. It confirmed a 2532 × 1170
+backing canvas for an 844 × 390 CSS viewport. The new mobile cap gives
+844 × 390; Android automatically selects standard textured compatibility
+materials and bypasses custom sky/screen/surface shaders.
+
+Focused native compatibility checks passed: actual movement, standard pixel
+materials, ocean material/map pause/return, hat switching, crossing objects
+and 21 × 16 editor. Script/export checks passed; the unrelated full native
+suite was not repeated for this startup fix.
+
+Fourteen focused Chromium checks passed across mobile startup, touch movement,
+map pause, saved hat across graphics-mode reload, editor, rotation resize,
+staged raw-gzip release startup and exact WASM hash, no production diagnostic
+bridge, context loss, missing WebGL, missing engine file, missing gzip support,
+invalid WASM and stalled downloads. Intentional failure cases show visible
+recovery UI; successful play had no browser/Godot errors. The stream test
+forbids whole-response arrayBuffer and verifies exact 39,514,754-byte engine
+hash fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0
+for raw-gzip and already-decoded bytes. RiverSim responses are passed through
+by the new root-only adapter. All 16 protected file hashes remain identical.
+
+Evidence: /workspace/android-validation-results.json,
+/workspace/android-wasm-stream-results.json, /workspace/android-build.log,
+/workspace/android-compat-play.png and /workspace/android-missing-webgl.png.
+This is desktop Chromium emulation with software WebGL, not an Android GPU,
+Android WebView or Safari. Physical-device cause and hardware recovery remain
+unverified. Hosted GET failed with proxy 'Tunnel connection failed: 403
+Forbidden'; native Sites deployment results establish publication only.
+
+Implementation follows the official [web-export guidance](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html),
+[manual canvas sizing and engine callbacks](https://docs.godotengine.org/en/stable/tutorials/platform/web/html5_shell_classref.html),
+and [frame_post_draw signal](https://docs.godotengine.org/en/stable/classes/class_renderingserver.html#signals).
+
+--- Earlier validation history ---
+
 # Larger editor and Exit Preview — 2026-10-18
 
 75 native runtime checks pass. New coverage verifies large-map validation and

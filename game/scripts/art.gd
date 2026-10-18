@@ -6,9 +6,20 @@ const Pixels = preload("res://scripts/pixel_textures.gd")
 const RetroSurface = preload("res://shaders/retro_surface.gdshader")
 static var retro_materials: Dictionary = {}
 static var retro_enabled := true
+static var compatibility_mode := false
 static var swamp_haze := false
 
-static func retro_mat(kind: String, color: Color = Color.WHITE) -> ShaderMaterial:
+static func retro_mat(kind: String, color: Color = Color.WHITE) -> Material:
+	if compatibility_mode:
+		var safe_key := "pixel:" + kind + str(color)
+		if not materials.has(safe_key):
+			var safe := StandardMaterial3D.new()
+			safe.albedo_color = color
+			safe.albedo_texture = Pixels.get_texture(kind)
+			safe.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+			safe.shading_mode = BaseMaterial3D.SHADING_MODE_PER_VERTEX
+			materials[safe_key] = safe
+		return materials[safe_key]
 	var key := kind + str(color)
 	if retro_materials.has(key):
 		return retro_materials[key]

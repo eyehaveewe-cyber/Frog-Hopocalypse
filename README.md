@@ -58,6 +58,18 @@ The browser runner uses Playwright 1.62.1 and `/usr/bin/chromium` in this cloud 
 
 This is a first functional prototype. **Real iPhone/Safari testing**, Windows execution, broader accessibility work and gameplay/difficulty tuning remain. Emulated touch tests cannot establish iPhone performance or Safari compatibility. Honduras and Mexico theme kits remain on the roadmap. There is no combat, multiplayer, account system or online sharing.
 
-Requested address: `Hopan.chatgpt.sites`. The actual private Site is **https://hopan.fiiendward.chatgpt.site**, now **version 6**, including Baby Mode and the unlockable baby frog hat. It was published on 2026-10-18 through the official Sites workflow. The existing `/riversim/` test files were preserved byte for byte. No custom hostname reservation is claimed.
+Requested address: `Hopan.chatgpt.sites`. The actual public Site is **https://hopan.fiiendward.chatgpt.site**, now **version 6**, including Baby Mode and the unlockable baby frog hat. It was published on 2026-10-18 through the official Sites workflow. The existing `/riversim/` test files were preserved byte for byte. No custom hostname reservation is claimed.
 
-The complete export retains the current hosting compatibility adapter and deterministic gzip WASM. Exact decompression and local compressed-release startup passed. Hosted runtime inspection from this executor is limited by DNS/proxy restrictions; the Sites service confirms deployment success and owner-only access. **The supplied `Recording (56).m4a` could not be downloaded, so sound integration and volume adjustment are still pending.** See `UPDATES.txt` for identities, evidence and rollback.
+The root streams deterministic gzip WASM through `hopan-wasm.js`; RiverSim retains its original hosting adapter. Exact decompression and local compressed-release startup passed. Hosted runtime inspection from this executor is limited by DNS/proxy restrictions; the Sites service confirms deployment success and the current public audience. **The supplied `Recording (56).m4a` could not be downloaded, so sound integration and volume adjustment are still pending.** See `UPDATES.txt` for identities, evidence and rollback.
+
+
+Android startup uses the same root URL and saves. Android defaults to compatibility
+graphics: original textured geometry with standard vertex-lit materials, a plain
+sky and no custom postprocess. Mobile canvas resolution is capped at CSS pixels.
+[Force compatibility mode](https://hopan.fiiendward.chatgpt.site/?compat=1) or use
+`?compat=0` for full retro shaders. No separate /droid export is needed.
+Loading stays visible until Godot signals its first rendered frame. Download,
+engine, missing-WebGL and lost-context failures reveal retry controls and details.
+WebAssembly and WebGL 2 remain required ([Godot web export guidance](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html)).
+The original physical Android black screen has not been reproduced on hardware;
+Android UA/touch/high-DPI emulation and focused failure tests passed.

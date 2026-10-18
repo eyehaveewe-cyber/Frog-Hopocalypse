@@ -1,4 +1,46 @@
-2026-10-18 — Larger workshop and exit preview (latest)
+2026-10-18 — Android startup and recovery (latest)
+
+1. Android starts the same game in compatibility graphics: standard textured
+   vertex-lit materials, plain sky, no custom screen shader. Camera, geometry,
+   maps, editor, hats, exit preview, result timing and save keys are retained.
+   Root URL: https://hopan.fiiendward.chatgpt.site/ . Force with ?compat=1;
+   ?compat=0 restores full retro shaders. No duplicate /droid game was created.
+2. Mobile backing canvas now uses CSS resolution. At emulated DPR 3 and
+   844 × 390 CSS, it falls from 2532 × 1170 to 844 × 390 (9x fewer pixels).
+   A new root-only fetch adapter streams gzip WASM instead of buffering the
+   complete 39,514,754-byte engine before checking its first bytes. Exact
+   decompressed SHA verified for raw-gzip and already-decoded responses.
+3. The loading UI stays until an actual Godot frame_post_draw signal, rather
+   than only the engine-start promise. Missing WebGL, network/engine failures,
+   invalid WASM, missing gzip support and context loss reveal recovery controls.
+   Stalled loading reveals retry/compatibility controls after 20 seconds.
+4. Focused checks: native compatibility materials, movement, map pause/return,
+   hats, crossing construction and large editor passed. Fourteen focused
+   browser checks passed across mobile gameplay/save/resize, staged compressed
+   production startup and injected failure paths. Stream adapter tests forbid
+   input arrayBuffer and verify exact engine bytes. Export completed.
+5. Limits: desktop Chromium Android UA/touch/DPR emulation with software WebGL
+   is not Android hardware. The reported physical-device black screen remains
+   unconfirmed. Baseline emulation already started, so no exact device cause
+   is claimed. Confirmed risks were full-response WASM buffering, inflated
+   high-DPI canvas size and missing post-start failure presentation. Hosted GET
+   is blocked here by proxy HTTP 403. Physical Android/iPhone and Windows
+   execution remain untested. See docs/VALIDATION.md for evidence.
+6. Public access revision 2 is confirmed and must be preserved. All 14 RiverSim
+   files, legacy wasm-hosting-adapter.js and _headers are byte-identical.
+   Previous saved version 6 is the rollback target, using ordinary deployment
+   while preserving PUBLIC access:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_a7b5af6f15b0819198fe33c80444f165.
+7. The exact four human-made levels are recovered and verified. Integration
+   was paused for the urgent Android report and preserved in the named stash
+   'Deferred exact human-made level integration before Android fix' on
+   feature/baby-mode-crossing. Recovery originals remain in
+   /tmp/hopan-recovered-levels. Resume after merging this Android fix; do not
+   overwrite it. Audio transfer remains a separate blocker; no retry loop.
+
+--- Earlier updates follow ---
+
+2026-10-18 — Larger workshop and exit preview (version 6)
 
 1. New maze size selector: Standard 17 × 13 or Large 21 × 16 (+52% area).
    It changes the next new maze, preserving the current document. Large maps

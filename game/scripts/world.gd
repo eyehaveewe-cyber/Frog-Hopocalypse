@@ -25,7 +25,7 @@ var result_time := 0.0
 var touch_mode := false
 var camera_target := Vector3.ZERO
 var map_view := false
-var ocean_material: ShaderMaterial
+var ocean_material: Material
 var intro_active := false
 var intro_time := 0.0
 const INTRO_DURATION = 4.2
@@ -40,6 +40,10 @@ func _ready() -> void:
 	sky_material.shader = preload("res://shaders/night_sky.gdshader")
 	sky.sky_material = sky_material
 	settings.sky = sky
+	if Art.compatibility_mode:
+		settings.background_mode = Environment.BG_COLOR
+		settings.background_color = Color("14243a")
+		settings.sky = null
 	settings.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	settings.ambient_light_color = Color("cad4ed")
 	settings.ambient_light_energy = 0.55
@@ -95,8 +99,11 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 	var floor_color := Color("63744a") if swamp else Color("d7bc7f")
 	var wall_color := Color("716582") if swamp else Color("ba9662")
 	var underlay := Art.box(geometry, Vector3(level.width * CELL + 70, 0.12, level.height * CELL + 70), Vector3(0, -0.48, 0), Color.WHITE)
-	ocean_material = Art.retro_mat("swamp_water" if swamp else "water").duplicate() as ShaderMaterial
-	ocean_material.set_shader_parameter("uv_tiling", Vector2(40, 40))
+	ocean_material = Art.retro_mat("swamp_water" if swamp else "water").duplicate()
+	if ocean_material is ShaderMaterial:
+		ocean_material.set_shader_parameter("uv_tiling", Vector2(40, 40))
+	elif ocean_material is StandardMaterial3D:
+		ocean_material.uv1_scale = Vector3(40, 40, 1)
 	underlay.material_override = ocean_material
 	for z in range(int(level.height)):
 		for x in range(int(level.width)):
@@ -238,7 +245,8 @@ func set_map_view(enabled: bool) -> void:
 		cancel_exit_preview()
 	map_view = enabled and not editing
 	Art.set_retro(not editing and not map_view, level.theme == "swamp")
-	ocean_material.set_shader_parameter("retro_amount", 0.0 if map_view else 1.0)
+	if ocean_material is ShaderMaterial:
+		ocean_material.set_shader_parameter("retro_amount", 0.0 if map_view else 1.0)
 	fit_camera()
 
 func pick(screen_pos: Vector2) -> Vector2i:
