@@ -1,4 +1,4 @@
-2026-10-18 — Editor terrain and patrol additions
+2026-10-18 — Editor terrain and patrol additions (published version 11)
 
 1. Cheese wall terrain blocks frog/bug/worm colliders on its own layer; dart
    queries ignore that layer. Added yellow hole-pattern pixels, editor paint,
@@ -20,6 +20,15 @@
    and editor rejection checks included. Web/Windows exports completed.
    Browser editor/playtest and compressed production checks are recorded in
    docs/EDITOR_HAZARDS_VALIDATION.json. No physical-phone testing performed.
+
+6. Published PUBLIC version 11 at https://hopan.fiiendward.chatgpt.site .
+   Deployment appgdep_6ad4f71ea90c819198c53f39f5a1ef06 succeeded.
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_1dc6f405ce688191aa9b9d9a89a615d4.
+   Site source: c6d372f34a6f28deb03a9f74960d6035ca376558.
+   Game source: ef7b869677e57510e25e5a089c2c4af517d14d4a.
+   Public access revision 2 unchanged; all 17 protected files match.
+   Rollback: deploy saved public version 10, preserving public audience:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_82f96993ea8c8191ae7072e2166e1311.
 
 --- Earlier updates follow ---
 

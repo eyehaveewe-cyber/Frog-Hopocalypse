@@ -110,3 +110,7 @@ programmatic playback, not human listening or physical-phone behavior.
 Recorded voices and worm patrols are live in public **version 10** at
 https://hopan.fiiendward.chatgpt.site/ . See `UPDATES.txt` for exact source,
 deployment and rollback identifiers.
+
+Editor additions are live in public **version 11** at
+https://hopan.fiiendward.chatgpt.site/ . Exact publication and rollback IDs are
+in `UPDATES.txt`; focused checks are in `docs/EDITOR_HAZARDS_VALIDATION.json`.
