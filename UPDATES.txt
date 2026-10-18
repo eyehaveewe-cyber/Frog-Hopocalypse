@@ -1,3 +1,11 @@
+2026-10-18 — Remove Retry after terminal set clears
+
+1. Completed Bonus and Tile Hop sets show Menu without Retry when no next
+   stage or set is offered. Deaths and results with a continuation retain Retry.
+2. All 25 set-menu checks pass, including six focused result-screen cases.
+   Godot 4.7.2 release exports rebuilt successfully. Existing game assets,
+   public audience and RiverSim are preserved.
+
 2026-10-18 — Tile Hop mode, movement-linked time and large-map demos (published v18)
 
 1. Added a separate Tile Hop set, unlocked after the four Not as Hard as It Looks clears.

@@ -708,7 +708,9 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 					paragraph(overlay_box, "Unlocked: Baby frog hat! Equipped now. Press Hat to cycle your unlocked hats.")
 		if mode == "play" and campaign_level and builtin_index < campaign_paths().size() - 1:
 			button(overlay_box, "Next level →", func(): play_builtin(builtin_index + 1, campaign_set), true)
-	button(overlay_box, "Retry · R", retry, true)
+	var has_continuation := mode == "play" and campaign_level and (builtin_index < campaign_paths().size() - 1 or campaign_set in ["baby", "human"])
+	if not set_complete or has_continuation:
+		button(overlay_box, "Retry · R", retry, true)
 	button(overlay_box, "Menu", show_menu)
 	joystick.hide()
 

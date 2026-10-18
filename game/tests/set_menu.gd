@@ -8,6 +8,11 @@ func _initialize() -> void:
  call_deferred("run")
 func node(name: String) -> Node:
  return app.overlay_box.find_child(name,true,false)
+func has_button(text: String) -> bool:
+ for child in app.overlay_box.get_children():
+  if child is Button and child.text == text:
+   return true
+ return false
 func run() -> void:
  await process_frame
  app.set_process(false)
@@ -72,5 +77,21 @@ func run() -> void:
  app.completed_bonus_stages=[]
  app.load_profile()
  suite.check(app.completed_bonus_stages==[0],"Bonus completion survives reload")
+ app.completed_stages=[0,1,2,3]
+ app.completed_human_stages=[0,1,2,3]
+ for set_name in ["bonus", "tile"]:
+  app.play_builtin(app.paths_for_set(set_name).size()-1,set_name)
+  app.present_result("LEVEL COMPLETE!",true,false)
+  suite.check(not has_button("Retry · R") and has_button("Menu") and not has_button("Next level →"),"Final %s clear offers Menu without Retry"%set_name)
+ app.play_builtin(0,"tile")
+ app.present_result("LEVEL COMPLETE!",true,false)
+ suite.check(has_button("Next level →") and has_button("Retry · R"),"Replayed earlier stage keeps Retry when a next stage exists")
+ for set_name in ["baby","human"]:
+  app.play_builtin(app.paths_for_set(set_name).size()-1,set_name)
+  app.present_result("LEVEL COMPLETE!",true,false)
+  suite.check(has_button("Retry · R"),"Completed %s keeps Retry alongside its next-set continuation"%set_name)
+ app.play_builtin(1,"tile")
+ app.present_result("CROAKED!",false,false)
+ suite.check(has_button("Retry · R"),"Death on the last stage still offers Retry")
  print("SET MENU: %d checks, %d failures"%[suite.checks,suite.failures.size()])
  quit(0 if suite.failures.is_empty() else 1)
