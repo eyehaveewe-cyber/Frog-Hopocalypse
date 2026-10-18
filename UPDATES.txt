@@ -1,4 +1,4 @@
-2026-10-18 — Android compatibility scene shader mitigation
+2026-10-18 — Android compatibility scene shader mitigation (published v13)
 
 1. Integrated d5dc97b3d292fd508aae841b8222af75d554afef atop public v12.
    Compatibility materials are unshaded, omit emission, and omit scene light.
@@ -12,7 +12,19 @@
    scenarios; integration export/startup checks are recorded separately. These
    checks cannot confirm a fix on the phone. Preserve the diagnostic report
    from the device to identify any remaining driver/engine failure.
-4. Shelby, compact menus, audio, profile format, public audience and RiverSim
+4. Published public version 13; native deployment succeeded:
+   https://hopan.fiiendward.chatgpt.site/
+   Diagnostic URL: https://hopan.fiiendward.chatgpt.site/?compat=1&graphics-debug=1
+   Game source: 9cbc4e1e4db5d072e5f96bb867d2893fe0d673c3.
+   Branch: fix/android-shader-integrated-v13; main preserved.
+   Site source: f3dd9edfef24d1a36649bbc725e00f5eec2911fe.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_e1d9e76178f08191ab92565e4791770d.
+   Deployment: appgdep_6ad4fc6b295c8191a2f6b4d643826765.
+   Three integrated browser scenarios passed (automatic Android, compat, retro),
+   including movement, map, Shelby and diagnostic download/first-error retention.
+   Compressed production diagnostics start with no link errors and no debug probe.
+   Native Sites confirms publication; hosted gameplay was not directly inspected.
+5. Shelby, compact menus, audio, profile format, public audience and RiverSim
    remain unchanged. Rollback keeps public audience and redeploys saved v12:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_d2070083abc48191bbf5c0b654886b8f.
 

@@ -123,3 +123,7 @@ Existing Baby Mode and human-made-set unlock rules are preserved.
 Compact sets and Shelby are published in public **version 12** at
 https://hopan.fiiendward.chatgpt.site/ . Exact source and rollback identifiers
 are in `UPDATES.txt`; physical Android shader testing remains separate.
+
+Android scene-shader compatibility mitigation is published in public **version 13**.
+Phone diagnostic URL: https://hopan.fiiendward.chatgpt.site/?compat=1&graphics-debug=1 .
+Moto G5 recovery remains unverified; save the graphics report if startup fails.
