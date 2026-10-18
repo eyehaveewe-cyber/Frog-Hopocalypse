@@ -48,6 +48,6 @@ All three bundled levels were reconstructed through editor operations using `gam
 - Running the Windows executable on Windows; this Linux environment verifies export, not Windows execution.
 - Human full playthroughs with all hazards active, enemy/trap timing and difficulty tuning. Automated physical route checks pause hazards.
 - Broader accessibility review. The canvas interface has readable controls and keyboard gameplay, but full screen-reader support is not implemented.
-- Hosting and the requested `Hopan.chatgpt.sites` address. Native Sites tools are now available, but the official source/publishing helper is missing in this executor, and the 39,514,754-byte release WASM exceeds the stated static-file limit. No Site, version, access setting or deployment URL has been created or confirmed.
+- Hosted startup and headers: Sites confirms private version 1 at https://hopan.fiiendward.chatgpt.site. Exact gzip decompression and local compressed-release startup passed. Hosted validation is blocked by executor DNS/proxy restrictions; see `../UPDATES.txt`. The requested custom address is not reserved or promised.
 
 The implementation is a functional prototype of the requested game and editor. It is not being marked as fully complete version 0.1 while real-device criteria remain unchecked.

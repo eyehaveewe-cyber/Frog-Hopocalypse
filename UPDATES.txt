@@ -1,58 +1,81 @@
-2026-10-18 — Hopán publication handoff (impact order)
+2026-10-18 — Hopán publication (impact order)
 
-1. Publication blocked by missing official Sites source helper.
-   The account's complete owner Site list had no Hopán entry and no next cursor.
-   No .openai/hosting.json identity exists in the fetched source. No Site was
-   registered, no version saved, no audience changed and no URL reserved.
-   Local searches found no site-workflow.mjs or set-project-id.mjs; attempting
-   to read site-workflow.mjs from the current cloud Sites skill failed.
-   Resume with the official helper installed; use creation_intent user_requested,
-   a private audience, and the actual server-returned deployment URL.
-   The root game's release index.wasm is also 39,514,754 bytes, exceeding
-   the stated static 25 MiB per-file limit. Its SHA256 is
+1. Hopán privately published through the official Sites workflow.
+   URL: https://hopan.fiiendward.chatgpt.site
+   Project: appgprj_6ad43a1975c08191965b198fbd79aac1
+   Version: 1
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_b669ecf4f73481919d4206f0fee7c1f5
+   Deployment: appgdep_6ad43a4a590081918f5269c8ba037f67
+   Native deployment status: succeeded, 2026-10-18T03:17:40.789781Z.
+   Access re-read: current user owner; custom access containing only owner.
+   Sites source commit: 9322b2e9a0fa30b14fa6d07f87d9f2533cd42fbc.
+   No custom hostname reservation is claimed.
+
+2. Hosted runtime/header verification remains blocked by executor networking.
+   Direct Playwright request: getaddrinfo EAI_AGAIN for the deployed hostname.
+   Configured network proxy: HTTP 403, body "Domain forbidden", for both root
+   and /index.wasm. These are network failures, not proof of Site behavior.
+   A network-capable verifier must check Content-Encoding gzip, MIME
+   application/wasm, exact decoded hash and actual release startup before
+   declaring the hosted game playable. No successful hosted GET is asserted.
+
+3. Oversized WASM prepared without changing or rebuilding the tested game.
+   The complete release was copied into separate /workspace/sites/hopan/dist.
+   The only transport changes are deterministic gzip bytes at index.wasm and
+   _headers requesting Content-Encoding: gzip and Content-Type: application/wasm.
+   Original WASM: 39,514,754 bytes; SHA256
    fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.
-   A supported oversized-WASM route must be verified before publication;
-   no Content-Encoding/header support or compressed deployment is asserted.
+   Compressed WASM: 10,054,758 bytes; SHA256
+   8032306d52d52497129dce5b767baacb660d504bdde28668b1c1337b717eacd8.
+   Exact decompression was verified. Local Chromium production startup with
+   gzip and application/wasm headers passed with zero page errors.
+   Sites forwarding of _headers is still unverified because of item 2.
 
-2. Original game source preserved on separate branch sites/hopan-testing.
-   Source baseline: 7be94416ead3e43595fd20b533e40e461234a802.
-   GitHub main matched that SHA; the selected checkout was initially empty
-   with no commits or uncommitted work. No main rewrite or game redesign.
-   All current tracked changes are handoff documentation only.
+4. Original game source preserved on branch sites/hopan-testing.
+   Baseline: 7be94416ead3e43595fd20b533e40e461234a802.
+   GitHub main matched that SHA; the initial selected checkout had no commits
+   or uncommitted files. Game source and main are unchanged. This branch adds
+   documentation only. Sites source has its own separate repository/checkout.
 
-3. Native validation passed with official Godot 4.7.2.
-   Project import succeeded. tools/test.sh: 37 checks, zero failures.
-   Checks include perspective/map pause and restore, overhead editor,
-   collision/death/retry/victory, and physical traversal of all three dry
-   routes with hazards paused. They do not establish full hazard difficulty.
-   Clean bootstrap verified both pinned SHA512 hashes. Web release, Windows
-   release and debug Web exports succeeded, with no build errors/warnings.
-   Seven focused Chromium browser checks passed with zero runtime errors:
-   production startup with debug bridge disabled, Moonlit Oasis perspective
-   play, keyboard movement, overhead-map pause, return to 3D, overhead editor,
-   and no failed asset responses or browser/Godot errors. Chromium used
-   software rendering; no mobile/device performance claim follows.
-   The entire build directory was served for this check, with production
-   assets at /web/ and diagnostic assets at /test-web/. Local HTTP checks
-   returned 200 with text/html, text/javascript, application/wasm and
-   application/octet-stream for HTML, JS, WASM and PCK respectively.
-   Evidence outside source: /workspace/hopan-build.log,
-   /workspace/hopan-browser-check.json, /workspace/hopan-focused-browser.cjs.
+5. Build and focused local validation passed.
+   Clean bootstrap verified both pinned SHA512 hashes for official Godot 4.7.2.
+   Web release, Windows release and debug Web exports succeeded without build
+   errors/warnings. Native suite: 37 checks, zero failures. Includes physical
+   traversal of all three dry routes with hazards paused; collision, death,
+   retry, victory; perspective/map pause and restore; and overhead editor.
+   Focused Chromium: seven checks passed with zero runtime errors or failed
+   asset responses: production startup without debug bridge, perspective play,
+   keyboard movement, overhead-map pause, return to 3D and overhead editor.
+   Local HTML/JS/WASM/PCK returned 200 and correct MIME types.
+   Evidence: /workspace/hopan-build.log, /workspace/hopan-browser-check.json,
+   /workspace/hopan-focused-browser.cjs, /workspace/hopan-hosted-qa.cjs.
+   Original release ZIPs remain in build/Hopan-web.zip and Hopan-windows.zip.
 
-4. RiverSim remains separate and unmounted.
+6. Official publishing-helper transport recovered and verified.
+   Library materialization failed before bytes with URLError caused by
+   "Tunnel connection failed: 403 Forbidden". Inline archive transport also
+   initially failed integrity verification and was never executed.
+   All indexed replacement chunks then matched their expected hashes.
+   Full official script archive: 20,739 bytes; SHA256
+   b4c00d396a45b0f0e4d2acbdc6bef40c26e684625d4973dd9f90f92e78e5a672.
+   Additional official prepare-site-build.cjs: 6,809 bytes; SHA256
+   32496143dcc6f7e7c5410444e319469e2525c1d2eda0d2ed7c65e7c67995dbe3.
+   Current cloud skill supplied unchanged package-site.sh. All required helpers
+   were used unchanged; no replacement uploader or storage endpoint invented.
+
+7. RiverSim remains separate and unmounted.
    Library ID: libfile_d3fa009f480c8191bf6086d4da388fb0.
-   RiverSim-Hopán-riversim-test-20261017.zip, returned size 29,063,800 bytes.
-   The current official Library transfer helper reported "download failed"
-   three times, including freshly prepared transfers and a permitted
-   network-escalated helper invocation. No readable local ZIP was
-   produced, so no local content/hash/relative-path assertion is made.
-   The prior handoff reports a 39,514,754-byte WASM exceeding the static
-   25 MiB limit. Gzip hosting and Content-Encoding remain unverified.
-   Do not claim /riversim/ works until bytes and real hosted responses pass.
+   RiverSim-Hopán-riversim-test-20261017.zip, reported size 29,063,800 bytes.
+   The official transfer helper failed, including refreshed transfers and a
+   permitted network escalation. No readable ZIP was produced here.
+   No local package/hash assertion or /riversim/ functionality claim is made.
+   Mount only riversim/ under /riversim/ after byte and hosting verification.
 
-5. Device limits and rollback.
-   Real iPhone/Safari, Windows execution and sustained device performance
-   remain untested. Native dry-route tests pause hazards.
-   No production change occurred, so no hosted rollback is necessary.
-   To discard this handoff, select baseline SHA above or remove the separate
-   testing branch. Generated build outputs are ignored and reproducible.
+8. Device limits and rollback.
+   Real iPhone/Safari, Windows execution, hardware performance and full
+   hazard-active playthroughs remain untested. Chromium used software rendering.
+   Native dry-route checks pause hazards.
+   Version 1 is this Site's first publication: no earlier saved version exists
+   to redeploy. There was no pre-existing root to restore. Future changes can
+   redeploy saved version 1 above through the native private deployment tool.
+   Restoring GitHub game baseline does not change the separately hosted Site.
