@@ -7,6 +7,7 @@ Godot 4.7.2, GDScript, Compatibility rendering, single-threaded web export. Entr
 | `scripts/main.gd` | Menus, editor, history, local library, import/export, mobile controls, playtesting |
 | `scripts/level_data.gd` | JSON validation, numeric normalization, serialization, static route check |
 | `scripts/world.gd` | Shared world construction, simulation, projectiles, hazards/victory, camera/effects |
+| `scripts/crossing.gd` | Horizontal traffic/log lanes, swept vehicle contact, log carrying and checkpoint bank visuals |
 | `scripts/actor.gd` | CharacterBody3D movement, wandering/patrols, animation |
 | `scripts/art.gd` | Original mesh kits, shared resources, static MultiMesh batches, hat attachment |
 | `scripts/pixel_textures.gd` | Original deterministic 32 × 32 terrain, masonry, water, bark, leaf and frog textures |
@@ -48,6 +49,22 @@ Projectiles travel at 7 units/second. Each tick raycasts their swept segment aga
 The abbreviated tile row is illustrative. Valid documents contain exactly `height` rows of `width` tile names. Themes: `egypt`, `swamp`. Objects: `pillar`, `tree`, `mushroom`, `decoration`, `critter`, `emitter`. Limits: 5–25 cells per side, 180 objects, 64 waypoints per critter. The editor creates 17 × 13 maps; imported sizes within the limits use the shared loader. Trap rotation: 0° north, 90° west, 180° south, 270° east. Intervals: 0.5–10 seconds; critter speed: 0.3–5 units/second.
 
 The importer validates before replacing the document. Whole JSON numbers are normalized to integers, preserving grid-coordinate equality after loading. All saves use the same serializer. The local library is written to a temporary file and renamed into place.
+
+The Baby Mode extension adds walkable `road` tiles and `car` / `log` objects.
+Cars must start on road; logs on water. Both use `length` (1–6 cells), `speed`
+(0.3–4 world units/second), and horizontal `direction` (-1 or 1), and wrap only
+after leaving the lane. Vehicles use swept relative-motion contact; logs carry
+the frog by their displacement without applying the wrap teleport. Water is
+safe only while a log supports the frog. Optional `checkpoint: [x, y]` must be
+on a safe bank, and runtime checkpoint state is separate from the authored map.
+Route validation recognizes log rows as potential access, not proof of timing
+or difficulty; the native test traverses the finale with all movers active at
+three different arrival phases.
+
+Baby Mode has four bundled stages. `user://profile.cfg` stores unlocked hats,
+equipped headwear and completed stage indices; it is independent of custom map
+saves. The baby bonnet unlocks on first starting a Baby Mode stage and equips
+immediately. Hat cycling includes bare head and skips locked headwear.
 
 ## Presentation modes
 

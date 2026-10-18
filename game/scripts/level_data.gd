@@ -2,8 +2,8 @@ extends RefCounted
 ## The editor, bundled maps and runtime all consume this versioned format.
 const VERSION = 1
 const MAX_SIDE = 25
-const TILES = ["floor", "wall", "water", "path"]
-const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter"]
+const TILES = ["floor", "wall", "water", "path", "road"]
+const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "log"]
 
 static func blank(title: String = "My magnificent maze", theme_name: String = "egypt") -> Dictionary:
 	var tiles: Array = []
@@ -52,6 +52,10 @@ static func validate(d: Variant) -> String:
 			return "The %s must sit on a walkable grid cell." % key
 	if d.spawn == d.exit:
 		return "Place the exit away from the start."
+	if d.has("checkpoint"):
+		var p: Variant = d.checkpoint
+		if not point_valid(p, w, h) or p[0] != int(p[0]) or p[1] != int(p[1]) or d.tiles[int(p[1])][int(p[0])] in ["wall", "water", "road"]:
+			return "The checkpoint must sit on a whole, safe bank cell."
 	if not d.get("objects") is Array or d.objects.size() > 180:
 		return "A level supports up to 180 objects."
 	var ids: Dictionary = {}
@@ -65,6 +69,19 @@ static func validate(d: Variant) -> String:
 			return "Object rotation must be finite."
 		if obj.has("solid") and not obj.solid is bool:
 			return "Solid must be true or false."
+		if obj.type in ["car", "log"]:
+			if obj.pos[1] != int(obj.pos[1]) or d.tiles[int(obj.pos[1])][int(obj.pos[0])] != ("water" if obj.type == "log" else "road"):
+				return "Place logs on water and cars on road lanes."
+			if not finite_number(obj.get("speed", 1.0)) or obj.get("speed", 1.0) < 0.3 or obj.get("speed", 1.0) > 4:
+				return "Lane speed must be between 0.3 and 4."
+			if not finite_number(obj.get("length", 1.5)) or obj.get("length", 1.5) < 1 or obj.get("length", 1.5) > 6:
+				return "Cars and logs must be between 1 and 6 cells long."
+			if not finite_number(obj.get("direction", 1)) or absf(float(obj.get("direction", 1))) != 1.0:
+				return "Lane direction must be -1 or 1."
+			if obj.get("solid", false):
+				return "Moving cars and logs use lane collisions, not static blockers."
+			if obj.has("color") and (not obj.color is String or obj.color.length() > 16):
+				return "Car color must be a short color string."
 		if obj.type in ["pillar", "tree", "critter", "emitter"] or obj.get("solid", false):
 			if d.tiles[int(obj.pos[1])][int(obj.pos[0])] in ["wall", "water"]:
 				return "Place solid objects, critters and traps on dry terrain."
@@ -133,8 +150,15 @@ static func reachable(d: Dictionary) -> bool:
 			var n: Vector2i = p + offset
 			if n.x < 0 or n.y < 0 or n.x >= d.width or n.y >= d.height or visited.has(n) or blocked.has(n):
 				continue
-			if d.tiles[n.y][n.x] in ["wall", "water"]:
+			if d.tiles[n.y][n.x] == "wall" or (d.tiles[n.y][n.x] == "water" and not has_log_lane(d, n.y)):
 				continue
 			visited[n] = true
 			queue.append(n)
+	return false
+
+static func has_log_lane(d: Dictionary, row: int) -> bool:
+	# Structural access only. Moving-log timing is checked in the real runtime.
+	for obj in d.objects:
+		if obj.type == "log" and int(obj.pos[1]) == row:
+			return true
 	return false

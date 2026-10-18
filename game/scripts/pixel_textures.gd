@@ -13,6 +13,10 @@ static func get_texture(kind: String) -> Texture2D:
 			var n := random.randf()
 			var color := Color.WHITE
 			match kind:
+				"road":
+					color = Color("343d48").lerp(Color("535c64"), n * 0.5)
+					if y < 2 and x < 20:
+						color = Color("e5dbae")
 				"grass":
 					color = Color("5e8933").lerp(Color("a0ac48"), n * 0.65)
 					if n < 0.16:

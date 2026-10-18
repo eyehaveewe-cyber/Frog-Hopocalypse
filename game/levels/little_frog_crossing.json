@@ -1,0 +1,677 @@
+{
+	"version": 1,
+	"name": "Little Frog Crossing",
+	"theme": "egypt",
+	"width": 17,
+	"height": 21,
+	"tiles": [
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"wall"
+		],
+		[
+			"wall",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"wall"
+		],
+		[
+			"wall",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"wall"
+		],
+		[
+			"wall",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"wall"
+		],
+		[
+			"wall",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"wall"
+		],
+		[
+			"wall",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		]
+	],
+	"spawn": [
+		8,
+		19
+	],
+	"exit": [
+		8,
+		2
+	],
+	"checkpoint": [
+		8,
+		10
+	],
+	"objects": [
+		{
+			"id": "car-18-0",
+			"type": "car",
+			"pos": [
+				3,
+				18
+			],
+			"length": 1.5,
+			"speed": 1.7,
+			"direction": 1,
+			"color": "dc925c"
+		},
+		{
+			"id": "car-18-1",
+			"type": "car",
+			"pos": [
+				12,
+				18
+			],
+			"length": 1.5,
+			"speed": 1.7,
+			"direction": 1,
+			"color": "dc925c"
+		},
+		{
+			"id": "car-17-0",
+			"type": "car",
+			"pos": [
+				3,
+				17
+			],
+			"length": 1.5,
+			"speed": 1.9,
+			"direction": -1,
+			"color": "e7ca70"
+		},
+		{
+			"id": "car-17-1",
+			"type": "car",
+			"pos": [
+				12,
+				17
+			],
+			"length": 1.5,
+			"speed": 1.9,
+			"direction": -1,
+			"color": "e7ca70"
+		},
+		{
+			"id": "car-9-0",
+			"type": "car",
+			"pos": [
+				3,
+				9
+			],
+			"length": 1.5,
+			"speed": 2.2,
+			"direction": 1,
+			"color": "dc925c"
+		},
+		{
+			"id": "car-9-1",
+			"type": "car",
+			"pos": [
+				12,
+				9
+			],
+			"length": 1.5,
+			"speed": 2.2,
+			"direction": 1,
+			"color": "dc925c"
+		},
+		{
+			"id": "car-8-0",
+			"type": "car",
+			"pos": [
+				3,
+				8
+			],
+			"length": 1.5,
+			"speed": 2.4,
+			"direction": -1,
+			"color": "e7ca70"
+		},
+		{
+			"id": "car-8-1",
+			"type": "car",
+			"pos": [
+				12,
+				8
+			],
+			"length": 1.5,
+			"speed": 2.4,
+			"direction": -1,
+			"color": "e7ca70"
+		},
+		{
+			"id": "car-7-0",
+			"type": "car",
+			"pos": [
+				3,
+				7
+			],
+			"length": 1.5,
+			"speed": 2.6,
+			"direction": 1,
+			"color": "91aeca"
+		},
+		{
+			"id": "car-7-1",
+			"type": "car",
+			"pos": [
+				12,
+				7
+			],
+			"length": 1.5,
+			"speed": 2.6,
+			"direction": 1,
+			"color": "91aeca"
+		},
+		{
+			"id": "log-14-0",
+			"type": "log",
+			"pos": [
+				2,
+				14
+			],
+			"length": 4.6,
+			"speed": 0.9,
+			"direction": 1
+		},
+		{
+			"id": "log-14-1",
+			"type": "log",
+			"pos": [
+				8,
+				14
+			],
+			"length": 4.6,
+			"speed": 0.9,
+			"direction": 1
+		},
+		{
+			"id": "log-14-2",
+			"type": "log",
+			"pos": [
+				14,
+				14
+			],
+			"length": 4.6,
+			"speed": 0.9,
+			"direction": 1
+		},
+		{
+			"id": "log-13-0",
+			"type": "log",
+			"pos": [
+				2,
+				13
+			],
+			"length": 4.6,
+			"speed": 1.0,
+			"direction": -1
+		},
+		{
+			"id": "log-13-1",
+			"type": "log",
+			"pos": [
+				8,
+				13
+			],
+			"length": 4.6,
+			"speed": 1.0,
+			"direction": -1
+		},
+		{
+			"id": "log-13-2",
+			"type": "log",
+			"pos": [
+				14,
+				13
+			],
+			"length": 4.6,
+			"speed": 1.0,
+			"direction": -1
+		},
+		{
+			"id": "log-12-0",
+			"type": "log",
+			"pos": [
+				2,
+				12
+			],
+			"length": 4.6,
+			"speed": 1.1,
+			"direction": 1
+		},
+		{
+			"id": "log-12-1",
+			"type": "log",
+			"pos": [
+				8,
+				12
+			],
+			"length": 4.6,
+			"speed": 1.1,
+			"direction": 1
+		},
+		{
+			"id": "log-12-2",
+			"type": "log",
+			"pos": [
+				14,
+				12
+			],
+			"length": 4.6,
+			"speed": 1.1,
+			"direction": 1
+		},
+		{
+			"id": "palm-0",
+			"type": "tree",
+			"pos": [
+				2,
+				4
+			],
+			"solid": true
+		},
+		{
+			"id": "palm-1",
+			"type": "tree",
+			"pos": [
+				14,
+				4
+			],
+			"solid": true
+		},
+		{
+			"id": "palm-2",
+			"type": "tree",
+			"pos": [
+				3,
+				11
+			],
+			"solid": true
+		},
+		{
+			"id": "palm-3",
+			"type": "tree",
+			"pos": [
+				13,
+				11
+			],
+			"solid": true
+		}
+	]
+}

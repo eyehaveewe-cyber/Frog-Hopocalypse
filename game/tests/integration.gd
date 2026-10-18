@@ -14,7 +14,7 @@ func check(condition: bool, text: String) -> void:
 func run(app: Control) -> void:
 	await app.get_tree().process_frame
 	var Data = preload("res://scripts/level_data.gd")
-	for path in app.BUILTINS:
+	for path in app.MAZES:
 		var map := Data.load_json(path)
 		check(not map.is_empty(), "Bundled JSON validates: " + path)
 		if not map.is_empty():
@@ -135,7 +135,7 @@ func run(app: Control) -> void:
 	for _i in range(20):
 		await app.get_tree().physics_frame
 	check(app.world.critters[0].position.distance_to(bug_before) > 0.1, "Wandering critters actually move independently")
-	for path in app.BUILTINS:
+	for path in app.MAZES:
 		var demo := Data.load_json(path)
 		app.level = demo
 		app.world.load_level(demo, true)
@@ -155,6 +155,7 @@ func run(app: Control) -> void:
 				traversed = false
 				break
 		check(traversed and app.world.player.position.distance_to(app.world.cell_position(demo.exit)) < 0.15, "Full dry route physically traversable with hazards paused: " + demo.name)
+	await preload("res://tests/baby_mode.gd").new().run(app, self)
 	app.set_process(true)
 	print("INTEGRATION: %d checks, %d failures" % [checks, failures.size()])
 	app.get_tree().quit(0 if failures.is_empty() else 1)

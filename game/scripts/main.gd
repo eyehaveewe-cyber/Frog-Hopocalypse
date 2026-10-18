@@ -1,7 +1,9 @@
 extends Control
 const Data = preload("res://scripts/level_data.gd")
 const World = preload("res://scripts/world.gd")
-const BUILTINS = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtyard.json", "res://levels/violet_mire.json"]
+const MAZES = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtyard.json", "res://levels/violet_mire.json"]
+const BUILTINS = MAZES + ["res://levels/little_frog_crossing.json"]
+const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog bonnet"}
 const INK = Color("f7f0d8")
 const MUTED = Color("b7c8b9")
 const LIME = Color("d5ec8d")
@@ -40,7 +42,12 @@ var stroke := false
 var stroke_changed := false
 var last_cell := Vector2i(-1, -1)
 var deaths := 0
-var hat := true
+var hat := "pharaoh"
+var unlocked_hats: Array = ["none", "pharaoh"]
+var completed_stages: Array = []
+var campaign_level := false
+var checkpoint_spawn: Array = []
+var hat_button: Button
 var paused := false
 var ui_busy := false
 var last_view_size := Vector2.ZERO
@@ -63,6 +70,7 @@ func _ready() -> void:
 	test_mode = "--integration-test" in OS.get_cmdline_user_args()
 	browser_test = OS.is_debug_build() and ("--browser-test" in OS.get_cmdline_user_args() or "--browser-test" in OS.get_cmdline_args())
 	make_theme()
+	load_profile()
 	load_library()
 	build_ui()
 	load_builtin(0)
@@ -168,7 +176,8 @@ func build_ui() -> void:
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(spacer)
 	button(top, "Menu", show_menu)
-	button(top, "Hat", toggle_hat).tooltip_text = "Toggle the pharaoh headdress"
+	hat_button = button(top, "Hat", toggle_hat)
+	hat_button.tooltip_text = str(HAT_NAMES[hat]) + " · Cycle unlocked hats"
 	map_button = button(top, "Map", toggle_map)
 	map_button.tooltip_text = "M: inspect the overhead map; the world pauses"
 	pause_button = button(top, "Pause", toggle_pause)
@@ -228,7 +237,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["water", "Water"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -259,6 +268,9 @@ func build_ui() -> void:
 	world.touch_mode = mobile_ui
 	view.add_child(world)
 	world.finished.connect(on_finished)
+	world.checkpoint_reached.connect(func(point: Array):
+		checkpoint_spawn = point
+		status("Checkpoint! Rest on this bank, then cross the final traffic."))
 	var footer := PanelContainer.new()
 	footer.add_theme_stylebox_override("panel", panel_style(Color("132c23"), 0))
 	root.add_child(footer)
@@ -340,11 +352,15 @@ func reset_overlay(title: String, subtitle: String = "") -> void:
 
 func show_menu() -> void:
 	world.halted = true
-	reset_overlay("Pharaoh Frog Hopán", "Small frog. Ancient trouble.\nReach the glowing gate. Avoid critters, water and darts.")
+	reset_overlay("Pharaoh Frog Hopán", "Small frog. Ancient trouble.")
+	overlay_box.add_child(label("BABY MODE", 24, LIME))
+	paragraph(overlay_box, "Difficulty 1 · Four stages\nThree familiar mazes, then a gentle traffic → logs → traffic finale.")
 	for i in range(BUILTINS.size()):
 		var index := i
 		var d := Data.load_json(BUILTINS[i])
 		button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): load_builtin(index); start_play(false), i == 0)
+	if not completed_stages.is_empty():
+		paragraph(overlay_box, "%d / 4 Baby Mode stages cleared" % completed_stages.size(), 12)
 	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
 	if not library.is_empty():
 		var custom := OptionButton.new()
@@ -372,6 +388,7 @@ func load_builtin(index: int) -> void:
 		status("Could not load the bundled level.")
 		return
 	builtin_index = index
+	campaign_level = true
 	level = loaded
 	slot_id = ""
 	undo_stack.clear()
@@ -388,9 +405,12 @@ func start_play(from_editor: bool = true) -> void:
 		status(error)
 		return
 	if not Data.reachable(level):
-		status("The exit is blocked. Paint a dry route from the frog to the gate.")
+		status("The exit is blocked. Connect the route with dry ground or rideable log lanes.")
 		return
 	mode = "test" if from_editor else "play"
+	checkpoint_spawn = []
+	if not from_editor and campaign_level:
+		unlock_baby_hat()
 	paused = false
 	sidebar.hide()
 	overlay.hide()
@@ -399,15 +419,17 @@ func start_play(from_editor: bool = true) -> void:
 	map_button.text = "Map"
 	map_button.show()
 	configure_view()
-	mode_label.text = "PLAYTEST" if from_editor else "ADVENTURE"
+	mode_label.text = "PLAYTEST" if from_editor else ("BABY MODE · %d / 4" % (builtin_index + 1) if campaign_level else "CUSTOM LEVEL")
 	edit_button.text = "Back to editor" if from_editor else "Editor"
 	pause_button.text = "Pause"
 	pause_button.show()
 	joystick.visible = DisplayServer.is_touchscreen_available()
-	status(level.name + " · WASD / arrows to move. M: map. R: retry.")
+	status(level.name + (" · Wait for gaps. Ride logs across water. Safe bank checkpoint ahead." if level.has("checkpoint") else " · WASD / arrows to move. M: map. R: retry."))
 	reset_touch()
 
 func enter_editor() -> void:
+	campaign_level = false
+	checkpoint_spawn = []
 	mode = "edit"
 	paused = false
 	sidebar.show()
@@ -429,6 +451,10 @@ func retry() -> void:
 	paused = false
 	overlay.hide()
 	world.load_level(level, false, hat)
+	if not checkpoint_spawn.is_empty():
+		world.player.position = world.cell_position(checkpoint_spawn)
+		world.crossing.checkpoint_claimed = true
+		world.fit_camera()
 	world.halted = false
 	map_button.text = "Map"
 	configure_view()
@@ -437,13 +463,20 @@ func retry() -> void:
 	status(level.name + " · A fresh hop. R to retry.")
 
 func on_finished(reason: String) -> void:
-	reset_overlay(reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths + (0 if reason == "LEVEL COMPLETE!" else 1)])
+	if reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and builtin_index not in completed_stages:
+		completed_stages.append(builtin_index)
+		save_profile()
+	var set_complete := reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and completed_stages.size() == BUILTINS.size()
+	reset_overlay("BABY MODE COMPLETE!" if set_complete else reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths + (0 if reason == "LEVEL COMPLETE!" else 1)])
 	if reason != "LEVEL COMPLETE!":
 		deaths += 1
-		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "A frog with a very particular swimming policy.", "HIT!": "Ancient security systems still work."}.get(reason, ""))
+		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "Ride the logs to stay above the water.", "HIT!": "Ancient security systems still work.", "SQUISHED!": "Wait on the bank for a wider gap in traffic."}.get(reason, ""))
 	else:
 		paragraph(overlay_box, "One small frog. One magnificent escape.")
-		if mode == "play" and slot_id.is_empty() and builtin_index < BUILTINS.size() - 1:
+		if mode == "play" and campaign_level:
+			if set_complete:
+				paragraph(overlay_box, "All four Baby Mode stages cleared! The little frog made it home.")
+		if mode == "play" and campaign_level and builtin_index < BUILTINS.size() - 1:
 			button(overlay_box, "Next level →", func(): load_builtin(builtin_index + 1); start_play(false), true)
 	button(overlay_box, "Retry · R", retry, true)
 	if mode == "test":
@@ -492,9 +525,44 @@ func _notification(what: int) -> void:
 		toggle_pause()
 
 func toggle_hat() -> void:
-	hat = not hat
+	var index := unlocked_hats.find(hat)
+	hat = unlocked_hats[(index + 1) % unlocked_hats.size()]
 	world.player.set_hat(hat)
-	status("Pharaoh headdress " + ("on." if hat else "off."))
+	hat_button.tooltip_text = str(HAT_NAMES[hat]) + " · Cycle unlocked hats"
+	save_profile()
+	status(str(HAT_NAMES[hat]) + " · Hat cycles your unlocked headwear.")
+
+func unlock_baby_hat() -> void:
+	if "baby" not in unlocked_hats:
+		unlocked_hats.append("baby")
+		hat = "baby"
+		if is_instance_valid(hat_button):
+			hat_button.tooltip_text = "Baby frog bonnet · Cycle unlocked hats"
+		save_profile()
+
+func save_profile() -> void:
+	var profile := ConfigFile.new()
+	profile.set_value("hats", "baby_unlocked", "baby" in unlocked_hats)
+	profile.set_value("hats", "equipped", hat)
+	profile.set_value("baby_mode", "completed", completed_stages)
+	if profile.save("user://profile.cfg") != OK:
+		status("Could not save hat progress on this device.")
+
+func load_profile() -> void:
+	unlocked_hats = ["none", "pharaoh"]
+	completed_stages = []
+	var profile := ConfigFile.new()
+	if profile.load("user://profile.cfg") != OK:
+		return
+	if profile.get_value("hats", "baby_unlocked", false) == true:
+		unlocked_hats.append("baby")
+	var saved_hat: Variant = profile.get_value("hats", "equipped", "pharaoh")
+	hat = str(saved_hat) if saved_hat in unlocked_hats else "pharaoh"
+	var saved_stages: Variant = profile.get_value("baby_mode", "completed", [])
+	if saved_stages is Array:
+		for value in saved_stages:
+			if value is int and value >= 0 and value < BUILTINS.size() and value not in completed_stages:
+				completed_stages.append(value)
 
 func status(text: String) -> void:
 	if is_instance_valid(status_label):
@@ -631,7 +699,11 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 			level.objects.remove_at(index)
 		level[tool] = point
 	elif tool in Data.OBJECTS:
-		if point == level.spawn or point == level.exit or level.tiles[cell.y][cell.x] in ["wall", "water"]:
+		var terrain: String = level.tiles[cell.y][cell.x]
+		if (tool == "log" and terrain != "water") or (tool == "car" and terrain != "road"):
+			status("Logs belong on water. Cars belong on road lanes.")
+			return
+		if point == level.spawn or point == level.exit or terrain == "wall" or (terrain == "water" and tool != "log"):
 			status("Place objects on dry terrain away from the start and exit.")
 			return
 		if index >= 0 or level.objects.size() >= 180:
@@ -641,6 +713,8 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 			obj.merge({"behavior": "wander", "speed": 1.6, "waypoints": []})
 		if tool == "emitter":
 			obj.interval = 2.5
+		if tool in ["car", "log"]:
+			obj.merge({"length": 4.6 if tool == "log" else 1.5, "speed": 1.0, "direction": 1})
 		level.objects.append(obj)
 		selection = obj.id
 	rebuild()
@@ -688,6 +762,18 @@ func refresh_inspector() -> void:
 		interval.value_changed.connect(func(v: float): change_property("interval", v))
 		inspector.add_child(interval)
 		paragraph(inspector, "0° fires north · 90° west\n180° south · 270° east", 11)
+	if obj.type in ["car", "log"]:
+		for field in [["length", 1.0, 6.0, "cells long"], ["speed", 0.3, 4.0, "lane speed"]]:
+			var key: String = field[0]
+			var value := SpinBox.new()
+			value.min_value = field[1]
+			value.max_value = field[2]
+			value.step = 0.1
+			value.value = obj.get(key, 1.5 if key == "length" else 1.0)
+			value.suffix = field[3]
+			value.value_changed.connect(func(v: float): change_property(key, v))
+			inspector.add_child(value)
+		button(inspector, "Direction: " + ("right →" if obj.get("direction", 1) == 1 else "← left"), func(): change_property("direction", -int(obj.get("direction", 1))))
 	if obj.type in ["mushroom", "decoration"]:
 		var solid := CheckBox.new()
 		solid.text = "Blocks movement"
@@ -762,6 +848,7 @@ func load_saved(index: int) -> void:
 		enter_editor()
 
 func load_library_entry(index: int) -> void:
+	campaign_level = false
 	level = library[index].level.duplicate(true)
 	slot_id = library[index].id
 	selection = ""
@@ -915,6 +1002,7 @@ func publish_browser_probe() -> void:
 			cell_row.append([p.x, p.y])
 		cells.append(cell_row)
 	var state := {"mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
+		"hat": hat, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
 		"ui_size": [size.x, size.y], "saved": library.size(), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
 		"map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}

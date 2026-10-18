@@ -169,6 +169,24 @@ static func frog(hat: bool = true) -> Node3D:
 			box(crown, Vector3(0.18, 0.055, 0.31), Vector3(side * 0.38, -0.27 + y * 0.13, 0.1), Color("2b707b"))
 	cylinder(crown, 0.10, 0.0, 0.24, Vector3(0, 0.21, -0.03), Color("f5d775"))
 	crown.visible = hat
+	var bonnet := Node3D.new()
+	bonnet.name = "BabyBonnet"
+	socket.add_child(bonnet)
+	var mint := Color("78ac72")
+	orb(bonnet, Vector3(0.96, 0.43, 0.82), Vector3(0, 0.15, 0.12), mint)
+	cylinder(bonnet, 0.47, 0.45, 0.10, Vector3(0, 0.02, 0.10), Color("e7e5c0"), 12)
+	for side in [-1, 1]:
+		orb(bonnet, Vector3(0.32, 0.31, 0.28), Vector3(side * 0.28, 0.37, -0.04), mint)
+		orb(bonnet, Vector3(0.23, 0.23, 0.09), Vector3(side * 0.28, 0.39, -0.18), Color("f3f1da"))
+		orb(bonnet, Vector3(0.12, 0.14, 0.04), Vector3(side * 0.28, 0.39, -0.23), Color("233128"))
+		var tie := box(bonnet, Vector3(0.065, 0.36, 0.055), Vector3(side * 0.37, -0.21, -0.02), Color("e7e5c0"))
+		tie.rotation.z = side * 0.25
+		orb(bonnet, Vector3(0.18, 0.10, 0.08), Vector3(side * 0.10, -0.34, -0.20), mint)
+	for i in range(12):
+		var angle := i * TAU / 12
+		var stitch := box(bonnet, Vector3(0.045, 0.16, 0.035), Vector3(sin(angle) * 0.45, 0.15, 0.1 + cos(angle) * 0.36), mint.lightened(0.2))
+		stitch.rotation.y = angle
+	bonnet.visible = false
 	return root
 
 static func critter(theme_name: String, behavior: String) -> Node3D:

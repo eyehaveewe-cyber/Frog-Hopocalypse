@@ -1,6 +1,6 @@
 # Build a maze
 
-Choose **Level editor** from the menu. All three bundled levels open in the same editor as your own maps. Choose **New Egypt** or **New Swamp** for an empty, enclosed 17 × 13 board.
+Choose **Level editor** from the menu. All four Baby Mode stages open in the same editor as your own maps. Choose **New Egypt** or **New Swamp** for an empty, enclosed 17 × 13 board.
 
 1. Give your level a name. Choose its Egyptian ruins or Purple Swamp-Woods theme.
 2. Select **Floor**, **Path**, **Wall**, or **Water**, then click or drag on the board. Walls block movement; water kills the frog. Floor and path are walkable. Move the start/exit first if you want to paint hazards over their old cells.
@@ -13,7 +13,14 @@ Choose **Level editor** from the menu. All three bundled levels open in the same
 9. **Save** keeps a local copy. **Duplicate** creates and saves an independent copy. Load maps from the saved-level dropdown or play them from the main menu.
 10. **Export JSON** downloads a map in the browser or opens a desktop Save dialog. **Import** accepts a file or pasted JSON. Imported maps are unsaved until you save them.
 
-Playtesting rejects invalid maps or maps with no dry, unblocked grid route to the exit. This checks basic connectivity, not hazard fairness. Playtest with the actual frog and critters.
+The palette also includes **Road**, **Car** and **Log**. Put cars on road and
+logs on water; Select exposes length, speed and left/right direction. Logs
+carry the frog across water, and cars are lethal. The finale's safe-bank
+checkpoint is retained through map import/export.
+
+Playtesting rejects invalid maps or maps with no connected ground/log-lane
+route to the exit. This checks structural access, not moving-platform timing
+or hazard fairness. Playtest with the actual frog and hazards active.
 
 ## Shortcuts
 
@@ -30,7 +37,7 @@ Playtesting rejects invalid maps or maps with no dry, unblocked grid route to th
 | Undo | Ctrl+Z / Cmd+Z |
 | Redo | Ctrl+Y / Ctrl+Shift+Z / Cmd+Shift+Z |
 | Save | Ctrl+S / Cmd+S |
-| Toggle headdress | Hat button |
+| Cycle unlocked headwear | Hat button |
 
 ## Save locations
 

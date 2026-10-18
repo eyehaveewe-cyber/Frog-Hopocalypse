@@ -78,6 +78,8 @@ func step(delta: float, input_vector: Vector2 = Vector2.ZERO) -> void:
 	else:
 		visual.position.y = lerpf(visual.position.y, 0, delta * 12)
 
-func set_hat(enabled: bool) -> void:
+func set_hat(kind: Variant) -> void:
 	if is_player:
-		visual.get_node("HatSocket/PharaohHat").visible = enabled
+		var selected: String = ("pharaoh" if kind else "none") if kind is bool else str(kind)
+		visual.get_node("HatSocket/PharaohHat").visible = selected == "pharaoh"
+		visual.get_node("HatSocket/BabyBonnet").visible = selected == "baby"

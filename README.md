@@ -25,10 +25,12 @@ The browser entry point is `build/web/index.html`. Serve the **whole directory**
 
 ## Implemented
 
+- **Baby Mode**, the first difficulty set: Moonlit Oasis, Pharaoh's Courtyard, Violet Mire, then Little Frog Crossing. The original three layouts are unchanged. The finale crosses two slow traffic lanes, three long-log lanes, a safe checkpoint bank, then three slightly faster traffic lanes.
+- Starting Baby Mode unlocks and equips a green frog-eyed baby bonnet. **Hat** cycles bare head, the pharaoh headdress and unlocked bonnet; selection and stage completion save locally on the device.
 - Continuous WASD/arrow movement, animated hopping, physical collisions and an interchangeable pharaoh hat.
 - Wandering critters, waypoint patrols, and projectile traps with configurable direction and interval.
 - Critter, water and projectile deaths; immediate retry; victory with completion time, death count and next-level transition.
-- Moonlit Oasis, Pharaoh's Courtyard and Violet Mire, reconstructed and saved through the editor's own operations. The oasis adds grassy canal paths and palms inspired by the supplied Frog Frenzy reference.
+- Moonlit Oasis, Pharaoh's Courtyard and Violet Mire, reconstructed and saved through the editor's own operations. The oasis adds grassy canal paths and palms inspired by the supplied Frog Frenzy reference. Little Frog Crossing adds moving vehicles and rideable logs without changing the original movement or camera.
 - Terrain painting, scenery, spawn/exit placement, object properties, rotation, patrol drawing, undo/redo, save/load/duplicate, JSON import/export, and playtesting without losing edits.
 - A fixed-angle perspective camera following the frog on desktop and mobile, with a low-resolution, nearest-scaled 3D render and sharp interface text.
 - **M / Map** pauses gameplay and opens the preserved overhead view. **3D view** resumes the perspective view. The editor retains its sharp overhead construction view. A bonus 2D mode remains a future possibility.

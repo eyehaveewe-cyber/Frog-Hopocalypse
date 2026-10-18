@@ -1,3 +1,37 @@
+2026-10-18 — Baby Mode and baby bonnet update (latest)
+
+1. Added the first difficulty set, Baby Mode, with four stages. The three
+   original maze layouts are unchanged. Little Frog Crossing is the finale:
+   two slow traffic lanes, a rest bank, three long moving-log lanes, a safe
+   checkpoint, then three slightly faster traffic lanes before the exit.
+   The existing perspective movement, overhead map and desktop editor remain.
+
+2. Starting Baby Mode unlocks and equips an original green frog-eyed baby
+   bonnet inspired by the supplied reference. Hat cycles bare head, pharaoh
+   headdress and the unlocked bonnet. Unlock, selection and stage completions
+   persist per device in user://profile.cfg. No sound recording was replaced
+   or synthesized: the supplied Recording (56).m4a could not be downloaded by
+   the supported Library helper, so integration and volume adjustment remain
+   pending access to its bytes.
+
+3. Validation: 51 native checks passed, including actual physical traversal of
+   the finale with moving traffic/logs active at three arrival phases, log
+   carrying, water/car deaths, map pause, checkpoint retry and hat persistence.
+   Ten desktop Chromium checks passed; an emulated landscape phone also loaded
+   stage four, equipped the bonnet, moved via touch and paused/resumed without
+   page errors. Production export starts without the debug bridge. Web and
+   Windows exports succeeded; real iPhone/Safari and Windows execution remain
+   untested. Evidence is in /workspace/baby-mode-native.log,
+   /workspace/baby-mode-browser-results.json and /workspace/baby-mode-build.log.
+
+4. Publication uses the existing private Hopán Site and official source helper.
+   The current Site source was synchronized before editing. Its existing WASM
+   hosting adapter and /riversim/ content must be retained byte for byte.
+   Publication result and rollback version are recorded after deployment.
+   Source changes are on feature/baby-mode-crossing; main is preserved.
+
+--- Earlier publication history follows ---
+
 2026-10-18 — Hopán publication (impact order)
 
 1. Hopán privately published through the official Sites workflow.

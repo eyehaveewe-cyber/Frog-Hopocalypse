@@ -1,7 +1,9 @@
 extends Node3D
 signal finished(reason: String)
+signal checkpoint_reached(point: Array)
 const Art = preload("res://scripts/art.gd")
 const Actor = preload("res://scripts/actor.gd")
+const Crossing = preload("res://scripts/crossing.gd")
 const CELL = 1.8
 var level: Dictionary = {}
 var geometry: Node3D
@@ -24,6 +26,7 @@ var touch_mode := false
 var camera_target := Vector3.ZERO
 var map_view := false
 var ocean_material: ShaderMaterial
+var crossing: Node3D
 
 func _ready() -> void:
 	var env := WorldEnvironment.new()
@@ -63,7 +66,7 @@ func position_cell(p: Vector3) -> Vector2i:
 func inside(p: Vector2i) -> bool:
 	return p.x >= 0 and p.y >= 0 and p.x < level.width and p.y < level.height
 
-func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
+func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") -> void:
 	active = false
 	if is_instance_valid(geometry):
 		remove_child(geometry)
@@ -103,7 +106,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
 				var color := floor_color.lightened(tint)
 				if tile == "path":
 					color = Color("b4ad8c") if swamp else Color("ead69b")
-				var texture_kind := ("swamp_stone" if swamp else "stone") if tile == "path" else ("moss" if swamp else "grass")
+				var texture_kind := "road" if tile == "road" else (("swamp_stone" if swamp else "stone") if tile == "path" else ("moss" if swamp else "grass"))
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
 			if tile == "wall":
 				var perimeter: bool = x == 0 or z == 0 or x == level.width - 1
@@ -119,6 +122,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
 		Art.solid(geometry, Vector3(0.2, 2, h + 2), Vector3(side * (w / 2 + 0.1), 0.5, 0))
 	for obj in level.objects:
 		var p := cell_position(obj.pos)
+		if obj.type in ["car", "log"]:
+			continue
 		if obj.type == "critter":
 			var actor := Actor.new()
 			actor.setup(false, level.theme, obj)
@@ -138,8 +143,12 @@ func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
 			if obj.type == "emitter":
 				var dir := Vector3(0, 0, -1).rotated(Vector3.UP, model.rotation.y)
 				emitters.append({"pos": p + Vector3(0, 0.42, 0) + dir * 0.72, "dir": dir, "clock": 0.5, "interval": float(obj.get("interval", 2.5)), "model": model})
+	crossing = Crossing.new()
+	geometry.add_child(crossing)
+	crossing.setup(level, self)
 	player = Actor.new()
-	player.setup(true, level.theme, {}, hat)
+	player.setup(true, level.theme, {}, true)
+	player.set_hat(hat)
 	player.position = cell_position(level.spawn)
 	geometry.add_child(player)
 	if edit:
@@ -155,7 +164,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
 	cursor.visible = false
 	route_root = Node3D.new()
 	geometry.add_child(route_root)
-	var excluded: Array = [player, cursor, gate, route_root] + critters
+	var excluded: Array = [player, cursor, gate, route_root, crossing] + critters
 	for emitter in emitters:
 		excluded.append(emitter.model)
 	Art.batch_static(geometry, excluded)
@@ -245,12 +254,20 @@ func _physics_process(delta: float) -> void:
 	if not active or editing:
 		return
 	elapsed += delta
+	var previous_player := player.position
+	crossing.advance(delta, player)
 	player.step(delta, input_vector)
 	update_camera(minf(1, delta * 8))
 	var tile := position_cell(player.position)
-	if not inside(tile) or level.tiles[tile.y][tile.x] == "water":
+	if not inside(tile) or (level.tiles[tile.y][tile.x] == "water" and crossing.log_at(player.position).is_empty()):
 		finish("SPLASHED!")
 		return
+	if crossing.traffic_hit(previous_player, player.position):
+		finish("SQUISHED!")
+		return
+	if level.has("checkpoint") and not crossing.checkpoint_claimed and tile.y <= int(level.checkpoint[1]) and level.tiles[tile.y][tile.x] not in ["water", "road"]:
+		crossing.checkpoint_claimed = true
+		checkpoint_reached.emit(level.checkpoint.duplicate())
 	for critter in critters:
 		var old: Vector3 = critter.position
 		critter.step(delta)
