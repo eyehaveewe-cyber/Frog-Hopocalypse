@@ -40,6 +40,9 @@ with Android UA/touch/DPR emulation, not Android hardware. Hosted inspection
 remains blocked by executor proxy restrictions. Real Android/iPhone/Safari and
 Windows execution remain untested.
 
+Sites confirms successful PUBLIC version 8 deployment at
+https://hopan.fiiendward.chatgpt.site, access revision 2 unchanged.
+
 --- Earlier validation history ---
 
 # Android startup and recovery — 2026-10-18

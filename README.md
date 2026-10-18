@@ -59,7 +59,7 @@ The browser runner uses Playwright 1.62.1 and `/usr/bin/chromium` in this cloud 
 
 This is a first functional prototype. **Real iPhone/Safari testing**, Windows execution, broader accessibility work and gameplay/difficulty tuning remain. Emulated touch tests cannot establish iPhone performance or Safari compatibility. Honduras and Mexico theme kits remain on the roadmap. There is no combat, multiplayer, account system or online sharing.
 
-Requested address: `Hopan.chatgpt.sites`. The actual public Site is **https://hopan.fiiendward.chatgpt.site**, now **version 7**, including Baby Mode and the unlockable baby frog hat. It was published on 2026-10-18 through the official Sites workflow. The existing `/riversim/` test files were preserved byte for byte. No custom hostname reservation is claimed.
+Requested address: `Hopan.chatgpt.sites`. The actual public Site is **https://hopan.fiiendward.chatgpt.site**, now **version 8**, including Baby Mode and the unlockable baby frog hat. It was published on 2026-10-18 through the official Sites workflow. The existing `/riversim/` test files were preserved byte for byte. No custom hostname reservation is claimed.
 
 The root streams deterministic gzip WASM through `hopan-wasm.js`; RiverSim retains its original hosting adapter. Exact decompression and local compressed-release startup passed. Hosted runtime inspection from this executor is limited by DNS/proxy restrictions; the Sites service confirms deployment success and the current public audience. **The supplied `Recording (56).m4a` could not be downloaded, so sound integration and volume adjustment are still pending.** See `UPDATES.txt` for identities, evidence and rollback.
 

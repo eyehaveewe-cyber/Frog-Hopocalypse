@@ -22,8 +22,14 @@
    Full hazard-complete playthroughs, difficulty tuning and physical-phone
    performance remain untested. Audio transfer remains separately blocked;
    this pass does not retry downloads or substitute sounds.
-5. Publish the same PUBLIC Site, preserving access revision 2, all 14 RiverSim
-   files, both existing WASM adapters and headers. Main is preserved; source
+5. Published PUBLIC version 8 at https://hopan.fiiendward.chatgpt.site .
+   Deployment appgdep_6ad4ea0525148191b53258e8cf4c1ff2 succeeded.
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_acc0c608efc8819180263f359fbdef81.
+   Site source: d4f72719e1efeaf3eae284540c9730c6e4dafefb.
+   Game source: 80286a88aa8f0649722261b4f1c8e7d3a62412a7.
+   Access re-read confirms PUBLIC revision 2 unchanged. All 14 RiverSim
+   files, both existing WASM adapters and headers match their prior hashes.
+   Main is preserved; source
    is on feature/not-as-hard-v7, based on the version-7 Android fixes.
    Rollback: saved version 7 through ordinary deployment, keeping public access:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_7873c26f19208191b1b4731079dce256.
