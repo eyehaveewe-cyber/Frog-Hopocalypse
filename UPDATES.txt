@@ -4,6 +4,7 @@
    every 40 actual undoable edits. Paint strokes count once, and checkpoints
    wait for the stroke to finish. Undo/redo also count; no-op changes do not.
    Each map updates its own recovery slot without replacing manual saves.
+   Duplicated/imported copies receive their own recovery identities.
    Use Load a local level to recover it; the original map name is restored.
 2. Recovery saves unfinished route/terrain edits while retaining structural
    validation. Manual Save and Playtest still require normal validation.
@@ -18,7 +19,7 @@
    sampling, including the shader-free compatibility renderer. Brick sampling
    also avoids the distant UV coarsening step. Ground textures are restored;
    five fixed tree variants and the purple skin reward are retained.
-5. Native checks: editor/recovery 21, skin/tree 15, seam rotation 17 and menu 25
+5. Native checks: editor/recovery 23, skin/tree 15, seam rotation 17 and menu 25
    pass. Six browser checks cover zero/up/hold turret inputs, the forty-edit
    checkpoint and exact recovery from its captured backup in a fresh context.
    Ground pixel comparison and renderer filter checks pass. Physical-device

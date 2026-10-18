@@ -1305,6 +1305,8 @@ func save_level() -> void:
 func duplicate_level() -> void:
 	record_undo()
 	level = level.duplicate(true)
+	if level.has("editor_autosave_id"):
+		level.editor_autosave_id = "new_%d_%d" % [Time.get_unix_time_from_system(),Time.get_ticks_usec()]
 	level.name = str(level.name).left(72) + " (copy)"
 	slot_id = ""
 	sync_editor()
@@ -1381,6 +1383,8 @@ func import_text(text: String) -> bool:
 		return false
 	record_undo()
 	level = Data.normalize(data)
+	if level.has("editor_autosave_id"):
+		level.editor_autosave_id = "new_%d_%d" % [Time.get_unix_time_from_system(),Time.get_ticks_usec()]
 	slot_id = ""
 	selection = ""
 	enter_editor()

@@ -1,6 +1,6 @@
 {
   "native_assertions": {
-    "editor_recovery_and_controls": 21,
+    "editor_recovery_and_controls": 23,
     "skin_tree": 15,
     "seam_rotation": 17,
     "set_menu": 25
@@ -47,7 +47,8 @@
     "scope": "Maps created through New Egypt / New Swamp, including renamed and recovered copies",
     "recovery": "Load a local level picker, original name restored, manual slot separate",
     "unfinished_layouts": "Supported with structural validation; normal playtest/save validation preserved",
-    "storage": "Atomic local library plus immediate browser localStorage backup"
+    "storage": "Atomic local library plus immediate browser localStorage backup",
+    "copy_isolation": "Duplicated/imported copies receive new recovery identities; native checks passed"
   },
   "ground_pixels_match_reference": "cc61f50fcd23cdde3b7f8c24ed3612c4b5802cb0",
   "protected_hosting_riversim_hashes_unchanged": 17,

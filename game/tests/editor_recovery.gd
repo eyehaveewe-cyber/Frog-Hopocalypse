@@ -75,6 +75,11 @@ func run() -> void:
  suite.check(app.selected_object().interval==1,"Tile firing interval rejects zero")
  app.undo()
  suite.check(app.selected_object().is_empty() and app.level.objects[0].interval==3,"Undo restores the prior turret interval")
+ var original_identity=app.level.editor_autosave_id
+ app.duplicate_level()
+ suite.check(app.level.editor_autosave_id!=original_identity,"Duplicating a map creates its own recovery identity")
+ var duplicate_identity=app.level.editor_autosave_id
+ suite.check(app.import_text(JSON.stringify(app.level)) and app.level.editor_autosave_id!=duplicate_identity,"Imported copies cannot overwrite their source recovery slot")
  suite.check(Art.Pixels.get_texture("brick").get_image().has_mipmaps(),"Brick texture has filtered distance levels")
  suite.check(Art.Pixels.get_texture("stone_wall").get_image().has_mipmaps() and not Art.Pixels.get_texture("stone").get_image().has_mipmaps(),"Wall caps receive filtering without changing ground textures")
  Art.compatibility_mode=true
