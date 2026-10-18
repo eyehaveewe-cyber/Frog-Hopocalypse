@@ -1,4 +1,23 @@
-2026-10-18 — Baby Mode and baby bonnet update (latest)
+2026-10-18 — Baby frog-head hat correction (latest)
+
+1. The reward is now a full baby frog-head cap: raised green eye lobes,
+   white eyes, small cheeks and a stitched smile. No bonnet ties or bow.
+2. Unlock and auto-equip only after four distinct Baby Mode stage clears.
+   Repeating a stage cannot earn it; Hat cycles only unlocked headwear.
+   Saved progress persists. Earlier premature unlocks are corrected while
+   preserving stage clears and other valid selections.
+3. All 55 native checks pass, including unlock timing, duplicate clears,
+   legacy migration, equipped mesh visibility and save/reload. Web and
+   Windows export completed. Five focused browser checks and staged production
+   startup pass without runtime errors. Exact WASM hash verified.
+   See docs/VALIDATION.md for evidence and device/hosted-test limitations.
+4. Prior private Site version 4 remains available for rollback. RiverSim and
+   the existing WASM hosting adapter are preserved. Audio integration remains
+   blocked by the supported Library download transport (HTTP 403).
+
+--- Earlier feature history follows ---
+
+2026-10-18 — Baby Mode and baby bonnet update (version 4)
 
 1. Added the first difficulty set, Baby Mode, with four stages. The three
    original maze layouts are unchanged. Little Frog Crossing is the finale:

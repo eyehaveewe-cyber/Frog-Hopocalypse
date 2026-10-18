@@ -1,3 +1,26 @@
+# Baby frog-head hat correction — 2026-10-18
+
+55 native checks passed. New checks cover locked reward on entry, cycling only
+unlocked hats, repeated-stage protection, three-clear locked state, migration
+of a premature version-4 unlock, fourth-clear auto-equip, visible frog-head
+mesh and persistence. Active crossing traversal at three phases still passes.
+Web release, debug web and Windows exports completed without errors.
+
+Five focused Chromium checks pass with zero runtime errors: fresh entry stays
+locked, cycling skips locked headwear, the lock survives reload, a completed
+four-stage saved-profile fixture renders the earned frog-head hat, and the
+reward joins the three-way cycle. The fixture tests rendering/load behavior;
+actual fourth-clear earning is verified by the native runtime checks above.
+The staged production export starts through the preserved WASM adapter with
+no Content-Encoding header, exposes no debug bridge and decodes to the exact
+39,514,754-byte engine hash. RiverSim, adapter and headers remain byte-identical.
+Evidence: /workspace/frog-hat-native.log, frog-hat-browser-results.json,
+frog-hat-staged-results.json and frog-hat-play.png.
+Real iPhone/Safari and Windows execution remain untested. Hosted gameplay
+inspection remains blocked by executor DNS/proxy restrictions.
+
+--- Earlier validation history ---
+
 # Baby Mode update — 2026-10-18
 
 51 native checks passed, including active-hazard full finale traversal at three

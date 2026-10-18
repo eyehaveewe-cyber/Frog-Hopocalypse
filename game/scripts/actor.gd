@@ -82,4 +82,4 @@ func set_hat(kind: Variant) -> void:
 	if is_player:
 		var selected: String = ("pharaoh" if kind else "none") if kind is bool else str(kind)
 		visual.get_node("HatSocket/PharaohHat").visible = selected == "pharaoh"
-		visual.get_node("HatSocket/BabyBonnet").visible = selected == "baby"
+		visual.get_node("HatSocket/BabyFrogHat").visible = selected == "baby"

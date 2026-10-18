@@ -3,7 +3,7 @@ const Data = preload("res://scripts/level_data.gd")
 const World = preload("res://scripts/world.gd")
 const MAZES = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtyard.json", "res://levels/violet_mire.json"]
 const BUILTINS = MAZES + ["res://levels/little_frog_crossing.json"]
-const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog bonnet"}
+const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat"}
 const INK = Color("f7f0d8")
 const MUTED = Color("b7c8b9")
 const LIME = Color("d5ec8d")
@@ -354,7 +354,7 @@ func show_menu() -> void:
 	world.halted = true
 	reset_overlay("Pharaoh Frog Hopán", "Small frog. Ancient trouble.")
 	overlay_box.add_child(label("BABY MODE", 24, LIME))
-	paragraph(overlay_box, "Difficulty 1 · Four stages\nThree familiar mazes, then a gentle traffic → logs → traffic finale.")
+	paragraph(overlay_box, "Difficulty 1 · Four stages\nThree familiar mazes, then a gentle traffic → logs → traffic finale.\nClear all four to unlock the baby frog hat.")
 	for i in range(BUILTINS.size()):
 		var index := i
 		var d := Data.load_json(BUILTINS[i])
@@ -409,8 +409,6 @@ func start_play(from_editor: bool = true) -> void:
 		return
 	mode = "test" if from_editor else "play"
 	checkpoint_spawn = []
-	if not from_editor and campaign_level:
-		unlock_baby_hat()
 	paused = false
 	sidebar.hide()
 	overlay.hide()
@@ -467,6 +465,9 @@ func on_finished(reason: String) -> void:
 		completed_stages.append(builtin_index)
 		save_profile()
 	var set_complete := reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and completed_stages.size() == BUILTINS.size()
+	var earned_hat := set_complete and "baby" not in unlocked_hats
+	if earned_hat:
+		unlock_baby_hat()
 	reset_overlay("BABY MODE COMPLETE!" if set_complete else reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths + (0 if reason == "LEVEL COMPLETE!" else 1)])
 	if reason != "LEVEL COMPLETE!":
 		deaths += 1
@@ -476,6 +477,8 @@ func on_finished(reason: String) -> void:
 		if mode == "play" and campaign_level:
 			if set_complete:
 				paragraph(overlay_box, "All four Baby Mode stages cleared! The little frog made it home.")
+				if earned_hat:
+					paragraph(overlay_box, "Unlocked: Baby frog hat! Equipped now. Press Hat to cycle your unlocked hats.")
 		if mode == "play" and campaign_level and builtin_index < BUILTINS.size() - 1:
 			button(overlay_box, "Next level →", func(): load_builtin(builtin_index + 1); start_play(false), true)
 	button(overlay_box, "Retry · R", retry, true)
@@ -533,11 +536,14 @@ func toggle_hat() -> void:
 	status(str(HAT_NAMES[hat]) + " · Hat cycles your unlocked headwear.")
 
 func unlock_baby_hat() -> void:
+	if completed_stages.size() != BUILTINS.size():
+		return
 	if "baby" not in unlocked_hats:
 		unlocked_hats.append("baby")
 		hat = "baby"
+		world.player.set_hat(hat)
 		if is_instance_valid(hat_button):
-			hat_button.tooltip_text = "Baby frog bonnet · Cycle unlocked hats"
+			hat_button.tooltip_text = "Baby frog hat · Cycle unlocked hats"
 		save_profile()
 
 func save_profile() -> void:
@@ -551,18 +557,21 @@ func save_profile() -> void:
 func load_profile() -> void:
 	unlocked_hats = ["none", "pharaoh"]
 	completed_stages = []
+	hat = "pharaoh"
 	var profile := ConfigFile.new()
 	if profile.load("user://profile.cfg") != OK:
 		return
-	if profile.get_value("hats", "baby_unlocked", false) == true:
-		unlocked_hats.append("baby")
-	var saved_hat: Variant = profile.get_value("hats", "equipped", "pharaoh")
-	hat = str(saved_hat) if saved_hat in unlocked_hats else "pharaoh"
 	var saved_stages: Variant = profile.get_value("baby_mode", "completed", [])
 	if saved_stages is Array:
 		for value in saved_stages:
 			if value is int and value >= 0 and value < BUILTINS.size() and value not in completed_stages:
 				completed_stages.append(value)
+	# Version 4 granted this hat on entry. Only completed sets qualify now;
+	# keep all legitimate stage progress and other equipped hats intact.
+	if completed_stages.size() == BUILTINS.size():
+		unlocked_hats.append("baby")
+	var saved_hat: Variant = profile.get_value("hats", "equipped", "pharaoh")
+	hat = str(saved_hat) if saved_hat in unlocked_hats else "pharaoh"
 
 func status(text: String) -> void:
 	if is_instance_valid(status_label):

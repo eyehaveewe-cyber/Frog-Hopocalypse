@@ -11,19 +11,33 @@ func run(app: Control, suite: RefCounted) -> void:
 	var invalid := level.duplicate(true)
 	invalid.objects[0].direction = true
 	suite.check(Data.validate(invalid) != "", "Malformed lane properties are rejected")
-	app.load_builtin(0)
-	app.start_play(false)
-	suite.check(app.hat == "baby" and "baby" in app.unlocked_hats and app.world.player.visual.get_node("HatSocket/BabyBonnet").visible, "Starting Baby Mode unlocks and equips the baby bonnet")
-	var cycled: Array = []
-	for _i in range(3):
-		app.toggle_hat()
-		cycled.append(app.hat)
-	suite.check(cycled == ["none", "pharaoh", "baby"], "Hat cycles only unlocked headwear, including bare head")
+	app.completed_stages = []
+	app.unlocked_hats = ["none", "pharaoh"]
 	app.hat = "pharaoh"
 	app.save_profile()
-	app.hat = "none"
+	app.load_builtin(0)
+	app.start_play(false)
+	suite.check("baby" not in app.unlocked_hats and app.hat == "pharaoh", "Entering Baby Mode keeps the reward hat locked")
+	var locked_cycle: Array = []
+	for _i in range(2):
+		app.toggle_hat()
+		locked_cycle.append(app.hat)
+	suite.check(locked_cycle == ["none", "pharaoh"], "Hat skips the locked baby frog hat")
+	app.world.finish("LEVEL COMPLETE!")
+	app.retry()
+	app.world.finish("LEVEL COMPLETE!")
+	suite.check(app.completed_stages == [0] and "baby" not in app.unlocked_hats, "Repeating one stage cannot earn the four-stage reward")
+	for index in [1, 2]:
+		app.load_builtin(index)
+		app.start_play(false)
+		app.world.finish("LEVEL COMPLETE!")
+	suite.check(app.completed_stages.size() == 3 and "baby" not in app.unlocked_hats, "Three distinct clears leave the baby frog hat locked")
+	# Migrate the brief version-4 entry reward without discarding stage clears.
+	app.unlocked_hats.append("baby")
+	app.hat = "baby"
+	app.save_profile()
 	app.load_profile()
-	suite.check(app.hat == "pharaoh" and "baby" in app.unlocked_hats, "Unlocked hats and equipped choice survive profile reload")
+	suite.check(app.completed_stages.size() == 3 and "baby" not in app.unlocked_hats and app.hat == "pharaoh", "An early legacy unlock is corrected while preserving stage progress")
 	app.load_builtin(3)
 	app.start_play(false)
 	await frame(app, 2)
@@ -81,11 +95,20 @@ func run(app: Control, suite: RefCounted) -> void:
 			survived = await walk(app, 2)
 		suite.check(survived and app.world.result == "LEVEL COMPLETE!", "Finale physically crossed with active traffic/logs at arrival phase %d" % delay)
 	app.completed_stages = [0, 1, 2]
+	app.unlocked_hats = ["none", "pharaoh"]
+	app.hat = "pharaoh"
 	app.load_builtin(3)
 	app.start_play(false)
 	app.world.finish("LEVEL COMPLETE!")
+	suite.check(app.completed_stages.size() == 4 and app.hat == "baby" and app.world.player.visual.get_node("HatSocket/BabyFrogHat").visible, "Fourth distinct clear unlocks and equips the baby frog-head hat")
+	var cycled: Array = []
+	for _i in range(3):
+		app.toggle_hat()
+		cycled.append(app.hat)
+	suite.check(cycled == ["none", "pharaoh", "baby"], "Earned frog hat joins the unlocked headwear cycle")
+	app.hat = "none"
 	app.load_profile()
-	suite.check(app.completed_stages.size() == 4, "All four Baby Mode stage completions persist")
+	suite.check(app.completed_stages.size() == 4 and app.hat == "baby" and "baby" in app.unlocked_hats, "Earned hat, selection and four distinct clears survive reload")
 
 func predicted_x(mover: Dictionary, after: float) -> float:
 	return wrapf(mover.node.position.x + mover.speed * after, -mover.limit, mover.limit)

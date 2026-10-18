@@ -63,8 +63,11 @@ three different arrival phases.
 
 Baby Mode has four bundled stages. `user://profile.cfg` stores unlocked hats,
 equipped headwear and completed stage indices; it is independent of custom map
-saves. The baby bonnet unlocks on first starting a Baby Mode stage and equips
-immediately. Hat cycling includes bare head and skips locked headwear.
+saves. The baby frog-head hat unlocks only after all four distinct campaign stages
+are complete and equips immediately. Repeated clears and editor playtests do
+not advance this reward. Hat cycling includes bare head and skips locked
+headwear. Loading an early version-4 unlock without four clears corrects the
+reward state while retaining valid stage progress.
 
 ## Presentation modes
 
