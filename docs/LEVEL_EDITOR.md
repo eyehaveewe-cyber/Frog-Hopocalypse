@@ -1,0 +1,39 @@
+# Build a maze
+
+Choose **Level editor** from the menu. All three bundled levels open in the same editor as your own maps. Choose **New Egypt** or **New Swamp** for an empty, enclosed 17 × 13 board.
+
+1. Give your level a name. Choose its Egyptian ruins or Purple Swamp-Woods theme.
+2. Select **Floor**, **Path**, **Wall**, or **Water**, then click or drag on the board. Walls block movement; water kills the frog. Floor and path are walkable. Move the start/exit first if you want to paint hazards over their old cells.
+3. Place the **Frog start** and **Exit gate** on different cells. These tools clear the selected cell for safe placement.
+4. Place pillars, trees, mushrooms, pots, critters, or dart traps. Each grid cell holds one object. Pillars, trees and traps block movement. Mushrooms and pots can be made solid in their inspector.
+5. Choose **Select** and click an object to open properties below the palette. Scroll the panel to see all properties. **R** rotates by 90 degrees. Traps show firing interval; critters show behavior and speed.
+6. For a patrol, select a critter, choose **Patrol route**, then click dry cells in travel order. Route points are numbered and connected. Include corners around walls; critters move directly between points and cannot pass through obstacles. The route loops; include return points as needed. **Clear route** removes waypoints. Patrol critters without routes wander.
+7. Click **Playtest** or press **Space**. Play uses the PS1-style perspective camera following the frog. Move freely using WASD/arrows. The grid controls placement, not movement. Avoid critters, water and darts. Reach **EXIT** to win. Press **M** or **Map** to pause and inspect the whole maze from overhead; **M** or **3D view** returns to play.
+8. Click **Back to editor** to retain the exact document. Play never changes authored positions or settings.
+9. **Save** keeps a local copy. **Duplicate** creates and saves an independent copy. Load maps from the saved-level dropdown or play them from the main menu.
+10. **Export JSON** downloads a map in the browser or opens a desktop Save dialog. **Import** accepts a file or pasted JSON. Imported maps are unsaved until you save them.
+
+Playtesting rejects invalid maps or maps with no dry, unblocked grid route to the exit. This checks basic connectivity, not hazard fairness. Playtest with the actual frog and critters.
+
+## Shortcuts
+
+| Action | Control |
+| --- | --- |
+| Move | WASD/arrows; touch joystick on mobile |
+| Retry | R or Retry |
+| Pause/resume | Esc or Pause |
+| Overhead map / return to 3D | M or Map / 3D view |
+| Paint/place | Left click; drag terrain |
+| Erase | Right click or Erase tool |
+| Rotate selection | R |
+| Playtest | Space |
+| Undo | Ctrl+Z / Cmd+Z |
+| Redo | Ctrl+Y / Ctrl+Shift+Z / Cmd+Shift+Z |
+| Save | Ctrl+S / Cmd+S |
+| Toggle headdress | Hat button |
+
+## Save locations
+
+Desktop saves use Godot's `user://library.json`. Browser saves use browser-local IndexedDB on the current site's origin. Clearing site data or switching hostnames can remove or separate saves. **Export JSON is the portable backup**; it contains map data without game code. Renaming and saving updates the current slot; Duplicate allocates a new slot. Imported maps allocate a slot on their first save.
+
+The editor targets desktop mouse and keyboard. Mobile provides landscape gameplay and large touch controls; touch editing is not polished. Hiding the tab pauses gameplay; use Resume after returning.

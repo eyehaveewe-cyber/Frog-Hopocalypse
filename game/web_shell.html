@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#132c23">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="Play Hopocalypse: Pharaoh Frog Hopán and build your own 3D arcade mazes in its integrated level editor.">
+<title>Hopán — Hopocalypse</title>
+$GODOT_HEAD_INCLUDE
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#132c23;color:#f7f0d8;font:16px system-ui,sans-serif;touch-action:none}#canvas{display:block;width:100%;height:100%;outline:none}#loading{position:fixed;inset:0;display:grid;place-content:center;text-align:center;background:#132c23;z-index:5;padding:24px}h1{font-size:64px;letter-spacing:-4px;color:#d5ec8d;margin:0 0 16px}p{color:#b7c8b9;max-width:440px;line-height:1.6}progress{width:100%;accent-color:#d5ec8d}#orientation{display:none;position:fixed;inset:0;background:#132c23;place-content:center;text-align:center;z-index:4;padding:30px}@media(orientation:portrait) and (max-width:600px){#orientation{display:grid}}button{padding:14px 22px;background:#d5ec8d;color:#18352b;border:0;border-radius:6px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<canvas id="canvas" tabindex="0" aria-label="Hopán 3D game and level editor. Use WASD or arrow keys to move, R to retry, and Escape to pause.">Your browser needs canvas and WebGL 2 to play Hopán.</canvas>
+<div id="loading"><h1>hopán ↗</h1><p id="message">Waking the frog. Dusting the ruins.</p><progress id="progress"></progress></div>
+<div id="orientation"><h2>A little more room to hop.</h2><p>Rotate your phone to landscape for the game. The level editor is designed for a desktop mouse and keyboard.</p><button onclick="this.parentElement.style.display='none'">Continue in portrait</button></div>
+<noscript>Hopán requires JavaScript and WebGL 2.</noscript>
+<script src="$GODOT_URL"></script>
+<script>
+const config=$GODOT_CONFIG;
+const engine=new Engine(config);
+const message=document.getElementById('message');
+const progress=document.getElementById('progress');
+const missing=Engine.getMissingFeatures({threads:false});
+if(missing.length){message.textContent='This browser is missing: '+missing.join(', ')+'. Try a current Safari, Chrome, Firefox, or Edge.';progress.hidden=true;}
+else{
+  if(new URLSearchParams(location.search).has('browser-test')) config.args=['--browser-test'];
+  engine.startGame({canvas:document.getElementById('canvas'),args:config.args||[],onProgress:(current,total)=>{if(total){progress.max=total;progress.value=current;}}}).then(()=>{document.getElementById('loading').remove();document.getElementById('canvas').focus();}).catch(error=>{message.textContent='The frog could not start: '+error.message;progress.hidden=true;});
+}
+document.addEventListener('contextmenu',e=>e.preventDefault());
+</script>
+</body>
+</html>

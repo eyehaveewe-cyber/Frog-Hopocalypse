@@ -1,0 +1,432 @@
+{
+	"exit": [
+		15,
+		1
+	],
+	"height": 13,
+	"name": "Violet Mire",
+	"objects": [
+		{
+			"behavior": "wander",
+			"id": "mire-1",
+			"pos": [
+				5,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.2,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "mire-2",
+			"pos": [
+				3,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "mire-3",
+			"pos": [
+				11,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.5,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "mire-4",
+			"pos": [
+				15,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.5,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "patrol",
+			"id": "mire-patrol",
+			"pos": [
+				7,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.4,
+			"type": "critter",
+			"waypoints": [
+				[
+					3,
+					3
+				],
+				[
+					7,
+					3
+				]
+			]
+		},
+		{
+			"behavior": "patrol",
+			"id": "mire-patrol-2",
+			"pos": [
+				13,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.8,
+			"type": "critter",
+			"waypoints": [
+				[
+					10,
+					1
+				],
+				[
+					15,
+					1
+				]
+			]
+		},
+		{
+			"id": "tree-1",
+			"pos": [
+				1,
+				1
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "tree-2",
+			"pos": [
+				5,
+				7
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "tree-3",
+			"pos": [
+				11,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "glow-1",
+			"pos": [
+				2,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		},
+		{
+			"id": "glow-2",
+			"pos": [
+				9,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		},
+		{
+			"id": "glow-3",
+			"pos": [
+				13,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		},
+		{
+			"id": "glow-4",
+			"pos": [
+				1,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		}
+	],
+	"spawn": [
+		1,
+		11
+	],
+	"theme": "swamp",
+	"tiles": [
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"water",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		]
+	],
+	"version": 1,
+	"width": 17
+}

@@ -1,0 +1,387 @@
+{
+	"exit": [
+		8,
+		1
+	],
+	"height": 13,
+	"name": "Moonlit Oasis",
+	"objects": [
+		{
+			"id": "oasis-palm-1",
+			"pos": [
+				3,
+				3
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "oasis-palm-2",
+			"pos": [
+				13,
+				3
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "oasis-palm-3",
+			"pos": [
+				7,
+				5
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "oasis-palm-4",
+			"pos": [
+				9,
+				5
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "oasis-pillar-1",
+			"pos": [
+				7,
+				1
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"id": "oasis-pillar-2",
+			"pos": [
+				9,
+				1
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"behavior": "wander",
+			"id": "oasis-scarab-1",
+			"pos": [
+				3,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.25,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "oasis-scarab-2",
+			"pos": [
+				11,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.35,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "patrol",
+			"id": "oasis-patrol",
+			"pos": [
+				8,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.2,
+			"type": "critter",
+			"waypoints": [
+				[
+					6,
+					3
+				],
+				[
+					10,
+					3
+				]
+			]
+		},
+		{
+			"behavior": "wander",
+			"id": "oasis-scarab-3",
+			"pos": [
+				1,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.1,
+			"type": "critter",
+			"waypoints": []
+		}
+	],
+	"spawn": [
+		8,
+		11
+	],
+	"theme": "egypt",
+	"tiles": [
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"path",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"path",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		]
+	],
+	"version": 1,
+	"width": 17
+}

@@ -1,0 +1,421 @@
+{
+	"exit": [
+		15,
+		1
+	],
+	"height": 13,
+	"name": "Pharaoh's Courtyard",
+	"objects": [
+		{
+			"behavior": "wander",
+			"id": "scarab-1",
+			"pos": [
+				5,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.4,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "scarab-2",
+			"pos": [
+				3,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.5,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "scarab-3",
+			"pos": [
+				11,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.8,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "scarab-4",
+			"pos": [
+				13,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "patrol",
+			"id": "snake-1",
+			"pos": [
+				9,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.7,
+			"type": "critter",
+			"waypoints": [
+				[
+					7,
+					1
+				],
+				[
+					11,
+					1
+				],
+				[
+					15,
+					1
+				],
+				[
+					11,
+					1
+				]
+			]
+		},
+		{
+			"behavior": "patrol",
+			"id": "snake-2",
+			"pos": [
+				15,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.5,
+			"type": "critter",
+			"waypoints": [
+				[
+					15,
+					3
+				],
+				[
+					15,
+					9
+				]
+			]
+		},
+		{
+			"id": "trap-1",
+			"interval": 2.75,
+			"pos": [
+				7,
+				9
+			],
+			"rotation": 90,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "column-1",
+			"pos": [
+				5,
+				1
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"id": "column-2",
+			"pos": [
+				9,
+				5
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"id": "urn-1",
+			"pos": [
+				3,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "decoration"
+		},
+		{
+			"id": "urn-2",
+			"pos": [
+				11,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "decoration"
+		}
+	],
+	"spawn": [
+		1,
+		11
+	],
+	"theme": "egypt",
+	"tiles": [
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		]
+	],
+	"version": 1,
+	"width": 17
+}
