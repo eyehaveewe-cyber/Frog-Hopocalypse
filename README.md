@@ -71,7 +71,7 @@ The root streams deterministic gzip WASM through `hopan-wasm.js`; RiverSim retai
 
 
 Android startup uses the same root URL and saves. Android defaults to compatibility
-graphics: original textured geometry with standard vertex-lit materials, a plain
+graphics: original textured geometry with standard unshaded materials, a plain
 sky and no custom postprocess. Mobile canvas resolution is capped at CSS pixels.
 [Force compatibility mode](https://hopan.fiiendward.chatgpt.site/?compat=1) or use
 `?compat=0` for full retro shaders. No separate /droid export is needed.

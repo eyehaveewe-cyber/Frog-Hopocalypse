@@ -35,31 +35,32 @@ var crossing: Node3D
 func _ready() -> void:
 	var env := WorldEnvironment.new()
 	var settings := Environment.new()
-	settings.background_mode = Environment.BG_SKY
-	var sky := Sky.new()
-	var sky_material := ShaderMaterial.new()
-	sky_material.shader = preload("res://shaders/night_sky.gdshader")
-	sky.sky_material = sky_material
-	settings.sky = sky
 	if Art.compatibility_mode:
 		settings.background_mode = Environment.BG_COLOR
 		settings.background_color = Color("14243a")
-		settings.sky = null
+	else:
+		settings.background_mode = Environment.BG_SKY
+		var sky := Sky.new()
+		var sky_material := ShaderMaterial.new()
+		sky_material.shader = preload("res://shaders/night_sky.gdshader")
+		sky.sky_material = sky_material
+		settings.sky = sky
 	settings.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	settings.ambient_light_color = Color("cad4ed")
 	settings.ambient_light_energy = 0.55
 	settings.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 	env.environment = settings
 	add_child(env)
-	var sun := DirectionalLight3D.new()
-	sun.rotation_degrees = Vector3(-55, -30, 0)
-	sun.light_color = Color("eadba8")
-	sun.light_energy = 0.8
-	# Short maze walls and ambient fill preserve readability on mobile. Avoid the
-	# four-cascade shadow pass on each tiny modular mesh in the WebGL build.
-	sun.shadow_enabled = false
-	sun.directional_shadow_max_distance = 65
-	add_child(sun)
+	if not Art.compatibility_mode:
+		var sun := DirectionalLight3D.new()
+		sun.rotation_degrees = Vector3(-55, -30, 0)
+		sun.light_color = Color("eadba8")
+		sun.light_energy = 0.8
+		# Short maze walls and ambient fill preserve readability on mobile. Avoid the
+		# four-cascade shadow pass on each tiny modular mesh in the WebGL build.
+		sun.shadow_enabled = false
+		sun.directional_shadow_max_distance = 65
+		add_child(sun)
 	camera = Camera3D.new()
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.current = true

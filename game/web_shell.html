@@ -21,14 +21,14 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#132c23;col
 (() => {
   const loading=document.getElementById('loading'), message=document.getElementById('message'), progress=document.getElementById('progress'), recovery=document.getElementById('recovery'), detail=document.getElementById('detail'), canvas=document.getElementById('canvas');
   let ready=false, failed=false, lastUpdate=Date.now(), lastBytes=-1;
-  const diagnostics=[];
+  const diagnostics=[], firstErrors=[];
   window.hopanBoot={
     fail(text,reason){
       failed=true;
       if(!loading.isConnected) document.body.appendChild(loading);
       message.textContent=text; progress.hidden=true; recovery.hidden=false;
-      if(reason) diagnostics.push(String(reason).slice(0,500));
-      detail.textContent=diagnostics.slice(-5).join('\n');
+      if(reason&&firstErrors.length<3) firstErrors.push(String(reason).slice(0,12000));
+      detail.textContent=[...new Set([...firstErrors,...diagnostics.slice(-32)])].join('\n');
     },
     progress(current,total){
       if(failed) return;
@@ -39,10 +39,45 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#132c23;col
     started(){if(!failed&&!ready){message.textContent='Drawing the first frame…';lastUpdate=Date.now();}},
     ready(){if(failed)return;ready=true;loading.remove();canvas.focus();},
     log(text){
-      diagnostics.push(String(text).slice(0,500));
+      // Keep the multiline driver explanation, not just the engine's final
+      // "Method/function failed". Shader logs often exceed 500 characters.
+      diagnostics.push(String(text).slice(0,12000));
+      if(diagnostics.length>32) diagnostics.shift();
       if(/SCRIPT ERROR|ERROR:|out of memory|failed to initialize|shader.*(error|failed)/i.test(text)) this.fail('The game could not draw. Try compatibility mode or reload.',text);
     }
   };
+  // Explicit diagnostic mode only: querying LINK_STATUS synchronizes shader
+  // compilation, so normal startup must not pay that cost. This records the
+  // real engine context rather than claiming a separate probe matches it.
+  if(new URLSearchParams(location.search).get('graphics-debug')==='1'){
+    const report=window.hopanGraphicsReport={userAgent:navigator.userAgent,contexts:[],failures:[]};
+    const getContext=canvas.getContext.bind(canvas), seen=new WeakSet();
+    canvas.getContext=(type,...args)=>{
+      const gl=getContext(type,...args);
+      if(type!=='webgl2'||!gl||seen.has(gl))return gl;
+      seen.add(gl);
+      const info={};
+      for(const key of ['VERSION','SHADING_LANGUAGE_VERSION','VENDOR','RENDERER','MAX_VARYING_VECTORS','MAX_VERTEX_OUTPUT_COMPONENTS','MAX_FRAGMENT_INPUT_COMPONENTS','MAX_VERTEX_TEXTURE_IMAGE_UNITS','MAX_TEXTURE_IMAGE_UNITS','MAX_COMBINED_TEXTURE_IMAGE_UNITS','MAX_VERTEX_UNIFORM_VECTORS','MAX_FRAGMENT_UNIFORM_VECTORS'])info[key]=gl.getParameter(gl[key]);
+      const debug=gl.getExtension('WEBGL_debug_renderer_info');
+      if(debug){info.gpu=gl.getParameter(debug.UNMASKED_RENDERER_WEBGL);info.vendor=gl.getParameter(debug.UNMASKED_VENDOR_WEBGL);}
+      const precision=gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER,gl.HIGH_FLOAT);
+      info.fragmentHighFloat=precision&&{rangeMin:precision.rangeMin,rangeMax:precision.rangeMax,precision:precision.precision};
+      report.contexts.push(info);
+      const link=gl.linkProgram.bind(gl);
+      gl.linkProgram=program=>{
+        link(program);
+        if(!gl.getProgramParameter(program,gl.LINK_STATUS)&&report.failures.length<2){
+          const failure={log:gl.getProgramInfoLog(program),shaders:(gl.getAttachedShaders(program)||[]).map(shader=>({type:gl.getShaderParameter(shader,gl.SHADER_TYPE),compiled:gl.getShaderParameter(shader,gl.COMPILE_STATUS),log:gl.getShaderInfoLog(shader),source:gl.getShaderSource(shader)}))};
+          report.failures.push(failure);
+          hopanBoot.log('ERROR: WebGL program linking failed: '+failure.log);
+        }
+      };
+      return gl;
+    };
+    const download=document.createElement('button');download.textContent='Save graphics report';
+    download.onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({...report,firstErrors,messages:diagnostics},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='hopan-graphics.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+    recovery.appendChild(download);
+  }
   document.getElementById('reload').onclick=()=>location.reload();
   document.getElementById('compat').onclick=()=>{const url=new URL(location.href);url.searchParams.set('compat','1');location.assign(url.href);};
   addEventListener('error',event=>hopanBoot.fail('The game could not load. Reload or try compatibility mode.',event.message||'A game file did not load.'));
@@ -66,6 +101,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#132c23;col
     config.args=[];
     if(query.has('browser-test'))config.args.push('--browser-test');
     if(compatibility)config.args.push('--compat');
+    if(window.hopanGraphicsReport)window.hopanGraphicsReport.args=[...config.args];
     config.onPrintError=(...args)=>{console.error(...args);hopanBoot.log(args.join(' '));};
     config.onExit=code=>hopanBoot.fail('The game stopped. Reload to hop again.','Engine exit '+code);
     const canvas=document.getElementById('canvas');
