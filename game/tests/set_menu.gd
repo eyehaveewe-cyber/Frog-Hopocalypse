@@ -62,7 +62,7 @@ func run() -> void:
  app.show_menu()
  suite.check(node("Set_bonus")!=null and not node("Stages_bonus").visible,"Bonus set is present immediately and starts collapsed")
  node("Expand_bonus").pressed.emit()
- suite.check(node("Stages_bonus").get_child_count()==1,"Bonus expands to exactly the authored Shelby stage")
+ suite.check(node("Stages_bonus").get_child_count()==app.BONUS_LEVELS.size(),"Bonus expands to Shelby and the new regular-mode movement demo")
  suite.check(FileAccess.get_sha256(app.BONUS_LEVELS[0])=="3341a1fcd91c81f89d2bb0abdfbc787e54d338f2aa2e1c0a7f01c39bcdc03aa8","Shelby's exact original attachment bytes are bundled")
  node("Set_bonus").pressed.emit()
  suite.check(app.mode=="play" and app.campaign_set=="bonus" and app.level.name=="Shelby" and app.world.active,"Original pre-cheese-wall Shelby launches from a fresh profile")

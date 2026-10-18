@@ -14,8 +14,10 @@ const MAZES = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtya
 const BUILTINS = MAZES + ["res://levels/little_frog_crossing.json"]
 const HUMAN_TITLE = "Not as Hard as It Looks"
 const HUMAN_LEVELS = ["res://levels/not_as_hard/Hardbutt.json", "res://levels/not_as_hard/Gloopbutt.json", "res://levels/not_as_hard/Treebutt.json", "res://levels/not_as_hard/Frogbutt.json"]
-const BONUS_LEVELS = ["res://levels/bonus/Shelby.json"]
-const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus"}
+const TILE_LEVELS = ["res://levels/tile_hop/big_hop_boulevard.json", "res://levels/tile_hop/your_move_crossing.json"]
+const MOVE_DEMO = "res://levels/bonus/your_move_hopan.json"
+const BONUS_LEVELS = ["res://levels/bonus/Shelby.json", MOVE_DEMO]
+const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus", "tile": "Tile Hop"}
 const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat"}
 const INK = Color("f7f0d8")
 const MUTED = Color("b7c8b9")
@@ -66,6 +68,11 @@ var unlocked_hats: Array = ["none", "pharaoh"]
 var completed_stages: Array = []
 var completed_human_stages: Array = []
 var completed_bonus_stages: Array = []
+var completed_tile_stages: Array = []
+var long_hop_button: Button
+var tile_mode_toggle: CheckButton
+var movement_toggle: CheckButton
+var draw_distance_picker: SpinBox
 var last_cleared_stages: Dictionary = {}
 var campaign_set := "baby"
 var campaign_level := false
@@ -78,6 +85,7 @@ var last_view_size := Vector2.ZERO
 var last_render_size := Vector2i.ZERO
 var thumb := Vector2.ZERO
 var touch_index := -1
+var tile_touch_queued := false
 var touch_origin := Vector2.ZERO
 var touch_knob: Control
 var joystick: Control
@@ -217,6 +225,11 @@ func build_ui() -> void:
 	hat_button.tooltip_text = str(HAT_NAMES[hat]) + " · Cycle unlocked hats"
 	map_button = button(top, "Map", toggle_map)
 	map_button.tooltip_text = "M: inspect the overhead map; the world pauses"
+	long_hop_button = button(top, "Long hop", func(): pass)
+	long_hop_button.add_theme_font_size_override("font_size",13)
+	long_hop_button.toggle_mode = true
+	long_hop_button.tooltip_text = "Next hop covers two tiles. Hold Shift with a direction on keyboard."
+	long_hop_button.hide()
 	pause_button = button(top, "Pause", toggle_pause)
 	edit_button = button(top, "Editor", func():
 		if mode == "edit":
@@ -254,8 +267,27 @@ func build_ui() -> void:
 	size_picker = OptionButton.new()
 	size_picker.add_item("Standard · 17 × 13")
 	size_picker.add_item("Large · 21 × 16 · +52% area")
+	size_picker.add_item("Tour · 33 × 49")
 	size_picker.tooltip_text = "Size for the next new maze. Your current level stays intact."
 	tools.add_child(size_picker)
+	tile_mode_toggle = CheckButton.new()
+	tile_mode_toggle.text = "Tile-hop mode"
+	tile_mode_toggle.tooltip_text = "Cardinal tile movement for the frog, enemies, cars, logs and darts."
+	tile_mode_toggle.toggled.connect(func(value: bool): set_level_rule("game_mode", "tile" if value else "hopan"))
+	tools.add_child(tile_mode_toggle)
+	movement_toggle = CheckButton.new()
+	movement_toggle.text = "Move with me"
+	movement_toggle.tooltip_text = "Hazards advance only with your movement. Works in both modes."
+	movement_toggle.toggled.connect(func(value: bool): set_level_rule("move_with_me",value))
+	tools.add_child(movement_toggle)
+	draw_distance_picker = SpinBox.new()
+	draw_distance_picker.min_value = 10
+	draw_distance_picker.max_value = 30
+	draw_distance_picker.step = 1
+	draw_distance_picker.suffix = "tiles visible"
+	draw_distance_picker.value_changed.connect(func(value: float): set_level_rule("draw_distance",value))
+	tools.add_child(draw_distance_picker)
+	button(tools, "Movement demos", show_movement_demos)
 	var new_row := row(tools)
 	button(new_row, "New Egypt", func(): new_level("egypt"))
 	button(new_row, "New Swamp", func(): new_level("swamp"))
@@ -310,6 +342,8 @@ func build_ui() -> void:
 	world.touch_mode = mobile_ui
 	view.add_child(world)
 	world.finished.connect(on_finished)
+	world.hint_changed.connect(status)
+	world.hop_started.connect(func(_big: bool): long_hop_button.set_pressed_no_signal(false))
 	world.checkpoint_reached.connect(func(point: Array):
 		checkpoint_spawn = point.duplicate()
 		if point not in checkpoint_history:
@@ -406,6 +440,11 @@ func show_menu() -> void:
 		add_set_selector("human", "Difficulty 2")
 	if BONUS_LEVELS.any(func(path: String): return FileAccess.file_exists(path)):
 		add_set_selector("bonus", "Difficulty: Unrated")
+	if tile_mode_unlocked():
+		overlay_box.add_child(label("Tile-hop mode", 16, MUTED))
+		add_set_selector("tile", "Difficulty 2")
+	else:
+		paragraph(overlay_box, "Clear Not as Hard as It Looks to unlock Tile Hop.",12)
 	preview_toggle = CheckButton.new()
 	preview_toggle.text = "Exit Preview"
 	preview_toggle.tooltip_text = "At stage start, sweep to the exit and back. Hazards and the timer wait."
@@ -447,6 +486,47 @@ func set_sound_enabled(enabled: bool) -> void:
 		menu_sound_toggle.set_pressed_no_signal(enabled)
 	save_profile()
 
+func tile_mode_unlocked() -> bool:
+	return completed_human_stages.size() == HUMAN_LEVELS.size()
+
+func set_level_rule(key: String, value: Variant) -> void:
+	if ui_busy or level.is_empty(): return
+	record_undo()
+	level[key] = value
+	if key == "game_mode" and value == "tile":
+		# Match the legacy cell ownership rule while making the new grid explicit.
+		for obj in level.objects:
+			if obj.get("behavior") == "seam_patrol": continue
+			obj.pos = [floori(float(obj.pos[0])),floori(float(obj.pos[1]))]
+			if obj.has("waypoints"):
+				for i in range(obj.waypoints.size()):
+					obj.waypoints[i] = [floori(float(obj.waypoints[i][0])),floori(float(obj.waypoints[i][1]))]
+			if obj.type == "emitter": obj.rotation = roundf(float(obj.get("rotation",0))/90)*90
+	rebuild()
+	if key == "game_mode" and value == "tile": status("Tile Hop: actors snap to tile positions. Undo restores the previous layout.")
+
+func show_movement_demos() -> void:
+	reset_overlay("Movement demos", "Load into the editor. Undo restores your previous map.")
+	var titles := ["Big Hop Boulevard", "Your Move Crossing", "Your Move Garden"]
+	for i in range(titles.size()):
+		var index := i
+		button(overlay_box, titles[i], func(): open_movement_demo(index))
+	button(overlay_box,"Keep editing",func(): overlay.hide())
+
+func open_movement_demo(index: int) -> void:
+	var paths: Array = TILE_LEVELS + [MOVE_DEMO]
+	if index < 0 or index >= paths.size(): return
+	var demo := Data.load_json(paths[index])
+	if demo.is_empty():
+		status("Could not load the movement demo.")
+		return
+	record_undo()
+	level = demo
+	slot_id = ""
+	selection = ""
+	enter_editor()
+	status("Movement demo loaded. Undo restores the previous map; Save keeps a copy.")
+
 func human_set_unlocked() -> bool:
 	return completed_stages.size() == BUILTINS.size()
 
@@ -458,7 +538,11 @@ func play_builtin(index: int, set_key: String = "baby") -> void:
 		start_play(false)
 
 func load_builtin(index: int, set_key: String = "baby") -> bool:
-	if set_key not in SET_TITLES or (set_key == "human" and not human_set_unlocked()):
+	if set_key not in SET_TITLES: return false
+	if set_key == "tile" and not tile_mode_unlocked():
+		status("Complete " + HUMAN_TITLE + " to unlock Tile Hop.")
+		return false
+	if set_key == "human" and not human_set_unlocked():
 		status("Complete Baby Mode to unlock " + HUMAN_TITLE + ".")
 		return false
 	var paths: Array = paths_for_set(set_key)
@@ -504,13 +588,18 @@ func start_play(from_editor: bool = true) -> void:
 	configure_view()
 	if exit_preview:
 		world.begin_exit_preview()
+	mode_label.visible = not (mobile_ui and level.get("game_mode") == "tile")
 	mode_label.text = "PLAYTEST" if from_editor else ((str(SET_TITLES[campaign_set]).to_upper() + " · %d / %d") % [builtin_index + 1, campaign_paths().size()] if campaign_level else "CUSTOM LEVEL")
 	edit_button.hide()
 	pause_button.text = "Pause"
 	pause_button.show()
 	joystick.visible = DisplayServer.is_touchscreen_available()
+	long_hop_button.visible = level.get("game_mode", "hopan") == "tile"
+	long_hop_button.set_pressed_no_signal(false)
 	status(level.name + (" · Reach checkpoints to save your place for retries." if level.has("checkpoint") or not level.get("checkpoints", []).is_empty() else " · WASD / arrows to move. M: map. R: retry."))
 	reset_touch()
+	if level.get("game_mode") == "tile":
+		status("Tile Hop · arrows / WASD: one tile · Shift or Long hop: two · Walls block both." + (" Move with me: stop to freeze hazards." if level.get("move_with_me",false) else ""))
 	start_announcements()
 
 func enter_editor() -> void:
@@ -521,6 +610,7 @@ func enter_editor() -> void:
 	checkpoint_spawn = []
 	checkpoint_history = []
 	mode = "edit"
+	long_hop_button.hide()
 	paused = false
 	sidebar.show()
 	overlay.hide()
@@ -529,6 +619,7 @@ func enter_editor() -> void:
 	map_button.hide()
 	world.load_level(level, true, hat)
 	configure_view()
+	mode_label.show()
 	mode_label.text = "WORKSHOP"
 	edit_button.text = "Playtest ▶"
 	edit_button.show()
@@ -606,12 +697,13 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 		if mode == "play" and campaign_level:
 			if set_complete:
 				if campaign_set == "human":
-					paragraph(overlay_box, "All four human-made stages cleared! " + HUMAN_TITLE + ".")
+					paragraph(overlay_box, "All four human-made stages cleared! Tile Hop is unlocked.")
+					button(overlay_box, "Start · Tile Hop", func(): play_builtin(0,"tile"),true)
 				elif campaign_set == "baby":
 					paragraph(overlay_box, "All four Baby Mode stages cleared! " + HUMAN_TITLE + " is unlocked.")
 					button(overlay_box, "Start · " + HUMAN_TITLE, func(): play_builtin(0, "human"), true)
 				else:
-					paragraph(overlay_box, "Bonus set cleared!")
+					paragraph(overlay_box, "Tile Hop demos cleared!" if campaign_set == "tile" else "Bonus set cleared!")
 				if earned_hat:
 					paragraph(overlay_box, "Unlocked: Baby frog hat! Equipped now. Press Hat to cycle your unlocked hats.")
 		if mode == "play" and campaign_level and builtin_index < campaign_paths().size() - 1:
@@ -694,13 +786,14 @@ func save_profile() -> void:
 	profile.set_value("baby_mode", "completed", completed_stages)
 	profile.set_value("not_as_hard", "completed", completed_human_stages)
 	profile.set_value("bonus", "completed", completed_bonus_stages)
+	profile.set_value("tile_hop", "completed", completed_tile_stages)
 	profile.set_value("sets", "last_cleared", last_cleared_stages)
 	var file_saved := profile.save("user://profile.cfg") == OK
 	var browser_saved := false
 	if OS.has_feature("web"):
 		# IndexedDB filesystem sync is asynchronous. Keep the small profile durable
 		# immediately as well, so a quick reload cannot restore an older hat/clear.
-		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "last_cleared": last_cleared_stages, "hat": hat, "preview": exit_preview, "sound": sound_enabled})
+		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "last_cleared": last_cleared_stages, "hat": hat, "preview": exit_preview, "sound": sound_enabled})
 		browser_saved = bool(JavaScriptBridge.eval("(function(){try{localStorage.setItem('hopan.profile.v1', " + JSON.stringify(payload) + ");return true;}catch(e){return false;}})()", true))
 	if not file_saved and not browser_saved:
 		status("Could not save progress on this device.")
@@ -710,6 +803,7 @@ func load_profile() -> void:
 	completed_stages = []
 	completed_human_stages = []
 	completed_bonus_stages = []
+	completed_tile_stages = []
 	last_cleared_stages = {}
 	hat = "pharaoh"
 	var profile := ConfigFile.new()
@@ -725,6 +819,8 @@ func load_profile() -> void:
 				profile.set_value("not_as_hard", "completed", backup.human)
 				if backup.get("bonus") is Array:
 					profile.set_value("bonus", "completed", backup.bonus)
+				if backup.get("tile") is Array:
+					profile.set_value("tile_hop", "completed", backup.tile)
 				if backup.get("last_cleared") is Dictionary:
 					profile.set_value("sets", "last_cleared", backup.last_cleared)
 				profile.set_value("hats", "equipped", backup.hat)
@@ -751,6 +847,11 @@ func load_profile() -> void:
 		for value in saved_bonus:
 			if value is int and value >= 0 and value < BONUS_LEVELS.size() and value not in completed_bonus_stages:
 				completed_bonus_stages.append(value)
+	var saved_tiles: Variant = profile.get_value("tile_hop", "completed", [])
+	if saved_tiles is Array:
+		for value in saved_tiles:
+			if value is int and value >= 0 and value < TILE_LEVELS.size() and value not in completed_tile_stages:
+				completed_tile_stages.append(value)
 	var saved_last: Variant = profile.get_value("sets", "last_cleared", {})
 	if saved_last is Dictionary:
 		for set_key in SET_TITLES:
@@ -774,6 +875,9 @@ func sync_editor() -> void:
 	if level.is_empty():
 		return
 	ui_busy = true
+	tile_mode_toggle.set_pressed_no_signal(level.get("game_mode", "hopan") == "tile")
+	movement_toggle.set_pressed_no_signal(level.get("move_with_me", false))
+	draw_distance_picker.set_value_no_signal(level.get("draw_distance",18))
 	name_field.text = level.name
 	theme_picker.select(0 if level.theme == "egypt" else 1)
 	undo_button.disabled = undo_stack.is_empty()
@@ -1005,7 +1109,11 @@ func refresh_inspector() -> void:
 		speed.value = obj.get("speed", 1.6)
 		speed.suffix = "speed"
 		speed.value_changed.connect(func(v: float): change_property("speed", v))
-		inspector.add_child(speed)
+		if level.get("game_mode") == "tile":
+			speed.queue_free()
+			paragraph(inspector,"Tile mode · one tile per beat",12)
+		else:
+			inspector.add_child(speed)
 		var route_controls := row(inspector)
 		var draw_route := button(route_controls, "Draw route", func(): set_tool("route"))
 		draw_route.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1025,15 +1133,16 @@ func refresh_inspector() -> void:
 		var interval := SpinBox.new()
 		interval.min_value = 0.5
 		interval.max_value = 10
-		interval.step = 0.25
+		interval.step = 1.0 if level.get("game_mode") == "tile" else 0.25
 		interval.value = obj.get("interval", 2.5)
-		interval.suffix = "sec / shot"
+		interval.suffix = "beats / shot" if level.get("game_mode") == "tile" else "sec / shot"
 		interval.value_changed.connect(func(v: float): change_property("interval", v))
 		inspector.add_child(interval)
 		paragraph(inspector, "0° fires north · 90° west\n180° south · 270° east", 11)
 	if obj.type in ["car", "patrol_car", "log"]:
 		for field in [["length", 1.0, 1.0 if obj.type == "patrol_car" else 6.0, "cells long"], ["speed", 0.3, 4.0, "lane speed"]]:
 			var key: String = field[0]
+			if key == "speed" and level.get("game_mode") == "tile": continue
 			var value := SpinBox.new()
 			value.min_value = field[1]
 			value.max_value = field[2]
@@ -1042,6 +1151,7 @@ func refresh_inspector() -> void:
 			value.suffix = field[3]
 			value.value_changed.connect(func(v: float): change_property(key, v))
 			inspector.add_child(value)
+		if level.get("game_mode") == "tile": paragraph(inspector,"Tile mode · one tile per beat",12)
 		var direction_text := "right →" if obj.get("direction", 1) == 1 else "← left"
 		if obj.type == "patrol_car":
 			direction_text = ("south" if obj.get("direction",1) == 1 else "north") if obj.get("axis") == "north_south" else ("east" if obj.get("direction",1) == 1 else "west")
@@ -1232,7 +1342,7 @@ func import_text(text: String) -> bool:
 
 func new_level(theme_name: String = "egypt") -> void:
 	record_undo()
-	level = Data.blank("My magnificent maze", theme_name, 21 if size_picker.selected == 1 else 17, 16 if size_picker.selected == 1 else 13)
+	level = Data.blank("My magnificent maze", theme_name, [17,21,33][size_picker.selected], [13,16,49][size_picker.selected])
 	slot_id = ""
 	selection = ""
 	enter_editor()
@@ -1240,6 +1350,7 @@ func new_level(theme_name: String = "egypt") -> void:
 func reset_touch() -> void:
 	thumb = Vector2.ZERO
 	touch_index = -1
+	tile_touch_queued = false
 	if is_instance_valid(touch_knob):
 		touch_knob.position = Vector2(42, 42)
 
@@ -1270,6 +1381,7 @@ func _process(delta: float) -> void:
 		if thumb.length() > 0.05:
 			movement = thumb
 	world.input_vector = movement.limit_length()
+	world.long_hop_input = Input.is_physical_key_pressed(KEY_SHIFT) or long_hop_button.button_pressed
 	time_label.text = "%.1fs  /  %d croaks" % [world.elapsed, deaths] if mode in ["play", "test"] else "%d × %d · v1 JSON" % [level.width, level.height]
 	if mode == "edit" and not overlay.visible:
 		var local := viewport_position(get_global_mouse_position())
@@ -1325,7 +1437,7 @@ func publish_browser_probe() -> void:
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:
@@ -1339,6 +1451,10 @@ func _input(event: InputEvent) -> void:
 		return
 	var focused := get_viewport().gui_get_focus_owner()
 	if event is InputEventKey and event.pressed and not event.echo and not (focused is LineEdit or focused is TextEdit):
+		if world.tile_rules != null and mode in ["play","test"] and not overlay.visible and not world.map_view and not world.intro_active:
+			var directions := {KEY_W:Vector2i.UP,KEY_UP:Vector2i.UP,KEY_S:Vector2i.DOWN,KEY_DOWN:Vector2i.DOWN,KEY_A:Vector2i.LEFT,KEY_LEFT:Vector2i.LEFT,KEY_D:Vector2i.RIGHT,KEY_RIGHT:Vector2i.RIGHT}
+			if event.keycode in directions:
+				world.tile_rules.queue_hop(directions[event.keycode],event.shift_pressed or long_hop_button.button_pressed)
 		if event.keycode == KEY_ESCAPE:
 			if mode in ["play", "test"]:
 				toggle_pause()
@@ -1373,6 +1489,10 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag and event.index == touch_index:
 		thumb = ((event.position - touch_origin) / 52).limit_length()
 		touch_knob.position = Vector2(42, 42) + thumb * 42
+		if world.tile_rules != null and not tile_touch_queued and thumb.length() > 0.3 and not overlay.visible and not world.map_view:
+			var direction := Vector2i(signi(int(signf(thumb.x))),0) if absf(thumb.x) >= absf(thumb.y) else Vector2i(0,signi(int(signf(thumb.y))))
+			world.tile_rules.queue_hop(direction,long_hop_button.button_pressed)
+			tile_touch_queued = true
 	if mode != "edit" or overlay.visible:
 		return
 	if event is InputEventMouseButton:
@@ -1460,12 +1580,14 @@ func paths_for_set(set_key: String) -> Array:
 	match set_key:
 		"baby": return BUILTINS
 		"human": return HUMAN_LEVELS
+		"tile": return TILE_LEVELS
 		"bonus": return BONUS_LEVELS
 	return []
 
 func progress_for_set(set_key: String = "") -> Array:
 	match campaign_set if set_key.is_empty() else set_key:
 		"human": return completed_human_stages
+		"tile": return completed_tile_stages
 		"bonus": return completed_bonus_stages
 	return completed_stages
 

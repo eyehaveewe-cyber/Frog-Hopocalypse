@@ -1,7 +1,7 @@
 extends RefCounted
 ## The editor, bundled maps and runtime all consume this versioned format.
 const VERSION = 1
-const MAX_SIDE = 25
+const MAX_SIDE = 64
 const TILES = ["floor", "wall", "cheese_wall", "water", "path", "road"]
 const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log"]
 
@@ -32,10 +32,16 @@ static func validate(d: Variant) -> String:
 		return "Choose the Egyptian ruins or Purple Swamp-Woods theme."
 	if not finite_number(d.get("width")) or not finite_number(d.get("height")):
 		return "Map dimensions must be numbers."
+	if d.get("game_mode", "hopan") not in ["hopan", "tile"]:
+		return "Choose Hopán or Tile Hop mode."
+	if not d.get("move_with_me", false) is bool:
+		return "Move with me must be true or false."
+	if not finite_number(d.get("draw_distance",18)) or d.get("draw_distance",18) < 10 or d.get("draw_distance",18) > 30:
+		return "Draw distance must be between 10 and 30 tiles."
 	var w: int = int(d.width)
 	var h: int = int(d.height)
 	if w < 5 or h < 5 or w > MAX_SIDE or h > MAX_SIDE or d.width != w or d.height != h:
-		return "Map dimensions must be whole numbers between 5 and 25."
+		return "Map dimensions must be whole numbers between 5 and 64."
 	if not d.get("tiles") is Array or d.tiles.size() != h:
 		return "Tile rows do not match the map height."
 	for row in d.tiles:
@@ -67,6 +73,14 @@ static func validate(d: Variant) -> String:
 		ids[obj.id] = true
 		if not finite_number(obj.get("rotation", 0)):
 			return "Object rotation must be finite."
+		if d.get("game_mode") == "tile" and obj.get("behavior") != "seam_patrol":
+			if obj.pos[0] != int(obj.pos[0]) or obj.pos[1] != int(obj.pos[1]):
+				return "Tile mode objects need whole tile positions."
+			for p in obj.get("waypoints", []) if obj.get("waypoints", []) is Array else []:
+				if not point_valid(p,w,h) or p[0] != int(p[0]) or p[1] != int(p[1]):
+					return "Tile mode patrols need whole tile waypoints."
+			if obj.type == "emitter" and not is_zero_approx(fposmod(float(obj.get("rotation",0)),90)):
+				return "Tile-mode darts need a cardinal direction."
 		if obj.has("solid") and not obj.solid is bool:
 			return "Solid must be true or false."
 		if obj.type in ["car", "patrol_car", "log"]:
@@ -128,6 +142,11 @@ static func validate(d: Variant) -> String:
 		if obj.type == "emitter":
 			if not finite_number(obj.get("interval", 2.5)) or obj.get("interval", 2.5) < 0.5 or obj.get("interval", 2.5) > 10:
 				return "Firing interval must be between 0.5 and 10 seconds."
+	if not d.get("signs",[]) is Array or d.get("signs",[]).size() > 16:
+		return "A level supports up to 16 instruction signs."
+	for sign in d.get("signs",[]):
+		if not sign is Dictionary or not point_valid(sign.get("pos"),w,h) or not sign.get("text") is String or sign.text.length() > 200:
+			return "Invalid instruction sign."
 	if not d.get("checkpoints", []) is Array or d.get("checkpoints", []).size() > 16:
 		return "A level supports up to 16 editor checkpoints."
 	var seen_checkpoints: Array = []
@@ -195,13 +214,15 @@ static func reachable(d: Dictionary) -> bool:
 		if p == goal:
 			return true
 		for offset in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
-			var n: Vector2i = p + offset
-			if n.x < 0 or n.y < 0 or n.x >= d.width or n.y >= d.height or visited.has(n) or blocked.has(n):
-				continue
-			if d.tiles[n.y][n.x] in ["wall", "cheese_wall"] or (d.tiles[n.y][n.x] == "water" and not has_log_lane(d, n.y)):
-				continue
-			visited[n] = true
-			queue.append(n)
+			for distance in ([1,2] if d.get("game_mode") == "tile" else [1]):
+				var n: Vector2i = p + offset * distance
+				if n.x < 0 or n.y < 0 or n.x >= d.width or n.y >= d.height or visited.has(n) or blocked.has(n): continue
+				if distance == 2:
+					var middle: Vector2i = p + offset
+					if d.tiles[middle.y][middle.x] in ["wall","cheese_wall"]: continue
+				if d.tiles[n.y][n.x] in ["wall", "cheese_wall"] or (d.tiles[n.y][n.x] == "water" and not has_log_lane(d, n.y)): continue
+				visited[n] = true
+				queue.append(n)
 	return false
 
 static func has_log_lane(d: Dictionary, row: int) -> bool:

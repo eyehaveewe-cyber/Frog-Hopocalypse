@@ -1,6 +1,9 @@
 extends Node3D
 signal finished(reason: String)
 signal checkpoint_reached(point: Array)
+signal hop_started(big: bool)
+signal hint_changed(text: String)
+const TileRules = preload("res://scripts/tile_rules.gd")
 const Art = preload("res://scripts/art.gd")
 const Actor = preload("res://scripts/actor.gd")
 const Crossing = preload("res://scripts/crossing.gd")
@@ -30,6 +33,10 @@ var ocean_material: Material
 var intro_active := false
 var intro_time := 0.0
 const INTRO_DURATION = 4.2
+var tile_rules: RefCounted
+var long_hop_input := false
+var simulation_time := 0.0
+var last_hint := ""
 var crossing: Node3D
 var claimed_checkpoints: Array = []
 var checkpoint_flags: Array = []
@@ -79,6 +86,9 @@ func inside(p: Vector2i) -> bool:
 
 func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") -> void:
 	active = false
+	tile_rules = null
+	simulation_time = 0.0
+	last_hint = ""
 	intro_active = false
 	intro_time = 0
 	if is_instance_valid(geometry):
@@ -151,6 +161,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 			var actor := Actor.new()
 			actor.setup(false, level.theme, obj)
 			actor.position = p
+			if level.get("game_mode", "hopan") == "tile": actor.visual.scale = Vector3.ONE * 1.25
 			if obj.get("behavior") == "seam_patrol":
 				actor.visual.rotation.y = deg_to_rad(float(obj.get("rotation", 0)))
 			geometry.add_child(actor)
@@ -186,6 +197,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 	player = Actor.new()
 	player.setup(true, level.theme, {}, true)
 	player.set_hat(hat)
+	player.visual.scale = Vector3.ONE * (1.5 if level.get("game_mode", "hopan") == "tile" else 1.12)
 	player.position = cell_position(level.spawn)
 	geometry.add_child(player)
 	if edit:
@@ -201,12 +213,17 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 	cursor.visible = false
 	route_root = Node3D.new()
 	geometry.add_child(route_root)
-	var excluded: Array = [player, cursor, gate, route_root, crossing] + critters
+	underlay.name = "HorizonOcean"
+	var excluded: Array = [player, cursor, gate, route_root, crossing, underlay] + critters
 	for emitter in emitters:
 		excluded.append(emitter.model)
 	for marker in checkpoint_flags:
 		excluded.append(marker.flag) # Activation changes its color during play.
-	Art.batch_static(geometry, excluded)
+	Art.batch_static(geometry, excluded, CELL * 6 if maxi(level.width,level.height) > 25 else 0.0)
+	if level.get("game_mode", "hopan") == "tile":
+		tile_rules = TileRules.new(self)
+		for emitter in emitters: emitter.clock = ceilf(emitter.interval)
+	Art.set_simulation_time(0,level.get("move_with_me",false))
 	fit_camera()
 	active = not edit
 
@@ -214,6 +231,7 @@ func fit_camera() -> void:
 	if level.is_empty() or not is_instance_valid(camera):
 		return
 	if editing or map_view:
+		camera.far = maxf(200, maxf(level.width,level.height) * CELL * 3)
 		camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 		var size := get_viewport().get_visible_rect().size
 		var aspect := size.x / maxf(1, size.y)
@@ -223,17 +241,26 @@ func fit_camera() -> void:
 		camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 		camera.fov = 63 if touch_mode else 58
 		camera.near = 0.15
-		camera.far = 90
-		camera_target = player.position + Vector3(0, 0.25, -2.5)
+		camera.far = float(level.get("draw_distance",18)) * CELL + 12
+		camera_target = player.position + Vector3(0, 0.25, -2.0)
+	update_draw_range()
 	update_camera(1.0)
+
+func update_draw_range() -> void:
+	var limit := 0.0 if editing or map_view else float(level.get("draw_distance",18)) * CELL
+	Art.set_draw_distance(limit)
+	for mesh in geometry.find_children("*", "GeometryInstance3D", true, false):
+		if mesh.name != "HorizonOcean":
+			mesh.visibility_range_end = limit
+			mesh.visibility_range_end_margin = CELL
 
 func update_camera(weight: float) -> void:
 	if intro_active:
 		preview_camera()
 		return
 	if not editing and not map_view and is_instance_valid(player):
-		camera_target = camera_target.lerp(player.position + Vector3(0, 0.25, -2.5), weight)
-		camera.position = camera_target + Vector3(0, 5.8, 9.0)
+		camera_target = camera_target.lerp(player.position + Vector3(0, 0.25, -2.0), weight)
+		camera.position = camera_target + Vector3(0, 4.6, 8.0)
 	else:
 		camera.position = camera_target + Vector3(0, 30, 22)
 	camera.look_at(camera_target)
@@ -253,7 +280,7 @@ func cancel_exit_preview() -> void:
 	fit_camera()
 
 func preview_camera() -> void:
-	var home := player.position + Vector3(0, 0.25, -2.5)
+	var home := player.position + Vector3(0, 0.25, -2.0)
 	var goal := cell_position(level.exit) + Vector3(0, 0.25, 0)
 	var blend := 0.0
 	if intro_time < 1.7:
@@ -264,7 +291,7 @@ func preview_camera() -> void:
 		blend = 1.0 - smoothstep(2.5, INTRO_DURATION, intro_time)
 	camera_target = home.lerp(goal, blend)
 	var lift := sin(clampf(intro_time / INTRO_DURATION, 0, 1) * PI)
-	camera.position = camera_target + Vector3(0, 5.8 + lift * 5.0, 9.0 + lift * 3.0)
+	camera.position = camera_target + Vector3(0, 4.6 + lift * 5.0, 8.0 + lift * 3.0)
 	camera.look_at(camera_target)
 
 func set_map_view(enabled: bool) -> void:
@@ -342,11 +369,25 @@ func _physics_process(delta: float) -> void:
 		return
 	if not active or editing:
 		return
-	elapsed += delta
+	update_level_hint()
+	if tile_rules != null:
+		tile_rules.advance(delta, input_vector, long_hop_input)
+		Art.set_simulation_time(elapsed, level.get("move_with_me",false))
+		update_camera(minf(1,delta*10))
+		return
 	var previous_player := player.position
-	crossing.advance(delta, player)
-	player.step(delta, input_vector)
-	update_camera(minf(1, delta * 8))
+	if level.get("move_with_me",false):
+		player.step(delta,input_vector)
+		update_camera(minf(1,delta*8))
+		if previous_player.distance_to(player.position) < 0.00001:
+			return
+		crossing.advance(delta,player)
+	else:
+		crossing.advance(delta, player)
+		player.step(delta, input_vector)
+		update_camera(minf(1, delta * 8))
+	elapsed += delta
+	Art.set_simulation_time(elapsed, level.get("move_with_me",false))
 	var tile := position_cell(player.position)
 	if not inside(tile) or (level.tiles[tile.y][tile.x] == "water" and crossing.log_at(player.position).is_empty()):
 		finish("SPLASHED!")
@@ -400,6 +441,18 @@ func _physics_process(delta: float) -> void:
 	if player.position.distance_to(cell_position(level.exit)) < 0.65:
 		finish("LEVEL COMPLETE!")
 
+func update_level_hint() -> void:
+	var closest := CELL * 3.5
+	var text := ""
+	for entry in level.get("signs",[]):
+		var distance := player.position.distance_to(cell_position(entry.pos))
+		if distance < closest:
+			closest = distance
+			text = entry.text.replace("\n", " · ")
+	if not text.is_empty() and text != last_hint:
+		last_hint = text
+		hint_changed.emit(text)
+
 func restore_checkpoints(points: Array) -> void:
 	claimed_checkpoints = points.duplicate(true)
 	for marker in checkpoint_flags:
@@ -415,6 +468,7 @@ func claim_checkpoint(point: Array) -> void:
 func spawn_projectile(pos: Vector3, dir: Vector3) -> void:
 	var node := Art.orb(geometry, Vector3(0.22, 0.22, 0.4), pos, Color("f5a559"))
 	node.material_override = Art.mat(Color("f5a559"), 0.7)
+	node.visibility_range_end = 0 if editing or map_view else float(level.get("draw_distance",18)) * CELL
 	projectiles.append({"node": node, "dir": dir, "life": 7.0})
 
 func finish(reason: String) -> void:

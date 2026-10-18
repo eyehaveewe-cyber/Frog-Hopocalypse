@@ -1,0 +1,89 @@
+{
+  "native_assertions": {
+    "tile_mechanics": 45,
+    "set_menu": 19,
+    "voices": 19,
+    "sound_checkpoints": 24
+  },
+  "hazard_active_routes": [
+    {
+      "level": "Big Hop Boulevard",
+      "hops": 35,
+      "sim_seconds": 15.0833,
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "level": "Your Move Crossing",
+      "hops": 42,
+      "hazard_beats": 42,
+      "sim_seconds": 14.7,
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "level": "Your Move Garden",
+      "sim_seconds": 11.8667,
+      "result": "LEVEL COMPLETE!"
+    }
+  ],
+  "desktop_mechanics": {
+    "checks": [
+      "Tile mode stays locked on a fresh profile",
+      "Actual keyboard controls perform exact one- and two-tile hops over the opening tree",
+      "Overhead map exposes the complete 49-row tour and returns to perspective",
+      "Idle and blocked long hops leave linked tile time and hazards frozen",
+      "Each valid hop advances exactly one hazard beat, then freezes again",
+      "Move with me works with regular continuous Hop\u00e1n movement",
+      "Editor mode/time toggles edit and save the current map",
+      "Editor demo control loads a working large tile map"
+    ],
+    "errors": [],
+    "physicalPhoneTested": false,
+    "note": "Mechanics and rendering checked before the unlock rule was refined; final NAHAIL gating is verified separately below."
+  },
+  "final_unlock": {
+    "checks": [
+      "Fresh profile remains locked",
+      "Baby completion and three NAHAIL clears remain locked",
+      "Four NAHAIL clears unlock and persist across reload",
+      "Unlocked set launches and short keypress hops"
+    ],
+    "errors": []
+  },
+  "production": {
+    "productionFirstFrame": true,
+    "compressedWasm": true,
+    "canvas": [
+      844,
+      390
+    ],
+    "debugProbeAbsent": true,
+    "errors": [],
+    "device": "Desktop Chromium Android emulation; physical phone not tested"
+  },
+  "preservation": {
+    "existing_level_and_recording_files_unchanged": 26,
+    "hosting_and_riversim_files_unchanged": 17
+  },
+  "unlock": "All four Not as Hard as It Looks stages; editor demos are available immediately",
+  "limitations": [
+    "Desktop software rendering and mobile viewport/UA emulation only",
+    "Physical Android/iPhone, Safari, and hardware frame rate/memory remain unverified",
+    "Render culling keeps simulation/collision loaded; no world streaming",
+    "Some native regression processes retain the previously observed resource cleanup warnings at exit"
+  ],
+  "rollback_version": 17,
+  "mobile_compatibility": {
+    "checks": [
+      "Tile mode launches through touch on Android-UA mobile viewport",
+      "Long hop control stays on screen",
+      "Brief joystick drag queues exactly one two-tile hop",
+      "Sound, map and pause remain reachable"
+    ],
+    "errors": [],
+    "engine": "Desktop Chromium Android UA/touch emulation; unshaded compatibility mode; not physical Android"
+  },
+  "notes": [
+    "Final NAHAIL unlock logic and completion action were checked after the user clarified progression.",
+    "Existing levels and recordings remain byte-identical; new content is additive."
+  ]
+}

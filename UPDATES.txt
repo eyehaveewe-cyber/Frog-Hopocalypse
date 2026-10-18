@@ -1,3 +1,34 @@
+2026-10-18 — Tile Hop mode, movement-linked time and large-map demos
+
+1. Added a separate Tile Hop set, unlocked after the four Not as Hard as It Looks clears.
+   A larger frog hops one cardinal tile, or two with Shift / the Long hop button.
+   Long hops can clear middle-tile obstacles, enemies and darts, but cannot clear
+   walls or land on blocked cells. Takeoff, landing and unsupported water remain
+   dangerous. Keyboard and touch intents queue across physics frames.
+2. Tile critters, road traffic, patrol cars, logs and darts move in tile beats.
+   Optional Move with me advances one beat per valid hop and freezes at rest.
+   The same editor option works with regular continuous Hopán movement: actual
+   frog displacement advances hazards and timers; idle/blocked movement does not.
+3. Added Big Hop Boulevard (17 x 49), Your Move Crossing (21 x 41), and the regular
+   Hopán Your Move Garden (17 x 33). First two form the unlocked tile set; Garden
+   joins Bonus after unchanged Shelby. Editor Movement demos exposes all three
+   for immediate testing. Routes have checkpoints and contextual HUD hints.
+4. Added Tile-hop mode / Move with me editor controls, 10–30 tile draw distance,
+   and a 33 x 49 tour preset; maximum JSON side is 64. Mode/time settings, tile
+   progress, profile backups and undo preserve existing version-1 contracts.
+5. Enlarged the frog and foreground presentation with a lower follow camera.
+   Large levels use spatial render chunks; distant full-mode textures coarsen
+   and dissolve near the draw limit. Compatibility stays unshaded and uses
+   distance culling. Map/editor show the whole layout. This is not streaming.
+6. Forty-five focused tile checks pass, plus menu 19, voice 19 and sound/checkpoint
+   24 regressions. All three demos completed through the real controller with
+   hazards active. Existing 26 level/recording assets match their prior hashes.
+   Physical phone performance and Safari behavior remain unverified.
+   Detailed rules, metrics and limits: docs/TILE_HOP.md.
+7. Preserve public audience, original source main and the RiverSim subtree.
+   Rollback keeps public access and redeploys saved version 17:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9643dfecb288819198e1c9fa17652b8e.
+
 2026-10-18 — Clarify level-set selection (published v17)
 
 1. Added Level sets directly beneath the main menu title. Baby Mode, Not as

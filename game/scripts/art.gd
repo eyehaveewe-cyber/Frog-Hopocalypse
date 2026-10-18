@@ -8,6 +8,7 @@ static var retro_materials: Dictionary = {}
 static var retro_enabled := true
 static var compatibility_mode := false
 static var swamp_haze := false
+static var draw_limit := 0.0
 
 static func retro_mat(kind: String, color: Color = Color.WHITE) -> Material:
 	if compatibility_mode:
@@ -30,6 +31,7 @@ static func retro_mat(kind: String, color: Color = Color.WHITE) -> Material:
 	material.set_shader_parameter("albedo_color", color)
 	material.set_shader_parameter("pixel_texture", Pixels.get_texture(kind))
 	material.set_shader_parameter("animated_water", kind in ["water", "swamp_water"])
+	material.set_shader_parameter("distance_limit",draw_limit)
 	material.set_shader_parameter("retro_amount", 1.0 if retro_enabled else 0.0)
 	material.set_shader_parameter("haze_color", Vector3(0.14, 0.08, 0.22) if swamp_haze else Vector3(0.09, 0.12, 0.22))
 	retro_materials[key] = material
@@ -41,6 +43,16 @@ static func set_retro(enabled: bool, swamp: bool) -> void:
 	for material in retro_materials.values():
 		material.set_shader_parameter("retro_amount", 1.0 if enabled else 0.0)
 		material.set_shader_parameter("haze_color", Vector3(0.14, 0.08, 0.22) if swamp else Vector3(0.09, 0.12, 0.22))
+
+static func set_draw_distance(limit: float) -> void:
+	draw_limit = limit
+	for material in retro_materials.values():
+		material.set_shader_parameter("distance_limit",limit)
+
+static func set_simulation_time(time: float, enabled: bool) -> void:
+	for material in retro_materials.values():
+		material.set_shader_parameter("simulation_time",time)
+		material.set_shader_parameter("movement_time",enabled)
 
 static func textured(node: MeshInstance3D, kind: String, color: Color = Color.WHITE) -> MeshInstance3D:
 	node.material_override = retro_mat(kind, color)
@@ -102,7 +114,7 @@ static func piece(parent: Node3D, mesh: Mesh, pos: Vector3, color: Color) -> Mes
 	parent.add_child(node)
 	return node
 
-static func batch_static(root: Node3D, excluded: Array) -> void:
+static func batch_static(root: Node3D, excluded: Array, chunk_size: float = 0.0) -> void:
 	# Collapse repeated floor/wall pieces into instanced draws. Collision bodies
 	# remain independent; moving actors, traps, the exit and editor markers do not
 	# enter a batch. Shared mesh/material resources are created by the kit above.
@@ -116,6 +128,9 @@ static func batch_static(root: Node3D, excluded: Array) -> void:
 		if skip:
 			continue
 		var key := str(child.mesh.get_instance_id()) + ":" + str(child.material_override.get_instance_id())
+		if chunk_size > 0:
+			var pos := root.to_local(child.global_position)
+			key += ":" + str(Vector2i(floori(pos.x/chunk_size),floori(pos.z/chunk_size)))
 		if not groups.has(key):
 			groups[key] = []
 		groups[key].append(child)
@@ -124,9 +139,17 @@ static func batch_static(root: Node3D, excluded: Array) -> void:
 		multi.transform_format = MultiMesh.TRANSFORM_3D
 		multi.mesh = group[0].mesh
 		multi.instance_count = group.size()
+		var origin := Vector3.ZERO
+		if chunk_size > 0:
+			var p: Vector3 = root.to_local(group[0].global_position)
+			origin = Vector3((floorf(p.x/chunk_size)+0.5)*chunk_size,0,(floorf(p.z/chunk_size)+0.5)*chunk_size)
 		for i in range(group.size()):
-			multi.set_instance_transform(i, root.global_transform.affine_inverse() * group[i].global_transform)
+			var transform: Transform3D = root.global_transform.affine_inverse() * group[i].global_transform
+			transform.origin -= origin
+			multi.set_instance_transform(i, transform)
 		var renderer := MultiMeshInstance3D.new()
+		renderer.position = origin
+		renderer.set_meta("spatial_chunk",chunk_size > 0)
 		renderer.multimesh = multi
 		renderer.material_override = group[0].material_override
 		root.add_child(renderer)

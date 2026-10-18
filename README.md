@@ -148,3 +148,13 @@ not establish [Safari/iOS platform compatibility](https://playwright.dev/docs/br
 
 The main menu labels its collections **Level sets**. Baby Mode is a named set;
 difficulty is a separate attribute beneath the set button.
+
+**Tile Hop** unlocks after the four Not as Hard as It Looks stages. Arrows/WASD/joystick hop
+one tile; Shift or **Long hop** covers two. Walls block both. **Move with me**
+freezes hazards between valid hops and also works with regular Hopán movement.
+
+Editor controls: **Tile-hop mode**, **Move with me**, **Movement demos**, a
+33 × 49 tour size, and a 10–30 tile draw range. Demos: **Big Hop Boulevard**,
+**Your Move Crossing**, and the regular-mode **Your Move Garden** in Bonus.
+The overhead map keeps the full layout visible. See [Tile Hop rules, demos and
+validation](docs/TILE_HOP.md). Phone performance and Safari remain unverified.
