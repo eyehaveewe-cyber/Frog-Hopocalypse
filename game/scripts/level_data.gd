@@ -113,6 +113,10 @@ static func validate(d: Variant) -> String:
 				if not point_valid(point, w, h) or d.tiles[int(point[1])][int(point[0])] in ["wall", "cheese_wall", "water"]:
 					return "Patrol waypoints must be on dry terrain."
 			if obj.get("behavior") == "seam_patrol":
+				if obj.has("seam_anchor"):
+					var anchor: Variant = obj.seam_anchor
+					if not point_valid(anchor, w, h) or anchor[0] != int(anchor[0]) or anchor[1] != int(anchor[1]):
+						return "Seam worm placement tiles must be whole cells inside the level."
 				var route: Array = [obj.pos] + obj.get("waypoints", [])
 				if obj.get("patrol_loop", true) and obj.get("waypoints", []).size() > 1:
 					route.append(obj.waypoints[0])

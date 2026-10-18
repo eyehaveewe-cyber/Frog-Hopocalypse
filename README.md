@@ -127,3 +127,8 @@ are in `UPDATES.txt`; physical Android shader testing remains separate.
 Android scene-shader compatibility mitigation is published in public **version 13**.
 Phone diagnostic URL: https://hopan.fiiendward.chatgpt.site/?compat=1&graphics-debug=1 .
 Moto G5 recovery remains unverified; save the graphics report if startup fails.
+
+The editor has a compact **Loop** checkbox beside **Draw route**. Rotating a
+seam worm pivots it and its drawn patrol around the original placement tile.
+A 180° turn changes the right-side seam to the left-side seam; blocked or
+out-of-bounds routes keep their previous placement. Undo and JSON saves retain it.

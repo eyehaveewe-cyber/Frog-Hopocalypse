@@ -147,6 +147,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 			var actor := Actor.new()
 			actor.setup(false, level.theme, obj)
 			actor.position = p
+			if obj.get("behavior") == "seam_patrol":
+				actor.visual.rotation.y = deg_to_rad(float(obj.get("rotation", 0)))
 			geometry.add_child(actor)
 			for point in obj.get("waypoints", []):
 				actor.waypoints.append(cell_position(point))

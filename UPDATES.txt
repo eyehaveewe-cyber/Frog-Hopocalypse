@@ -1,3 +1,21 @@
+2026-10-18 — Compact Loop toggle and rotating seam-worm placement
+
+1. Replaced the full-width Loop route control with a small Loop checkbox beside
+   Draw route. Saved looping behavior and defaults remain unchanged.
+2. Seam-worm rotation now pivots its half-tile position around the placement
+   tile: 0 lower-right, 90 upper-right, 180 upper-left, 270 lower-left.
+   Drawn waypoints pivot together, keeping square corners. Walls, cheese, water,
+   scenery and outer boundaries reject obstructed rotations without modifying
+   the route. Both the rotation field and R shortcut use the same operation.
+3. Original placement tile is stored as optional seam_anchor for selection and
+   repeated rotations. Existing maps without it remain readable. Undo/redo and
+   JSON export/import preserve placement and route. Other critters keep their
+   existing tile positions. Campaign layouts, audio and RiverSim are unchanged.
+4. Seventeen focused native checks pass. Browser editor controls and playtest
+   are checked separately. Physical phone interaction remains unverified.
+5. Rollback retains public access and redeploys saved v14:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_a27be5e8c7308191bb1081a90fb1d967.
+
 2026-10-18 — Single-take bugsploded death recording (published v14)
 
 1. Trimmed bugsploded.ogg to its first 1.44-second speech section, fading the

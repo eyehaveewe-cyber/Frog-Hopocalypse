@@ -828,7 +828,7 @@ func selected_object() -> Dictionary:
 
 func object_at(cell: Vector2i) -> int:
 	for i in range(level.objects.size() - 1, -1, -1):
-		var p: Array = level.objects[i].pos
+		var p: Array = level.objects[i].get("seam_anchor", level.objects[i].pos) if level.objects[i].get("behavior") == "seam_patrol" else level.objects[i].pos
 		if Vector2i(int(p[0]), int(p[1])) == cell:
 			return i
 	return -1
@@ -916,6 +916,8 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		var obj := {"id": "object_%d_%d" % [Time.get_ticks_usec(), level.objects.size()], "type": "critter" if tool == "seam_worm" else tool, "pos": point, "rotation": 0, "solid": tool in ["pillar", "tree", "emitter"]}
 		if tool in ["critter", "seam_worm"]:
 			obj.merge({"behavior": "seam_patrol" if tool == "seam_worm" else "wander", "speed": 1.6, "waypoints": []})
+		if tool == "seam_worm":
+			obj.seam_anchor = [cell.x, cell.y]
 		if tool == "emitter":
 			obj.interval = 2.5
 		if tool in ["car", "patrol_car", "log"]:
@@ -950,15 +952,9 @@ func refresh_inspector() -> void:
 		behavior.item_selected.connect(func(i: int): change_property("behavior", "wander" if i == 0 else "patrol"))
 		if obj.get("behavior") == "seam_patrol":
 			behavior.queue_free()
-			paragraph(inspector, "SEAM WORM · Blue with gold bands\nRoute along tile edges; click lower-right corners. Close your loop with square turns.", 12)
+			paragraph(inspector, "SEAM WORM · Blue with gold bands\nRoute along tile edges; click lower-right corners. Rotate to move around the placement tile.", 12)
 		else:
 			inspector.add_child(behavior)
-		var loop_toggle := CheckButton.new()
-		loop_toggle.text = "Loop route"
-		loop_toggle.tooltip_text = "Repeat waypoints in order. Off: stop at the final waypoint."
-		loop_toggle.button_pressed = obj.get("patrol_loop", true)
-		loop_toggle.toggled.connect(func(enabled: bool): change_property("patrol_loop", enabled))
-		inspector.add_child(loop_toggle)
 		var speed := SpinBox.new()
 		speed.min_value = 0.3
 		speed.max_value = 5
@@ -967,7 +963,18 @@ func refresh_inspector() -> void:
 		speed.suffix = "speed"
 		speed.value_changed.connect(func(v: float): change_property("speed", v))
 		inspector.add_child(speed)
-		button(inspector, "Draw patrol waypoints", func(): set_tool("route"))
+		var route_controls := row(inspector)
+		var draw_route := button(route_controls, "Draw route", func(): set_tool("route"))
+		draw_route.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var loop_toggle := CheckBox.new()
+		loop_toggle.name = "PatrolLoop"
+		loop_toggle.text = "Loop"
+		loop_toggle.add_theme_font_size_override("font_size", 12)
+		loop_toggle.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		loop_toggle.tooltip_text = "Repeat the route. Off: stop at the last waypoint."
+		loop_toggle.button_pressed = obj.get("patrol_loop", true)
+		loop_toggle.toggled.connect(func(enabled: bool): change_property("patrol_loop", enabled))
+		route_controls.add_child(loop_toggle)
 		if obj.get("behavior") != "seam_patrol":
 			button(inspector, "North–south loop", make_north_south_loop)
 		button(inspector, "Clear route (%d points)" % obj.get("waypoints", []).size(), func(): change_property("waypoints", []))
@@ -1023,8 +1030,36 @@ func change_property(key: String, value: Variant) -> void:
 	var obj := selected_object()
 	if obj.is_empty():
 		return
+	if key == "rotation" and obj.get("behavior") == "seam_patrol":
+		rotate_seam_worm(obj, float(value))
+		return
 	record_undo()
 	obj[key] = value
+	rebuild()
+
+func rotate_seam_worm(obj: Dictionary, degrees: float) -> void:
+	var anchor: Array = obj.get("seam_anchor", [floori(float(obj.pos[0])), floori(float(obj.pos[1]))])
+	var pivot := Vector2(anchor[0], anchor[1])
+	var angle := -deg_to_rad(degrees - float(obj.get("rotation", 0)))
+	var rotated: Array = []
+	for point in [obj.pos] + obj.get("waypoints", []):
+		var offset := (Vector2(point[0], point[1]) - pivot).rotated(angle)
+		var next := (pivot + offset).snapped(Vector2(0.5, 0.5))
+		rotated.append([next.x, next.y])
+	var route := rotated.duplicate(true)
+	if obj.get("patrol_loop", true) and rotated.size() > 2:
+		route.append(rotated[1])
+	for i in range(route.size()):
+		if not Data.seam_point_open(level, route[i]) or (i > 0 and not Data.seam_segment_open(level, route[i - 1], route[i])):
+			refresh_inspector()
+			status("Rotation blocked: the worm and route need clear, dry tile seams inside the level.")
+			return
+	record_undo()
+	obj.seam_anchor = anchor.duplicate()
+	obj.pos = rotated[0]
+	if obj.has("waypoints"):
+		obj.waypoints = rotated.slice(1)
+	obj.rotation = fposmod(degrees, 360)
 	rebuild()
 
 func load_library() -> void:
