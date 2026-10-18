@@ -1,3 +1,27 @@
+2026-10-18 — Worm patrols and recorded-voice hooks (pending publication)
+
+1. Frogbutt’s existing worm now loops north–south on column 7, rows 1 to 11.
+   All terrain, spawn/exit, trap, scenery, enemy counts and the 66 wandering
+   bugs are preserved. The unmodified original JSON is retained as a fixture.
+2. Editor: Loop route toggles repetition; North–south loop finds clear
+   endpoints, stopping at water, walls, static scenery, spawn and exit.
+   Legacy version-1 patrols keep looping. Export/import and undo retain it.
+3. Twelve focused patrol checks passed, including real collider travel over
+   80 simulated seconds, both endpoints and repeated turns without x drift.
+   Sixteen audio-event checks passed using explicitly test-only silent fixtures;
+   this does not verify recorded playback. Native import passes.
+4. Recorded-voice hooks are prepared for exactly the 17 user-listed cues,
+   with serialized playback, gesture gating, saved mute, specific/alternate
+   death lines and traversal-triggered traffic warning. Actual audio integration
+   is pending verified transfer; uploading that bundle to the public source
+   repository is awaiting explicit user approval in the parent thread.
+   No audio has been uploaded, integrated or published by this update.
+5. Public version 9 and public access revision 2 remain unchanged. All 17
+   protected RiverSim/adapter/header hashes match. Combined release is on hold
+   pending verified clips and focused playback/build checks.
+
+--- Earlier updates follow ---
+
 2026-10-18 — Baby Mode first (latest)
 
 1. Fresh saves show Baby Mode as the only stage set. The human-made set's

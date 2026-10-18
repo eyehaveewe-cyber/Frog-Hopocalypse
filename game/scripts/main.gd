@@ -1,6 +1,13 @@
 extends Control
 const Data = preload("res://scripts/level_data.gd")
 const World = preload("res://scripts/world.gd")
+const Voice = preload("res://scripts/voice.gd")
+var voice: Node
+var sound_enabled := true
+var begin_pending := false
+var announcement_time := 0.0
+var return_warning_armed := false
+var previous_voice_row := 19
 const MAZES = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtyard.json", "res://levels/violet_mire.json"]
 const BUILTINS = MAZES + ["res://levels/little_frog_crossing.json"]
 const HUMAN_TITLE = "Not as Hard as It Looks"
@@ -84,6 +91,9 @@ func _ready() -> void:
 	browser_test = OS.is_debug_build() and ("--browser-test" in OS.get_cmdline_user_args() or "--browser-test" in OS.get_cmdline_args())
 	make_theme()
 	load_profile()
+	voice = Voice.new()
+	add_child(voice)
+	voice.set_enabled(sound_enabled)
 	load_library()
 	build_ui()
 	load_builtin(0)
@@ -374,6 +384,8 @@ func reset_overlay(title: String, subtitle: String = "") -> void:
 	reset_touch()
 
 func show_menu() -> void:
+	begin_pending = false
+	voice.clear()
 	world.halted = true
 	reset_overlay("Pharaoh Frog Hopán", "Small frog. Ancient trouble.")
 	overlay_box.add_child(label("BABY MODE", 24, LIME))
@@ -399,6 +411,14 @@ func show_menu() -> void:
 	preview_toggle.button_pressed = exit_preview
 	preview_toggle.toggled.connect(set_exit_preview)
 	overlay_box.add_child(preview_toggle)
+	var sound_toggle := CheckButton.new()
+	sound_toggle.text = "Recorded voices"
+	sound_toggle.button_pressed = sound_enabled
+	sound_toggle.toggled.connect(func(enabled: bool):
+		sound_enabled = enabled
+		voice.set_enabled(enabled)
+		save_profile())
+	overlay_box.add_child(sound_toggle)
 	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
 	if not library.is_empty():
 		var custom := OptionButton.new()
@@ -483,8 +503,11 @@ func start_play(from_editor: bool = true) -> void:
 	joystick.visible = DisplayServer.is_touchscreen_available()
 	status(level.name + (" · Wait for gaps. Ride logs across water. Safe bank checkpoint ahead." if level.has("checkpoint") else " · WASD / arrows to move. M: map. R: retry."))
 	reset_touch()
+	start_announcements()
 
 func enter_editor() -> void:
+	begin_pending = false
+	voice.clear()
 	pending_result = ""
 	campaign_level = false
 	checkpoint_spawn = []
@@ -520,21 +543,30 @@ func retry() -> void:
 	reset_touch()
 	joystick.visible = DisplayServer.is_touchscreen_available()
 	status(level.name + " · A fresh hop. R to retry.")
+	start_announcements(true)
 
 func on_finished(reason: String) -> void:
+	if not pending_result.is_empty():
+		return
+	begin_pending = false
+	voice.clear()
 	var progress: Array = completed_human_stages if campaign_set == "human" else completed_stages
 	if reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and builtin_index not in progress:
 		progress.append(builtin_index)
 		save_profile()
 	var set_complete := reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and progress.size() == campaign_paths().size()
 	var earned_hat := set_complete and campaign_set == "baby" and "baby" not in unlocked_hats
+	if set_complete and campaign_set == "baby":
+		voice.say("baby_win")
 	if earned_hat:
 		unlock_baby_hat()
+		voice.say("baby_frog")
 	pending_result = reason
 	pending_set_complete = set_complete
 	pending_earned_hat = earned_hat
 	if reason != "LEVEL COMPLETE!":
 		deaths += 1
+		voice.say(voice.death_cue(reason, world.death_cause))
 	reset_touch()
 	joystick.hide()
 
@@ -628,6 +660,8 @@ func toggle_hat() -> void:
 	hat_button.tooltip_text = str(HAT_NAMES[hat]) + " · Cycle unlocked hats"
 	save_profile()
 	status(str(HAT_NAMES[hat]) + " · Hat cycles your unlocked headwear.")
+	if hat == "baby" and not voice.busy():
+		voice.say("baby_frog")
 
 func unlock_baby_hat() -> void:
 	if completed_stages.size() != BUILTINS.size():
@@ -643,6 +677,7 @@ func unlock_baby_hat() -> void:
 func save_profile() -> void:
 	var profile := ConfigFile.new()
 	profile.set_value("settings", "exit_preview", exit_preview)
+	profile.set_value("settings", "recorded_voices", sound_enabled)
 	profile.set_value("hats", "baby_unlocked", "baby" in unlocked_hats)
 	profile.set_value("hats", "equipped", hat)
 	profile.set_value("baby_mode", "completed", completed_stages)
@@ -652,7 +687,7 @@ func save_profile() -> void:
 	if OS.has_feature("web"):
 		# IndexedDB filesystem sync is asynchronous. Keep the small profile durable
 		# immediately as well, so a quick reload cannot restore an older hat/clear.
-		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "hat": hat, "preview": exit_preview})
+		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "hat": hat, "preview": exit_preview, "sound": sound_enabled})
 		browser_saved = bool(JavaScriptBridge.eval("(function(){try{localStorage.setItem('hopan.profile.v1', " + JSON.stringify(payload) + ");return true;}catch(e){return false;}})()", true))
 	if not file_saved and not browser_saved:
 		status("Could not save progress on this device.")
@@ -675,10 +710,13 @@ func load_profile() -> void:
 				profile.set_value("not_as_hard", "completed", backup.human)
 				profile.set_value("hats", "equipped", backup.hat)
 				profile.set_value("settings", "exit_preview", backup.preview)
+				if backup.get("sound") is bool:
+					profile.set_value("settings", "recorded_voices", backup.sound)
 				browser_loaded = true
 	if not file_loaded and not browser_loaded:
 		return
 	exit_preview = profile.get_value("settings", "exit_preview", false) == true
+	sound_enabled = profile.get_value("settings", "recorded_voices", true) == true
 	var saved_stages: Variant = profile.get_value("baby_mode", "completed", [])
 	if saved_stages is Array:
 		for value in saved_stages:
@@ -876,6 +914,12 @@ func refresh_inspector() -> void:
 		behavior.select(0 if obj.behavior == "wander" else 1)
 		behavior.item_selected.connect(func(i: int): change_property("behavior", "wander" if i == 0 else "patrol"))
 		inspector.add_child(behavior)
+		var loop_toggle := CheckButton.new()
+		loop_toggle.text = "Loop route"
+		loop_toggle.tooltip_text = "Repeat waypoints in order. Off: stop at the final waypoint."
+		loop_toggle.button_pressed = obj.get("patrol_loop", true)
+		loop_toggle.toggled.connect(func(enabled: bool): change_property("patrol_loop", enabled))
+		inspector.add_child(loop_toggle)
 		var speed := SpinBox.new()
 		speed.min_value = 0.3
 		speed.max_value = 5
@@ -885,6 +929,7 @@ func refresh_inspector() -> void:
 		speed.value_changed.connect(func(v: float): change_property("speed", v))
 		inspector.add_child(speed)
 		button(inspector, "Draw patrol waypoints", func(): set_tool("route"))
+		button(inspector, "North–south loop", make_north_south_loop)
 		button(inspector, "Clear route (%d points)" % obj.get("waypoints", []).size(), func(): change_property("waypoints", []))
 	if obj.type == "emitter":
 		var interval := SpinBox.new()
@@ -1077,6 +1122,7 @@ func _process(delta: float) -> void:
 		configure_view()
 		world.fit_camera()
 	update_result_presentation()
+	update_announcements(delta)
 	level_banner.visible = mode in ["play", "test"] and not world.map_view and not overlay.visible
 	level_banner.text = ("EXIT PREVIEW · MAP TO SKIP" if mobile_ui else "EXIT PREVIEW · SPACE TO SKIP") if world.intro_active else str(level.name).to_upper()
 	level_banner.position = view_container.global_position + Vector2(0, 10)
@@ -1141,12 +1187,15 @@ func publish_browser_probe() -> void:
 		"hat": hat, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
 		"ui_size": [size.x, size.y], "saved": library.size(), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
+		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
 		"compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:
+	if (event is InputEventMouseButton or event is InputEventScreenTouch or event is InputEventKey) and event.is_pressed():
+		voice.unlock()
 	if not is_instance_valid(world):
 		return
 	if world.intro_active and event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
@@ -1206,3 +1255,68 @@ func _input(event: InputEvent) -> void:
 		if cell != last_cell and tool not in ["select", "route", "spawn", "exit"]:
 			last_cell = cell
 			edit_cell(cell, Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT))
+
+func start_announcements(restarting: bool = false) -> void:
+	voice.clear()
+	begin_pending = true
+	announcement_time = 0.0
+	return_warning_armed = false
+	previous_voice_row = world.position_cell(world.player.position).y
+	if restarting or not campaign_level or mode != "play":
+		return
+	if campaign_set == "baby":
+		voice.say("baby_mode")
+		if builtin_index == 3:
+			voice.say("traffic_start")
+	elif campaign_set == "human":
+		if builtin_index == 1:
+			voice.say("gloopbutt")
+		elif builtin_index == 3:
+			voice.say("frogbutt")
+
+func update_announcements(delta: float) -> void:
+	if mode not in ["play", "test"] or not world.active or world.halted or world.map_view or overlay.visible:
+		return
+	announcement_time += delta
+	if begin_pending and announcement_time >= 1.0 and not world.intro_active and not voice.busy():
+		begin_pending = false
+		voice.say("begin")
+	if world.intro_active or not campaign_level or campaign_set != "baby" or builtin_index != 3:
+		return
+	var current_row: int = world.position_cell(world.player.position).y
+	# Final road occupies rows 7–9; row 10 is its near safe bank.
+	if current_row >= 7 and current_row <= 9:
+		return_warning_armed = true
+	if return_warning_armed and previous_voice_row <= 9 and current_row >= 10:
+		return_warning_armed = false
+		voice.say("traffic_return")
+	previous_voice_row = current_row
+
+func make_north_south_loop() -> void:
+	var obj := selected_object()
+	if mode != "edit" or obj.is_empty() or obj.type != "critter":
+		return
+	var x := int(obj.pos[0])
+	var north := int(obj.pos[1])
+	var south := north
+	while patrol_cell_open(Vector2i(x, north - 1)):
+		north -= 1
+	while patrol_cell_open(Vector2i(x, south + 1)):
+		south += 1
+	if north == south:
+		status("No open north–south route here. Draw waypoints around obstacles instead.")
+		return
+	record_undo()
+	obj.behavior = "patrol"
+	obj.patrol_loop = true
+	obj.waypoints = [[x, north], [x, south]]
+	rebuild()
+	status("North–south loop set. The worm repeats between the two clear endpoints.")
+
+func patrol_cell_open(cell: Vector2i) -> bool:
+	if not world.inside(cell) or level.tiles[cell.y][cell.x] in ["wall", "water"] or [cell.x, cell.y] in [level.spawn, level.exit]:
+		return false
+	for obj in level.objects:
+		if obj.pos == [cell.x, cell.y] and (obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false)):
+			return false
+	return true

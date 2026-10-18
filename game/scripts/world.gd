@@ -21,6 +21,7 @@ var input_vector := Vector2.ZERO
 var cursor: MeshInstance3D
 var route_root: Node3D
 var result := ""
+var death_cause := ""
 var result_time := 0.0
 var touch_mode := false
 var camera_target := Vector3.ZERO
@@ -86,6 +87,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 	editing = edit
 	map_view = false
 	result = ""
+	death_cause = ""
 	result_time = 0
 	halted = false
 	elapsed = 0
@@ -279,10 +281,17 @@ func show_route(obj: Dictionary) -> void:
 		label.no_depth_test = true
 		route_root.add_child(label)
 		if i > 0:
-			var prev := cell_position(points[i - 1]) + Vector3(0, 0.12, 0)
-			var line := Art.box(route_root, Vector3(0.055, 0.035, p.distance_to(prev)), (p + prev) / 2, Color("f4df8d"))
-			if p.distance_to(prev) > 0.01:
-				line.look_at(p)
+			show_route_segment(points[i - 1], points[i])
+	# Close the actual loop without adding a duplicate numbered waypoint.
+	if obj.get("patrol_loop", true) and obj.get("waypoints", []).size() > 1:
+		show_route_segment(obj.waypoints[-1], obj.waypoints[0])
+
+func show_route_segment(a: Array, b: Array) -> void:
+	var from := cell_position(a) + Vector3(0, 0.12, 0)
+	var to := cell_position(b) + Vector3(0, 0.12, 0)
+	if from.distance_to(to) > 0.01:
+		var line := Art.box(route_root, Vector3(0.055, 0.035, from.distance_to(to)), (from + to) / 2, Color("f4df8d"))
+		line.look_at(to)
 
 func _physics_process(delta: float) -> void:
 	if halted or map_view:
@@ -331,8 +340,9 @@ func _physics_process(delta: float) -> void:
 			critter.position = old
 			critter.direction = -critter.direction
 			if critter.behavior == "patrol":
-				critter.waypoint_index = (critter.waypoint_index + 1) % maxi(1, critter.waypoints.size())
+				critter.advance_waypoint()
 		if player.position.distance_to(critter.position) < 0.67:
+			death_cause = critter.behavior
 			finish("CROAKED!")
 			return
 	for emitter in emitters:

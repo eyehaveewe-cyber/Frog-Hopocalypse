@@ -1,7 +1,7 @@
 extends SceneTree
 const Data = preload("res://scripts/level_data.gd")
 const Suite = preload("res://tests/integration.gd")
-const HASHES = ["c74d8873c56ff1261caad0488cf4942dc0c020934644289e6c4e498ae3011f4b", "aa9e23efdbd7f203f32c126dcc23ce808005ef35dbf818c8f4458920e6bda65c", "fe18f546be0f45c3e577b3bc5e6271313b9010acfd55aeb4b3ce4fde466d0c5a", "945b3066c2ff17acb3e966fd2c97ffd3415f2e0cda598c170a1cdfa00434cee4"]
+const HASHES = ["c74d8873c56ff1261caad0488cf4942dc0c020934644289e6c4e498ae3011f4b", "aa9e23efdbd7f203f32c126dcc23ce808005ef35dbf818c8f4458920e6bda65c", "fe18f546be0f45c3e577b3bc5e6271313b9010acfd55aeb4b3ce4fde466d0c5a", "ddc6429215b6da16ae3d84459c07e5ad3050359ad5a2aea8137d7ee089db1b8d"]
 var app: Control
 var suite = Suite.new()
 func _initialize() -> void:
@@ -15,7 +15,7 @@ func run() -> void:
 	app.set_process(false)
 	for i in range(4):
 		var d := Data.load_json(app.HUMAN_LEVELS[i])
-		suite.check(FileAccess.get_sha256(app.HUMAN_LEVELS[i]) == HASHES[i] and not d.is_empty() and Data.reachable(d), "Exact attachment bytes, valid schema and connected route: " + d.get("name", "missing"))
+		suite.check(FileAccess.get_sha256(app.HUMAN_LEVELS[i]) == HASHES[i] and not d.is_empty() and Data.reachable(d), "Bundled layout hash, valid schema and connected route: " + d.get("name", "missing"))
 	app.completed_stages = []
 	app.completed_human_stages = []
 	app.unlocked_hats = ["none", "pharaoh"]

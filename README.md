@@ -25,10 +25,11 @@ The browser entry point is `build/web/index.html`. Serve the **whole directory**
 
 ## Implemented
 
+- **Loop route** in the worm/critter inspector explicitly repeats waypoint routes; legacy saved patrols keep looping. **North–south loop** makes an obstacle-bounded vertical route. Frogbutt’s existing worm now repeats between `[7,1]` and `[7,11]`; its 66 wandering bugs, terrain, scenery, trap and spawn/exit remain unchanged.
 - **Exit Preview** in the menu optionally sweeps to the exit and back before each stage starts; the frog, hazards and timer wait. Space skips it on desktop; Map skips it on touch. Retries resume immediately.
 - Death animations remain visible for 1.6 seconds and victory for 2.2 seconds before the result screen; retry can skip the hold.
 - The workshop size selector offers Standard **17 × 13** or Large **21 × 16**, about **52% more area**, for new mazes. Current documents retain their dimensions; both sizes save/export/import normally.
-- **Not as Hard as It Looks** unlocks after all four Baby Mode clears, including existing saved clears. The set stays completely hidden until unlocked, so a fresh save shows Baby Mode alone. It contains your exact layouts in attachment order: **Hardbutt → Gloopbutt → Treebutt → Frogbutt**. Its stage progress saves separately; Baby Mode, hats, custom levels and preferences are retained. Browser progress also has an immediate backup for quick reloads.
+- **Not as Hard as It Looks** unlocks after all four Baby Mode clears, including existing saved clears. The set stays completely hidden until unlocked, so a fresh save shows Baby Mode alone. It contains your authored layouts in attachment order: **Hardbutt → Gloopbutt → Treebutt → Frogbutt**. Only Frogbutt’s worm route has subsequently changed at your request; the original is retained in `game/tests/fixtures/Frogbutt_original.json`. Its stage progress saves separately; Baby Mode, hats, custom levels and preferences are retained. Browser progress also has an immediate backup for quick reloads.
 - **Baby Mode**, the first difficulty set: Moonlit Oasis, Pharaoh's Courtyard, Violet Mire, then Little Frog Crossing. The original three layouts are unchanged. The finale crosses two slow traffic lanes, three long-log lanes, a safe checkpoint bank, then three slightly faster traffic lanes.
 - Completing all four distinct Baby Mode stages unlocks and equips a baby frog-head hat, with raised eyes and a stitched smile. **Hat** cycles bare head, the pharaoh headdress and the earned frog hat; selection and stage completion save locally on the device.
 - Continuous WASD/arrow movement, animated hopping, physical collisions and an interchangeable pharaoh hat.
@@ -77,3 +78,13 @@ Android UA/touch/high-DPI emulation and focused failure tests passed.
 
 Focused campaign validation: `bash tools/test_human_set.sh` runs unlock,
 save and route checks with an isolated temporary save folder.
+
+## Pending recorded-voice update
+
+Branch `feature/recorded-cues-v10` prepares only the 17 user-mapped voice events,
+a serialized voice player, input-gesture gating and a saved **Recorded voices**
+mute option. “Begin” waits for stage display, prior announcements and Exit Preview.
+Death/retry cancels stale announcements; the final-street return warning rearms
+only after another visit to that road. Actual clips are not integrated yet:
+repository transfer of the verified bundle is awaiting user approval. Public Site
+version 9 remains unchanged until the combined release is verified and deployed.

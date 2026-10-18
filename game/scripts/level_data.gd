@@ -86,6 +86,8 @@ static func validate(d: Variant) -> String:
 			if d.tiles[int(obj.pos[1])][int(obj.pos[0])] in ["wall", "water"]:
 				return "Place solid objects, critters and traps on dry terrain."
 		if obj.type == "critter":
+			if obj.has("patrol_loop") and not obj.patrol_loop is bool:
+				return "Loop route must be true or false."
 			if obj.get("behavior", "wander") not in ["wander", "patrol"]:
 				return "Unknown critter behavior."
 			if not finite_number(obj.get("speed", 1.6)) or obj.get("speed", 1.6) < 0.3 or obj.get("speed", 1.6) > 5:

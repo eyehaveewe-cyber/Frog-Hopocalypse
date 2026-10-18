@@ -6,6 +6,8 @@ var behavior := "wander"
 var speed := 1.6
 var waypoints: Array[Vector3] = []
 var waypoint_index := 0
+var patrol_loop := true
+var patrol_finished := false
 var direction := Vector3.ZERO
 var turn_timer := 0.0
 var hop_clock := 0.0
@@ -15,6 +17,7 @@ var stuck_time := 0.0
 func setup(player: bool, theme_name: String, obj: Dictionary = {}, hat: bool = true) -> void:
 	is_player = player
 	behavior = obj.get("behavior", "wander")
+	patrol_loop = obj.get("patrol_loop", true)
 	speed = 4.2 if player else float(obj.get("speed", 1.6))
 	collision_layer = 2 if player else 4
 	collision_mask = 1
@@ -45,9 +48,9 @@ func step(delta: float, input_vector: Vector2 = Vector2.ZERO) -> void:
 	elif behavior == "patrol" and waypoints.size() > 0:
 		var target := waypoints[waypoint_index]
 		if position.distance_to(target) < 0.20:
-			waypoint_index = (waypoint_index + 1) % waypoints.size()
+			advance_waypoint()
 			target = waypoints[waypoint_index]
-		direction = (target - position).normalized()
+		direction = Vector3.ZERO if patrol_finished else (target - position).normalized()
 	else:
 		turn_timer -= delta
 		if turn_timer <= 0:
@@ -64,7 +67,7 @@ func step(delta: float, input_vector: Vector2 = Vector2.ZERO) -> void:
 		else:
 			stuck_time += delta
 			if stuck_time > 0.5:
-				waypoint_index = (waypoint_index + 1) % maxi(1, waypoints.size())
+				advance_waypoint()
 				stuck_time = 0
 	else:
 		stuck_time = 0
@@ -83,3 +86,13 @@ func set_hat(kind: Variant) -> void:
 		var selected: String = ("pharaoh" if kind else "none") if kind is bool else str(kind)
 		visual.get_node("HatSocket/PharaohHat").visible = selected == "pharaoh"
 		visual.get_node("HatSocket/BabyFrogHat").visible = selected == "baby"
+
+func advance_waypoint() -> void:
+	if waypoints.is_empty():
+		return
+	if waypoint_index + 1 < waypoints.size():
+		waypoint_index += 1
+	elif patrol_loop:
+		waypoint_index = 0
+	else:
+		patrol_finished = true

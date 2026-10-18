@@ -1,0 +1,1217 @@
+{
+	"exit": [
+		15,
+		1
+	],
+	"height": 13,
+	"name": "Frogbutt",
+	"objects": [
+		{
+			"behavior": "wander",
+			"id": "mire-1",
+			"pos": [
+				5,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.2,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "mire-2",
+			"pos": [
+				3,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "mire-3",
+			"pos": [
+				11,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.5,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "mire-4",
+			"pos": [
+				15,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.5,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "patrol",
+			"id": "mire-patrol",
+			"pos": [
+				7,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.4,
+			"type": "critter",
+			"waypoints": [
+				[
+					3,
+					3
+				],
+				[
+					7,
+					3
+				]
+			]
+		},
+		{
+			"id": "tree-1",
+			"pos": [
+				1,
+				1
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "glow-1",
+			"pos": [
+				2,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		},
+		{
+			"id": "glow-2",
+			"pos": [
+				9,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		},
+		{
+			"id": "glow-4",
+			"pos": [
+				1,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		},
+		{
+			"id": "object_2642628800_9",
+			"pos": [
+				4,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"id": "object_2644733100_10",
+			"pos": [
+				4,
+				11
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"id": "object_2653181000_11",
+			"interval": 2.5,
+			"pos": [
+				15,
+				10
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2660341400_12",
+			"pos": [
+				1,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2662676700_13",
+			"pos": [
+				6,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2663125200_14",
+			"pos": [
+				6,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2663692800_15",
+			"pos": [
+				8,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2664367700_16",
+			"pos": [
+				8,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2664512300_17",
+			"pos": [
+				8,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2664567900_18",
+			"pos": [
+				7,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2665156900_19",
+			"pos": [
+				9,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2665206900_20",
+			"pos": [
+				9,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2665245800_21",
+			"pos": [
+				10,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2665484800_22",
+			"pos": [
+				7,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2665990300_23",
+			"pos": [
+				7,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666190500_24",
+			"pos": [
+				7,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666335200_25",
+			"pos": [
+				7,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666401500_26",
+			"pos": [
+				6,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666429700_27",
+			"pos": [
+				6,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666458300_28",
+			"pos": [
+				5,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666487300_29",
+			"pos": [
+				4,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666517100_30",
+			"pos": [
+				3,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666585100_31",
+			"pos": [
+				2,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666640500_32",
+			"pos": [
+				1,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666751700_33",
+			"pos": [
+				2,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666783200_34",
+			"pos": [
+				4,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666884900_35",
+			"pos": [
+				4,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666929400_36",
+			"pos": [
+				3,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2666962700_37",
+			"pos": [
+				3,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667007200_38",
+			"pos": [
+				3,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667079600_39",
+			"pos": [
+				4,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667114800_40",
+			"pos": [
+				5,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667151100_41",
+			"pos": [
+				8,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667187100_42",
+			"pos": [
+				9,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667224400_43",
+			"pos": [
+				10,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667318400_44",
+			"pos": [
+				9,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667356700_45",
+			"pos": [
+				7,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667463100_46",
+			"pos": [
+				6,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667503300_47",
+			"pos": [
+				8,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667543200_48",
+			"pos": [
+				11,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667583600_49",
+			"pos": [
+				14,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667624300_50",
+			"pos": [
+				15,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667729700_51",
+			"pos": [
+				15,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667771500_52",
+			"pos": [
+				14,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667814400_53",
+			"pos": [
+				13,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667857500_54",
+			"pos": [
+				12,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2667991000_55",
+			"pos": [
+				13,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668113200_56",
+			"pos": [
+				15,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668157800_57",
+			"pos": [
+				13,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668203100_58",
+			"pos": [
+				11,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668352100_59",
+			"pos": [
+				10,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668398600_60",
+			"pos": [
+				11,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668445800_61",
+			"pos": [
+				12,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668541100_62",
+			"pos": [
+				11,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668724400_63",
+			"pos": [
+				12,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668774300_64",
+			"pos": [
+				14,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668829900_65",
+			"pos": [
+				13,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668880400_66",
+			"pos": [
+				11,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2668931300_67",
+			"pos": [
+				9,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2669196700_68",
+			"pos": [
+				10,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2669249600_69",
+			"pos": [
+				8,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2674681300_70",
+			"pos": [
+				7,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2675164900_71",
+			"pos": [
+				6,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2675220500_72",
+			"pos": [
+				5,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2675275100_73",
+			"pos": [
+				6,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		}
+	],
+	"spawn": [
+		1,
+		11
+	],
+	"theme": "egypt",
+	"tiles": [
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"path",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		]
+	],
+	"version": 1,
+	"width": 17
+}

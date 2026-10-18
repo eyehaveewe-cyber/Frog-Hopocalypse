@@ -61,6 +61,7 @@
 		{
 			"behavior": "patrol",
 			"id": "mire-patrol",
+			"patrol_loop": true,
 			"pos": [
 				7,
 				3
@@ -71,12 +72,12 @@
 			"type": "critter",
 			"waypoints": [
 				[
-					3,
-					3
+					7,
+					1
 				],
 				[
 					7,
-					3
+					11
 				]
 			]
 		},
