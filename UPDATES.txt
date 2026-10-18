@@ -1,3 +1,18 @@
+2026-10-18 — Single-take bugsploded death recording
+
+1. Trimmed bugsploded.ogg to its first 1.44-second speech section, fading the
+   final 40 ms in the pause before the second section. Existing loudness is
+   preserved. Original 3.52-second source is retained outside the game export:
+   docs/audio-originals/bugsploded-v13.ogg (SHA256
+   c8b30d57a5a8f9e44e59b7e0efba7c24a3cc926e90b2492d80b7f4eca7be0065).
+2. Playback code already emits one cue per bug death; added checks covering
+   repeated collision notification and transition into/after the death screen.
+   All 19 focused voice checks pass. Selection used speech/silence boundaries;
+   human listening and phone playback remain unverified.
+3. No other sounds, game logic, saves, graphics or RiverSim assets changed.
+   Rollback keeps public access and redeploys saved version 13:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_e1d9e76178f08191ab92565e4791770d.
+
 2026-10-18 — Android compatibility scene shader mitigation (published v13)
 
 1. Integrated d5dc97b3d292fd508aae841b8222af75d554afef atop public v12.

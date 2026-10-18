@@ -77,6 +77,20 @@ func run() -> void:
 	suite.check(voice.history.back() == "gloopbutt", "Gloopbutt gets its authored level name")
 	app.play_builtin(3, "human")
 	suite.check(voice.history.back() == "frogbutt", "Frogbutt gets its authored level name")
+	app.play_builtin(0, "baby")
+	drain_voice()
+	voice.history.clear()
+	voice.rng.seed = 123456
+	app.world.death_cause = "wander"
+	app.world.finish("CROAKED!")
+	app.world.finish("CROAKED!")
+	suite.check(voice.history == ["bugsploded"] and app.deaths == 1, "Bug collision triggers one bugsploded cue and one death")
+	app.world.result_time = 1.7
+	app.update_result_presentation()
+	drain_voice()
+	app.update_result_presentation()
+	suite.check(voice.history == ["bugsploded"] and voice.queue.is_empty() and app.overlay.visible, "Death screen does not replay or queue the bug cue")
+	suite.check(voice.clips["bugsploded"].get_length() < 1.5, "Bug cue contains only the first take before the repeated speech section")
 	voice.set_enabled(false)
 	voice.say("begin")
 	suite.check(not voice.busy(), "Mute immediately clears playback and pending voices")
@@ -86,4 +100,7 @@ func run() -> void:
 	app.load_profile()
 	suite.check(not app.sound_enabled and app.completed_stages == [0, 1, 2, 3], "Mute setting and campaign progress survive profile reload")
 	print("VOICE CHECKS: %d passed, %d failed" % [suite.checks - suite.failures.size(), suite.failures.size()])
+	app.queue_free()
+	await process_frame
+	await process_frame
 	quit(0 if suite.failures.is_empty() else 1)
