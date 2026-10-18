@@ -1,3 +1,24 @@
+# Baby Mode update — 2026-10-18
+
+51 native checks passed, including active-hazard full finale traversal at three
+arrival phases, moving-log support/carrying, car and water deaths, overhead pause,
+checkpoint retry, baby bonnet unlock, hat cycling and persistent progress.
+The original three dry routes still pass their physical traversal checks.
+
+Ten focused desktop Chromium checks passed. Emulated landscape phone play also
+confirmed stage four is reachable from the menu, the bonnet equips, touch moves
+the frog and pause/resume works with zero page errors. Production startup passes
+without exposing the debug probe. The staged release also starts through the
+existing WASM hosting adapter when gzip is served without Content-Encoding;
+client-decoded bytes match the exact original engine WASM hash.
+
+Sites confirms private version 4 at https://hopan.fiiendward.chatgpt.site.
+Existing RiverSim files are byte-identical. Real iPhone/Safari and Windows
+execution remain untested. The supplied audio attachment is inaccessible to
+the download helper; no sound integration or loudness claim is made.
+
+--- Earlier validation history ---
+
 # Prototype validation — 2026-10-17
 
 2026-10-18 handoff recheck: baseline `7be94416ead3e43595fd20b533e40e461234a802`

@@ -27,7 +27,18 @@
 4. Publication uses the existing private Hopán Site and official source helper.
    The current Site source was synchronized before editing. Its existing WASM
    hosting adapter and /riversim/ content must be retained byte for byte.
-   Publication result and rollback version are recorded after deployment.
+   Published privately as version 4 at https://hopan.fiiendward.chatgpt.site.
+   Project: appgprj_6ad43a1975c08191965b198fbd79aac1.
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_af327003dc148191b4c814cc10c128ec.
+   Deployment: appgdep_6ad4ceb38084819197f293b64dbde25f, succeeded.
+   Sites source: c3906e66676625fbbaba463c5eb505c5cfade4dc.
+   Game source: bff60e5d468ce3a7e401186d7902fec3bbcbbd24.
+   Access re-read confirms owner-only (one owner, no other viewers).
+   All 14 RiverSim files, the hosting adapter and _headers were preserved.
+   The staged production release also passed browser startup with raw gzip
+   delivery and exact client-decoded WASM hash verification.
+   Rollback: redeploy prior private version 3, saved version
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_02e30e347b288191b11999f1b1677121.
    Source changes are on feature/baby-mode-crossing; main is preserved.
 
 --- Earlier publication history follows ---
