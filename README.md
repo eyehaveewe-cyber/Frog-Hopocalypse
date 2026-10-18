@@ -145,3 +145,6 @@ Reproduce the available test with `node tools/iphone_sound_smoke.cjs` after the
 debug web export is served on localhost:8060. Playwright device emulation changes
 [viewport, user agent and touch](https://playwright.dev/docs/emulation); it does
 not establish [Safari/iOS platform compatibility](https://playwright.dev/docs/browsers#webkit).
+
+The main menu labels its collections **Level sets**. Baby Mode is a named set;
+difficulty is a separate attribute beneath the set button.

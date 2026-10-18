@@ -400,6 +400,7 @@ func show_menu() -> void:
 	world.halted = true
 	edit_button.hide()
 	reset_overlay("Pharaoh Frog Hopán")
+	overlay_box.add_child(label("Level sets", 16, MUTED))
 	add_set_selector("baby", "Difficulty 1")
 	if human_set_unlocked():
 		add_set_selector("human", "Difficulty 2")

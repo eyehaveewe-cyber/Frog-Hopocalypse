@@ -1,3 +1,13 @@
+2026-10-18 — Clarify level-set selection
+
+1. Added Level sets directly beneath the main menu title. Baby Mode, Not as
+   Hard as It Looks and Bonus are named collections; existing difficulty
+   labels remain subordinate attributes beneath each set button.
+2. No selection, unlock, progression, checkpoint, audio or gameplay behavior
+   changed. Source main, public audience and RiverSim remain preserved.
+3. Rollback retains public access and redeploys saved version 16:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9928314e6e288191a8fa34d6470bf247.
+
 2026-10-18 — Sound controls, main-screen editor entry and checkpoint tool (published v16)
 
 1. Added Sound: On/Off in the play header and synchronized Sound on the main
