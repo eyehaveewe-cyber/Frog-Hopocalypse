@@ -44,3 +44,27 @@ or hazard fairness. Playtest with the actual frog and hazards active.
 Desktop saves use Godot's `user://library.json`. Browser saves use browser-local IndexedDB on the current site's origin. Clearing site data or switching hostnames can remove or separate saves. **Export JSON is the portable backup**; it contains map data without game code. Renaming and saving updates the current slot; Duplicate allocates a new slot. Imported maps allocate a slot on their first save.
 
 The editor targets desktop mouse and keyboard. Mobile provides landscape gameplay and large touch controls; touch editing is not polished. Hiding the tab pauses gameplay; use Resume after returning.
+
+## Extra terrain and patrols
+
+**Cheese wall** blocks frogs, bugs and worms while darts pass through it. It is
+blocked terrain for spawn/exit, patrol points and exit-route validation.
+
+**Seam worm** is blue with gold bands. Place it at an open junction: the editor
+snaps to the lower-right corner of the clicked tile. **Draw patrol waypoints**
+follows the same corners. Use horizontal/vertical legs and include corners for
+all turns, including the loop's final connection to its first waypoint. All four
+tiles around each junction must be open and dry. No route means it waits in place.
+It uses the same loop, speed and worm-death cues as ordinary patrol worms.
+
+**Patrol car** belongs on Road. Choose East–west or North–south and its initial
+direction. With no route, the car bounces between road ends or static blockers.
+**Draw car patrol** adds road-cell points; include each corner and keep every
+segment on connected road. Drawn routes repeat and override the axis. **Clear
+car route** restores straight-axis patrol. Cars fit one road tile; ordinary
+lane cars/logs retain their existing behavior. New terrain and patrol variants
+save in version-1 JSON; older saved levels remain supported by this build.
+
+Trees are ignored by the structural exit-path check because their trunks do not
+occupy an entire tile. Actual movement still collides with their trunks. The
+check remains structural, rather than a guarantee of safe hazard timing.

@@ -212,9 +212,13 @@ static func frog(hat: bool = true) -> Node3D:
 static func critter(theme_name: String, behavior: String) -> Node3D:
 	var root := Node3D.new()
 	var color := Color("d36f48") if theme_name == "egypt" else Color("dc89de")
-	if behavior == "patrol":
+	if behavior in ["patrol", "seam_patrol"]:
+		if behavior == "seam_patrol":
+			color = Color("70b7ce")
 		for i in range(4):
 			orb(root, Vector3(0.5 - i * 0.05, 0.27, 0.4), Vector3(sin(i * 1.1) * 0.13, 0.22, -0.3 + i * 0.25), color)
+			if behavior == "seam_patrol":
+				orb(root, Vector3(0.3, 0.12, 0.15), Vector3(sin(i * 1.1) * 0.13, 0.35, -0.3 + i * 0.25), Color("f3d47c"))
 	else:
 		orb(root, Vector3(0.7, 0.38, 0.85), Vector3(0, 0.25, 0), color)
 		box(root, Vector3(0.035, 0.02, 0.6), Vector3(0, 0.44, 0.05), color.darkened(0.35))

@@ -69,7 +69,7 @@ func death_cue(reason: String, cause: String) -> String:
 			drowning_count += 1
 			return cue
 		"CROAKED!":
-			if cause == "patrol":
+			if cause in ["patrol", "seam_patrol"]:
 				var cue := "wormed" if patrol_count % 2 == 0 else "wormsploded"
 				patrol_count += 1
 				return cue

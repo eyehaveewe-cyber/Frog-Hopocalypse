@@ -1,3 +1,28 @@
+2026-10-18 — Editor terrain and patrol additions
+
+1. Cheese wall terrain blocks frog/bug/worm colliders on its own layer; dart
+   queries ignore that layer. Added yellow hole-pattern pixels, editor paint,
+   erase, undo, spawn safety and JSON/route validation.
+2. Seam worms are blue/gold and patrol tile-edge junctions. Editor points snap
+   to half-tile coordinates; square turns, loop closure and dry/open clearance
+   are validated. Turns land exactly on junctions rather than cutting tiles.
+   Existing patrols and all authored campaign levels remain unchanged.
+3. Patrol cars stay on road cells. East-west/north-south axis patrol reverses
+   at road ends and static blockers. Drawn road routes repeat, override the axis
+   and reject diagonals or gaps. Existing lane cars/logs retain their behavior.
+   Patrol cars pause for Exit Preview, use swept frog collisions and reset on retry.
+4. At the user's clarification, trees no longer cause structural exit-path
+   rejection. Tree trunks still collide physically; walls, cheese walls,
+   pillars and emitters remain barriers. Water/log rules are unchanged.
+5. Focused native checks: 18 cheese/seam, 16 car/tree, 16 voice regression,
+   12 original patrol regression passed. Full real dart-through-cheese hit,
+   actor blocking, seam-turn tracking, road reversals, loop routes, save/load
+   and editor rejection checks included. Web/Windows exports completed.
+   Browser editor/playtest and compressed production checks are recorded in
+   docs/EDITOR_HAZARDS_VALIDATION.json. No physical-phone testing performed.
+
+--- Earlier updates follow ---
+
 2026-10-18 — Recorded voices and worm patrols (published version 10)
 
 1. Exactly 17 selected user recordings are integrated with their manifest and

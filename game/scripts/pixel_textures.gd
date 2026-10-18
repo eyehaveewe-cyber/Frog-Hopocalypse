@@ -13,6 +13,12 @@ static func get_texture(kind: String) -> Texture2D:
 			var n := random.randf()
 			var color := Color.WHITE
 			match kind:
+				"cheese":
+					color = Color("f4c94a").lerp(Color("ffe28b"), n * 0.4)
+					for hole in [Vector3(7, 8, 4), Vector3(23, 6, 3), Vector3(18, 23, 5), Vector3(3, 27, 3)]:
+						var distance := Vector2(x - hole.x, y - hole.y).length()
+						if distance < hole.z:
+							color = Color("9b661d") if distance < hole.z - 1 else Color("d49b2d")
 				"road":
 					color = Color("343d48").lerp(Color("535c64"), n * 0.5)
 					if y < 2 and x < 20:

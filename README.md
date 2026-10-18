@@ -25,6 +25,11 @@ The browser entry point is `build/web/index.html`. Serve the **whole directory**
 
 ## Implemented
 
+- **Cheese wall**: yellow, hole-patterned terrain that blocks the frog and critters but lets darts pass through. Painting, erasing, undo and JSON save/load support it.
+- **Seam worm**: a blue-and-gold patrol variant. Its points snap to the lower-right corners of clicked tiles, and routes follow clear horizontal/vertical tile edges. Add square corners to close a loop. Invalid diagonals, water and solid obstructions are rejected. Old worms and their routes stay unchanged.
+- **Patrol car**: road-only traffic. Choose east–west or north–south; without waypoints it turns back at walls, blockers and road ends. Draw car waypoints for repeating road routes, with a point at every turn. Clear the route to restore axis patrol. Preview, pause and retry follow the existing game controls.
+- Trees no longer mark the structural exit-path check as blocked. Their physical trunks remain; walls, cheese walls, pillars and traps still block route validation.
+
 - **Loop route** in the worm/critter inspector explicitly repeats waypoint routes; legacy saved patrols keep looping. **North–south loop** makes an obstacle-bounded vertical route. Frogbutt’s existing worm now repeats between `[7,1]` and `[7,11]`; its 66 wandering bugs, terrain, scenery, trap and spawn/exit remain unchanged.
 - **Exit Preview** in the menu optionally sweeps to the exit and back before each stage starts; the frog, hazards and timer wait. Space skips it on desktop; Map skips it on touch. Retries resume immediately.
 - Death animations remain visible for 1.6 seconds and victory for 2.2 seconds before the result screen; retry can skip the hold.

@@ -270,7 +270,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -798,7 +798,7 @@ func set_tool(key: String) -> void:
 	tool = key
 	tool_label.text = "TOOL  /  " + key.replace("_", " ").to_upper()
 	if key == "route":
-		status("Select a critter first, then click dry cells to add patrol waypoints.")
+		status("Select a critter or patrol car, then draw waypoints on its permitted terrain.")
 
 func rebuild() -> void:
 	world.load_level(level, true, hat)
@@ -831,16 +831,30 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		return
 	if tool == "route" and not erase:
 		var obj := selected_object()
-		if obj.is_empty() or obj.type != "critter":
-			status("Choose Select, click a critter, then choose Patrol route.")
+		if obj.is_empty() or obj.type not in ["critter", "patrol_car"]:
+			status("Select a critter or patrol car, then choose Patrol route.")
 			return
-		if level.tiles[cell.y][cell.x] in ["wall", "water"]:
+		if level.tiles[cell.y][cell.x] in ["wall", "cheese_wall", "water"]:
 			status("Waypoints need dry, open terrain.")
 			return
-		if obj.waypoints.size() >= 64:
+		if obj.type == "patrol_car":
+			var previous: Array = obj.get("waypoints", [])[-1] if not obj.get("waypoints", []).is_empty() else obj.pos
+			if not Data.road_segment_open(level, previous, point):
+				status("Car patrols need connected road cells. Add a waypoint at each turn.")
+				return
+		if obj.get("behavior") == "seam_patrol":
+			point = [cell.x + 0.5, cell.y + 0.5]
+			var previous: Array = obj.get("waypoints", [])[-1] if not obj.get("waypoints", []).is_empty() else obj.pos
+			if not Data.seam_point_open(level, point) or not Data.seam_segment_open(level, previous, point):
+				status("Follow an open tile edge. Add a corner before turning; seam worms snap to the lower-right corner of each clicked tile.")
+				return
+		if obj.get("waypoints", []).size() >= 64:
 			return
 		record_undo()
-		obj.behavior = "patrol"
+		if obj.type == "critter" and obj.get("behavior") != "seam_patrol":
+			obj.behavior = "patrol"
+		if not obj.has("waypoints"):
+			obj.waypoints = []
 		obj.waypoints.append(point)
 		rebuild()
 		return
@@ -854,13 +868,13 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		else:
 			level.tiles[cell.y][cell.x] = "floor"
 	elif tool in Data.TILES:
-		if tool in ["wall", "water"] and (point == level.spawn or point == level.exit):
+		if tool in ["wall", "cheese_wall", "water"] and (point == level.spawn or point == level.exit):
 			status("Move the frog or exit before painting a hazard here.")
 			return
 		level.tiles[cell.y][cell.x] = tool
-		if tool in ["wall", "water"]:
+		if tool in ["wall", "cheese_wall", "water"]:
 			for i in range(level.objects.size() - 1, -1, -1):
-				if level.objects[i].pos == point:
+				if level.objects[i].pos == point or (level.objects[i].get("behavior") == "seam_patrol" and not Data.seam_point_open(level, level.objects[i].pos)):
 					level.objects.remove_at(i)
 	elif tool in ["spawn", "exit"]:
 		if point == level.get("exit" if tool == "spawn" else "spawn"):
@@ -870,23 +884,30 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		if index >= 0:
 			level.objects.remove_at(index)
 		level[tool] = point
-	elif tool in Data.OBJECTS:
+	elif tool in Data.OBJECTS or tool == "seam_worm":
 		var terrain: String = level.tiles[cell.y][cell.x]
-		if (tool == "log" and terrain != "water") or (tool == "car" and terrain != "road"):
+		if (tool == "log" and terrain != "water") or (tool in ["car", "patrol_car"] and terrain != "road"):
 			status("Logs belong on water. Cars belong on road lanes.")
 			return
-		if point == level.spawn or point == level.exit or terrain == "wall" or (terrain == "water" and tool != "log"):
+		if point == level.spawn or point == level.exit or terrain in ["wall", "cheese_wall"] or (terrain == "water" and tool != "log"):
 			status("Place objects on dry terrain away from the start and exit.")
 			return
 		if index >= 0 or level.objects.size() >= 180:
 			return
-		var obj := {"id": "object_%d_%d" % [Time.get_ticks_usec(), level.objects.size()], "type": tool, "pos": point, "rotation": 0, "solid": tool in ["pillar", "tree", "emitter"]}
-		if tool == "critter":
-			obj.merge({"behavior": "wander", "speed": 1.6, "waypoints": []})
+		if tool == "seam_worm":
+			point = [cell.x + 0.5, cell.y + 0.5]
+			if not Data.seam_point_open(level, point):
+				status("Place a seam worm at a corner surrounded by four open, dry tiles.")
+				return
+		var obj := {"id": "object_%d_%d" % [Time.get_ticks_usec(), level.objects.size()], "type": "critter" if tool == "seam_worm" else tool, "pos": point, "rotation": 0, "solid": tool in ["pillar", "tree", "emitter"]}
+		if tool in ["critter", "seam_worm"]:
+			obj.merge({"behavior": "seam_patrol" if tool == "seam_worm" else "wander", "speed": 1.6, "waypoints": []})
 		if tool == "emitter":
 			obj.interval = 2.5
-		if tool in ["car", "log"]:
+		if tool in ["car", "patrol_car", "log"]:
 			obj.merge({"length": 4.6 if tool == "log" else 1.5, "speed": 1.0, "direction": 1})
+		if tool == "patrol_car":
+			obj.merge({"axis": "east_west", "waypoints": [], "length": 1.0}, true)
 		level.objects.append(obj)
 		selection = obj.id
 	rebuild()
@@ -913,7 +934,11 @@ func refresh_inspector() -> void:
 		behavior.add_item("Patrol")
 		behavior.select(0 if obj.behavior == "wander" else 1)
 		behavior.item_selected.connect(func(i: int): change_property("behavior", "wander" if i == 0 else "patrol"))
-		inspector.add_child(behavior)
+		if obj.get("behavior") == "seam_patrol":
+			behavior.queue_free()
+			paragraph(inspector, "SEAM WORM · Blue with gold bands\nRoute along tile edges; click lower-right corners. Close your loop with square turns.", 12)
+		else:
+			inspector.add_child(behavior)
 		var loop_toggle := CheckButton.new()
 		loop_toggle.text = "Loop route"
 		loop_toggle.tooltip_text = "Repeat waypoints in order. Off: stop at the final waypoint."
@@ -929,7 +954,8 @@ func refresh_inspector() -> void:
 		speed.value_changed.connect(func(v: float): change_property("speed", v))
 		inspector.add_child(speed)
 		button(inspector, "Draw patrol waypoints", func(): set_tool("route"))
-		button(inspector, "North–south loop", make_north_south_loop)
+		if obj.get("behavior") != "seam_patrol":
+			button(inspector, "North–south loop", make_north_south_loop)
 		button(inspector, "Clear route (%d points)" % obj.get("waypoints", []).size(), func(): change_property("waypoints", []))
 	if obj.type == "emitter":
 		var interval := SpinBox.new()
@@ -941,8 +967,8 @@ func refresh_inspector() -> void:
 		interval.value_changed.connect(func(v: float): change_property("interval", v))
 		inspector.add_child(interval)
 		paragraph(inspector, "0° fires north · 90° west\n180° south · 270° east", 11)
-	if obj.type in ["car", "log"]:
-		for field in [["length", 1.0, 6.0, "cells long"], ["speed", 0.3, 4.0, "lane speed"]]:
+	if obj.type in ["car", "patrol_car", "log"]:
+		for field in [["length", 1.0, 1.0 if obj.type == "patrol_car" else 6.0, "cells long"], ["speed", 0.3, 4.0, "lane speed"]]:
 			var key: String = field[0]
 			var value := SpinBox.new()
 			value.min_value = field[1]
@@ -952,7 +978,21 @@ func refresh_inspector() -> void:
 			value.suffix = field[3]
 			value.value_changed.connect(func(v: float): change_property(key, v))
 			inspector.add_child(value)
-		button(inspector, "Direction: " + ("right →" if obj.get("direction", 1) == 1 else "← left"), func(): change_property("direction", -int(obj.get("direction", 1))))
+		var direction_text := "right →" if obj.get("direction", 1) == 1 else "← left"
+		if obj.type == "patrol_car":
+			direction_text = ("south" if obj.get("direction",1) == 1 else "north") if obj.get("axis") == "north_south" else ("east" if obj.get("direction",1) == 1 else "west")
+		button(inspector, "Direction: " + direction_text, func(): change_property("direction", -int(obj.get("direction", 1))))
+		if obj.type == "patrol_car":
+			var axis_picker := OptionButton.new()
+			axis_picker.add_item("East–west")
+			axis_picker.add_item("North–south")
+			axis_picker.select(1 if obj.get("axis") == "north_south" else 0)
+			axis_picker.item_selected.connect(func(i: int): change_property("axis", "east_west" if i == 0 else "north_south"))
+			inspector.add_child(axis_picker)
+			paragraph(inspector, "Road only · Turns back at walls or road ends. A drawn route overrides the axis.",12)
+			button(inspector, "Draw car patrol", func(): set_tool("route"))
+			button(inspector, "Clear car route (%d points)" % obj.get("waypoints", []).size(),func(): change_property("waypoints", []))
+
 	if obj.type in ["mushroom", "decoration"]:
 		var solid := CheckBox.new()
 		solid.text = "Blocks movement"
@@ -1314,7 +1354,7 @@ func make_north_south_loop() -> void:
 	status("North–south loop set. The worm repeats between the two clear endpoints.")
 
 func patrol_cell_open(cell: Vector2i) -> bool:
-	if not world.inside(cell) or level.tiles[cell.y][cell.x] in ["wall", "water"] or [cell.x, cell.y] in [level.spawn, level.exit]:
+	if not world.inside(cell) or level.tiles[cell.y][cell.x] in ["wall", "cheese_wall", "water"] or [cell.x, cell.y] in [level.spawn, level.exit]:
 		return false
 	for obj in level.objects:
 		if obj.pos == [cell.x, cell.y] and (obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false)):

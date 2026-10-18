@@ -122,6 +122,10 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 					color = Color("b4ad8c") if swamp else Color("ead69b")
 				var texture_kind := "road" if tile == "road" else (("swamp_stone" if swamp else "stone") if tile == "path" else ("moss" if swamp else "grass"))
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
+			if tile == "cheese_wall":
+				Art.textured(Art.box(geometry, Vector3(CELL, 0.65, CELL), p + Vector3(0, 0.325, 0), Color.WHITE), "cheese")
+				var cheese_body := Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
+				cheese_body.collision_layer = 8
 			if tile == "wall":
 				var perimeter: bool = x == 0 or z == 0 or x == level.width - 1
 				var height := 1.45 if perimeter else (0.3 if z == level.height - 1 else 0.55)
@@ -136,7 +140,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 		Art.solid(geometry, Vector3(0.2, 2, h + 2), Vector3(side * (w / 2 + 0.1), 0.5, 0))
 	for obj in level.objects:
 		var p := cell_position(obj.pos)
-		if obj.type in ["car", "log"]:
+		if obj.type in ["car", "patrol_car", "log"]:
 			continue
 		if obj.type == "critter":
 			var actor := Actor.new()
@@ -261,7 +265,7 @@ func show_cursor(cell: Vector2i) -> void:
 	if is_instance_valid(cursor):
 		cursor.visible = editing and inside(cell)
 		if cursor.visible:
-			cursor.position = cell_position([cell.x, cell.y]) + Vector3(0, 0.72 if level.tiles[cell.y][cell.x] == "wall" else 0.07, 0)
+			cursor.position = cell_position([cell.x, cell.y]) + Vector3(0, 0.72 if level.tiles[cell.y][cell.x] in ["wall", "cheese_wall"] else 0.07, 0)
 
 func show_route(obj: Dictionary) -> void:
 	for child in route_root.get_children():
@@ -339,7 +343,7 @@ func _physics_process(delta: float) -> void:
 		if not inside(cell) or level.tiles[cell.y][cell.x] == "water":
 			critter.position = old
 			critter.direction = -critter.direction
-			if critter.behavior == "patrol":
+			if critter.behavior in ["patrol", "seam_patrol"]:
 				critter.advance_waypoint()
 		if player.position.distance_to(critter.position) < 0.67:
 			death_cause = critter.behavior

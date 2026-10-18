@@ -20,7 +20,7 @@ func setup(player: bool, theme_name: String, obj: Dictionary = {}, hat: bool = t
 	patrol_loop = obj.get("patrol_loop", true)
 	speed = 4.2 if player else float(obj.get("speed", 1.6))
 	collision_layer = 2 if player else 4
-	collision_mask = 1
+	collision_mask = 1 | 8 # Terrain and cheese walls; darts query terrain only.
 	motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
 	var shape := CollisionShape3D.new()
 	var sphere := SphereShape3D.new()
@@ -45,12 +45,16 @@ func choose_direction() -> void:
 func step(delta: float, input_vector: Vector2 = Vector2.ZERO) -> void:
 	if is_player:
 		direction = Vector3(input_vector.x, 0, input_vector.y).limit_length()
-	elif behavior == "patrol" and waypoints.size() > 0:
+	elif behavior in ["patrol", "seam_patrol"] and waypoints.size() > 0:
 		var target := waypoints[waypoint_index]
 		if position.distance_to(target) < 0.20:
+			if behavior == "seam_patrol":
+				position = target # Turn exactly at the junction, without cutting across a tile.
 			advance_waypoint()
 			target = waypoints[waypoint_index]
 		direction = Vector3.ZERO if patrol_finished else (target - position).normalized()
+	elif behavior == "seam_patrol":
+		direction = Vector3.ZERO
 	else:
 		turn_timer -= delta
 		if turn_timer <= 0:

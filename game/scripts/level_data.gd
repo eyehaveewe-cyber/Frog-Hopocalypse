@@ -2,8 +2,8 @@ extends RefCounted
 ## The editor, bundled maps and runtime all consume this versioned format.
 const VERSION = 1
 const MAX_SIDE = 25
-const TILES = ["floor", "wall", "water", "path", "road"]
-const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "log"]
+const TILES = ["floor", "wall", "cheese_wall", "water", "path", "road"]
+const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log"]
 
 static func blank(title: String = "My magnificent maze", theme_name: String = "egypt", w: int = 17, h: int = 13) -> Dictionary:
 	var tiles: Array = []
@@ -48,13 +48,13 @@ static func validate(d: Variant) -> String:
 		if not point_valid(d.get(key), w, h):
 			return "The %s must be inside the level." % key
 		var p: Array = d[key]
-		if p[0] != int(p[0]) or p[1] != int(p[1]) or d.tiles[int(p[1])][int(p[0])] in ["wall", "water"]:
+		if p[0] != int(p[0]) or p[1] != int(p[1]) or d.tiles[int(p[1])][int(p[0])] in ["wall", "cheese_wall", "water"]:
 			return "The %s must sit on a walkable grid cell." % key
 	if d.spawn == d.exit:
 		return "Place the exit away from the start."
 	if d.has("checkpoint"):
 		var p: Variant = d.checkpoint
-		if not point_valid(p, w, h) or p[0] != int(p[0]) or p[1] != int(p[1]) or d.tiles[int(p[1])][int(p[0])] in ["wall", "water", "road"]:
+		if not point_valid(p, w, h) or p[0] != int(p[0]) or p[1] != int(p[1]) or d.tiles[int(p[1])][int(p[0])] in ["wall", "cheese_wall", "water", "road"]:
 			return "The checkpoint must sit on a whole, safe bank cell."
 	if not d.get("objects") is Array or d.objects.size() > 180:
 		return "A level supports up to 180 objects."
@@ -69,7 +69,7 @@ static func validate(d: Variant) -> String:
 			return "Object rotation must be finite."
 		if obj.has("solid") and not obj.solid is bool:
 			return "Solid must be true or false."
-		if obj.type in ["car", "log"]:
+		if obj.type in ["car", "patrol_car", "log"]:
 			if obj.pos[1] != int(obj.pos[1]) or d.tiles[int(obj.pos[1])][int(obj.pos[0])] != ("water" if obj.type == "log" else "road"):
 				return "Place logs on water and cars on road lanes."
 			if not finite_number(obj.get("speed", 1.0)) or obj.get("speed", 1.0) < 0.3 or obj.get("speed", 1.0) > 4:
@@ -82,21 +82,45 @@ static func validate(d: Variant) -> String:
 				return "Moving cars and logs use lane collisions, not static blockers."
 			if obj.has("color") and (not obj.color is String or obj.color.length() > 16):
 				return "Car color must be a short color string."
+		if obj.type == "patrol_car":
+			if obj.pos[0] != int(obj.pos[0]) or obj.get("axis", "east_west") not in ["east_west", "north_south"]:
+				return "Patrol cars need whole road cells and a north-south or east-west axis."
+			if float(obj.get("length", 1.0)) > 1.0:
+				return "Patrol cars must fit within one road tile."
+			if not obj.get("waypoints", []) is Array or obj.get("waypoints", []).size() > 64:
+				return "A car patrol supports up to 64 road waypoints."
+			var route: Array = [obj.pos] + obj.get("waypoints", [])
+			if obj.get("waypoints", []).size() > 1:
+				route.append(obj.waypoints[0])
+			for i in range(route.size()):
+				if not point_valid(route[i], w, h) or route[i][0] != int(route[i][0]) or route[i][1] != int(route[i][1]) or not road_cell_open(d, Vector2i(route[i][0],route[i][1])):
+					return "Car patrol waypoints need open road tiles."
+				if i > 0 and not road_segment_open(d, route[i-1],route[i]):
+					return "Car patrol routes must follow connected road tiles with square turns."
 		if obj.type in ["pillar", "tree", "critter", "emitter"] or obj.get("solid", false):
-			if d.tiles[int(obj.pos[1])][int(obj.pos[0])] in ["wall", "water"]:
+			if d.tiles[int(obj.pos[1])][int(obj.pos[0])] in ["wall", "cheese_wall", "water"]:
 				return "Place solid objects, critters and traps on dry terrain."
 		if obj.type == "critter":
 			if obj.has("patrol_loop") and not obj.patrol_loop is bool:
 				return "Loop route must be true or false."
-			if obj.get("behavior", "wander") not in ["wander", "patrol"]:
+			if obj.get("behavior", "wander") not in ["wander", "patrol", "seam_patrol"]:
 				return "Unknown critter behavior."
 			if not finite_number(obj.get("speed", 1.6)) or obj.get("speed", 1.6) < 0.3 or obj.get("speed", 1.6) > 5:
 				return "Critter speed must be between 0.3 and 5."
 			if not obj.get("waypoints", []) is Array or obj.get("waypoints", []).size() > 64:
 				return "A patrol supports up to 64 waypoints."
 			for point in obj.get("waypoints", []):
-				if not point_valid(point, w, h) or d.tiles[int(point[1])][int(point[0])] in ["wall", "water"]:
+				if not point_valid(point, w, h) or d.tiles[int(point[1])][int(point[0])] in ["wall", "cheese_wall", "water"]:
 					return "Patrol waypoints must be on dry terrain."
+			if obj.get("behavior") == "seam_patrol":
+				var route: Array = [obj.pos] + obj.get("waypoints", [])
+				if obj.get("patrol_loop", true) and obj.get("waypoints", []).size() > 1:
+					route.append(obj.waypoints[0])
+				for i in range(route.size()):
+					if not seam_point_open(d, route[i]):
+						return "Seam worms need open tile corners."
+					if i > 0 and not seam_segment_open(d, route[i - 1], route[i]):
+						return "Seam worm routes must follow clear horizontal or vertical tile edges. Add a corner before turning."
 		if obj.type == "emitter":
 			if not finite_number(obj.get("interval", 2.5)) or obj.get("interval", 2.5) < 0.5 or obj.get("interval", 2.5) > 10:
 				return "Firing interval must be between 0.5 and 10 seconds."
@@ -140,7 +164,8 @@ static func reachable(d: Dictionary) -> bool:
 	var goal := Vector2i(int(d.exit[0]), int(d.exit[1]))
 	var blocked: Dictionary = {}
 	for o in d.objects:
-		if o.type in ["pillar", "tree", "emitter"] or o.get("solid", false):
+		# Trees have narrow trunks; do not reject a structural exit route as a whole blocked tile.
+		if o.type in ["pillar", "emitter"] or (o.type != "tree" and o.get("solid", false)):
 			blocked[Vector2i(int(o.pos[0]), int(o.pos[1]))] = true
 	var queue: Array[Vector2i] = [start]
 	var visited: Dictionary = {start: true}
@@ -152,7 +177,7 @@ static func reachable(d: Dictionary) -> bool:
 			var n: Vector2i = p + offset
 			if n.x < 0 or n.y < 0 or n.x >= d.width or n.y >= d.height or visited.has(n) or blocked.has(n):
 				continue
-			if d.tiles[n.y][n.x] == "wall" or (d.tiles[n.y][n.x] == "water" and not has_log_lane(d, n.y)):
+			if d.tiles[n.y][n.x] in ["wall", "cheese_wall"] or (d.tiles[n.y][n.x] == "water" and not has_log_lane(d, n.y)):
 				continue
 			visited[n] = true
 			queue.append(n)
@@ -164,3 +189,51 @@ static func has_log_lane(d: Dictionary, row: int) -> bool:
 		if obj.type == "log" and int(obj.pos[1]) == row:
 			return true
 	return false
+
+static func seam_point_open(d: Dictionary, p: Array) -> bool:
+	if p.size() != 2 or not finite_number(p[0]) or not finite_number(p[1]):
+		return false
+	if not is_equal_approx(fposmod(float(p[0]), 1), 0.5) or not is_equal_approx(fposmod(float(p[1]), 1), 0.5):
+		return false
+	var x := floori(float(p[0]))
+	var y := floori(float(p[1]))
+	for z in [y, y + 1]:
+		for col in [x, x + 1]:
+			if col < 0 or z < 0 or col >= int(d.width) or z >= int(d.height) or d.tiles[z][col] in ["wall", "cheese_wall", "water"]:
+				return false
+			for obj in d.objects:
+				if obj.pos == [col, z] and (obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false)):
+					return false
+	return true
+
+static func seam_segment_open(d: Dictionary, a: Array, b: Array) -> bool:
+	if a[0] != b[0] and a[1] != b[1]:
+		return false
+	var from := Vector2(a[0], a[1])
+	var to := Vector2(b[0], b[1])
+	var steps := ceili(from.distance_to(to))
+	for i in range(steps + 1):
+		var point := from.lerp(to, float(i) / maxf(1, steps))
+		if not seam_point_open(d, [point.x, point.y]):
+			return false
+	return true
+
+static func road_cell_open(d: Dictionary, cell: Vector2i) -> bool:
+	if cell.x < 0 or cell.y < 0 or cell.x >= int(d.width) or cell.y >= int(d.height) or d.tiles[cell.y][cell.x] != "road":
+		return false
+	for obj in d.objects:
+		if obj.pos == [cell.x, cell.y] and (obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false)):
+			return false
+	return true
+
+static func road_segment_open(d: Dictionary, a: Array, b: Array) -> bool:
+	if a[0] != b[0] and a[1] != b[1]:
+		return false
+	var from := Vector2(a[0], a[1])
+	var to := Vector2(b[0], b[1])
+	var steps := ceili(from.distance_to(to))
+	for i in range(steps + 1):
+		var point := from.lerp(to, float(i) / maxf(1, steps))
+		if not road_cell_open(d, Vector2i(roundi(point.x),roundi(point.y))):
+			return false
+	return true
