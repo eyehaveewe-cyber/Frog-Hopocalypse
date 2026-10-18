@@ -1,4 +1,24 @@
-2026-10-18 — Not as Hard as It Looks (latest)
+2026-10-18 — Baby Mode first (latest)
+
+1. Fresh saves show Baby Mode as the only stage set. The human-made set's
+   heading, locked hint and stage list stay hidden until all four Baby Mode
+   clears are recorded. Existing unlocked saves still see both sets.
+2. Progress, hats, preferences, original levels, Android compatibility and
+   RiverSim remain unchanged. Native rendered-node inspection covered fresh,
+   three-clear and four-clear states. Browser checks verified fresh/unlocked
+   menus and retained human progress [0,2], selected hat and preview setting,
+   with zero runtime errors. Build/export completed.
+3. Audio remains unintegrated. No verified usable audio input existed here.
+   A separate candidate transport test is quarantined outside the game after
+   failing byte-count/SHA verification; no mapping or publication of that clip.
+4. Publish to the same public Site, preserving access revision 2 and all
+   RiverSim/adapter/header bytes. Rollback: ordinary deployment of saved v8
+   with public access retained:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_acc0c608efc8819180263f359fbdef81.
+
+--- Earlier updates follow ---
+
+2026-10-18 — Not as Hard as It Looks (version 8)
 
 1. Added the four recovered original layouts, byte for byte, in attachment
    order: Hardbutt, Gloopbutt, Treebutt, Frogbutt. This set unlocks after four

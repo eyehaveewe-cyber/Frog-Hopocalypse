@@ -384,8 +384,8 @@ func show_menu() -> void:
 		button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): play_builtin(index), i == 0)
 	if not completed_stages.is_empty():
 		paragraph(overlay_box, "%d / 4 Baby Mode stages cleared" % completed_stages.size(), 12)
-	overlay_box.add_child(label(HUMAN_TITLE.to_upper(), 24, LIME))
 	if human_set_unlocked():
+		overlay_box.add_child(label(HUMAN_TITLE.to_upper(), 24, LIME))
 		paragraph(overlay_box, "Four human-made stages · Your original layouts")
 		for i in range(HUMAN_LEVELS.size()):
 			var index := i
@@ -393,8 +393,6 @@ func show_menu() -> void:
 			button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): play_builtin(index, "human"))
 		if not completed_human_stages.is_empty():
 			paragraph(overlay_box, "%d / 4 stages cleared" % completed_human_stages.size(), 12)
-	else:
-		paragraph(overlay_box, "Locked · Complete all four Baby Mode stages to unlock.", 12)
 	preview_toggle = CheckButton.new()
 	preview_toggle.text = "Exit Preview"
 	preview_toggle.tooltip_text = "At stage start, sweep to the exit and back. Hazards and the timer wait."

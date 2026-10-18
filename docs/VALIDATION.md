@@ -1,3 +1,18 @@
+# Baby Mode first — 2026-10-18
+
+Focused rendered-node inspection verified that fresh and three-clear profiles
+contain Baby Mode and no human-set heading/locked hint. A four-clear profile
+reveals the next set and retains its existing [0,2] progress and selected hat.
+Focused Chromium checks confirm four play buttons on fresh saves and eight on
+unlocked saves, preserved hat/preview/progress, and no browser/Godot errors.
+Screenshots: /workspace/baby-first-fresh.png and baby-first-unlocked.png.
+Evidence: /workspace/baby-first-results.json and baby-first-build.log.
+No unrelated broad suite was repeated for this menu-only change. Physical
+Android feedback, prior device/performance limitations and blocked hosted
+inspection remain unchanged.
+
+--- Earlier validation history ---
+
 # Not as Hard as It Looks — 2026-10-18
 
 25 focused native checks passed. Original files match all four recovered
