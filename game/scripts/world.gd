@@ -31,6 +31,8 @@ var intro_active := false
 var intro_time := 0.0
 const INTRO_DURATION = 4.2
 var crossing: Node3D
+var claimed_checkpoints: Array = []
+var checkpoint_flags: Array = []
 
 func _ready() -> void:
 	var env := WorldEnvironment.new()
@@ -93,6 +95,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 	halted = false
 	elapsed = 0
 	input_vector = Vector2.ZERO
+	claimed_checkpoints.clear()
+	checkpoint_flags.clear()
 	critters.clear()
 	emitters.clear()
 	projectiles.clear()
@@ -164,6 +168,18 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 			if obj.type == "emitter":
 				var dir := Vector3(0, 0, -1).rotated(Vector3.UP, model.rotation.y)
 				emitters.append({"pos": p + Vector3(0, 0.42, 0) + dir * 0.72, "dir": dir, "clock": 0.5, "interval": float(obj.get("interval", 2.5)), "model": model})
+	var checkpoint_points: Array = level.get("checkpoints", []).duplicate(true)
+	if level.has("checkpoint"):
+		checkpoint_points.append(level.checkpoint)
+	for point in checkpoint_points:
+		var marker := Node3D.new()
+		marker.name = "Checkpoint"
+		marker.position = cell_position(point)
+		geometry.add_child(marker)
+		Art.cylinder(marker, 0.55, 0.55, 0.03, Vector3(0,0.025,0), Color("64c9e8"))
+		Art.box(marker, Vector3(0.06,0.9,0.06), Vector3(0,0.45,0), Color("eee4c1"))
+		var flag := Art.box(marker, Vector3(0.48,0.3,0.06), Vector3(0.24,0.75,0), Color("64c9e8"))
+		checkpoint_flags.append({"point":point.duplicate(), "flag":flag})
 	crossing = Crossing.new()
 	geometry.add_child(crossing)
 	crossing.setup(level, self)
@@ -188,6 +204,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 	var excluded: Array = [player, cursor, gate, route_root, crossing] + critters
 	for emitter in emitters:
 		excluded.append(emitter.model)
+	for marker in checkpoint_flags:
+		excluded.append(marker.flag) # Activation changes its color during play.
 	Art.batch_static(geometry, excluded)
 	fit_camera()
 	active = not edit
@@ -338,7 +356,10 @@ func _physics_process(delta: float) -> void:
 		return
 	if level.has("checkpoint") and not crossing.checkpoint_claimed and tile.y <= int(level.checkpoint[1]) and level.tiles[tile.y][tile.x] not in ["water", "road"]:
 		crossing.checkpoint_claimed = true
-		checkpoint_reached.emit(level.checkpoint.duplicate())
+		claim_checkpoint(level.checkpoint)
+	for point in level.get("checkpoints", []):
+		if tile == Vector2i(point[0], point[1]) and point not in claimed_checkpoints:
+			claim_checkpoint(point)
 	for critter in critters:
 		var old: Vector3 = critter.position
 		critter.step(delta)
@@ -378,6 +399,18 @@ func _physics_process(delta: float) -> void:
 			projectiles.remove_at(i)
 	if player.position.distance_to(cell_position(level.exit)) < 0.65:
 		finish("LEVEL COMPLETE!")
+
+func restore_checkpoints(points: Array) -> void:
+	claimed_checkpoints = points.duplicate(true)
+	for marker in checkpoint_flags:
+		marker.flag.material_override = Art.mat(Color("d5ec8d") if marker.point in claimed_checkpoints else Color("64c9e8"))
+
+func claim_checkpoint(point: Array) -> void:
+	if point in claimed_checkpoints:
+		return
+	claimed_checkpoints.append(point.duplicate())
+	restore_checkpoints(claimed_checkpoints)
+	checkpoint_reached.emit(point.duplicate())
 
 func spawn_projectile(pos: Vector3, dir: Vector3) -> void:
 	var node := Art.orb(geometry, Vector3(0.22, 0.22, 0.4), pos, Color("f5a559"))

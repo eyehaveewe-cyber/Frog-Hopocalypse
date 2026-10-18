@@ -128,7 +128,24 @@ static func validate(d: Variant) -> String:
 		if obj.type == "emitter":
 			if not finite_number(obj.get("interval", 2.5)) or obj.get("interval", 2.5) < 0.5 or obj.get("interval", 2.5) > 10:
 				return "Firing interval must be between 0.5 and 10 seconds."
+	if not d.get("checkpoints", []) is Array or d.get("checkpoints", []).size() > 16:
+		return "A level supports up to 16 editor checkpoints."
+	var seen_checkpoints: Array = []
+	for p in d.get("checkpoints", []):
+		if not point_valid(p, w, h) or p[0] != int(p[0]) or p[1] != int(p[1]) or not checkpoint_open(d, p):
+			return "Checkpoints need whole cells on clear, safe ground."
+		if p in seen_checkpoints or p == d.spawn or p == d.exit or p == d.get("checkpoint", []):
+			return "Checkpoints need distinct tiles away from the start and exit."
+		seen_checkpoints.append(p)
 	return ""
+
+static func checkpoint_open(d: Dictionary, p: Array) -> bool:
+	if not point_valid(p, int(d.width), int(d.height)) or d.tiles[int(p[1])][int(p[0])] in ["wall", "cheese_wall", "water", "road"]:
+		return false
+	for obj in d.objects:
+		if obj.pos == p and (obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false)):
+			return false
+	return true
 
 static func load_json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):

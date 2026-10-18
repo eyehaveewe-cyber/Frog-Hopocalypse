@@ -1,3 +1,28 @@
+2026-10-18 — Sound controls, main-screen editor entry and checkpoint tool
+
+1. Added Sound: On/Off in the play header and synchronized Sound on the main
+   screen. Off stops current and queued voices; the preference survives reloads.
+   Existing approved recordings and the single-take bugsploded fix are unchanged.
+2. Editor entry is available from the main screen only, including after playtest.
+   Gameplay, pause and result views no longer expose Editor/Return to editor.
+   Menu retains the current custom map so it can be reopened for editing.
+3. Added Checkpoint tool: up to 16 visible flags on distinct safe, clear cells.
+   Enter a flag tile to set the retry spawn; later unclaimed flags replace it.
+   Claimed flags persist through retry and cannot reset progress by walking back
+   over them. Fresh level/playtest resets checkpoint progress. Erase removes a
+   flag, undo/redo restores it, and local saves/portable JSON preserve the layout.
+   Existing Baby Mode bank-checkpoint semantics remain compatible.
+4. Native checks: 24 sound/editor/checkpoint checks and 19 voice regressions pass.
+   iPhone 13 landscape profile in desktop Chromium: trusted touch starts nonzero
+   Web Audio output; off silences it, on restores it, reload preserves mute.
+   This is NOT Safari, iOS Simulator or a physical iPhone. Playwright WebKit
+   download was blocked with HTTP 403 Domain forbidden, so Safari/device audio
+   compatibility remains unverified. No known iPhone recovery guarantee is made.
+5. Existing public audience, source main, campaign layouts, audio, graphics
+   mitigation and RiverSim are preserved. Rollback keeps public access and
+   redeploys saved version 15:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_c8283d6972648191a6bc4ce26118e5a9.
+
 2026-10-18 — Compact Loop toggle and rotating seam-worm placement (published v15)
 
 1. Replaced the full-width Loop route control with a small Loop checkbox beside

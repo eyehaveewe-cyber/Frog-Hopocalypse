@@ -132,3 +132,16 @@ The editor has a compact **Loop** checkbox beside **Draw route**. Rotating a
 seam worm pivots it and its drawn patrol around the original placement tile.
 A 180° turn changes the right-side seam to the left-side seam; blocked or
 out-of-bounds routes keep their previous placement. Undo and JSON saves retain it.
+
+**Sound** on the main screen and **Sound: On/Off** during play share a saved
+preference. Enter the editor from the main screen. The **Checkpoint** tool places
+up to 16 safe-ground flags: reach one during play to change the retry spawn;
+Erase removes it, undo/redo and JSON preserve the layout. Existing Baby Mode
+checkpoint behavior is unchanged.
+
+iPhone-sized Chromium touch/audio checks passed; Safari and physical iPhone
+audio remain unverified because the WebKit browser download was blocked here.
+Reproduce the available test with `node tools/iphone_sound_smoke.cjs` after the
+debug web export is served on localhost:8060. Playwright device emulation changes
+[viewport, user agent and touch](https://playwright.dev/docs/emulation); it does
+not establish [Safari/iOS platform compatibility](https://playwright.dev/docs/browsers#webkit).

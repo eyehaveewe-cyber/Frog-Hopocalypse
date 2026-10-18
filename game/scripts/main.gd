@@ -4,6 +4,8 @@ const World = preload("res://scripts/world.gd")
 const Voice = preload("res://scripts/voice.gd")
 var voice: Node
 var sound_enabled := true
+var sound_button: Button
+var menu_sound_toggle: CheckButton
 var begin_pending := false
 var announcement_time := 0.0
 var return_warning_armed := false
@@ -68,6 +70,7 @@ var last_cleared_stages: Dictionary = {}
 var campaign_set := "baby"
 var campaign_level := false
 var checkpoint_spawn: Array = []
+var checkpoint_history: Array = []
 var hat_button: Button
 var paused := false
 var ui_busy := false
@@ -208,6 +211,8 @@ func build_ui() -> void:
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(spacer)
 	button(top, "Menu", show_menu)
+	sound_button = button(top, "Sound: On" if sound_enabled else "Sound: Off", func(): set_sound_enabled(not sound_enabled))
+	sound_button.add_theme_font_size_override("font_size", 13)
 	hat_button = button(top, "Hat", toggle_hat)
 	hat_button.tooltip_text = str(HAT_NAMES[hat]) + " · Cycle unlocked hats"
 	map_button = button(top, "Map", toggle_map)
@@ -274,7 +279,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -306,8 +311,10 @@ func build_ui() -> void:
 	view.add_child(world)
 	world.finished.connect(on_finished)
 	world.checkpoint_reached.connect(func(point: Array):
-		checkpoint_spawn = point
-		status("Checkpoint! Rest on this bank, then cross the final traffic."))
+		checkpoint_spawn = point.duplicate()
+		if point not in checkpoint_history:
+			checkpoint_history.append(point.duplicate())
+		status("Checkpoint reached! Retry will return you here."))
 	var footer := PanelContainer.new()
 	footer.add_theme_stylebox_override("panel", panel_style(Color("132c23"), 0))
 	root.add_child(footer)
@@ -391,6 +398,7 @@ func show_menu() -> void:
 	begin_pending = false
 	voice.clear()
 	world.halted = true
+	edit_button.hide()
 	reset_overlay("Pharaoh Frog Hopán")
 	add_set_selector("baby", "Difficulty 1")
 	if human_set_unlocked():
@@ -403,14 +411,11 @@ func show_menu() -> void:
 	preview_toggle.button_pressed = exit_preview
 	preview_toggle.toggled.connect(set_exit_preview)
 	overlay_box.add_child(preview_toggle)
-	var sound_toggle := CheckButton.new()
-	sound_toggle.text = "Recorded voices"
-	sound_toggle.button_pressed = sound_enabled
-	sound_toggle.toggled.connect(func(enabled: bool):
-		sound_enabled = enabled
-		voice.set_enabled(enabled)
-		save_profile())
-	overlay_box.add_child(sound_toggle)
+	menu_sound_toggle = CheckButton.new()
+	menu_sound_toggle.text = "Sound"
+	menu_sound_toggle.button_pressed = sound_enabled
+	menu_sound_toggle.toggled.connect(set_sound_enabled)
+	overlay_box.add_child(menu_sound_toggle)
 	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
 	if not library.is_empty():
 		var custom := OptionButton.new()
@@ -427,9 +432,19 @@ func show_menu() -> void:
 			overlay.hide()
 			world.halted = false
 			paused = false
+			edit_button.visible = mode == "edit"
 			joystick.visible = mobile_ui and mode in ["play", "test"])
 	paragraph(overlay_box, "WASD / arrows · touch joystick on mobile\nM: overhead map   R: retry   Esc: pause", 12)
 	joystick.hide()
+
+func set_sound_enabled(enabled: bool) -> void:
+	sound_enabled = enabled
+	voice.set_enabled(enabled)
+	if is_instance_valid(sound_button):
+		sound_button.text = "Sound: On" if enabled else "Sound: Off"
+	if is_instance_valid(menu_sound_toggle):
+		menu_sound_toggle.set_pressed_no_signal(enabled)
+	save_profile()
 
 func human_set_unlocked() -> bool:
 	return completed_stages.size() == BUILTINS.size()
@@ -477,6 +492,7 @@ func start_play(from_editor: bool = true) -> void:
 		return
 	mode = "test" if from_editor else "play"
 	checkpoint_spawn = []
+	checkpoint_history = []
 	paused = false
 	sidebar.hide()
 	overlay.hide()
@@ -488,11 +504,11 @@ func start_play(from_editor: bool = true) -> void:
 	if exit_preview:
 		world.begin_exit_preview()
 	mode_label.text = "PLAYTEST" if from_editor else ((str(SET_TITLES[campaign_set]).to_upper() + " · %d / %d") % [builtin_index + 1, campaign_paths().size()] if campaign_level else "CUSTOM LEVEL")
-	edit_button.text = "Back to editor" if from_editor else "Editor"
+	edit_button.hide()
 	pause_button.text = "Pause"
 	pause_button.show()
 	joystick.visible = DisplayServer.is_touchscreen_available()
-	status(level.name + (" · Wait for gaps. Ride logs across water. Safe bank checkpoint ahead." if level.has("checkpoint") else " · WASD / arrows to move. M: map. R: retry."))
+	status(level.name + (" · Reach checkpoints to save your place for retries." if level.has("checkpoint") or not level.get("checkpoints", []).is_empty() else " · WASD / arrows to move. M: map. R: retry."))
 	reset_touch()
 	start_announcements()
 
@@ -502,6 +518,7 @@ func enter_editor() -> void:
 	pending_result = ""
 	campaign_level = false
 	checkpoint_spawn = []
+	checkpoint_history = []
 	mode = "edit"
 	paused = false
 	sidebar.show()
@@ -513,6 +530,7 @@ func enter_editor() -> void:
 	configure_view()
 	mode_label.text = "WORKSHOP"
 	edit_button.text = "Playtest ▶"
+	edit_button.show()
 	sync_editor()
 	status("Build your maze. Space: playtest · Save keeps a local copy · Export creates portable JSON.")
 
@@ -524,6 +542,7 @@ func retry() -> void:
 	paused = false
 	overlay.hide()
 	world.load_level(level, false, hat)
+	world.restore_checkpoints(checkpoint_history)
 	if not checkpoint_spawn.is_empty():
 		world.player.position = world.cell_position(checkpoint_spawn)
 		world.crossing.checkpoint_claimed = true
@@ -597,8 +616,6 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 		if mode == "play" and campaign_level and builtin_index < campaign_paths().size() - 1:
 			button(overlay_box, "Next level →", func(): play_builtin(builtin_index + 1, campaign_set), true)
 	button(overlay_box, "Retry · R", retry, true)
-	if mode == "test":
-		button(overlay_box, "Return to editor", enter_editor)
 	button(overlay_box, "Menu", show_menu)
 	joystick.hide()
 
@@ -611,8 +628,6 @@ func toggle_pause() -> void:
 	if paused:
 		reset_overlay("Taking a breather.", "The maze will wait. So will the critters.")
 		button(overlay_box, "Resume", toggle_pause, true)
-		if mode == "test":
-			button(overlay_box, "Return to editor", enter_editor)
 		button(overlay_box, "Menu", show_menu)
 	else:
 		overlay.hide()
@@ -872,9 +887,36 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		obj.waypoints.append(point)
 		rebuild()
 		return
+	if tool == "checkpoint" and not erase:
+		if point == level.spawn or point == level.exit or not Data.checkpoint_open(level, point):
+			status("Checkpoints need clear, safe ground away from the start and exit.")
+			return
+		if point in level.get("checkpoints", []) or point == level.get("checkpoint", []):
+			return
+		if level.get("checkpoints", []).size() >= 16:
+			status("A level supports up to 16 editor checkpoints.")
+			return
+		record_undo()
+		if not level.has("checkpoints"):
+			level.checkpoints = []
+		level.checkpoints.append(point)
+		rebuild()
+		status("Checkpoint placed. Reach the flag during play; erase removes it.")
+		return
 	if not stroke_changed:
 		record_undo()
 		stroke_changed = true
+	if (erase or tool == "erase") and (point in level.get("checkpoints", []) or point == level.get("checkpoint", [])):
+		if point in level.get("checkpoints", []):
+			level.checkpoints.erase(point)
+		if point == level.get("checkpoint", []):
+			level.erase("checkpoint")
+		rebuild()
+		return
+	var checkpoint_cell: bool = point in level.get("checkpoints", []) or point == level.get("checkpoint", [])
+	if checkpoint_cell and (tool in ["wall", "cheese_wall", "water", "road", "spawn", "exit", "pillar", "tree", "emitter"]):
+		status("Erase or move the checkpoint before blocking its safe tile.")
+		return
 	if erase or tool == "erase":
 		if index >= 0:
 			level.objects.remove_at(index)
@@ -1029,6 +1071,9 @@ func refresh_inspector() -> void:
 func change_property(key: String, value: Variant) -> void:
 	var obj := selected_object()
 	if obj.is_empty():
+		return
+	if key == "solid" and value == true and (obj.pos in level.get("checkpoints", []) or obj.pos == level.get("checkpoint", [])):
+		status("Move the checkpoint before making this object solid.")
 		return
 	if key == "rotation" and obj.get("behavior") == "seam_patrol":
 		rotate_seam_worm(obj, float(value))
