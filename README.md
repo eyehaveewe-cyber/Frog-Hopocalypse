@@ -101,3 +101,7 @@ checks and twelve patrol checks passed. Browser checks verified serialized
 announcements, preview timing, nonzero Web Audio output, mute/progress persistence,
 patrol editor controls and compressed Android-emulated startup. This verifies
 programmatic playback, not human listening or physical-phone behavior.
+
+Recorded voices and worm patrols are live in public **version 10** at
+https://hopan.fiiendward.chatgpt.site/ . See `UPDATES.txt` for exact source,
+deployment and rollback identifiers.

@@ -1,4 +1,4 @@
-2026-10-18 — Recorded voices and worm patrols
+2026-10-18 — Recorded voices and worm patrols (published version 10)
 
 1. Exactly 17 selected user recordings are integrated with their manifest and
    supplied instructions. All file hashes, ffprobe and full ffmpeg decodes pass;
@@ -27,6 +27,15 @@
    breath trim remains waveform-inferred. Production was validated locally;
    direct hosted inspection is constrained by the executor's network proxy.
    All 17 protected RiverSim/adapter/header hashes match; public audience stays.
+
+6. Published PUBLIC version 10 at https://hopan.fiiendward.chatgpt.site .
+   Deployment appgdep_6ad4f3694730819190a51a37fe83f71d succeeded.
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_82f96993ea8c8191ae7072e2166e1311.
+   Site source: 87ce800239cee907a68871e67ee691e27be0d389.
+   Game source: 4a8b47dcc38e10bcedcae74cd704e257443df543.
+   Access re-read confirms public revision 2 unchanged.
+   Rollback: deploy saved public version 9, retaining current public audience:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_e61b1975886c819190f61dbe72d985e2.
 
 --- Earlier updates follow ---
 
