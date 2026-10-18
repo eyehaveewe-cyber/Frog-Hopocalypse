@@ -85,5 +85,19 @@
   "notes": [
     "Final NAHAIL unlock logic and completion action were checked after the user clarified progression.",
     "Existing levels and recordings remain byte-identical; new content is additive."
-  ]
+  ],
+  "publication": {
+    "url": "https://hopan.fiiendward.chatgpt.site/",
+    "version": 18,
+    "access": "public",
+    "access_revision": 2,
+    "game_source": "cc9676305a165e0d58553e2138184e38a800b65d",
+    "game_branch": "feature/tile-hop-move-world",
+    "site_source": "f6062f5b0c0b63481201494854f4bc0dd7d8312f",
+    "saved_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_ba63a7c58124819194b6074feada84a7",
+    "deployment_id": "appgdep_6ad549788bb08191ba3d5c6b01726eba",
+    "deployment_status": "succeeded",
+    "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9643dfecb288819198e1c9fa17652b8e",
+    "hosted_gameplay_directly_checked": false
+  }
 }

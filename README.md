@@ -158,3 +158,7 @@ Editor controls: **Tile-hop mode**, **Move with me**, **Movement demos**, a
 **Your Move Crossing**, and the regular-mode **Your Move Garden** in Bonus.
 The overhead map keeps the full layout visible. See [Tile Hop rules, demos and
 validation](docs/TILE_HOP.md). Phone performance and Safari remain unverified.
+
+Tile Hop and movement-linked time are live in public **version 18** at
+https://hopan.fiiendward.chatgpt.site/ . Exact source, deployment and rollback
+identifiers are recorded in `UPDATES.txt`.

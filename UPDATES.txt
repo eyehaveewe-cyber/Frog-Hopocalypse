@@ -1,4 +1,4 @@
-2026-10-18 — Tile Hop mode, movement-linked time and large-map demos
+2026-10-18 — Tile Hop mode, movement-linked time and large-map demos (published v18)
 
 1. Added a separate Tile Hop set, unlocked after the four Not as Hard as It Looks clears.
    A larger frog hops one cardinal tile, or two with Shift / the Long hop button.
@@ -28,6 +28,18 @@
 7. Preserve public audience, original source main and the RiverSim subtree.
    Rollback keeps public access and redeploys saved version 17:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9643dfecb288819198e1c9fa17652b8e.
+8. Published public v18 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: cc9676305a165e0d58553e2138184e38a800b65d.
+   Branch: feature/tile-hop-move-world; source main remains
+   7be94416ead3e43595fd20b533e40e461234a802.
+   Site source: f6062f5b0c0b63481201494854f4bc0dd7d8312f.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_ba63a7c58124819194b6074feada84a7.
+   Deployment succeeded: appgdep_6ad549788bb08191ba3d5c6b01726eba.
+   Sites confirms active public access, revision 2. Final compressed production
+   starts without browser errors or a debug probe. Desktop keyboard, map/editor,
+   final NAHAIL unlock, iPhone-sized touch and Android compatibility emulation
+   passed. Hosted gameplay and Safari/physical devices were not directly tested.
+   All 17 protected hosting/RiverSim files match their previous hashes.
 
 2026-10-18 — Clarify level-set selection (published v17)
 
