@@ -114,3 +114,8 @@ deployment and rollback identifiers.
 Editor additions are live in public **version 11** at
 https://hopan.fiiendward.chatgpt.site/ . Exact publication and rollback IDs are
 in `UPDATES.txt`; focused checks are in `docs/EDITOR_HAZARDS_VALIDATION.json`.
+
+Stage sets use compact main buttons with expandable stage pickers. A set button
+replays its most recent clear, or starts stage one when fully cleared. Bonus is
+immediately available and includes the original 21 x 16 Shelby layout unchanged.
+Existing Baby Mode and human-made-set unlock rules are preserved.

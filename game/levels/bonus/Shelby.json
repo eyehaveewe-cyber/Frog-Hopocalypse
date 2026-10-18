@@ -1,0 +1,1005 @@
+{
+	"exit": [
+		19,
+		1
+	],
+	"height": 16,
+	"name": "Shelby",
+	"objects": [
+		{
+			"direction": 1,
+			"id": "object_1354524700_0",
+			"length": 1.5,
+			"pos": [
+				2,
+				13
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "car"
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1452934600_2",
+			"pos": [
+				8,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1453062100_3",
+			"pos": [
+				9,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1453317800_4",
+			"pos": [
+				11,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1453701100_5",
+			"pos": [
+				12,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1454212600_6",
+			"pos": [
+				12,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1454796400_7",
+			"pos": [
+				8,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"direction": -1,
+			"id": "object_1485581200_8",
+			"length": 4.6,
+			"pos": [
+				18,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "log"
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1534620700_9",
+			"pos": [
+				3,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1535076500_10",
+			"pos": [
+				2,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1535548800_11",
+			"pos": [
+				5,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1536076400_12",
+			"pos": [
+				6,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1536757100_13",
+			"pos": [
+				4,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_1537612400_14",
+			"pos": [
+				5,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_1548820300_15",
+			"pos": [
+				4,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": [
+				[
+					4,
+					10
+				],
+				[
+					4,
+					7
+				],
+				[
+					4,
+					10
+				],
+				[
+					4,
+					7
+				],
+				[
+					4,
+					10
+				]
+			]
+		},
+		{
+			"id": "object_1758740300_16",
+			"interval": 0.75,
+			"pos": [
+				1,
+				5
+			],
+			"rotation": 270.0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "object_1795364600_17",
+			"pos": [
+				4,
+				4
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"id": "object_1797253600_18",
+			"pos": [
+				2,
+				2
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_1803212600_19",
+			"pos": [
+				4,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": [
+				[
+					3,
+					3
+				],
+				[
+					4,
+					3
+				]
+			]
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_2125909200_20",
+			"pos": [
+				5,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 2.4,
+			"type": "critter",
+			"waypoints": [
+				[
+					5,
+					1
+				],
+				[
+					5,
+					4
+				]
+			]
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_2145501500_21",
+			"pos": [
+				6,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 3.0,
+			"type": "critter",
+			"waypoints": [
+				[
+					9,
+					1
+				],
+				[
+					6,
+					1
+				]
+			]
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_2153644400_22",
+			"pos": [
+				9,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": [
+				[
+					9,
+					1
+				],
+				[
+					9,
+					4
+				]
+			]
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_2192685100_23",
+			"pos": [
+				8,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 4.0,
+			"type": "critter",
+			"waypoints": [
+				[
+					11,
+					3
+				],
+				[
+					10,
+					1
+				],
+				[
+					8,
+					3
+				]
+			]
+		},
+		{
+			"id": "object_2319293100_24",
+			"interval": 1.0,
+			"pos": [
+				7,
+				4
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "object_2330045200_25",
+			"interval": 6.0,
+			"pos": [
+				19,
+				3
+			],
+			"rotation": 90.0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "object_2345125800_26",
+			"interval": 8.0,
+			"pos": [
+				18,
+				1
+			],
+			"rotation": 90.0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "object_2360535400_27",
+			"pos": [
+				12,
+				2
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2620062200_28",
+			"pos": [
+				11,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2620436800_29",
+			"pos": [
+				12,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_2620796900_30",
+			"pos": [
+				14,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"id": "object_2652431000_31",
+			"pos": [
+				13,
+				4
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_2659612600_32",
+			"pos": [
+				15,
+				4
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"id": "object_2664967300_33",
+			"pos": [
+				17,
+				2
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"direction": -1,
+			"id": "object_2851710700_34",
+			"length": 4.6,
+			"pos": [
+				3,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "log"
+		},
+		{
+			"direction": 1,
+			"id": "object_2858685500_35",
+			"length": 1.5,
+			"pos": [
+				4,
+				13
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "car"
+		},
+		{
+			"direction": 1,
+			"id": "object_2861213100_36",
+			"length": 1.5,
+			"pos": [
+				6,
+				13
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "car"
+		},
+		{
+			"direction": 1,
+			"id": "object_2862397700_37",
+			"length": 1.5,
+			"pos": [
+				8,
+				13
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "car"
+		},
+		{
+			"direction": 1,
+			"id": "object_2866125000_38",
+			"length": 1.5,
+			"pos": [
+				12,
+				13
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "car"
+		},
+		{
+			"direction": 1,
+			"id": "object_2867431000_39",
+			"length": 1.5,
+			"pos": [
+				18,
+				13
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "car"
+		},
+		{
+			"id": "object_3013815100_39",
+			"pos": [
+				10,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"direction": -1,
+			"id": "object_3081925600_40",
+			"length": 4.6,
+			"pos": [
+				7,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.0,
+			"type": "log"
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_3189533900_41",
+			"pos": [
+				14,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 5.0,
+			"type": "critter",
+			"waypoints": [
+				[
+					14,
+					4
+				],
+				[
+					14,
+					1
+				]
+			]
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_3270614700_42",
+			"pos": [
+				6,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": [
+				[
+					5,
+					4
+				],
+				[
+					6,
+					4
+				]
+			]
+		}
+	],
+	"spawn": [
+		1,
+		14
+	],
+	"theme": "egypt",
+	"tiles": [
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"water",
+			"water",
+			"water",
+			"water",
+			"wall",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"wall",
+			"floor",
+			"wall",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"wall"
+		],
+		[
+			"wall",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"road",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		]
+	],
+	"version": 1,
+	"width": 21
+}

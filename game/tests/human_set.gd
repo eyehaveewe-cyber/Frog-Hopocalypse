@@ -9,6 +9,11 @@ func _initialize() -> void:
 	root.add_child(app)
 	call_deferred("run")
 func visible_buttons() -> Array:
+	for key in ["baby", "human", "bonus"]:
+		var stages = app.find_child("Stages_" + key, true, false)
+		var expand = app.find_child("Expand_" + key, true, false)
+		if stages != null and expand != null and not stages.visible:
+			expand.pressed.emit()
 	return app.find_children("*", "Button", true, false).filter(func(b: Button): return b.is_visible_in_tree() and app.overlay.is_ancestor_of(b)).map(func(b: Button): return b.text)
 func run() -> void:
 	await process_frame

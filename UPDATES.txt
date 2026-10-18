@@ -1,3 +1,22 @@
+2026-10-18 — Compact stage selectors and immediate Shelby Bonus set
+
+1. Each set now has a main play button and a collapsed + stage picker, with
+   difficulty underneath and no descriptions. Main plays the most recent clear;
+   fully completed sets restart stage one. Existing unlock rules are preserved.
+2. Bonus is available immediately and contains the unchanged Shelby attachment:
+   21 x 16, 12,390 bytes, SHA256
+   3341a1fcd91c81f89d2bb0abdfbc787e54d338f2aa2e1c0a7f01c39bcdc03aa8.
+   Bonus progress is independent of Baby/Human clears and the baby frog hat.
+3. Most recent clears and Bonus progress persist, including older profile backups.
+   Native menu checks: 19 passed. Final Chromium checks cover collapse, expansion,
+   replay, reset, profiles, Shelby startup, movement and overhead map. Compressed
+   production export starts in Android-emulated Chromium without debug probe.
+   Physical Android GLES shader issue is being investigated separately; this
+   desktop software renderer check cannot establish real phone compatibility.
+4. RiverSim and the existing hosting adapters remain byte-for-byte unchanged.
+   Rollback: preserve public audience and redeploy saved version 11:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_1dc6f405ce688191aa9b9d9a89a615d4.
+
 2026-10-18 — Editor terrain and patrol additions (published version 11)
 
 1. Cheese wall terrain blocks frog/bug/worm colliders on its own layer; dart

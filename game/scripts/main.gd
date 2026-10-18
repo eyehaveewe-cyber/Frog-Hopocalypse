@@ -12,6 +12,8 @@ const MAZES = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtya
 const BUILTINS = MAZES + ["res://levels/little_frog_crossing.json"]
 const HUMAN_TITLE = "Not as Hard as It Looks"
 const HUMAN_LEVELS = ["res://levels/not_as_hard/Hardbutt.json", "res://levels/not_as_hard/Gloopbutt.json", "res://levels/not_as_hard/Treebutt.json", "res://levels/not_as_hard/Frogbutt.json"]
+const BONUS_LEVELS = ["res://levels/bonus/Shelby.json"]
+const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus"}
 const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat"}
 const INK = Color("f7f0d8")
 const MUTED = Color("b7c8b9")
@@ -61,6 +63,8 @@ var hat := "pharaoh"
 var unlocked_hats: Array = ["none", "pharaoh"]
 var completed_stages: Array = []
 var completed_human_stages: Array = []
+var completed_bonus_stages: Array = []
+var last_cleared_stages: Dictionary = {}
 var campaign_set := "baby"
 var campaign_level := false
 var checkpoint_spawn: Array = []
@@ -387,24 +391,12 @@ func show_menu() -> void:
 	begin_pending = false
 	voice.clear()
 	world.halted = true
-	reset_overlay("Pharaoh Frog Hopán", "Small frog. Ancient trouble.")
-	overlay_box.add_child(label("BABY MODE", 24, LIME))
-	paragraph(overlay_box, "Difficulty 1 · Four stages\nThree familiar mazes, then a gentle traffic → logs → traffic finale.\nClear all four to unlock the baby frog hat.")
-	for i in range(BUILTINS.size()):
-		var index := i
-		var d := Data.load_json(BUILTINS[i])
-		button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): play_builtin(index), i == 0)
-	if not completed_stages.is_empty():
-		paragraph(overlay_box, "%d / 4 Baby Mode stages cleared" % completed_stages.size(), 12)
+	reset_overlay("Pharaoh Frog Hopán")
+	add_set_selector("baby", "Difficulty 1")
 	if human_set_unlocked():
-		overlay_box.add_child(label(HUMAN_TITLE.to_upper(), 24, LIME))
-		paragraph(overlay_box, "Four human-made stages · Your original layouts")
-		for i in range(HUMAN_LEVELS.size()):
-			var index := i
-			var d := Data.load_json(HUMAN_LEVELS[i])
-			button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): play_builtin(index, "human"))
-		if not completed_human_stages.is_empty():
-			paragraph(overlay_box, "%d / 4 stages cleared" % completed_human_stages.size(), 12)
+		add_set_selector("human", "Difficulty 2")
+	if BONUS_LEVELS.any(func(path: String): return FileAccess.file_exists(path)):
+		add_set_selector("bonus", "Difficulty: Unrated")
 	preview_toggle = CheckButton.new()
 	preview_toggle.text = "Exit Preview"
 	preview_toggle.tooltip_text = "At stage start, sweep to the exit and back. Hazards and the timer wait."
@@ -437,24 +429,23 @@ func show_menu() -> void:
 			paused = false
 			joystick.visible = mobile_ui and mode in ["play", "test"])
 	paragraph(overlay_box, "WASD / arrows · touch joystick on mobile\nM: overhead map   R: retry   Esc: pause", 12)
-	paragraph(overlay_box, "PS1-style 3D · Original pixel textures\nDesktop level editor / landscape mobile play", 11)
 	joystick.hide()
 
 func human_set_unlocked() -> bool:
 	return completed_stages.size() == BUILTINS.size()
 
 func campaign_paths() -> Array:
-	return HUMAN_LEVELS if campaign_set == "human" else BUILTINS
+	return paths_for_set(campaign_set)
 
 func play_builtin(index: int, set_key: String = "baby") -> void:
 	if load_builtin(index, set_key):
 		start_play(false)
 
 func load_builtin(index: int, set_key: String = "baby") -> bool:
-	if set_key not in ["baby", "human"] or (set_key == "human" and not human_set_unlocked()):
+	if set_key not in SET_TITLES or (set_key == "human" and not human_set_unlocked()):
 		status("Complete Baby Mode to unlock " + HUMAN_TITLE + ".")
 		return false
-	var paths: Array = HUMAN_LEVELS if set_key == "human" else BUILTINS
+	var paths: Array = paths_for_set(set_key)
 	if index < 0 or index >= paths.size():
 		return false
 	var loaded := Data.load_json(paths[index])
@@ -496,7 +487,7 @@ func start_play(from_editor: bool = true) -> void:
 	configure_view()
 	if exit_preview:
 		world.begin_exit_preview()
-	mode_label.text = "PLAYTEST" if from_editor else (("NOT AS HARD · %d / 4" if campaign_set == "human" else "BABY MODE · %d / 4") % (builtin_index + 1) if campaign_level else "CUSTOM LEVEL")
+	mode_label.text = "PLAYTEST" if from_editor else ((str(SET_TITLES[campaign_set]).to_upper() + " · %d / %d") % [builtin_index + 1, campaign_paths().size()] if campaign_level else "CUSTOM LEVEL")
 	edit_button.text = "Back to editor" if from_editor else "Editor"
 	pause_button.text = "Pause"
 	pause_button.show()
@@ -550,9 +541,11 @@ func on_finished(reason: String) -> void:
 		return
 	begin_pending = false
 	voice.clear()
-	var progress: Array = completed_human_stages if campaign_set == "human" else completed_stages
-	if reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and builtin_index not in progress:
-		progress.append(builtin_index)
+	var progress: Array = progress_for_set()
+	if reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level:
+		if builtin_index not in progress:
+			progress.append(builtin_index)
+		last_cleared_stages[campaign_set] = builtin_index
 		save_profile()
 	var set_complete := reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and progress.size() == campaign_paths().size()
 	var earned_hat := set_complete and campaign_set == "baby" and "baby" not in unlocked_hats
@@ -584,7 +577,7 @@ func update_result_presentation() -> void:
 	present_result(reason, pending_set_complete, pending_earned_hat)
 
 func present_result(reason: String, set_complete: bool, earned_hat: bool) -> void:
-	var complete_title := HUMAN_TITLE.to_upper() + " · COMPLETE!" if campaign_set == "human" else "BABY MODE COMPLETE!"
+	var complete_title: String = str(SET_TITLES.get(campaign_set, "Level")).to_upper() + " COMPLETE!"
 	reset_overlay(complete_title if set_complete else reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths])
 	if reason != "LEVEL COMPLETE!":
 		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "Ride the logs to stay above the water.", "HIT!": "Ancient security systems still work.", "SQUISHED!": "Wait on the bank for a wider gap in traffic."}.get(reason, ""))
@@ -594,9 +587,11 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 			if set_complete:
 				if campaign_set == "human":
 					paragraph(overlay_box, "All four human-made stages cleared! " + HUMAN_TITLE + ".")
-				else:
+				elif campaign_set == "baby":
 					paragraph(overlay_box, "All four Baby Mode stages cleared! " + HUMAN_TITLE + " is unlocked.")
 					button(overlay_box, "Start · " + HUMAN_TITLE, func(): play_builtin(0, "human"), true)
+				else:
+					paragraph(overlay_box, "Bonus set cleared!")
 				if earned_hat:
 					paragraph(overlay_box, "Unlocked: Baby frog hat! Equipped now. Press Hat to cycle your unlocked hats.")
 		if mode == "play" and campaign_level and builtin_index < campaign_paths().size() - 1:
@@ -682,12 +677,14 @@ func save_profile() -> void:
 	profile.set_value("hats", "equipped", hat)
 	profile.set_value("baby_mode", "completed", completed_stages)
 	profile.set_value("not_as_hard", "completed", completed_human_stages)
+	profile.set_value("bonus", "completed", completed_bonus_stages)
+	profile.set_value("sets", "last_cleared", last_cleared_stages)
 	var file_saved := profile.save("user://profile.cfg") == OK
 	var browser_saved := false
 	if OS.has_feature("web"):
 		# IndexedDB filesystem sync is asynchronous. Keep the small profile durable
 		# immediately as well, so a quick reload cannot restore an older hat/clear.
-		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "hat": hat, "preview": exit_preview, "sound": sound_enabled})
+		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "last_cleared": last_cleared_stages, "hat": hat, "preview": exit_preview, "sound": sound_enabled})
 		browser_saved = bool(JavaScriptBridge.eval("(function(){try{localStorage.setItem('hopan.profile.v1', " + JSON.stringify(payload) + ");return true;}catch(e){return false;}})()", true))
 	if not file_saved and not browser_saved:
 		status("Could not save progress on this device.")
@@ -696,6 +693,8 @@ func load_profile() -> void:
 	unlocked_hats = ["none", "pharaoh"]
 	completed_stages = []
 	completed_human_stages = []
+	completed_bonus_stages = []
+	last_cleared_stages = {}
 	hat = "pharaoh"
 	var profile := ConfigFile.new()
 	var file_loaded := profile.load("user://profile.cfg") == OK
@@ -708,6 +707,10 @@ func load_profile() -> void:
 			if backup is Dictionary and backup.get("version") == 1 and backup.get("baby") is Array and backup.get("human") is Array and backup.get("hat") in HAT_NAMES and backup.get("preview") is bool:
 				profile.set_value("baby_mode", "completed", backup.baby)
 				profile.set_value("not_as_hard", "completed", backup.human)
+				if backup.get("bonus") is Array:
+					profile.set_value("bonus", "completed", backup.bonus)
+				if backup.get("last_cleared") is Dictionary:
+					profile.set_value("sets", "last_cleared", backup.last_cleared)
 				profile.set_value("hats", "equipped", backup.hat)
 				profile.set_value("settings", "exit_preview", backup.preview)
 				if backup.get("sound") is bool:
@@ -727,6 +730,17 @@ func load_profile() -> void:
 		for value in saved_human:
 			if value is int and value >= 0 and value < HUMAN_LEVELS.size() and value not in completed_human_stages:
 				completed_human_stages.append(value)
+	var saved_bonus: Variant = profile.get_value("bonus", "completed", [])
+	if saved_bonus is Array:
+		for value in saved_bonus:
+			if value is int and value >= 0 and value < BONUS_LEVELS.size() and value not in completed_bonus_stages:
+				completed_bonus_stages.append(value)
+	var saved_last: Variant = profile.get_value("sets", "last_cleared", {})
+	if saved_last is Dictionary:
+		for set_key in SET_TITLES:
+			var value: Variant = saved_last.get(set_key)
+			if value is int and value in progress_for_set(set_key):
+				last_cleared_stages[set_key] = value
 	# Version 4 granted this hat on entry. Only completed sets qualify now;
 	# keep all legitimate stage progress and other equipped hats intact.
 	if completed_stages.size() == BUILTINS.size():
@@ -1223,7 +1237,7 @@ func publish_browser_probe() -> void:
 			cell_row.append([p.x, p.y])
 		cells.append(cell_row)
 	var state := {"mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
-		"campaign_set": campaign_set, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
+		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
 		"hat": hat, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
 		"ui_size": [size.x, size.y], "saved": library.size(), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
@@ -1360,3 +1374,50 @@ func patrol_cell_open(cell: Vector2i) -> bool:
 		if obj.pos == [cell.x, cell.y] and (obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false)):
 			return false
 	return true
+
+func paths_for_set(set_key: String) -> Array:
+	match set_key:
+		"baby": return BUILTINS
+		"human": return HUMAN_LEVELS
+		"bonus": return BONUS_LEVELS
+	return []
+
+func progress_for_set(set_key: String = "") -> Array:
+	match campaign_set if set_key.is_empty() else set_key:
+		"human": return completed_human_stages
+		"bonus": return completed_bonus_stages
+	return completed_stages
+
+func set_start_index(set_key: String) -> int:
+	var paths := paths_for_set(set_key)
+	var progress := progress_for_set(set_key)
+	if progress.is_empty() or progress.size() >= paths.size():
+		return 0
+	return int(last_cleared_stages.get(set_key, progress[-1]))
+
+func add_set_selector(set_key: String, difficulty: String) -> void:
+	var header := row(overlay_box)
+	var main_button := button(header, str(SET_TITLES[set_key]), func(): play_builtin(set_start_index(set_key), set_key), set_key == "baby")
+	main_button.name = "Set_" + set_key
+	main_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	main_button.add_theme_font_size_override("font_size", 17 if mobile_ui else 20)
+	main_button.tooltip_text = "Replay your most recent clear; a complete set restarts from stage 1."
+	var expand := button(header, "+", func(): pass)
+	expand.name = "Expand_" + set_key
+	expand.custom_minimum_size.x = 44
+	expand.tooltip_text = "Choose a stage in " + str(SET_TITLES[set_key])
+	paragraph(overlay_box, difficulty, 12)
+	var stages := VBoxContainer.new()
+	stages.name = "Stages_" + set_key
+	stages.add_theme_constant_override("separation", 5)
+	overlay_box.add_child(stages)
+	stages.hide()
+	expand.pressed.connect(func():
+		stages.visible = not stages.visible
+		expand.text = "-" if stages.visible else "+")
+	var paths := paths_for_set(set_key)
+	for i in range(paths.size()):
+		var index := i
+		var stage := Data.load_json(paths[i])
+		if not stage.is_empty():
+			button(stages, "Play · " + str(stage.name), func(): play_builtin(index, set_key))
