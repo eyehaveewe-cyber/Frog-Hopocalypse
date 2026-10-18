@@ -26,7 +26,12 @@
    high-DPI canvas size and missing post-start failure presentation. Hosted GET
    is blocked here by proxy HTTP 403. Physical Android/iPhone and Windows
    execution remain untested. See docs/VALIDATION.md for evidence.
-6. Public access revision 2 is confirmed and must be preserved. All 14 RiverSim
+6. Published PUBLIC version 7 at https://hopan.fiiendward.chatgpt.site .
+   Deployment appgdep_6ad4e29e78a88191a3d3170e0ce4c86b succeeded.
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_7873c26f19208191b1b4731079dce256.
+   Site source: 23a7d3376639132b4fe2996b98529f86ce8400d2.
+   Game code: 4c8a6024f616b61e1f9dcd8aadea999c74705460.
+   Public access revision 2 is confirmed unchanged. All 14 RiverSim
    files, legacy wasm-hosting-adapter.js and _headers are byte-identical.
    Previous saved version 6 is the rollback target, using ordinary deployment
    while preserving PUBLIC access:

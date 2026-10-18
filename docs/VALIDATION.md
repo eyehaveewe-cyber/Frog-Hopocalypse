@@ -30,6 +30,9 @@ Android WebView or Safari. Physical-device cause and hardware recovery remain
 unverified. Hosted GET failed with proxy 'Tunnel connection failed: 403
 Forbidden'; native Sites deployment results establish publication only.
 
+Sites confirms public version 7 deployment succeeded. Public access remains
+revision 2; all protected RiverSim/legacy-adapter/header hashes match.
+
 Implementation follows the official [web-export guidance](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html),
 [manual canvas sizing and engine callbacks](https://docs.godotengine.org/en/stable/tutorials/platform/web/html5_shell_classref.html),
 and [frame_post_draw signal](https://docs.godotengine.org/en/stable/classes/class_renderingserver.html#signals).
