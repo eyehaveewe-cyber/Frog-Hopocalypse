@@ -1,10 +1,34 @@
-2026-10-18 — Remove Retry after terminal set clears
+2026-10-18 — Purple frog reward and five stable scenery variations
+
+1. Baby Mode completion unlocks the purple frog skin. First-time clears equip
+   it alongside the baby hat; existing completed profiles gain the choice.
+   Main-menu Skin cycles Green/Purple and saves independently of hats, including
+   immediate browser backup and loading into gameplay/editor maps.
+2. Added five fixed tree silhouettes and five coordinate-selected ground texture
+   variants. Foliage uses broader, lower-contrast patches instead of narrow
+   repeating stripes; grass/moss avoid single-pixel speckle. Variants do not
+   animate or shuffle at runtime. Collision and level layouts are unchanged.
+3. Fifteen focused skin/variant assertions and all 25 set-menu checks pass.
+   Six browser checks cover actual skin selection, persistence, map launch and
+   rendered scenery, with no browser errors. Perspective and overhead images
+   were inspected. Godot 4.7.2 Web/Windows release exports rebuilt. Physical
+   phones/Safari and formal photosensitivity evaluation remain unverified.
+
+2026-10-18 — Remove Retry after terminal set clears (published v19)
 
 1. Completed Bonus and Tile Hop sets show Menu without Retry when no next
    stage or set is offered. Deaths and results with a continuation retain Retry.
 2. All 25 set-menu checks pass, including six focused result-screen cases.
    Godot 4.7.2 release exports rebuilt successfully. Existing game assets,
    public audience and RiverSim are preserved.
+3. Published public v19 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: cc61f50fcd23cdde3b7f8c24ed3612c4b5802cb0.
+   Branch: fix/completed-set-retry; original source main preserved.
+   Site source: 779cc8e6d51a8dfe255121430ae62fe08e36340b.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_431ad313e44c8191974666752bf9f0a2.
+   Deployment succeeded: appgdep_6ad54ccdcbac8191a05732594e0ebf12.
+   Rollback redeploys public v18:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_ba63a7c58124819194b6074feada84a7.
 
 2026-10-18 — Tile Hop mode, movement-linked time and large-map demos (published v18)
 

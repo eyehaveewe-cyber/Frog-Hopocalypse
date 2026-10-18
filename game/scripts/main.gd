@@ -4,6 +4,7 @@ const World = preload("res://scripts/world.gd")
 const Voice = preload("res://scripts/voice.gd")
 var voice: Node
 var sound_enabled := true
+var skin := "green"
 var sound_button: Button
 var menu_sound_toggle: CheckButton
 var begin_pending := false
@@ -457,6 +458,8 @@ func show_menu() -> void:
 	menu_sound_toggle.toggled.connect(set_sound_enabled)
 	overlay_box.add_child(menu_sound_toggle)
 	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
+	if completed_stages.size() == BUILTINS.size():
+		button(overlay_box, "Skin: " + skin.capitalize(), toggle_skin)
 	if not library.is_empty():
 		var custom := OptionButton.new()
 		custom.add_item("Play a saved custom level…")
@@ -561,7 +564,7 @@ func load_builtin(index: int, set_key: String = "baby") -> bool:
 	redo_stack.clear()
 	selection = ""
 	deaths = 0
-	world.load_level(level, false, hat)
+	world.load_level(level, false, hat, skin)
 	sync_editor()
 	return true
 
@@ -581,7 +584,7 @@ func start_play(from_editor: bool = true) -> void:
 	paused = false
 	sidebar.hide()
 	overlay.hide()
-	world.load_level(level, false, hat)
+	world.load_level(level, false, hat, skin)
 	world.halted = false
 	map_button.text = "Map"
 	map_button.show()
@@ -617,7 +620,7 @@ func enter_editor() -> void:
 	joystick.hide()
 	pause_button.hide()
 	map_button.hide()
-	world.load_level(level, true, hat)
+	world.load_level(level, true, hat, skin)
 	configure_view()
 	mode_label.show()
 	mode_label.text = "WORKSHOP"
@@ -633,7 +636,7 @@ func retry() -> void:
 	pending_result = ""
 	paused = false
 	overlay.hide()
-	world.load_level(level, false, hat)
+	world.load_level(level, false, hat, skin)
 	world.restore_checkpoints(checkpoint_history)
 	if not checkpoint_spawn.is_empty():
 		world.player.position = world.cell_position(checkpoint_spawn)
@@ -662,6 +665,10 @@ func on_finished(reason: String) -> void:
 	var earned_hat := set_complete and campaign_set == "baby" and "baby" not in unlocked_hats
 	if set_complete and campaign_set == "baby":
 		voice.say("baby_win")
+		if skin == "green" and earned_hat:
+			skin = "purple"
+			world.player.set_skin(skin)
+			save_profile()
 	if earned_hat:
 		unlock_baby_hat()
 		voice.say("baby_frog")
@@ -701,6 +708,7 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 					button(overlay_box, "Start · Tile Hop", func(): play_builtin(0,"tile"),true)
 				elif campaign_set == "baby":
 					paragraph(overlay_box, "All four Baby Mode stages cleared! " + HUMAN_TITLE + " is unlocked.")
+					paragraph(overlay_box, "Unlocked: Purple frog skin! Choose Skin on the main menu.")
 					button(overlay_box, "Start · " + HUMAN_TITLE, func(): play_builtin(0, "human"), true)
 				else:
 					paragraph(overlay_box, "Tile Hop demos cleared!" if campaign_set == "tile" else "Bonus set cleared!")
@@ -758,6 +766,14 @@ func set_exit_preview(enabled: bool) -> void:
 		world.cancel_exit_preview()
 	save_profile()
 
+func toggle_skin() -> void:
+	if completed_stages.size() != BUILTINS.size():
+		return
+	skin = "purple" if skin == "green" else "green"
+	world.player.set_skin(skin)
+	save_profile()
+	show_menu()
+
 func toggle_hat() -> void:
 	var index := unlocked_hats.find(hat)
 	hat = unlocked_hats[(index + 1) % unlocked_hats.size()]
@@ -785,6 +801,7 @@ func save_profile() -> void:
 	profile.set_value("settings", "recorded_voices", sound_enabled)
 	profile.set_value("hats", "baby_unlocked", "baby" in unlocked_hats)
 	profile.set_value("hats", "equipped", hat)
+	profile.set_value("skins", "equipped", skin)
 	profile.set_value("baby_mode", "completed", completed_stages)
 	profile.set_value("not_as_hard", "completed", completed_human_stages)
 	profile.set_value("bonus", "completed", completed_bonus_stages)
@@ -795,7 +812,7 @@ func save_profile() -> void:
 	if OS.has_feature("web"):
 		# IndexedDB filesystem sync is asynchronous. Keep the small profile durable
 		# immediately as well, so a quick reload cannot restore an older hat/clear.
-		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "last_cleared": last_cleared_stages, "hat": hat, "preview": exit_preview, "sound": sound_enabled})
+		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "last_cleared": last_cleared_stages, "hat": hat, "skin": skin, "preview": exit_preview, "sound": sound_enabled})
 		browser_saved = bool(JavaScriptBridge.eval("(function(){try{localStorage.setItem('hopan.profile.v1', " + JSON.stringify(payload) + ");return true;}catch(e){return false;}})()", true))
 	if not file_saved and not browser_saved:
 		status("Could not save progress on this device.")
@@ -808,6 +825,7 @@ func load_profile() -> void:
 	completed_tile_stages = []
 	last_cleared_stages = {}
 	hat = "pharaoh"
+	skin = "green"
 	var profile := ConfigFile.new()
 	var file_loaded := profile.load("user://profile.cfg") == OK
 	var browser_loaded := false
@@ -826,6 +844,7 @@ func load_profile() -> void:
 				if backup.get("last_cleared") is Dictionary:
 					profile.set_value("sets", "last_cleared", backup.last_cleared)
 				profile.set_value("hats", "equipped", backup.hat)
+				profile.set_value("skins", "equipped", backup.get("skin", "green"))
 				profile.set_value("settings", "exit_preview", backup.preview)
 				if backup.get("sound") is bool:
 					profile.set_value("settings", "recorded_voices", backup.sound)
@@ -866,6 +885,8 @@ func load_profile() -> void:
 		unlocked_hats.append("baby")
 	var saved_hat: Variant = profile.get_value("hats", "equipped", "pharaoh")
 	hat = str(saved_hat) if saved_hat in unlocked_hats else "pharaoh"
+	var saved_skin: Variant = profile.get_value("skins", "equipped", "green")
+	skin = "purple" if saved_skin == "purple" and completed_stages.size() == BUILTINS.size() else "green"
 	if browser_loaded:
 		save_profile()
 
@@ -937,7 +958,7 @@ func set_tool(key: String) -> void:
 		status("Select a critter or patrol car, then draw waypoints on its permitted terrain.")
 
 func rebuild() -> void:
-	world.load_level(level, true, hat)
+	world.load_level(level, true, hat, skin)
 	sync_editor()
 	if not selected_object().is_empty():
 		world.show_route(selected_object())
@@ -1433,7 +1454,7 @@ func publish_browser_probe() -> void:
 		cells.append(cell_row)
 	var state := {"mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
 		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
-		"hat": hat, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
+		"hat": hat, "skin": skin, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
 		"ui_size": [size.x, size.y], "saved": library.size(), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,

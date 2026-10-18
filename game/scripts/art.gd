@@ -191,6 +191,9 @@ static func frog(hat: bool = true) -> Node3D:
 		orb(root, Vector3(0.07, 0.145, 0.05), Vector3(side * 0.26, 0.61, -0.47), Color("172b22"))
 		orb(root, Vector3(0.04, 0.04, 0.025), Vector3(side * 0.26 - 0.025, 0.66, -0.50), Color("fff3cf"))
 	box(root, Vector3(0.42, 0.025, 0.025), Vector3(0, 0.31, -0.55), Color("3d5a2b"))
+	for part in root.get_children():
+		if part is MeshInstance3D:
+			part.set_meta("frog_base_material", part.material_override)
 	var socket := Node3D.new()
 	socket.name = "HatSocket"
 	socket.position.y = 0.65
@@ -256,7 +259,7 @@ static func critter(theme_name: String, behavior: String) -> Node3D:
 		orb(root, Vector3(0.06, 0.08, 0.05), Vector3(side * 0.16, 0.37, -0.45), Color("261d32"))
 	return root
 
-static func scenery(kind: String, theme_name: String) -> Node3D:
+static func scenery(kind: String, theme_name: String, variant: int = 0) -> Node3D:
 	var root := Node3D.new()
 	var sand := Color("c9a66c") if theme_name == "egypt" else Color("736b94")
 	match kind:
@@ -266,12 +269,16 @@ static func scenery(kind: String, theme_name: String) -> Node3D:
 			box(root, Vector3(0.8, 0.18, 0.8), Vector3(0, 1.24, 0), sand)
 			box(root, Vector3(0.62, 0.09, 0.62), Vector3(0, 0.95, 0), Color("458e89"))
 		"tree":
-			var trunk := textured(cylinder(root, 0.18, 0.11, 1.9, Vector3(0, 0.95, 0), Color.WHITE, 6), "bark")
-			trunk.rotation.z = 0.1
-			for i in range(7):
-				var leaf := piece(root, palm_leaf_mesh(), Vector3(-0.1, 1.86, 0), Color.WHITE)
-				leaf.material_override = retro_mat("violet_leaf" if theme_name == "swamp" else "leaf")
-				leaf.rotation.y = i * TAU / 7
+			var tree_variant := posmod(variant,5)
+			root.set_meta("tree_variant",tree_variant)
+			var height: float = [1.9,1.75,2.05,1.82,1.97][tree_variant]
+			var leaves: int = [7,6,8,5,7][tree_variant]
+			var trunk := textured(cylinder(root, 0.18, 0.11, height, Vector3(0, height/2, 0), Color.WHITE, 6), "bark@%d" % tree_variant)
+			trunk.rotation.z = [-0.06,0.04,0.0,0.08,-0.03][tree_variant]
+			for i in range(leaves):
+				var leaf := piece(root, palm_leaf_mesh(), Vector3(-0.05, height-0.04, 0), Color.WHITE)
+				leaf.material_override = retro_mat(("violet_leaf" if theme_name == "swamp" else "leaf") + "@%d" % tree_variant)
+				leaf.rotation.y = i * TAU / leaves + tree_variant * 0.43
 				leaf.rotation.x = -0.12 if i % 2 == 0 else 0.12
 		"mushroom":
 			for i in range(2):

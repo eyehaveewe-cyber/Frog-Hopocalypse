@@ -162,3 +162,8 @@ validation](docs/TILE_HOP.md). Phone performance and Safari remain unverified.
 Tile Hop and movement-linked time are live in public **version 18** at
 https://hopan.fiiendward.chatgpt.site/ . Exact source, deployment and rollback
 identifiers are recorded in `UPDATES.txt`.
+
+Baby Mode also unlocks the **Purple frog** skin. Use **Skin: Green/Purple** on
+its main menu to switch independently of hats; your selection survives reloads.
+Trees and ground textures have five fixed variations, with broader foliage
+patches and reduced grass/moss contrast. Shapes and patterns stay fixed in play.

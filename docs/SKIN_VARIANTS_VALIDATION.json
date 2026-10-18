@@ -1,0 +1,22 @@
+{
+  "native_skin_variants": 15,
+  "native_menu": 25,
+  "browser": {
+    "checks": [
+      "Skin selector hidden before Baby Mode clear",
+      "Existing Baby Mode clears gain purple choice",
+      "Actual menu button changes skin",
+      "Purple survives browser reload and map launch",
+      "Map and perspective render new textures",
+      "Skin cycles back to green"
+    ],
+    "errors": [],
+    "physicalDevicesTested": false
+  },
+  "screenshots": [
+    "hopan-purple-perspective.png",
+    "hopan-tree-variations.png"
+  ],
+  "visual_review": "Perspective and overhead images inspected",
+  "formal_photosensitivity_evaluation": false
+}

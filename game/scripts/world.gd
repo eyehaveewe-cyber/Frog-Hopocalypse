@@ -84,7 +84,7 @@ func position_cell(p: Vector3) -> Vector2i:
 func inside(p: Vector2i) -> bool:
 	return p.x >= 0 and p.y >= 0 and p.x < level.width and p.y < level.height
 
-func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") -> void:
+func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", skin: String = "green") -> void:
 	active = false
 	tile_rules = null
 	simulation_time = 0.0
@@ -136,7 +136,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 				if tile == "path":
 					color = Color("b4ad8c") if swamp else Color("ead69b")
 				var texture_kind := "road" if tile == "road" else (("swamp_stone" if swamp else "stone") if tile == "path" else ("moss" if swamp else "grass"))
-				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
+				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind + ("@%d" % posmod(hash([x,z]),5) if tile != "road" else ""))
 			if tile == "cheese_wall":
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.65, CELL), p + Vector3(0, 0.325, 0), Color.WHITE), "cheese")
 				var cheese_body := Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
@@ -169,7 +169,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 				actor.waypoints.append(cell_position(point))
 			critters.append(actor)
 		else:
-			var model := Art.scenery(obj.type, level.theme)
+			var model := Art.scenery(obj.type, level.theme, posmod(hash(obj.pos),5))
 			model.position = p
 			model.rotation.y = deg_to_rad(float(obj.get("rotation", 0)))
 			geometry.add_child(model)
@@ -197,6 +197,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh") 
 	player = Actor.new()
 	player.setup(true, level.theme, {}, true)
 	player.set_hat(hat)
+	player.set_skin(skin)
 	player.visual.scale = Vector3.ONE * (1.5 if level.get("game_mode", "hopan") == "tile" else 1.12)
 	player.position = cell_position(level.spawn)
 	geometry.add_child(player)

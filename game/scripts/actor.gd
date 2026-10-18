@@ -91,6 +91,23 @@ func set_hat(kind: Variant) -> void:
 		visual.get_node("HatSocket/PharaohHat").visible = selected == "pharaoh"
 		visual.get_node("HatSocket/BabyFrogHat").visible = selected == "baby"
 
+func set_skin(kind: String) -> void:
+	if not is_player:
+		return
+	for part in visual.get_children():
+		if not part.has_meta("frog_base_material"):
+			continue
+		var original: Material = part.get_meta("frog_base_material")
+		part.material_override = original
+		if kind != "purple":
+			continue
+		if original is ShaderMaterial or (original is StandardMaterial3D and original.albedo_texture != null):
+			part.material_override = Art.retro_mat("frog_purple")
+		elif original is StandardMaterial3D:
+			var palette := {Color("9bc952"): Color("a779d0"), Color("d4d98c"): Color("ddc5e9"), Color("c6b95a"): Color("c49bcf"), Color("3d5a2b"): Color("503863")}
+			if palette.has(original.albedo_color):
+				part.material_override = Art.mat(palette[original.albedo_color])
+
 func advance_waypoint() -> void:
 	if waypoints.is_empty():
 		return
