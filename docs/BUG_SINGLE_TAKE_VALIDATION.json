@@ -1,0 +1,26 @@
+{
+  "source": "e23e695bdf0c55a26cbfa7777f998b9001de2d72",
+  "voice_checks": 19,
+  "original_duration_seconds": 3.52,
+  "trimmed_duration_seconds": 1.44,
+  "audio_sha256": "4e7ac41fb699263b343bf6201dde900956b801185caababdaff14193518b720e",
+  "original_sha256": "c8b30d57a5a8f9e44e59b7e0efba7c24a3cc926e90b2492d80b7f4eca7be0065",
+  "protected_files_unchanged": 17,
+  "rollback_version": 13,
+  "limitations": [
+    "Clip boundary selected from speech/silence analysis; no human listening",
+    "Native test assertions passed; test process reports existing resource cleanup warnings at exit",
+    "Physical phone and hosted gameplay unverified"
+  ],
+  "production": {
+    "productionFirstFrame": true,
+    "compressedWasm": true,
+    "canvas": [
+      844,
+      390
+    ],
+    "debugProbeAbsent": true,
+    "errors": [],
+    "device": "Desktop Chromium Android emulation; physical phone not tested"
+  }
+}

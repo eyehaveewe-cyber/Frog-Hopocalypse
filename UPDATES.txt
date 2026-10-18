@@ -1,4 +1,4 @@
-2026-10-18 — Single-take bugsploded death recording
+2026-10-18 — Single-take bugsploded death recording (published v14)
 
 1. Trimmed bugsploded.ogg to its first 1.44-second speech section, fading the
    final 40 ms in the pause before the second section. Existing loudness is
@@ -9,7 +9,14 @@
    repeated collision notification and transition into/after the death screen.
    All 19 focused voice checks pass. Selection used speech/silence boundaries;
    human listening and phone playback remain unverified.
-3. No other sounds, game logic, saves, graphics or RiverSim assets changed.
+3. Published public v14 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: e23e695bdf0c55a26cbfa7777f998b9001de2d72.
+   Site source: f27176017322d471d8479102c8d63d878db9d1dc.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_a27be5e8c7308191bb1081a90fb1d967.
+   Deployment succeeded: appgdep_6ad50431600c81918a72681a00ce71d7.
+   Production first frame passed in desktop Chromium Android emulation, no
+   browser errors; physical phone and hosted gameplay not directly checked.
+4. No other sounds, game logic, saves, graphics or RiverSim assets changed.
    Rollback keeps public access and redeploys saved version 13:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_e1d9e76178f08191ab92565e4791770d.
 
