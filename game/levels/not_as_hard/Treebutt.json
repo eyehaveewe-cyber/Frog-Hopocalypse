@@ -1,0 +1,2028 @@
+{
+	"exit": [
+		15,
+		1
+	],
+	"height": 13,
+	"name": "Treebutt",
+	"objects": [
+		{
+			"id": "object_3528374000_0",
+			"pos": [
+				2,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3528480200_1",
+			"pos": [
+				3,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3528519100_2",
+			"pos": [
+				4,
+				8
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3528585800_3",
+			"pos": [
+				5,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3528669100_4",
+			"pos": [
+				4,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3528791200_5",
+			"pos": [
+				3,
+				8
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3528885800_6",
+			"pos": [
+				4,
+				7
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3528924700_7",
+			"pos": [
+				5,
+				7
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3528952500_8",
+			"pos": [
+				5,
+				8
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3529297100_9",
+			"pos": [
+				6,
+				7
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3529319300_10",
+			"pos": [
+				7,
+				7
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3529336000_11",
+			"pos": [
+				7,
+				8
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3529480400_12",
+			"pos": [
+				6,
+				8
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3529775000_13",
+			"pos": [
+				7,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3529814100_14",
+			"pos": [
+				6,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530008300_15",
+			"pos": [
+				8,
+				7
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530030500_16",
+			"pos": [
+				9,
+				7
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530125000_17",
+			"pos": [
+				9,
+				8
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530169600_18",
+			"pos": [
+				8,
+				8
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530214000_19",
+			"pos": [
+				6,
+				6
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530231700_20",
+			"pos": [
+				5,
+				6
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530286200_21",
+			"pos": [
+				6,
+				5
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530313800_22",
+			"pos": [
+				7,
+				5
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530331800_23",
+			"pos": [
+				8,
+				5
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530350300_24",
+			"pos": [
+				9,
+				5
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530380600_25",
+			"pos": [
+				10,
+				6
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530414000_26",
+			"pos": [
+				10,
+				7
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530680800_27",
+			"pos": [
+				8,
+				4
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530700100_28",
+			"pos": [
+				9,
+				4
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530719300_29",
+			"pos": [
+				10,
+				3
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530791800_30",
+			"pos": [
+				10,
+				4
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530847500_31",
+			"pos": [
+				8,
+				6
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3530869600_32",
+			"pos": [
+				7,
+				6
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3531736600_33",
+			"pos": [
+				6,
+				10
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3531781000_34",
+			"pos": [
+				5,
+				10
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3531814300_35",
+			"pos": [
+				4,
+				10
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3531853200_36",
+			"pos": [
+				3,
+				10
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3532064400_37",
+			"pos": [
+				5,
+				11
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3532119900_38",
+			"pos": [
+				4,
+				11
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3532425700_39",
+			"pos": [
+				3,
+				11
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3532797800_40",
+			"pos": [
+				6,
+				11
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3532825800_41",
+			"pos": [
+				7,
+				11
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3532848200_42",
+			"pos": [
+				7,
+				10
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3532870000_43",
+			"pos": [
+				8,
+				10
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3532920200_44",
+			"pos": [
+				8,
+				11
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3533175900_45",
+			"pos": [
+				8,
+				9
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3533609200_46",
+			"pos": [
+				9,
+				6
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3533636900_47",
+			"pos": [
+				10,
+				5
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3533764700_48",
+			"pos": [
+				7,
+				4
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3533831400_49",
+			"pos": [
+				8,
+				3
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3533864800_50",
+			"pos": [
+				9,
+				3
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3533888500_51",
+			"pos": [
+				9,
+				2
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3534064700_53",
+			"pos": [
+				8,
+				2
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3534103700_54",
+			"pos": [
+				7,
+				2
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3575677200_54",
+			"pos": [
+				3,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3575774400_55",
+			"pos": [
+				4,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3575830100_56",
+			"pos": [
+				5,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3575863500_57",
+			"pos": [
+				6,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3575896800_58",
+			"pos": [
+				7,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3575941300_59",
+			"pos": [
+				8,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576024700_60",
+			"pos": [
+				9,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576054200_61",
+			"pos": [
+				9,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576124600_62",
+			"pos": [
+				10,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576269200_63",
+			"pos": [
+				11,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576496900_64",
+			"pos": [
+				12,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576558200_65",
+			"pos": [
+				12,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576590600_66",
+			"pos": [
+				13,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576623100_67",
+			"pos": [
+				13,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576656800_68",
+			"pos": [
+				13,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576808100_69",
+			"pos": [
+				12,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576847000_70",
+			"pos": [
+				12,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576882200_71",
+			"pos": [
+				11,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576917900_72",
+			"pos": [
+				11,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576958200_73",
+			"pos": [
+				10,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3576995100_74",
+			"pos": [
+				10,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577080500_75",
+			"pos": [
+				9,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577230500_76",
+			"pos": [
+				9,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577269500_77",
+			"pos": [
+				10,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577308800_78",
+			"pos": [
+				11,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577358300_79",
+			"pos": [
+				12,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577408400_80",
+			"pos": [
+				12,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577480500_81",
+			"pos": [
+				12,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577591700_82",
+			"pos": [
+				12,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577663900_83",
+			"pos": [
+				11,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577707000_84",
+			"pos": [
+				11,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3577863900_85",
+			"pos": [
+				10,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3578608700_86",
+			"pos": [
+				11,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3579236600_87",
+			"pos": [
+				12,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3579569900_88",
+			"pos": [
+				11,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3579775700_89",
+			"pos": [
+				10,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3580047800_90",
+			"pos": [
+				12,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3580097900_91",
+			"pos": [
+				13,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3580264600_92",
+			"pos": [
+				14,
+				12
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3580353500_93",
+			"pos": [
+				14,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3580403300_94",
+			"pos": [
+				15,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3580614600_95",
+			"pos": [
+				15,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3580681400_96",
+			"pos": [
+				15,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3580775900_97",
+			"pos": [
+				14,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3581025900_98",
+			"pos": [
+				13,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3581953800_99",
+			"pos": [
+				13,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3582109400_100",
+			"pos": [
+				14,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3582220600_101",
+			"pos": [
+				14,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3582420800_102",
+			"pos": [
+				14,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3582476900_103",
+			"pos": [
+				14,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3582533200_104",
+			"pos": [
+				14,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3582589800_105",
+			"pos": [
+				14,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3582647000_106",
+			"pos": [
+				13,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3582954100_107",
+			"pos": [
+				13,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3583248600_108",
+			"pos": [
+				15,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584302300_109",
+			"pos": [
+				2,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584365600_110",
+			"pos": [
+				3,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584465700_111",
+			"pos": [
+				3,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584610000_112",
+			"pos": [
+				1,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584693400_113",
+			"pos": [
+				1,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584756000_114",
+			"pos": [
+				1,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584820600_115",
+			"pos": [
+				2,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584884900_116",
+			"pos": [
+				2,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3584949900_117",
+			"pos": [
+				3,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585076800_118",
+			"pos": [
+				1,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585142800_119",
+			"pos": [
+				1,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585349100_120",
+			"pos": [
+				1,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585493500_121",
+			"pos": [
+				2,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585621400_122",
+			"pos": [
+				3,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585691300_123",
+			"pos": [
+				5,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585761700_124",
+			"pos": [
+				7,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585893700_125",
+			"pos": [
+				6,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3585993700_126",
+			"pos": [
+				4,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3586165900_127",
+			"pos": [
+				4,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3586239100_128",
+			"pos": [
+				5,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3586312500_129",
+			"pos": [
+				5,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3586387200_130",
+			"pos": [
+				3,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3586638300_131",
+			"pos": [
+				4,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3586714800_132",
+			"pos": [
+				3,
+				1
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3587205100_133",
+			"pos": [
+				6,
+				2
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3587394200_134",
+			"pos": [
+				6,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3587494000_135",
+			"pos": [
+				6,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3587574300_136",
+			"pos": [
+				3,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3587838600_137",
+			"pos": [
+				2,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3588033000_138",
+			"pos": [
+				4,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3588241700_139",
+			"pos": [
+				4,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3588366400_140",
+			"pos": [
+				2,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3588460900_141",
+			"pos": [
+				1,
+				7
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3588944300_142",
+			"pos": [
+				4,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3589029700_143",
+			"pos": [
+				5,
+				4
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3589361300_144",
+			"pos": [
+				5,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3590144600_145",
+			"pos": [
+				2,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_3590231700_146",
+			"pos": [
+				1,
+				8
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 5.0,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "patrol",
+			"id": "object_3681192000_147",
+			"pos": [
+				15,
+				3
+			],
+			"rotation": 180.0,
+			"solid": false,
+			"speed": 5.0,
+			"type": "critter",
+			"waypoints": []
+		}
+	],
+	"spawn": [
+		1,
+		11
+	],
+	"theme": "egypt",
+	"tiles": [
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"floor",
+			"floor",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		]
+	],
+	"version": 1,
+	"width": 17
+}

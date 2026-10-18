@@ -1,4 +1,36 @@
-2026-10-18 — Android startup and recovery (latest)
+2026-10-18 — Not as Hard as It Looks (latest)
+
+1. Added the four recovered original layouts, byte for byte, in attachment
+   order: Hardbutt, Gloopbutt, Treebutt, Frogbutt. This set unlocks after four
+   distinct Baby Mode clears. Existing completed Baby Mode profiles unlock
+   immediately. The Baby completion screen offers a direct start button.
+2. New-set clears save separately from Baby Mode. Repeated clears count once;
+   editor playtests do not advance campaigns. Next level stays in the chosen
+   set and stops at its finale. A small synchronous browser profile backup
+   protects quick reloads while the existing filesystem sync completes; old
+   ConfigFile profiles remain supported, and malformed backups fall back to it.
+   Hat rewards/selection, custom library, preview
+   preference, Android compatibility, larger editor and animation holds remain.
+3. Focused native checks: 25 passed, including original SHA-256s, schema,
+   connected routes, physical full routes with hazards paused, active stage
+   construction/counts, unlock, legacy profile, next/final screens, both-set
+   persistence and byte-identical existing custom library. Web/Windows export
+   completed. Twelve focused browser checks and staged compressed release
+   startup passed with zero runtime errors and exact WASM hash. Limits and
+   evidence are recorded in docs/VALIDATION.md.
+4. Layouts were not rebalanced. Treebutt retains 94 critters; Frogbutt 67.
+   Full hazard-complete playthroughs, difficulty tuning and physical-phone
+   performance remain untested. Audio transfer remains separately blocked;
+   this pass does not retry downloads or substitute sounds.
+5. Publish the same PUBLIC Site, preserving access revision 2, all 14 RiverSim
+   files, both existing WASM adapters and headers. Main is preserved; source
+   is on feature/not-as-hard-v7, based on the version-7 Android fixes.
+   Rollback: saved version 7 through ordinary deployment, keeping public access:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_7873c26f19208191b1b4731079dce256.
+
+--- Earlier updates follow ---
+
+2026-10-18 — Android startup and recovery (version 7)
 
 1. Android starts the same game in compatibility graphics: standard textured
    vertex-lit materials, plain sky, no custom screen shader. Camera, geometry,

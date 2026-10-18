@@ -1,0 +1,480 @@
+{
+	"exit": [
+		15,
+		1
+	],
+	"height": 13,
+	"name": "Gloopbutt",
+	"objects": [
+		{
+			"id": "object_3035606300_0",
+			"interval": 2.5,
+			"pos": [
+				15,
+				10
+			],
+			"rotation": 90.0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "object_3057797600_1",
+			"interval": 2.5,
+			"pos": [
+				15,
+				9
+			],
+			"rotation": 90.0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "object_3064846400_2",
+			"interval": 1.0,
+			"pos": [
+				15,
+				8
+			],
+			"rotation": 90.0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "object_3081461600_3",
+			"interval": 5.0,
+			"pos": [
+				15,
+				7
+			],
+			"rotation": 90.0,
+			"solid": true,
+			"type": "emitter"
+		},
+		{
+			"id": "object_3111085100_4",
+			"pos": [
+				5,
+				10
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "pillar"
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3224452900_5",
+			"pos": [
+				7,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3225637000_6",
+			"pos": [
+				7,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3226807200_7",
+			"pos": [
+				9,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3227764900_8",
+			"pos": [
+				4,
+				3
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"id": "object_3346573300_9",
+			"pos": [
+				4,
+				6
+			],
+			"rotation": 0,
+			"solid": true,
+			"type": "tree"
+		},
+		{
+			"id": "object_3364349800_10",
+			"pos": [
+				9,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		},
+		{
+			"id": "object_3365711200_11",
+			"pos": [
+				9,
+				11
+			],
+			"rotation": 0,
+			"solid": false,
+			"type": "mushroom"
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3379661300_12",
+			"pos": [
+				12,
+				10
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3379817600_13",
+			"pos": [
+				12,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3379934300_14",
+			"pos": [
+				11,
+				9
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3381405000_15",
+			"pos": [
+				11,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3381457000_16",
+			"pos": [
+				12,
+				5
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		},
+		{
+			"behavior": "wander",
+			"id": "object_3381640600_17",
+			"pos": [
+				12,
+				6
+			],
+			"rotation": 0,
+			"solid": false,
+			"speed": 1.6,
+			"type": "critter",
+			"waypoints": []
+		}
+	],
+	"spawn": [
+		1,
+		11
+	],
+	"theme": "swamp",
+	"tiles": [
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"water",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"water",
+			"water",
+			"floor",
+			"water",
+			"water",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"water",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"water",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"floor",
+			"wall"
+		],
+		[
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall",
+			"wall"
+		]
+	],
+	"version": 1,
+	"width": 17
+}

@@ -1,3 +1,47 @@
+# Not as Hard as It Looks — 2026-10-18
+
+25 focused native checks passed. Original files match all four recovered
+SHA-256s exactly. Each validates, has a connected dry route and is physically
+traversable with hazards paused. Tests also start each exact stage with its
+original critter count in Android compatibility mode. They verify locked UI
+and loader, three/repeated clears staying locked, the fourth distinct Baby
+clear unlocking set and hat, completion start button, legacy profile without
+a new-set section, correct menu order, distinct progress, next/finale behavior,
+preferences and selected hat after reload, and byte-identical custom library.
+Unlock/counting tests invoke the actual world finish signal; route tests do
+not establish that moving hazards can be defeated. The unrelated full prior
+review/test suite was not repeated.
+
+The exact layouts retain their difficulty: Treebutt has 94 critters and
+Frogbutt 67. Full active-hazard human playthroughs, balance and physical-device
+performance remain untested. Web release/debug and Windows export completed.
+Android compatibility code, loading shell, root streaming adapter and legacy
+RiverSim adapter remain unchanged from version 7. Audio transfer is blocked
+separately and was not retried.
+
+Browser profile writes now keep an immediate validated backup for quick reload.
+A missing/invalid backup falls back to profile.cfg. If that backup is damaged
+before asynchronous filesystem sync completes, fallback can recover an older
+checkpoint; it cannot guarantee the newest unsynced change. Normal quick reload
+retains the latest selected hat and both campaign arrays via the backup.
+
+Twelve focused browser checks pass: locked fresh profile, completed-profile
+fixture, attachment order, all four exact stage launches in Android compatibility,
+movement/map pause, ordinary quick-reload preservation of selected hat and
+custom library, separate campaign arrays, invalid-backup checkpoint fallback,
+and no browser/Godot errors. Browser profile fixtures test persistence/loading;
+actual four-clear earning is verified by the native runtime checks above.
+Staged compressed production startup also passed, with exact WASM hash and no
+debug bridge. All 17 protected RiverSim/header/adapter hashes match version 7.
+Evidence: /workspace/human-set-focused-native.log,
+/workspace/human-set-browser-results.json, /workspace/human-set-staged-results.json
+and /workspace/human-set-preserved.json. Browser runs use desktop Chromium
+with Android UA/touch/DPR emulation, not Android hardware. Hosted inspection
+remains blocked by executor proxy restrictions. Real Android/iPhone/Safari and
+Windows execution remain untested.
+
+--- Earlier validation history ---
+
 # Android startup and recovery — 2026-10-18
 
 Baseline Android UA/touch/DPR-3 emulation started successfully, so it did not

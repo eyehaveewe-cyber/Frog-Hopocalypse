@@ -28,6 +28,7 @@ The browser entry point is `build/web/index.html`. Serve the **whole directory**
 - **Exit Preview** in the menu optionally sweeps to the exit and back before each stage starts; the frog, hazards and timer wait. Space skips it on desktop; Map skips it on touch. Retries resume immediately.
 - Death animations remain visible for 1.6 seconds and victory for 2.2 seconds before the result screen; retry can skip the hold.
 - The workshop size selector offers Standard **17 × 13** or Large **21 × 16**, about **52% more area**, for new mazes. Current documents retain their dimensions; both sizes save/export/import normally.
+- **Not as Hard as It Looks** unlocks after all four Baby Mode clears, including existing saved clears. It contains your exact layouts in attachment order: **Hardbutt → Gloopbutt → Treebutt → Frogbutt**. Its stage progress saves separately; Baby Mode, hats, custom levels and preferences are retained. Browser progress also has an immediate backup for quick reloads.
 - **Baby Mode**, the first difficulty set: Moonlit Oasis, Pharaoh's Courtyard, Violet Mire, then Little Frog Crossing. The original three layouts are unchanged. The finale crosses two slow traffic lanes, three long-log lanes, a safe checkpoint bank, then three slightly faster traffic lanes.
 - Completing all four distinct Baby Mode stages unlocks and equips a baby frog-head hat, with raised eyes and a stitched smile. **Hat** cycles bare head, the pharaoh headdress and the earned frog hat; selection and stage completion save locally on the device.
 - Continuous WASD/arrow movement, animated hopping, physical collisions and an interchangeable pharaoh hat.
@@ -73,3 +74,6 @@ engine, missing-WebGL and lost-context failures reveal retry controls and detail
 WebAssembly and WebGL 2 remain required ([Godot web export guidance](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html)).
 The original physical Android black screen has not been reproduced on hardware;
 Android UA/touch/high-DPI emulation and focused failure tests passed.
+
+Focused campaign validation: `bash tools/test_human_set.sh` runs unlock,
+save and route checks with an isolated temporary save folder.

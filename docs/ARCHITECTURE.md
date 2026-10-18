@@ -69,6 +69,21 @@ not advance this reward. Hat cycling includes bare head and skips locked
 headwear. Loading an early version-4 unlock without four clears corrects the
 reward state while retaining valid stage progress.
 
+## Human-made campaign
+
+`HUMAN_LEVELS` holds the exact four uploaded JSONs in attachment order, while
+`BUILTINS` remains the four Baby Mode stages. `campaign_set` selects the list;
+loading the human set requires all four distinct Baby clears. Both menu entry
+and loading enforce the gate. `not_as_hard/completed` stores the separate new
+progress in the existing profile.cfg. Legacy profiles default it to empty.
+On the web, a validated `hopan.profile.v1` localStorage backup makes profile
+writes immediately durable across quick reloads while IndexedDB filesystem
+sync completes. Valid backups are normalized, filtered and mirrored back into
+profile.cfg; absent/invalid/unavailable backups use the legacy file. Custom
+level storage keeps its existing format.
+New completion does not overwrite Baby progress or its hat reward. Editor and
+custom levels do not count. `Next level` resolves against the current set.
+
 ## Start and result presentation
 
 `world.intro_active` owns the optional 4.2-second exit sweep in physics time.
