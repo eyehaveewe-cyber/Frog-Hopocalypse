@@ -1,11 +1,21 @@
-2026-10-18 — Clarify level-set selection
+2026-10-18 — Clarify level-set selection (published v17)
 
 1. Added Level sets directly beneath the main menu title. Baby Mode, Not as
    Hard as It Looks and Bonus are named collections; existing difficulty
    labels remain subordinate attributes beneath each set button.
 2. No selection, unlock, progression, checkpoint, audio or gameplay behavior
    changed. Source main, public audience and RiverSim remain preserved.
-3. Rollback retains public access and redeploys saved version 16:
+3. Published public v17 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: 2ed06d84ce5b465c9671011b813fa7b28197ab03.
+   Branch: feature/level-set-label-v17; main preserved.
+   Site source: 2b91676ad62afa5c54552687c6e8f5c8f5542098.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9643dfecb288819198e1c9fa17652b8e.
+   Deployment succeeded: appgdep_6ad527892d8c8191968fcb52d0b0318b.
+   Nineteen menu checks pass. Compressed production starts with no browser
+   errors/debug probe; label visually verified in mobile landscape emulation.
+   All 17 protected hosting/RiverSim files match. Physical phone and hosted
+   gameplay not directly checked; native Sites confirms publication.
+4. Rollback retains public access and redeploys saved version 16:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9928314e6e288191a8fa34d6470bf247.
 
 2026-10-18 — Sound controls, main-screen editor entry and checkpoint tool (published v16)
