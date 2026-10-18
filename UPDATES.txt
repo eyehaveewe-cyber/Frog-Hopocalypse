@@ -1,4 +1,4 @@
-2026-10-18 — Compact stage selectors and immediate Shelby Bonus set
+2026-10-18 — Compact stage selectors and immediate Shelby Bonus set (published version 12)
 
 1. Each set now has a main play button and a collapsed + stage picker, with
    difficulty underneath and no descriptions. Main plays the most recent clear;
@@ -13,7 +13,14 @@
    production export starts in Android-emulated Chromium without debug probe.
    Physical Android GLES shader issue is being investigated separately; this
    desktop software renderer check cannot establish real phone compatibility.
-4. RiverSim and the existing hosting adapters remain byte-for-byte unchanged.
+4. Published PUBLIC v12 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: d4a82d1932d9998f60d2d0b754d077cd0fbfd6ea (feature/bonus-shelby).
+   Site source: e37d852fcd7cf93cfc5b06e2dd11d0e1d836bcde.
+   Saved version:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_d2070083abc48191bbf5c0b654886b8f.
+   Deployment succeeded: appgdep_6ad4fa0d473c81919ad46ca9f1af2bae.
+   Human-set regression: 25 passed. RiverSim and all 17 protected files match.
+   Hosted gameplay was not directly inspected; native Sites confirms publication.
    Rollback: preserve public audience and redeploy saved version 11:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_1dc6f405ce688191aa9b9d9a89a615d4.
 

@@ -119,3 +119,7 @@ Stage sets use compact main buttons with expandable stage pickers. A set button
 replays its most recent clear, or starts stage one when fully cleared. Bonus is
 immediately available and includes the original 21 x 16 Shelby layout unchanged.
 Existing Baby Mode and human-made-set unlock rules are preserved.
+
+Compact sets and Shelby are published in public **version 12** at
+https://hopan.fiiendward.chatgpt.site/ . Exact source and rollback identifiers
+are in `UPDATES.txt`; physical Android shader testing remains separate.

@@ -1,0 +1,38 @@
+{
+  "game_source": "d4a82d1932d9998f60d2d0b754d077cd0fbfd6ea",
+  "branch": "feature/bonus-shelby",
+  "native_menu_checks": 19,
+  "native_human_regression": 25,
+  "browser": {
+    "checks": [
+      "Fresh menu collapsed",
+      "Locked human-made set hidden",
+      "Expand exposes four available stages",
+      "Collapse hides stage list",
+      "Main button replays latest clear",
+      "Completed set restarts at first stage",
+      "Expanded human-made list launches chosen stage",
+      "Progress and hats preserved"
+    ],
+    "errors": [],
+    "shelby": "Original 21 \u00d7 16 Shelby starts from immediate Bonus button; native exact hash and schema verified"
+  },
+  "production": {
+    "productionFirstFrame": true,
+    "compressedWasm": true,
+    "canvas": [
+      844,
+      390
+    ],
+    "debugProbeAbsent": true,
+    "errors": [],
+    "device": "Desktop Chromium Android emulation; physical phone not tested"
+  },
+  "protected_files_unchanged": 17,
+  "shelby_sha256": "3341a1fcd91c81f89d2bb0abdfbc787e54d338f2aa2e1c0a7f01c39bcdc03aa8",
+  "limitations": [
+    "No physical Android check; reported GLES shader linking issue investigated separately",
+    "Hosted gameplay not directly inspected; publication confirmed through native Sites tool"
+  ],
+  "rollback_version": 11
+}
