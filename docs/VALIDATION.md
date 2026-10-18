@@ -21,6 +21,9 @@ Evidence: /workspace/exit-preview-native.log, exit-preview-browser-results.json,
 exit-preview-staged-results.json, large-editor.png, exit-preview-at-exit.png
 and victory-before-result.png.
 
+Sites confirms successful private version 6 publication at
+https://hopan.fiiendward.chatgpt.site, with owner-only access preserved.
+
 User-uploaded levels and audio could not be materialized (download failed).
 The user explicitly deferred the four-level set for a later pass. No duplicate
 recording or supplied level is claimed inspected or integrated.

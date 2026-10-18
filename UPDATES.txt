@@ -20,8 +20,14 @@
    unlock after all four Baby Mode clears. No substitute layouts are added.
    Recording 57 and both 58 uploads also failed to download; no audio bytes
    were read, deduplicated, normalized or integrated.
-6. Publish to the same owner-private Site. Preserve all RiverSim files and
-   hosting adapter. Prior private version 5 remains the rollback target:
+6. Published privately as version 6 at https://hopan.fiiendward.chatgpt.site.
+   Access re-read confirms owner-only. Deployment succeeded:
+   appgdep_6ad4dc395250819186216d9573f299fd.
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_a7b5af6f15b0819198fe33c80444f165.
+   Sites source: f3d675d91e73d71cb67b4813e3061ee3c9c8c59d.
+   Game code: 01f848ebc7028e1c1d2fde845a6c285cc1028f79.
+   All 14 RiverSim files, adapter and headers were preserved byte for byte.
+   Prior private version 5 remains the rollback target:
    appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_0a0d278b6fd48191896dda8a8b38eb5b.
 
 --- Earlier feature history follows ---
