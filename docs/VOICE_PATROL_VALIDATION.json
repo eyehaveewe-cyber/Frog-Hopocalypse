@@ -1,0 +1,427 @@
+{
+  "audio": {
+    "zip_bytes": 192649,
+    "zip_sha256": "6b6003117eb0daad8f9a5195c4b5ca82c0420de060bfbf2a4feff389a3b71a13",
+    "source_commit": "21f86d5520e69dd8c05a830a386a10e6d43b04d7",
+    "verified_count": 17,
+    "listening_performed": false,
+    "clips": [
+      {
+        "file": "baby_mode.ogg",
+        "sha256": "d4747286fe1099cf97384836c401f0c9bf2214eb271bc8d38b164e22e8aeb806",
+        "bytes": 8670,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.001708"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -6.725,
+        "clipped_samples": 0
+      },
+      {
+        "file": "begin.ogg",
+        "sha256": "aa82a9cd3c70dc475400400c48358f441540d50db7edd369581419036087a294",
+        "bytes": 7628,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.010125"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -12.037,
+        "clipped_samples": 0
+      },
+      {
+        "file": "baby_win.ogg",
+        "sha256": "f44bb6c6ba91ffd61fb5a26fd02c25b57ec3af77a7141edeb4894e6c32e89c0a",
+        "bytes": 8693,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.272333"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -5.116,
+        "clipped_samples": 0
+      },
+      {
+        "file": "warning_baby_mode_in_traffic.ogg",
+        "sha256": "12130dd3aef544c682a81128f94f284a5ea65a1f3feff1bd2485521581ca0d11",
+        "bytes": 25567,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "4.815333"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -7.12,
+        "clipped_samples": 0
+      },
+      {
+        "file": "warning_baby_in_traffic.ogg",
+        "sha256": "2e145c7fc56a756017af067878174c39ea86be912e158c7ef2272f92cbeab445",
+        "bytes": 16303,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "2.831125"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -4.723,
+        "clipped_samples": 0
+      },
+      {
+        "file": "baby_frog.ogg",
+        "sha256": "fce95069e2e36b3abdda732d40f75a873d1ce0ddeffe39862b4631a0254ea5bd",
+        "bytes": 10801,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.640042"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -7.369,
+        "clipped_samples": 0
+      },
+      {
+        "file": "splatted.ogg",
+        "sha256": "49540fabf9d45fc3aa419f77b4614dfeb7983ecc706384f217c935bcd3cced8d",
+        "bytes": 14203,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "2.458708"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -2.934,
+        "clipped_samples": 0
+      },
+      {
+        "file": "sunken_frog.ogg",
+        "sha256": "adb4aaa70ce56e74fda856ae21bf8d7a7d7ec957f84094f8fb62d82b8c9c7763",
+        "bytes": 13240,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.921125"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -4.437,
+        "clipped_samples": 0
+      },
+      {
+        "file": "frog_sunk.ogg",
+        "sha256": "a21824e3a6accff0a74c9cf47eab3b7d1b07bf276cb7b6f617dcb099a79962d1",
+        "bytes": 11163,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.581250"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -2.884,
+        "clipped_samples": 0
+      },
+      {
+        "file": "bugsploded.ogg",
+        "sha256": "c8b30d57a5a8f9e44e59b7e0efba7c24a3cc926e90b2492d80b7f4eca7be0065",
+        "bytes": 18426,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "3.521458"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -4.407,
+        "clipped_samples": 0
+      },
+      {
+        "file": "dartsploded.ogg",
+        "sha256": "b525d38c177bea52bfae1cce581d8d19563c984b4fc6d9b4f168602d407f7f59",
+        "bytes": 10854,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.612792"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -6.592,
+        "clipped_samples": 0
+      },
+      {
+        "file": "watersploded.ogg",
+        "sha256": "673b10be64cf7aa55cbcebf34ff8adc3b256c3e24d4e086ff0906c2d29d256cc",
+        "bytes": 9447,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.360708"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -8.737,
+        "clipped_samples": 0
+      },
+      {
+        "file": "gloopbutt.ogg",
+        "sha256": "ab7299184ab5f6da7e4b1962c56fc632fc289780a3f6e22705c36e2aabbc9f7c",
+        "bytes": 8714,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.266667"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -5.859,
+        "clipped_samples": 0
+      },
+      {
+        "file": "frogbutt.ogg",
+        "sha256": "8a22ce5961b7b2a2049d72369a00a32372850c608930195d41097a918db3a7c3",
+        "bytes": 9032,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.228083"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -5.595,
+        "clipped_samples": 0
+      },
+      {
+        "file": "busted.ogg",
+        "sha256": "d42ac6cfc8e38900ad5730c3853ee3f8fea3e5dd3fc19549af027638adce7fe5",
+        "bytes": 8021,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.017833"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -9.725,
+        "clipped_samples": 0
+      },
+      {
+        "file": "wormed.ogg",
+        "sha256": "8f178eeb91ae30d249ffb154972f7062e897ffd51f3600f56edcba8f44e86d98",
+        "bytes": 7976,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.069208"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -8.193,
+        "clipped_samples": 0
+      },
+      {
+        "file": "wormsploded.ogg",
+        "sha256": "d4bba8970a87d5fad154689573badeb16c2a68d061de878bee5053f26b0c43a1",
+        "bytes": 10723,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "vorbis",
+              "sample_rate": "24000",
+              "channels": 1
+            }
+          ],
+          "format": {
+            "duration": "1.594417"
+          }
+        },
+        "decode_exit": 0,
+        "peak_dbfs": -9.893,
+        "clipped_samples": 0
+      }
+    ]
+  },
+  "native_voice_checks": 16,
+  "native_patrol_checks": 12,
+  "browser_audio": {
+    "checks": [
+      "silent before gesture",
+      "stage-four serialized announcements",
+      "begin waits for preview",
+      "Web Audio emits nonzero PCM after gesture",
+      "no clipping at output",
+      "saved mute honored",
+      "old progress and baby hat preserved",
+      "muted stage has no queued announcements"
+    ],
+    "audio": {
+      "peak": 0.507914125919342,
+      "connections": 2,
+      "states": [
+        "running"
+      ]
+    },
+    "errors": []
+  },
+  "browser_patrol_production": {
+    "checks": [
+      "Frogbutt browser launch",
+      "editor selects existing worm",
+      "north\u2013south preset through actual UI",
+      "66 wandering bugs retained",
+      "Android emulation compressed production first frame",
+      "DPR-3 canvas remains 844x390",
+      "release debug probe absent",
+      "exact decompressed WASM"
+    ],
+    "errors": [],
+    "releaseErrors": [],
+    "wasm": {
+      "bytes": 39514754,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    },
+    "limits": "Desktop Chromium emulation and software WebGL; no physical phone or human listening"
+  },
+  "protected_files_matched": 17
+}

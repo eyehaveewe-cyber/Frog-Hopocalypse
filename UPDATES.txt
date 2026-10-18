@@ -1,24 +1,32 @@
-2026-10-18 — Worm patrols and recorded-voice hooks (pending publication)
+2026-10-18 — Recorded voices and worm patrols
 
-1. Frogbutt’s existing worm now loops north–south on column 7, rows 1 to 11.
-   All terrain, spawn/exit, trap, scenery, enemy counts and the 66 wandering
-   bugs are preserved. The unmodified original JSON is retained as a fixture.
-2. Editor: Loop route toggles repetition; North–south loop finds clear
-   endpoints, stopping at water, walls, static scenery, spawn and exit.
-   Legacy version-1 patrols keep looping. Export/import and undo retain it.
-3. Twelve focused patrol checks passed, including real collider travel over
-   80 simulated seconds, both endpoints and repeated turns without x drift.
-   Sixteen audio-event checks passed using explicitly test-only silent fixtures;
-   this does not verify recorded playback. Native import passes.
-4. Recorded-voice hooks are prepared for exactly the 17 user-listed cues,
-   with serialized playback, gesture gating, saved mute, specific/alternate
-   death lines and traversal-triggered traffic warning. Actual audio integration
-   is pending verified transfer; uploading that bundle to the public source
-   repository is awaiting explicit user approval in the parent thread.
-   No audio has been uploaded, integrated or published by this update.
-5. Public version 9 and public access revision 2 remain unchanged. All 17
-   protected RiverSim/adapter/header hashes match. Combined release is on hold
-   pending verified clips and focused playback/build checks.
+1. Exactly 17 selected user recordings are integrated with their manifest and
+   supplied instructions. All file hashes, ffprobe and full ffmpeg decodes pass;
+   zero clipped samples, highest sample peak -2.884 dBFS. First Baby Mode take
+   trim is waveform-inferred, not independently listened to. Unlisted clips
+   are excluded. Transfer ZIP: 192649 bytes, SHA-256
+   6b6003117eb0daad8f9a5195c4b5ca82c0420de060bfbf2a4feff389a3b71a13,
+   retrieved from artifact-only commit 21f86d5520e69dd8c05a830a386a10e6d43b04d7.
+2. Recorded voices serialize after an input gesture. Begin waits for stage
+   display, earlier announcements and Exit Preview. Saved mute clears playback.
+   Death/retry cancels stale speech; car, dart, bug, worm and water deaths use
+   the mapped lines, with occasional watersploded and rare busted alternatives.
+   Stage-four return warning fires at final-road-to-bank crossings, rearming
+   only after another visit. Baby set victory precedes the earned hat line.
+3. Frogbutt's existing worm loops north-south on column 7, rows 1 to 11.
+   Terrain, spawn/exit, scenery, trap, enemy counts and 66 wandering bugs remain.
+   Original JSON is retained as a fixture. Editor Loop route and North-south
+   loop controls retain undo/export/import support. Old patrols keep looping.
+4. Focused validation: 16 native voice checks with the real imported clips;
+   12 patrol checks, including 80 simulated seconds of real collider travel;
+   8 browser audio checks and 8 patrol/production checks, no runtime errors.
+   Browser output contained nonzero PCM after a gesture, below clipping.
+   Web debug/release and Windows exports pass. Android-emulated startup uses
+   compatibility mode and a 1x canvas; exact decompressed engine hash matches.
+5. No human listening or physical-phone test was performed. The Baby Mode
+   breath trim remains waveform-inferred. Production was validated locally;
+   direct hosted inspection is constrained by the executor's network proxy.
+   All 17 protected RiverSim/adapter/header hashes match; public audience stays.
 
 --- Earlier updates follow ---
 

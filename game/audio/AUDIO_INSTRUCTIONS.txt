@@ -1,0 +1,21 @@
+HOPAN SELECTED AUDIO — USER INSTRUCTIONS
+
+Exactly the following 17 selected clips are included. The numbered references below refer to the preview candidates from recordings 56, 57 and 58. No unlisted clips are included.
+
+USER'S EXACT MAPPING TEXT
+
+Recording 1 is three instances of saying "baby mode" which I think the first one is the best without the breath at the end. 2 is "begin" which maybe will play after the level is announced/shown after the scroll-to-exit. Recording 3 "baby win" maybe plays after you win baby mode set. Recording 4 is "warning, baby mode in traffic" which plays at the start of level 4 baby mode. 5 is 'warning baby in traffic' which maybe could play when you hit the stage 4 'finally' street and then go back to the grass toward the beginning. 6 is "baby frog" maybe plays when you get the baby hat or maybe save for a hat select screen. 7 is "splatted" maybe plays when you get hit by a car. 8 is "sunken frog" which plays when you drown. 9 is "frog sunk" which is an alt play when you drown.
+
+recording 57 part 1 is "bugsploded" which plays when you hit a bug and die. 57:2 is "dartsploded" plays when you die to a dart. 57:5 is "watersploded." 57:6 is "gloopbutt," plays at the start of the gloopbutt level in the 'nahail' set. 57:7 is "frogbutt" for the start of the frogbutt level.
+
+58:1 is "busted" could be a rare alt kill sound for any death. 58:2 is "wormed" which is death by a patrolling enemy. 58:3 is "wormsploded" which is an alt for dying to a patrolling enemy.
+
+Later user: disregard recordings not listed in my reply there.
+
+PREPARATION NOTES — NOT ADDITIONAL USER INSTRUCTIONS
+
+The user provided the labels above. The preparation process did not independently listen to or identify the words. The first baby_mode take was trimmed to source Recording (56).m4a seconds 1.708271–2.710, retaining the first main waveform burst and excluding subsequent low-energy tail and repeated takes. This is a waveform-inferred trim, not a listening-verified breath boundary. It has a 5 ms onset fade and 20 ms end fade. Original recordings are preserved separately.
+
+Other clips retain the numbered preview boundaries reviewed by the user. Silence-based source segmentation used a -38 dBFS threshold with 0.7-second gaps and 80/120 ms padding. Gain was capped at +12 dB toward -3 dBFS sample peak; short edge fades were applied. Compact Ogg/Vorbis files are mono 24 kHz. All 17 files were fully decoded and measured: zero clipped samples; maximum decoded sample peak -2.884 dBFS. These measurements are not a listening or subjective-quality assessment.
+
+manifest.json contains exact filenames, source timestamps, byte counts, SHA-256 checksums, gain-context notes and measured output peaks. Verify every file before integration. Keep the user's tentative suggestions distinct from firm mappings. Choosing watersploded as another drowning alternative or baby_frog for bonnet unlock is an implementation assumption, not extra wording from the user. Follow the coordinating task's approved integration instructions for those choices.

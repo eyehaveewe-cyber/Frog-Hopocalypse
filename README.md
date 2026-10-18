@@ -79,12 +79,25 @@ Android UA/touch/high-DPI emulation and focused failure tests passed.
 Focused campaign validation: `bash tools/test_human_set.sh` runs unlock,
 save and route checks with an isolated temporary save folder.
 
-## Pending recorded-voice update
+## Recorded voices
 
-Branch `feature/recorded-cues-v10` prepares only the 17 user-mapped voice events,
-a serialized voice player, input-gesture gating and a saved **Recorded voices**
-mute option. “Begin” waits for stage display, prior announcements and Exit Preview.
-Death/retry cancels stale announcements; the final-street return warning rearms
-only after another visit to that road. Actual clips are not integrated yet:
-repository transfer of the verified bundle is awaiting user approval. Public Site
-version 9 remains unchanged until the combined release is verified and deployed.
+Exactly the 17 user-selected clips are bundled in `game/audio/`, with their
+source manifest and supplied mapping instructions. The first Baby Mode take is
+trimmed at the first waveform burst (source seconds 1.708271–2.710); its breath
+boundary has not been independently listened to. No unlisted recordings are used.
+
+One voice plays at a time after a keyboard, mouse or touch gesture. **Recorded
+voices** in the menu mutes playback and saves the preference. “Begin” waits for
+stage display, earlier announcements and Exit Preview. Death/retry clears stale
+announcements. Stage 4’s return warning triggers from the final street (rows 7–9)
+back to its near safe bank (row 10), and rearms only after another road visit.
+Primary drowning and worm-death lines alternate; watersploded is an 18% drowning
+alternative and busted is a 6% general death alternative. Baby victory queues the
+hat reward line; selecting an earned baby hat can play it again while idle.
+
+All clip hashes and full decodes passed with zero clipped samples (highest
+sample peak −2.884 dBFS before the player’s −2 dB headroom). Sixteen native cue
+checks and twelve patrol checks passed. Browser checks verified serialized
+announcements, preview timing, nonzero Web Audio output, mute/progress persistence,
+patrol editor controls and compressed Android-emulated startup. This verifies
+programmatic playback, not human listening or physical-phone behavior.

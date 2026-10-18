@@ -1,5 +1,6 @@
 extends Node
 ## One voice at a time. Only explicitly approved, bundled recordings are loaded.
+const FILE_ALIASES = {"traffic_start": "warning_baby_mode_in_traffic", "traffic_return": "warning_baby_in_traffic"}
 const CUES = ["baby_mode", "begin", "baby_win", "traffic_start", "traffic_return", "baby_frog", "splatted", "sunken_frog", "frog_sunk", "bugsploded", "dartsploded", "watersploded", "gloopbutt", "frogbutt", "busted", "wormed", "wormsploded"]
 var player: AudioStreamPlayer
 var clips: Dictionary = {}
@@ -18,7 +19,7 @@ func _ready() -> void:
 	player.finished.connect(play_next)
 	rng.randomize()
 	for cue in CUES:
-		var path: String = "res://audio/" + cue + ".ogg"
+		var path: String = "res://audio/" + str(FILE_ALIASES.get(cue, cue)) + ".ogg"
 		if ResourceLoader.exists(path):
 			clips[cue] = load(path)
 
