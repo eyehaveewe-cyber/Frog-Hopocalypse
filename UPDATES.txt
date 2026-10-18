@@ -1,0 +1,58 @@
+2026-10-18 — Hopán publication handoff (impact order)
+
+1. Publication blocked by missing official Sites source helper.
+   The account's complete owner Site list had no Hopán entry and no next cursor.
+   No .openai/hosting.json identity exists in the fetched source. No Site was
+   registered, no version saved, no audience changed and no URL reserved.
+   Local searches found no site-workflow.mjs or set-project-id.mjs; attempting
+   to read site-workflow.mjs from the current cloud Sites skill failed.
+   Resume with the official helper installed; use creation_intent user_requested,
+   a private audience, and the actual server-returned deployment URL.
+   The root game's release index.wasm is also 39,514,754 bytes, exceeding
+   the stated static 25 MiB per-file limit. Its SHA256 is
+   fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0.
+   A supported oversized-WASM route must be verified before publication;
+   no Content-Encoding/header support or compressed deployment is asserted.
+
+2. Original game source preserved on separate branch sites/hopan-testing.
+   Source baseline: 7be94416ead3e43595fd20b533e40e461234a802.
+   GitHub main matched that SHA; the selected checkout was initially empty
+   with no commits or uncommitted work. No main rewrite or game redesign.
+   All current tracked changes are handoff documentation only.
+
+3. Native validation passed with official Godot 4.7.2.
+   Project import succeeded. tools/test.sh: 37 checks, zero failures.
+   Checks include perspective/map pause and restore, overhead editor,
+   collision/death/retry/victory, and physical traversal of all three dry
+   routes with hazards paused. They do not establish full hazard difficulty.
+   Clean bootstrap verified both pinned SHA512 hashes. Web release, Windows
+   release and debug Web exports succeeded, with no build errors/warnings.
+   Seven focused Chromium browser checks passed with zero runtime errors:
+   production startup with debug bridge disabled, Moonlit Oasis perspective
+   play, keyboard movement, overhead-map pause, return to 3D, overhead editor,
+   and no failed asset responses or browser/Godot errors. Chromium used
+   software rendering; no mobile/device performance claim follows.
+   The entire build directory was served for this check, with production
+   assets at /web/ and diagnostic assets at /test-web/. Local HTTP checks
+   returned 200 with text/html, text/javascript, application/wasm and
+   application/octet-stream for HTML, JS, WASM and PCK respectively.
+   Evidence outside source: /workspace/hopan-build.log,
+   /workspace/hopan-browser-check.json, /workspace/hopan-focused-browser.cjs.
+
+4. RiverSim remains separate and unmounted.
+   Library ID: libfile_d3fa009f480c8191bf6086d4da388fb0.
+   RiverSim-Hopán-riversim-test-20261017.zip, returned size 29,063,800 bytes.
+   The current official Library transfer helper reported "download failed"
+   three times, including freshly prepared transfers and a permitted
+   network-escalated helper invocation. No readable local ZIP was
+   produced, so no local content/hash/relative-path assertion is made.
+   The prior handoff reports a 39,514,754-byte WASM exceeding the static
+   25 MiB limit. Gzip hosting and Content-Encoding remain unverified.
+   Do not claim /riversim/ works until bytes and real hosted responses pass.
+
+5. Device limits and rollback.
+   Real iPhone/Safari, Windows execution and sustained device performance
+   remain untested. Native dry-route tests pause hazards.
+   No production change occurred, so no hosted rollback is necessary.
+   To discard this handoff, select baseline SHA above or remove the separate
+   testing branch. Generated build outputs are ignored and reproducible.

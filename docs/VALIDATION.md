@@ -1,5 +1,14 @@
 # Prototype validation — 2026-10-17
 
+2026-10-18 handoff recheck: baseline `7be94416ead3e43595fd20b533e40e461234a802`
+passed all 37 native checks again. Checksum-verified Godot 4.7.2 exported Web,
+Windows and debug Web builds successfully. A focused Chromium run passed seven
+checks: production startup without a debug bridge, perspective play, keyboard
+movement, overhead-map pause, 3D restoration, overhead editor, and no browser/
+Godot errors or failed asset responses. This did not repeat the broader browser
+editor/storage/mobile suite below. Local HTML/JS/WASM/PCK responses had correct
+MIME types. See `../UPDATES.txt` for publishing blockers and current limitations.
+
 Engine: Godot 4.7.2 stable, official Linux x86-64 binary and export templates with pinned SHA-512 verification. Original design brief preserved unchanged in `game-design-brief.md`.
 
 ## Passed
@@ -39,6 +48,6 @@ All three bundled levels were reconstructed through editor operations using `gam
 - Running the Windows executable on Windows; this Linux environment verifies export, not Windows execution.
 - Human full playthroughs with all hazards active, enemy/trap timing and difficulty tuning. Automated physical route checks pause hazards.
 - Broader accessibility review. The canvas interface has readable controls and keyboard gameplay, but full screen-reader support is not implemented.
-- Public hosting and the requested `Hopan.chatgpt.sites` address. No publishing/reservation tool is available in this session.
+- Hosting and the requested `Hopan.chatgpt.sites` address. Native Sites tools are now available, but the official source/publishing helper is missing in this executor, and the 39,514,754-byte release WASM exceeds the stated static-file limit. No Site, version, access setting or deployment URL has been created or confirmed.
 
 The implementation is a functional prototype of the requested game and editor. It is not being marked as fully complete version 0.1 while real-device criteria remain unchecked.
