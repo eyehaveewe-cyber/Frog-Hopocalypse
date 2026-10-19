@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "Desktop: Long hop is visible on the playfield; editor stays hidden",
+    "Space then direction executes a real two-tile hop across the first rail",
+    "Desktop: empty Long hop explains the active rule and pauses safely",
+    "Desktop: 25-hop rule is continuously visible and the counter starts at 25 after use",
+    "Touch: Long hop is visible on the playfield; editor stays hidden",
+    "Touch: empty Long hop explains the active rule and pauses safely",
+    "Real touch joystick collects three fragments; visible button arms and spends one long hop across water",
+    "Touch: 25-hop rule is continuously visible and the counter starts at 25 after use"
+  ],
+  "errors": [],
+  "scope": "Chromium/SwiftShader desktop and Android-UA touch emulation; physical iPhone and Safari unverified."
+}

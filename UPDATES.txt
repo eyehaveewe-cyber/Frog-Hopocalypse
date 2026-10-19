@@ -1,3 +1,20 @@
+2026-10-19 — Harder Tile Hop tour
+
+1. Raised all five Tile Hop stages toward the requested 2½× challenge through
+   tighter crossings, guarded resource routes and overlapping landings: 60
+   active hazard placements versus 24. This ratio is a budget, not a measured
+   human difficulty multiplier. Rules, unlocks and one flag per stage retained.
+2. Fixed Seed Vault's north-facing shooter to face its eastern cheese. All 21
+   emitters face cheese with clear firing lines. Barrel direction and real
+   projectile passage through cheese verified in all four rotations.
+3. 98 dart/layout and 38 resource checks pass; five fresh hazard-active routes
+   and five checkpoint retry routes complete. Eight desktop/touch browser
+   checks pass with no errors. Web/Windows release and Web debug builds pass.
+   Physical iPhone/Safari and exact human difficulty remain unverified.
+4. No other campaign, audio or runtime code changed. Generator is deterministic.
+   Publication retains RiverSim and hosting adapters; rollback target is v25.
+   Details: docs/TILE_HARDNESS.md and TILE_HARDNESS_VALIDATION.json.
+
 2026-10-19 — Five-stage tour published publicly as version 25
 
 1. Live URL: https://hopan.fiiendward.chatgpt.site

@@ -1,6 +1,6 @@
 const {chromium,devices}=require('playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
-const out=path.resolve(__dirname,'../docs/previews/tile-tours');fs.mkdirSync(out,{recursive:true});
+const out=path.resolve(__dirname,'../docs/previews/tile-hardness');fs.mkdirSync(out,{recursive:true});
 (async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--enable-unsafe-swiftshader','--use-angle=swiftshader']});const checks=[],errors=[];
 try{for(const mobile of [false,true]){
 const p=await browser.newPage(mobile?{...devices['iPhone 13 landscape'],userAgent:'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/131.0.0.0 Mobile Safari/537.36'}:{viewport:{width:1280,height:900}});
@@ -19,7 +19,7 @@ if(!mobile){await keyHop('w');await keyHop('w',true);assert.equal((await state()
 await loadDemo('Shardwater Sanctuary');await p.waitForFunction(()=>hopanState.long_hop_state==='0 / 3 FRAGMENTS');
 await p.screenshot({path:path.join(out,mobile?'touch-fragments.png':'fragment-perspective.png'),scale:'css'});
 await click('Long hop');await p.waitForFunction(()=>hopanState.rule_notice);const before=(await state()).elapsed;await p.waitForTimeout(500);assert.equal((await state()).elapsed,before);await p.screenshot({path:path.join(out,mobile?'touch-empty-rule.png':'empty-rule.png'),scale:'css'});await click('Back');checks.push((mobile?'Touch':'Desktop')+': empty Long hop explains the active rule and pauses safely');
-if(mobile){for(const [dx,dy,n]of [[-1,0,3],[0,-1,1],[0,-1,2],[1,0,6],[0,1,2],[0,-1,4],[-1,0,3],[0,-1,1]])for(let i=0;i<n;i++)await touchHop(dx,dy);
+if(mobile){const fixture=JSON.parse(fs.readFileSync(path.join(__dirname,'../game/tests/routes/harder_2.json'),'utf8'));for(const action of fixture.actions){if(action.big)break;await touchHop(action.direction[0],action.direction[1]);assert.equal((await state()).result,'');}
 await p.waitForFunction(()=>hopanState.long_hop_state==='READY');assert.equal((await state()).hop_resource.collected.length,3);await click('Long hop');await p.waitForFunction(()=>hopanState.long_hop_state==='ARMED');await p.screenshot({path:path.join(out,'touch-armed.png'),scale:'css'});await touchHop(0,-1);await p.waitForFunction(()=>hopanState.long_hop_state==='0 / 3 FRAGMENTS');assert.equal((await state()).result,'');assert.equal((await state()).long_hops_used,1);checks.push('Real touch joystick collects three fragments; visible button arms and spends one long hop across water');
 }else{await click('Map');await p.screenshot({path:path.join(out,'fragment-map.png'),scale:'css'});}
 await loadDemo('The Seed Vault');assert.equal((await state()).long_hop_state,'FIND HOP SEED');await p.screenshot({path:path.join(out,mobile?'touch-seed.png':'seed-perspective.png'),scale:'css'});if(!mobile){await click('Map');await p.screenshot({path:path.join(out,'seed-map.png'),scale:'css'});}

@@ -185,7 +185,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "floor",
@@ -577,7 +577,7 @@
       "floor",
       "road",
       "road",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "floor",
@@ -710,7 +710,7 @@
       "floor",
       "water",
       "floor",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "floor",
@@ -865,7 +865,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "wall",
@@ -971,7 +971,7 @@
       "rotation": 0,
       "solid": false,
       "behavior": "slam_patrol",
-      "pause": 2,
+      "pause": 1,
       "range": 3,
       "directions": [
         0,
@@ -1046,7 +1046,7 @@
       "rotation": 0,
       "solid": false,
       "behavior": "slam_patrol",
-      "pause": 2,
+      "pause": 1,
       "range": 3,
       "directions": [
         0,
@@ -1162,7 +1162,7 @@
       "type": "tree",
       "pos": [
         1,
-        37
+        39
       ],
       "rotation": 0,
       "solid": true
@@ -1256,6 +1256,119 @@
       ],
       "rotation": 0,
       "solid": true
+    },
+    {
+      "id": "hard-emitter-22",
+      "type": "emitter",
+      "pos": [
+        1,
+        37
+      ],
+      "solid": true,
+      "rotation": 270,
+      "interval": 3
+    },
+    {
+      "id": "hard-emitter-23",
+      "type": "emitter",
+      "pos": [
+        14,
+        30
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 3
+    },
+    {
+      "id": "hard-spike_ball-24",
+      "type": "spike_ball",
+      "pos": [
+        17,
+        22
+      ],
+      "solid": false,
+      "behavior": "slam_patrol",
+      "pause": 1,
+      "range": 3,
+      "directions": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "waypoints": [
+        [
+          17,
+          26
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-emitter-25",
+      "type": "emitter",
+      "pos": [
+        19,
+        24
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 3
+    },
+    {
+      "id": "hard-critter-26",
+      "type": "critter",
+      "pos": [
+        4,
+        20
+      ],
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          4,
+          20
+        ],
+        [
+          9,
+          20
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-emitter-27",
+      "type": "emitter",
+      "pos": [
+        19,
+        7
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 3
+    },
+    {
+      "id": "hard-critter-28",
+      "type": "critter",
+      "pos": [
+        18,
+        9
+      ],
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          18,
+          9
+        ],
+        [
+          18,
+          5
+        ]
+      ],
+      "patrol_loop": true
     }
   ],
   "checkpoints": [
@@ -1270,7 +1383,7 @@
         3,
         38
       ],
-      "text": "YOUR MOVE CROSSING \u00b7 Every hop changes the clock.\nWhile you rest, the marked spike target stays fixed."
+      "text": "YOUR MOVE CROSSING \u00b7 Every accepted hop advances danger.\nRead the dart lines and the locked copper target before stepping."
     },
     {
       "pos": [

@@ -1,0 +1,513 @@
+{
+  "base": "bb0fca82132ffc7a88dd3d54b0a71ddf963e8eda",
+  "scope": "Five Tile Hop maps; existing campaign/audio/engine unchanged",
+  "difficulty_target": "Approximately 2.5 times harder; human difficulty multiplier unmeasured",
+  "hazard_budget": [
+    {
+      "level": "Big Hop Boulevard",
+      "before": 5,
+      "after": 13,
+      "checkpoints": [
+        [
+          8,
+          13
+        ]
+      ]
+    },
+    {
+      "level": "The Seed Vault",
+      "before": 5,
+      "after": 14,
+      "checkpoints": [
+        [
+          4,
+          14
+        ]
+      ]
+    },
+    {
+      "level": "Shardwater Sanctuary",
+      "before": 3,
+      "after": 8,
+      "checkpoints": [
+        [
+          9,
+          8
+        ]
+      ]
+    },
+    {
+      "level": "Twenty-Five Terraces",
+      "before": 3,
+      "after": 10,
+      "checkpoints": [
+        [
+          10,
+          22
+        ]
+      ]
+    },
+    {
+      "level": "Your Move Crossing",
+      "before": 8,
+      "after": 15,
+      "checkpoints": [
+        [
+          10,
+          21
+        ]
+      ]
+    }
+  ],
+  "dart_checks": {
+    "checks": 98,
+    "failures": 0,
+    "emitters": 21,
+    "alignments": [
+      {
+        "cheese": [
+          7,
+          9
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "Big Hop Boulevard",
+        "turret": [
+          3,
+          9
+        ]
+      },
+      {
+        "cheese": [
+          7,
+          21
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "Big Hop Boulevard",
+        "turret": [
+          2,
+          21
+        ]
+      },
+      {
+        "cheese": [
+          9,
+          29
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Big Hop Boulevard",
+        "turret": [
+          14,
+          29
+        ]
+      },
+      {
+        "cheese": [
+          9,
+          17
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Big Hop Boulevard",
+        "turret": [
+          13,
+          17
+        ]
+      },
+      {
+        "cheese": [
+          7,
+          14
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "Your Move Crossing",
+        "turret": [
+          3,
+          14
+        ]
+      },
+      {
+        "cheese": [
+          5,
+          37
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "Your Move Crossing",
+        "turret": [
+          1,
+          37
+        ]
+      },
+      {
+        "cheese": [
+          11,
+          30
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Your Move Crossing",
+        "turret": [
+          14,
+          30
+        ]
+      },
+      {
+        "cheese": [
+          16,
+          24
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Your Move Crossing",
+        "turret": [
+          19,
+          24
+        ]
+      },
+      {
+        "cheese": [
+          15,
+          7
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Your Move Crossing",
+        "turret": [
+          19,
+          7
+        ]
+      },
+      {
+        "cheese": [
+          9,
+          29
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "Shardwater Sanctuary",
+        "turret": [
+          3,
+          29
+        ]
+      },
+      {
+        "cheese": [
+          9,
+          18
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "Shardwater Sanctuary",
+        "turret": [
+          3,
+          18
+        ]
+      },
+      {
+        "cheese": [
+          11,
+          10
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Shardwater Sanctuary",
+        "turret": [
+          15,
+          10
+        ]
+      },
+      {
+        "cheese": [
+          8,
+          19
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "The Seed Vault",
+        "turret": [
+          3,
+          19
+        ]
+      },
+      {
+        "cheese": [
+          5,
+          29
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "The Seed Vault",
+        "turret": [
+          1,
+          29
+        ]
+      },
+      {
+        "cheese": [
+          14,
+          25
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "The Seed Vault",
+        "turret": [
+          10,
+          25
+        ]
+      },
+      {
+        "cheese": [
+          16,
+          20
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "The Seed Vault",
+        "turret": [
+          19,
+          20
+        ]
+      },
+      {
+        "cheese": [
+          7,
+          11
+        ],
+        "direction": [
+          1,
+          0
+        ],
+        "level": "The Seed Vault",
+        "turret": [
+          2,
+          11
+        ]
+      },
+      {
+        "cheese": [
+          2,
+          33
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Twenty-Five Terraces",
+        "turret": [
+          4,
+          33
+        ]
+      },
+      {
+        "cheese": [
+          13,
+          28
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Twenty-Five Terraces",
+        "turret": [
+          15,
+          28
+        ]
+      },
+      {
+        "cheese": [
+          16,
+          19
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Twenty-Five Terraces",
+        "turret": [
+          18,
+          19
+        ]
+      },
+      {
+        "cheese": [
+          3,
+          12
+        ],
+        "direction": [
+          -1,
+          0
+        ],
+        "level": "Twenty-Five Terraces",
+        "turret": [
+          5,
+          12
+        ]
+      }
+    ],
+    "live_projectile_cheese_directions": [
+      0,
+      90,
+      180,
+      270
+    ]
+  },
+  "resource_checks": {
+    "checks": 38,
+    "failures": 0
+  },
+  "fresh_hazard_active_routes": [
+    {
+      "checkpoints": 1,
+      "elapsed": 11.9166666666668,
+      "hops": 27,
+      "level": "Big Hop Boulevard",
+      "long_hops": 11,
+      "pickups": 0,
+      "position": "(8, 2)",
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "checkpoints": 1,
+      "elapsed": 25.5499999999998,
+      "hops": 73,
+      "level": "Your Move Crossing",
+      "long_hops": 11,
+      "pickups": 0,
+      "position": "(17, 2)",
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "checkpoints": 1,
+      "elapsed": 40.949999999999,
+      "hops": 117,
+      "level": "Shardwater Sanctuary",
+      "long_hops": 3,
+      "pickups": 9,
+      "position": "(9, 2)",
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "checkpoints": 1,
+      "elapsed": 30.4499999999996,
+      "hops": 67,
+      "level": "The Seed Vault",
+      "long_hops": 5,
+      "pickups": 5,
+      "position": "(17, 2)",
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "checkpoints": 1,
+      "elapsed": 33.9499999999994,
+      "hops": 97,
+      "level": "Twenty-Five Terraces",
+      "long_hops": 3,
+      "pickups": 0,
+      "position": "(10, 2)",
+      "result": "LEVEL COMPLETE!"
+    }
+  ],
+  "checkpoint_retry_routes": [
+    {
+      "alternate_route": false,
+      "completed": true,
+      "hops": 11,
+      "level": "Big Hop Boulevard",
+      "position": "(8, 2)",
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "alternate_route": false,
+      "completed": true,
+      "hops": 30,
+      "level": "Your Move Crossing",
+      "position": "(17, 2)",
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "alternate_route": false,
+      "completed": true,
+      "hops": 13,
+      "level": "Shardwater Sanctuary",
+      "position": "(9, 2)",
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "alternate_route": false,
+      "completed": true,
+      "hops": 24,
+      "level": "The Seed Vault",
+      "position": "(17, 2)",
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "alternate_route": true,
+      "completed": true,
+      "hops": 55,
+      "level": "Twenty-Five Terraces",
+      "position": "(10, 2)",
+      "result": "LEVEL COMPLETE!"
+    }
+  ],
+  "browser": {
+    "checks": [
+      "Desktop: Long hop is visible on the playfield; editor stays hidden",
+      "Space then direction executes a real two-tile hop across the first rail",
+      "Desktop: empty Long hop explains the active rule and pauses safely",
+      "Desktop: 25-hop rule is continuously visible and the counter starts at 25 after use",
+      "Touch: Long hop is visible on the playfield; editor stays hidden",
+      "Touch: empty Long hop explains the active rule and pauses safely",
+      "Real touch joystick collects three fragments; visible button arms and spends one long hop across water",
+      "Touch: 25-hop rule is continuously visible and the counter starts at 25 after use"
+    ],
+    "errors": [],
+    "scope": "Chromium/SwiftShader desktop and Android-UA touch emulation; physical iPhone and Safari unverified."
+  },
+  "generator": "two repeated runs byte-identical",
+  "builds": [
+    "Godot 4.7.2 Web release",
+    "Windows release",
+    "Web debug"
+  ],
+  "limits": [
+    "Human playtest needed to calibrate exact difficulty",
+    "Physical iPhone and Safari unverified",
+    "Live URL checks blocked by executor CONNECT proxy 403; native deployment status used after publication"
+  ]
+}

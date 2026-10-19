@@ -292,30 +292,7 @@
       "wall",
       "wall",
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall"
-    ],
-    [
-      "wall",
-      "wall",
-      "wall",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "wall",
@@ -338,14 +315,14 @@
       "wall",
       "wall",
       "wall",
-      "wall",
-      "path",
-      "wall",
-      "wall",
-      "wall",
+      "floor",
+      "floor",
+      "floor",
       "wall",
       "wall",
-      "road",
+      "wall",
+      "wall",
+      "wall",
       "wall",
       "wall",
       "wall",
@@ -369,6 +346,29 @@
       "wall",
       "wall",
       "road",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "road",
       "floor",
       "wall",
       "wall",
@@ -466,9 +466,9 @@
       "wall",
       "wall",
       "wall",
-      "wall",
-      "path",
-      "wall",
+      "cheese_wall",
+      "floor",
+      "floor",
       "wall",
       "wall"
     ],
@@ -670,6 +670,52 @@
       "wall",
       "wall",
       "floor",
+      "cheese_wall",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "road",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "road",
+      "path",
+      "path",
+      "path",
+      "floor",
       "floor",
       "floor",
       "floor",
@@ -692,52 +738,6 @@
       "wall",
       "wall",
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall"
-    ],
-    [
-      "wall",
-      "wall",
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "road",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall"
-    ],
-    [
-      "wall",
-      "wall",
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall",
-      "road",
-      "wall",
-      "wall",
-      "wall",
       "wall",
       "wall",
       "wall",
@@ -774,7 +774,7 @@
     [
       "wall",
       "wall",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "wall",
@@ -1048,7 +1048,7 @@
       ],
       "solid": false,
       "behavior": "slam_patrol",
-      "pause": 4,
+      "pause": 2,
       "range": 3,
       "directions": [
         0,
@@ -1060,6 +1060,116 @@
         [
           11,
           4
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-emitter-3",
+      "type": "emitter",
+      "pos": [
+        4,
+        33
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 3
+    },
+    {
+      "id": "hard-emitter-4",
+      "type": "emitter",
+      "pos": [
+        15,
+        28
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 3
+    },
+    {
+      "id": "hard-emitter-5",
+      "type": "emitter",
+      "pos": [
+        18,
+        19
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 3
+    },
+    {
+      "id": "hard-emitter-6",
+      "type": "emitter",
+      "pos": [
+        5,
+        12
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 3
+    },
+    {
+      "id": "hard-critter-7",
+      "type": "critter",
+      "pos": [
+        10,
+        30
+      ],
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          10,
+          30
+        ],
+        [
+          13,
+          30
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-critter-8",
+      "type": "critter",
+      "pos": [
+        7,
+        16
+      ],
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          7,
+          16
+        ],
+        [
+          4,
+          16
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-critter-9",
+      "type": "critter",
+      "pos": [
+        10,
+        5
+      ],
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          10,
+          5
+        ],
+        [
+          12,
+          5
         ]
       ],
       "patrol_loop": true
@@ -1084,7 +1194,7 @@
         10,
         36
       ],
-      "text": "Follow the winding terrace.\nForward short hops refill the reserve without pacing in place."
+      "text": "The winding terrace recharges your reserve.\nYour first 25 short hops must also cross active dart and road beats."
     },
     {
       "pos": [
@@ -1112,7 +1222,7 @@
         10,
         8
       ],
-      "text": "Last gate. Save your long hop for water.\nOn the far bank, circle the rail or hop when recharged."
+      "text": "Last water gate: keep your reserve for it.\nOn the far bank, the rail and bug cover different landings."
     }
   ]
 }

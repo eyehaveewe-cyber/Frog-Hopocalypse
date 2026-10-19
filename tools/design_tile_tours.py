@@ -1,5 +1,5 @@
 """Five-stage Tile Hop tour. AI-authored layouts implementing the user's brief.
-Keeps stage IDs 0/1 and the second layout; records controller routes separately.
+Keeps stage IDs and rules; applies the later authored pressure pass deterministically.
 """
 from pathlib import Path
 import json
@@ -34,7 +34,7 @@ sign(a,8,21,'The two routes meet here.\nTurn to line up the next water crossing.
 sign(a,8,13,'Your only checkpoint.\nUse the side banks to read the dart lane and final rail.')
 save('big_hop_boulevard',a)
 # 2. Reviewed: retain all terrain/hazards and only the former second-to-last flag.
-b=json.loads((ROOT/'your_move_crossing.json').read_text());b['checkpoints']=[[10,21]]
+b=json.loads((Path(__file__).resolve().parent/'level_sources/your_move_crossing_v25.json').read_text());b['checkpoints']=[[10,21]]
 # Remove obsolete flag instructions without changing geometry or hazard phase.
 for entry in b['signs']:
  if entry['pos']==[10,21]:entry['text']='Your only checkpoint.\nChoose a sheltered detour or the shorter rail court. Blocked hops spend no beat.'
@@ -63,7 +63,7 @@ for r in [(1,26,7,33),(9,24,19,30),(12,16,19,22),(3,16,10,22),(2,7,9,14),(11,2,1
 for x,y in [(3,29),(17,27),(15,20),(4,18),(6,12)]:obj(d,'hop_seed',x,y)
 rail(d,11,26,17,26,4)
 obj(d,'critter',17,18,behavior='patrol',speed=1.2,waypoints=[[14,18],[18,18]],patrol_loop=True)
-obj(d,'emitter',3,19,rotation=0,interval=5);d['tiles'][19][8]='cheese_wall'
+obj(d,'emitter',3,19,rotation=270,interval=5);d['tiles'][19][8]='cheese_wall'
 rail(d,3,10,8,10,4);rail(d,13,6,18,6,4)
 d['checkpoints']=[[4,14]]
 sign(d,3,32,'Diamond Hop seeds each grant one long hop.\nNo timer. Save it for the water gate.')
@@ -101,4 +101,11 @@ sign(e,10,24,'Second water gate. Check the counter before you jump.\nThe dry ban
 sign(e,10,22,'Only checkpoint. Follow the next recharge circuit.\nCharged-rule retries refill your reserve.')
 sign(e,10,8,'Last gate. Save your long hop for water.\nOn the far bank, circle the rail or hop when recharged.')
 save('twenty_five_terraces',e)
-print('Wrote five Tile Hop stages; one checkpoint each.')
+# User-requested harder revision: keep the v25 blockout and apply authored pressure.
+# Regeneration is idempotent: stage two always starts from its retained v25 source.
+from harden_tile_tours import harden
+for index,name in enumerate(['big_hop_boulevard','your_move_crossing','shardwater_sanctuary','seed_vault','twenty_five_terraces']):
+ data=json.loads((ROOT/(name+'.json')).read_text())
+ harden(data,index)
+ save(name,data)
+print('Wrote five harder Tile Hop stages; one checkpoint each.')

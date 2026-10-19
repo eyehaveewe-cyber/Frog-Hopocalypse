@@ -1,0 +1,781 @@
+{
+ "actions": [
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": true,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": true,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": true,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    -1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    1,
+    0
+   ],
+   "wait": 0.0
+  },
+  {
+   "big": false,
+   "direction": [
+    0,
+    -1
+   ],
+   "wait": 0.0
+  }
+ ],
+ "level": "res://levels/tile_hop/twenty_five_terraces.json"
+}

@@ -234,28 +234,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "wall"
-    ],
-    [
-      "wall",
-      "water",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "floor",
@@ -331,6 +310,27 @@
       "wall",
       "water",
       "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
       "water",
       "water",
       "water",
@@ -400,7 +400,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "floor",
@@ -631,7 +631,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "floor",
@@ -871,7 +871,7 @@
       ],
       "solid": false,
       "behavior": "slam_patrol",
-      "pause": 4,
+      "pause": 2,
       "range": 3,
       "directions": [
         0,
@@ -892,7 +892,7 @@
       "type": "tree",
       "pos": [
         4,
-        29
+        28
       ],
       "solid": true
     },
@@ -931,6 +931,86 @@
         9
       ],
       "solid": true
+    },
+    {
+      "id": "hard-emitter-17",
+      "type": "emitter",
+      "pos": [
+        3,
+        29
+      ],
+      "solid": true,
+      "rotation": 270,
+      "interval": 3
+    },
+    {
+      "id": "hard-critter-18",
+      "type": "critter",
+      "pos": [
+        6,
+        28
+      ],
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          6,
+          28
+        ],
+        [
+          12,
+          28
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-emitter-19",
+      "type": "emitter",
+      "pos": [
+        3,
+        18
+      ],
+      "solid": true,
+      "rotation": 270,
+      "interval": 3
+    },
+    {
+      "id": "hard-spike_ball-20",
+      "type": "spike_ball",
+      "pos": [
+        13,
+        12
+      ],
+      "solid": false,
+      "behavior": "slam_patrol",
+      "pause": 2,
+      "range": 3,
+      "directions": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "waypoints": [
+        [
+          13,
+          9
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-emitter-21",
+      "type": "emitter",
+      "pos": [
+        15,
+        10
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 3
     }
   ],
   "checkpoints": [
@@ -959,7 +1039,7 @@
         9,
         24
       ],
-      "text": "The pond splits the next gathering loop.\nCross the roads sideways when the next beat is clear."
+      "text": "Fragments now sit behind active crossings.\nSpend short hops on safe banks to change the road and dart phase."
     },
     {
       "pos": [

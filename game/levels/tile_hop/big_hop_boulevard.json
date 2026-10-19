@@ -130,17 +130,17 @@
       "wall",
       "water",
       "water",
+      "water",
+      "water",
+      "water",
+      "water",
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
       "water",
       "water",
       "wall"
@@ -149,17 +149,17 @@
       "wall",
       "water",
       "water",
+      "water",
+      "water",
+      "water",
+      "water",
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
       "water",
       "water",
       "wall"
@@ -168,17 +168,17 @@
       "wall",
       "water",
       "water",
+      "water",
+      "water",
+      "water",
+      "water",
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
       "water",
       "water",
       "wall"
@@ -345,26 +345,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "wall"
-    ],
-    [
-      "wall",
-      "water",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "floor",
@@ -376,6 +357,7 @@
     [
       "wall",
       "water",
+      "water",
       "floor",
       "floor",
       "floor",
@@ -387,8 +369,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
+      "water",
       "water",
       "wall"
     ],
@@ -436,6 +417,25 @@
       "floor",
       "floor",
       "floor",
+      "floor",
+      "floor",
+      "cheese_wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "floor",
+      "floor",
+      "floor",
       "water",
       "water",
       "water",
@@ -446,6 +446,82 @@
       "floor",
       "floor",
       "floor",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "wall",
+      "wall",
+      "floor",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "floor",
+      "wall",
+      "wall",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "wall",
+      "wall",
+      "floor",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "floor",
+      "wall",
+      "wall",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "wall",
+      "wall",
+      "floor",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "floor",
+      "wall",
+      "wall",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "wall",
+      "wall",
+      "floor",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "floor",
+      "wall",
+      "wall",
       "water",
       "wall"
     ],
@@ -475,82 +551,6 @@
       "floor",
       "floor",
       "water",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "wall"
-    ],
-    [
-      "wall",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "wall"
-    ],
-    [
-      "wall",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "wall"
-    ],
-    [
-      "wall",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "wall"
-    ],
-    [
-      "wall",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "water",
       "water",
       "water",
       "water",
@@ -573,7 +573,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
+      "cheese_wall",
       "floor",
       "floor",
       "floor",
@@ -623,19 +623,19 @@
     [
       "wall",
       "water",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
       "water",
       "wall"
     ],
@@ -822,7 +822,7 @@
       ],
       "solid": false,
       "behavior": "slam_patrol",
-      "pause": 4,
+      "pause": 2,
       "range": 3,
       "directions": [
         0,
@@ -847,7 +847,7 @@
       ],
       "solid": false,
       "behavior": "slam_patrol",
-      "pause": 3,
+      "pause": 2,
       "range": 3,
       "directions": [
         0,
@@ -872,7 +872,7 @@
       ],
       "solid": true,
       "rotation": 270,
-      "interval": 4
+      "interval": 2
     },
     {
       "id": "spike_ball-4",
@@ -883,7 +883,7 @@
       ],
       "solid": false,
       "behavior": "slam_patrol",
-      "pause": 4,
+      "pause": 2,
       "range": 3,
       "directions": [
         0,
@@ -913,7 +913,7 @@
       "type": "pillar",
       "pos": [
         13,
-        23
+        22
       ],
       "solid": true
     },
@@ -931,9 +931,148 @@
       "type": "pillar",
       "pos": [
         12,
-        7
+        10
       ],
       "solid": true
+    },
+    {
+      "id": "hard-spike_ball-9",
+      "type": "spike_ball",
+      "pos": [
+        12,
+        33
+      ],
+      "solid": false,
+      "behavior": "slam_patrol",
+      "pause": 2,
+      "range": 3,
+      "directions": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "waypoints": [
+        [
+          5,
+          33
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-car-10",
+      "type": "car",
+      "pos": [
+        12,
+        32
+      ],
+      "solid": false,
+      "speed": 1,
+      "length": 1.5,
+      "direction": -1
+    },
+    {
+      "id": "hard-critter-11",
+      "type": "critter",
+      "pos": [
+        4,
+        27
+      ],
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          4,
+          27
+        ],
+        [
+          4,
+          23
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-critter-12",
+      "type": "critter",
+      "pos": [
+        12,
+        23
+      ],
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          12,
+          23
+        ],
+        [
+          12,
+          27
+        ]
+      ],
+      "patrol_loop": true
+    },
+    {
+      "id": "hard-emitter-13",
+      "type": "emitter",
+      "pos": [
+        2,
+        21
+      ],
+      "solid": true,
+      "rotation": 270,
+      "interval": 2
+    },
+    {
+      "id": "hard-emitter-14",
+      "type": "emitter",
+      "pos": [
+        14,
+        29
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 2
+    },
+    {
+      "id": "hard-emitter-15",
+      "type": "emitter",
+      "pos": [
+        13,
+        17
+      ],
+      "solid": true,
+      "rotation": 90,
+      "interval": 2
+    },
+    {
+      "id": "hard-spike_ball-16",
+      "type": "spike_ball",
+      "pos": [
+        8,
+        12
+      ],
+      "solid": false,
+      "behavior": "slam_patrol",
+      "pause": 2,
+      "range": 3,
+      "directions": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "waypoints": [
+        [
+          8,
+          10
+        ]
+      ],
+      "patrol_loop": true
     }
   ],
   "checkpoints": [
@@ -976,7 +1115,7 @@
         8,
         13
       ],
-      "text": "Your only checkpoint.\nUse the side banks to read the dart lane and final rail."
+      "text": "One checkpoint. The next rail guards the center.\nDarts pass through cheese; align a landing beyond the firing line."
     }
   ]
 }

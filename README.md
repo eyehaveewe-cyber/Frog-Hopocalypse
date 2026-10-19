@@ -3,6 +3,10 @@ The five-stage Tile Hop tour, resource rules, clear phone controls and preceding
 rule notices/splash/scenery features are published. Earlier review notes below
 record their state when written. [Publication and rollback](docs/TILE_TOURS_PUBLICATION.json).
 
+## Harder Tile Hop tour
+
+All five stages now have tighter crossings and guarded landings: 60 active hazard placements versus 24. All 21 dart shooters face cheese through verified clear firing lines. Existing rules, one checkpoint per stage and unlocks stay intact. [Design and focused checks](docs/TILE_HARDNESS.md). The approximate 2½× target still needs human calibration.
+
 # Hopocalypse: Pharaoh Frog Hopán
 
 A playable Godot **4.7.2** 3D arcade maze game with an integrated desktop level editor, following the [original design brief](docs/game-design-brief.md). The presentation now follows the user's PS1-style direction and Frog Frenzy references: a receding perspective camera, original pixel textures, low-poly models, vertex snapping, limited-color dithering and a low-resolution 3D scene. See [art direction](docs/ART_DIRECTION.md).
