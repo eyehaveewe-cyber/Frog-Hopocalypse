@@ -1,3 +1,7 @@
+> Current tour update: [five-stage rules, pickup semantics and controls](TILE_TOURS.md).
+> Fragment / Power-up rules and Space arming are now implemented; the earlier
+> experiment and validation below describe the preceding feature revision.
+
 # Per-level rule sets
 
 The user's direction is **variety rules on individual levels**, rather than a

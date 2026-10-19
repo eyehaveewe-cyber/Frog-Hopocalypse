@@ -21,6 +21,11 @@ var last_player = Vector3.ZERO
 var queued_direction = Vector2i.ZERO
 var queued_big = false
 var charge_remaining = 0
+var reserve = false
+var fragments = 0
+var collected: Array = []
+var long_hops_used = 0
+var pickups_collected = 0
 
 func _init(owner_world: Node3D) -> void:
  world = owner_world
@@ -44,7 +49,38 @@ func ready_for_input() -> bool:
  return not jumping and repeat_clock <= 0.08
 
 func long_hop_ready() -> bool:
+ if Rules.collectible(world.level): return reserve
  return not Rules.charged(world.level) or charge_remaining == 0
+
+func resource_label() -> String:
+ if Rules.mode(world.level) == "fragments": return "READY" if reserve else "%d / 3 FRAGMENTS" % fragments
+ if Rules.mode(world.level) == "powerup": return "READY" if reserve else "FIND HOP SEED"
+ return "READY" if charge_remaining == 0 else "%d SHORT HOPS" % charge_remaining
+
+func checkpoint_state() -> Dictionary:
+ return {"reserve":reserve,"fragments":fragments,"collected":collected.duplicate()}
+
+func restore_resource(state: Dictionary) -> void:
+ if not Rules.collectible(world.level): return
+ reserve = state.get("reserve",false)
+ fragments = int(state.get("fragments",0))
+ collected = state.get("collected",[]).duplicate()
+ for entry in world.hop_pickups: entry.node.visible = entry.obj.id not in collected
+
+func collect_landing(cell: Vector2i) -> void:
+ if not Rules.collectible(world.level) or reserve: return
+ var wanted := "hop_fragment" if Rules.mode(world.level) == "fragments" else "hop_seed"
+ for entry in world.hop_pickups:
+  if entry.obj.type != wanted or entry.obj.id in collected or entry.obj.pos != [cell.x,cell.y]: continue
+  collected.append(entry.obj.id)
+  entry.node.hide()
+  pickups_collected += 1
+  if wanted == "hop_fragment":
+   fragments += 1
+   if fragments >= 3: fragments = 0; reserve = true
+  else: reserve = true
+  world.hint_changed.emit(("Long hop ready. Tap Long hop, then choose a direction." if reserve else "%d / 3 fragments. Land on two more." % fragments) if fragments != 2 else "2 / 3 fragments. One more to earn a long hop.")
+  break
 
 func queue_hop(direction: Vector2i, big: bool) -> void:
  queued_direction = direction
@@ -54,7 +90,7 @@ func request(direction: Vector2i, big: bool) -> bool:
  if jumping or direction == Vector2i.ZERO:
   return false
  if big and not long_hop_ready():
-  last_block = "%d short hops to recharge." % charge_remaining
+  last_block = resource_label() + " · " + Rules.short_rule(world.level)
   return false
  var start: Vector2i = world.position_cell(world.player.position)
  var target = start + direction * (2 if big else 1)
@@ -65,6 +101,9 @@ func request(direction: Vector2i, big: bool) -> bool:
  to = world.cell_position([target.x,target.y])
  facing = direction
  long_hop = big
+ if big:
+  long_hops_used += 1
+  if Rules.collectible(world.level): reserve = false
  if big and Rules.charged(world.level):
   charge_remaining = Rules.charge_hops(world.level)
  hop_time = 0
@@ -239,6 +278,7 @@ func advance(delta: float, input: Vector2, big: bool) -> void:
   if not world.inside(cell) or (world.level.tiles[cell.y][cell.x] == "water" and world.crossing.log_at(world.player.position).is_empty()):
    world.finish("SPLASHED!")
    return
+  collect_landing(cell)
   if world.level.has("checkpoint") and not world.crossing.checkpoint_claimed and cell.y <= int(world.level.checkpoint[1]) and world.level.tiles[cell.y][cell.x] not in ["water","road"]:
    world.crossing.checkpoint_claimed = true
    world.claim_checkpoint(world.level.checkpoint)

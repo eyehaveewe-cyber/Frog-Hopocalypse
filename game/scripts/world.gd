@@ -47,6 +47,7 @@ const Backdrops = preload("res://scripts/backdrops.gd")
 var backdrops: Node3D
 var claimed_checkpoints: Array = []
 var checkpoint_flags: Array = []
+var hop_pickups: Array = []
 
 func _ready() -> void:
 	var env := WorldEnvironment.new()
@@ -93,6 +94,7 @@ func inside(p: Vector2i) -> bool:
 
 func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", skin: String = "green") -> void:
 	active = false
+	hop_pickups.clear()
 	tile_rules = null
 	simulation_time = 0.0
 	last_hint = ""
@@ -162,6 +164,29 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 		Art.solid(geometry, Vector3(0.2, 2, h + 2), Vector3(side * (w / 2 + 0.1), 0.5, 0))
 	for obj in level.objects:
 		var p := cell_position(obj.pos)
+		if obj.type in ["hop_fragment", "hop_seed"]:
+			var pickup := Node3D.new()
+			pickup.name = str(obj.id)
+			pickup.position = p
+			geometry.add_child(pickup)
+			var fragment: bool = obj.type == "hop_fragment"
+			var color := Color("f9bc65") if fragment else Color("8de8ed")
+			Art.cylinder(pickup, 0.48, 0.48, 0.04, Vector3(0,0.03,0), Color("755938") if fragment else Color("326979"))
+			for side in ([1] if fragment else [1,-1]):
+				var jewel := MeshInstance3D.new()
+				var mesh := CylinderMesh.new()
+				mesh.top_radius = 0
+				mesh.bottom_radius = 0.34 if fragment else 0.4
+				mesh.height = 0.65 if fragment else 0.46
+				mesh.radial_segments = 3 if fragment else 4
+				jewel.mesh = mesh
+				jewel.material_override = Art.mat(color)
+				jewel.position.y = 0.65 if fragment else 0.85 + side * 0.23
+				if side == -1: jewel.rotation.z = PI
+				jewel.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+				pickup.add_child(jewel)
+			hop_pickups.append({"obj":obj,"node":pickup})
+			continue
 		if obj.type in ["car", "patrol_car", "log", "spike_ball", "landmark", "backdrop"]:
 			continue
 		if obj.type == "critter":
@@ -232,6 +257,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	geometry.add_child(route_root)
 	underlay.name = "HorizonOcean"
 	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, landmarks, backdrops, underlay] + critters
+	for pickup in hop_pickups: excluded.append(pickup.node)
 	for emitter in emitters:
 		excluded.append(emitter.model)
 	for marker in checkpoint_flags:

@@ -1,3 +1,35 @@
+2026-10-19 — Five-stage Tile Hop variety tour (not deployed)
+
+1. Replaced Big Hop Boulevard with a moat/island fork: longer outer bank or
+   a shorter sequence across the central rail. Reviewed Your Move Crossing;
+   retained terrain/hazards and its former second-to-last flag. All five tile
+   stages now have one late checkpoint. Existing stage IDs and NAHAIL unlock stay.
+2. Added Shardwater Sanctuary (three fragments per long hop), The Seed Vault
+   (one Hop seed per long hop) and Twenty-Five Terraces (25 completed short hops
+   to refill). Pickup stages start empty, store one hop, leave spare pickups on
+   the ground while full, and collect only on landing. Checkpoints snapshot
+   collected IDs and resource state, so retry restores a playable collection
+   route. Charged-rule checkpoint refill behavior remains as previously defined.
+3. Long hop moves to a 166x64 lower-right button, opposite the joystick. Phones
+   show Tap, then move plus the active refill rule. Status names READY/ARMED,
+   fragments, seeds or remaining short hops; empty taps open rules safely.
+   Space then direction matches touch; Shift + direction still works. Editor
+   adds both pickup tools and the two rule choices with Undo/JSON support.
+4. 38 resource/progression, 55 tile and 35 rule checks pass. Seven live-controller
+   hazard-active routes complete with one flag each: two opener approaches,
+   two retained second-level vault routes and all three new stages. Sanctuary
+   gathers nine fragments for three hops; Seed Vault uses five seeds/five hops;
+   Terraces traverses two forward recharge circuits without recharge farming.
+   Eight browser checks pass, including real touch collection/arming and Space.
+   Web release/debug and Windows release build. Physical iPhone/Safari, device
+   FPS, novice comprehension and enjoyment are unverified.
+5. Levelwright spatial design and Channel Hideo provenance/implementation record:
+   docs/TILE_TOURS.md, TILE_TOURS_VALIDATION.json and the working DOCX (revision
+   2.0; all seven pages rendered/inspected; prior review text retained as history).
+   Branch feature/tile-hop-tours follows 21f8ded. No merge/deployment; main and
+   public site unchanged. Revert the feature commit for rollback. Export custom
+   pickup-rule maps first, because previous readers reject the new values/types.
+
 2026-10-19 — Fixed distant monumental backdrops (not deployed)
 
 1. Added a separate Distant backdrop editor tool: five original low-resolution

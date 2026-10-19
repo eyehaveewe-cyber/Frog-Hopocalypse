@@ -1260,20 +1260,8 @@
   ],
   "checkpoints": [
     [
-      6,
-      33
-    ],
-    [
-      12,
-      30
-    ],
-    [
       10,
       21
-    ],
-    [
-      12,
-      11
     ]
   ],
   "signs": [
@@ -1310,7 +1298,7 @@
         10,
         21
       ],
-      "text": "Choose a sheltered detour or the shorter rail court.\nA blocked hop never spends a beat."
+      "text": "Your only checkpoint.\nChoose a sheltered detour or the shorter rail court. Blocked hops spend no beat."
     },
     {
       "pos": [

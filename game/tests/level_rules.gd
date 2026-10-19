@@ -35,7 +35,7 @@ func run() -> void:
  var elapsed: float=app.world.elapsed
  await ticks(1)
  suite.check(app.world.elapsed==elapsed,"Rule reading advances neither hazards nor game clock")
- suite.check(app.pending_rule_ids==["tile-v1","charge-10-v1"],"Only the rules active on this level are introduced")
+ suite.check(app.pending_rule_ids==["tile-v2","charge-10-v1"],"Only the rules active on this level are introduced")
  app.close_level_rules()
  suite.check(not app.world.halted and "charge-10-v1" in app.seen_rule_ids,"Acknowledging rules resumes and remembers them")
  app.save_profile()
@@ -56,7 +56,7 @@ func run() -> void:
  var count: int=app.world.tile_rules.hop_count
  suite.check(not app.world.tile_rules.request(Vector2i.DOWN,true) and app.world.tile_rules.hop_count==count,"An empty long hop cannot move or advance the linked beat")
  app.update_long_hop_indicator()
- suite.check(app.long_hop_indicator.text=="10 TO GO" and app.long_hop_button.disabled,"HUD names the remaining hops and prevents empty touch arming")
+ suite.check(app.long_hop_indicator.text=="10 SHORT HOPS" and not app.long_hop_button.disabled,"HUD names the remaining hops and keeps rule help accessible")
  await ticks(2)
  suite.check(app.world.tile_rules.charge_remaining==10,"Idle time never recharges")
  for i in range(9):await hop(Vector2i.LEFT if i%2==0 else Vector2i.RIGHT)
@@ -91,7 +91,7 @@ func run() -> void:
  suite.check(Data.validate(roundtrip)=="" and roundtrip.rules.long_hop=="free","Portable JSON preserves per-level rules")
  roundtrip.rules.charge_hops=2.5
  suite.check(Data.validate(roundtrip)!="","Fractional recharge values are rejected")
- roundtrip.rules={"long_hop":"fragments"}
+ roundtrip.rules={"long_hop":"unknown"}
  suite.check(Data.validate(roundtrip)!="","Unsupported rules cannot silently load")
  roundtrip.rules=[]
  suite.check(Data.validate(roundtrip)!="","Malformed rules are rejected before gameplay")

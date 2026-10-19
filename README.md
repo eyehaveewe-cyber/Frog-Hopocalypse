@@ -243,3 +243,12 @@ tool with five baked cutouts, independent art scale/distance, fixed world anchor
 and small Map thumbnails. **Scenery demos → Horizon · 1x / Horizon · 80x** compare
 the same course at ordinary and monumental art scale. See [authoring, render costs
 and limitations](docs/DISTANT_BACKDROPS.md). This feature is not deployed.
+
+**Tile Hop tour (review branch):** five stages now have one late checkpoint each.
+Big Hop Boulevard offers a moat/island route choice; Your Move Crossing retains
+its geometry. New stages teach three-fragment reserves, single-use Hop seeds and
+a 25-short-hop recharge. **Space, then a direction** or the larger lower-right
+**Long hop** button selects the action; phones show the rule and live resource
+count. Empty taps explain the rule. Editor pickup/rule controls are included.
+See [tour design and evidence](docs/TILE_TOURS.md) and the
+[working design document](docs/design/Hopan-Tile-Long-Hop-Review.docx). Not deployed.

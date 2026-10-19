@@ -3,7 +3,7 @@ extends RefCounted
 const VERSION = 1
 const MAX_SIDE = 64
 const TILES = ["floor", "wall", "cheese_wall", "water", "path", "road"]
-const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball", "landmark", "backdrop"]
+const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball", "landmark", "backdrop", "hop_fragment", "hop_seed"]
 
 static func blank(title: String = "My magnificent maze", theme_name: String = "egypt", w: int = 17, h: int = 13) -> Dictionary:
 	var tiles: Array = []
@@ -45,8 +45,8 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 	for key in rules:
 		if key not in ["long_hop", "charge_hops"]:
 			return "Unknown level rule: " + str(key)
-	if rules.get("long_hop", "free") not in ["free", "charged"]:
-		return "Choose free or charged long hops."
+	if rules.get("long_hop", "free") not in ["free", "charged", "fragments", "powerup"]:
+		return "Choose free, charged, fragment or power-up long hops."
 	var charge: Variant = rules.get("charge_hops", 10)
 	if not finite_number(charge) or charge != int(charge) or charge < 1 or charge > 25:
 		return "Long-hop recharge must be 1–25 whole hops."
@@ -97,6 +97,10 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 					return "Tile mode patrols need whole tile waypoints."
 			if obj.type == "emitter" and not is_zero_approx(fposmod(float(obj.get("rotation",0)),90)):
 				return "Tile-mode darts need a cardinal direction."
+		if obj.type in ["hop_fragment", "hop_seed"]:
+			if obj.get("solid",false) != false or obj.pos[0] != int(obj.pos[0]) or obj.pos[1] != int(obj.pos[1]): return "Hop pickups need whole cells and cannot block movement."
+			if not editor_snapshot and not checkpoint_open(d,obj.pos): return "Hop pickups need clear, safe ground."
+			if d.objects.any(func(other): return other is Dictionary and other.get("id") != obj.id and other.get("type") in ["hop_fragment","hop_seed"] and other.get("pos") == obj.pos): return "Place one hop pickup per tile."
 		if obj.type == "landmark":
 			landmark_count += 1
 			if landmark_count > 32: return "A level supports up to 32 landmarks."
@@ -217,7 +221,8 @@ static func checkpoint_open(d: Dictionary, p: Array) -> bool:
 	if not point_valid(p, int(d.width), int(d.height)) or d.tiles[int(p[1])][int(p[0])] in ["wall", "cheese_wall", "water", "road"]:
 		return false
 	for obj in d.objects:
-		if obj.pos == p and (obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false)):
+		if not obj is Dictionary: return false
+		if obj.get("pos") == p and (obj.get("type") in ["pillar", "tree", "emitter"] or obj.get("solid", false)):
 			return false
 	return true
 

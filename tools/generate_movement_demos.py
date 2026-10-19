@@ -114,3 +114,7 @@ c['checkpoints']=[[8,22],[8,16],[8,11]]
 sign(c,8,30,'REGULAR HOPÁN + MOVE WITH ME\nWalk to advance hazards. Stop to plan.')
 sign(c,8,16,'Logs also freeze while you rest.\nLine up before walking onto one.')
 save(Path('bonus/your_move_hopan.json'),c)
+
+# Current tour revision supersedes the original two-stage blockouts above.
+import runpy
+runpy.run_path(str(Path(__file__).with_name("design_tile_tours.py")))

@@ -33,18 +33,9 @@ func course(index: int,wait: float=0,shortcut: bool=false) -> void:
  await ticks(wait)
  var ok=true
  if index==0:
-  ok=await walk_to(8,43) and await hop(Vector2i.UP,true) and await walk_to(8,38) and await walk_to(5,38) and await walk_to(5,35)
-  if ok and wait>0:
-   # Observe the visible far traffic lane from the safe bank, then commit.
-   for i in range(240):
-    var lane=app.world.crossing.movers[1]
-    var cell=app.world.tile_rules.point(lane.node.position)
-    if cell.x<3.1 or cell.x>7: break
-    await ticks(0.05)
-  if ok:ok=await hop(Vector2i.UP,true) and await walk_to(5,32) and await walk_to(12,32) and await walk_to(12,31) and await hop(Vector2i.UP,true) and await walk_to(12,28)
-  if ok:ok=await walk_to(12,26) and await hop(Vector2i.UP,true) and await walk_to(5,24) and await walk_to(5,23) and await hop(Vector2i.UP,true) and await hop(Vector2i.UP,true) and await hop(Vector2i.UP,true)
-  if ok:ok=await walk_to(5,15) and await hop(Vector2i.UP,true) and await walk_to(12,13) and await walk_to(12,12) and await hop(Vector2i.UP,true) and await walk_to(12,9) and await hop(Vector2i.UP,true)
-  if ok:ok=await walk_to(8,7) and await walk_to(8,6) and await hop(Vector2i.UP,true) and await walk_to(8,2)
+  ok=await walk_to(8,37) and await hop(Vector2i.UP,true) and await hop(Vector2i.UP,true) and await walk_to(8,31) and await hop(Vector2i.UP,true)
+  if ok:ok=await hop(Vector2i.UP,true) and await walk_to(8,26) and await hop(Vector2i.UP,true) and await walk_to(8,23) and await hop(Vector2i.UP,true)
+  if ok:ok=await walk_to(8,16) and await hop(Vector2i.UP,true) and await walk_to(8,13) and await walk_to(8,10) and await hop(Vector2i.UP,true) and await walk_to(8,6) and await hop(Vector2i.UP,true) and await walk_to(8,2)
  else:
   ok=await walk_to(3,36) and await hop(Vector2i.UP,true) and await walk_to(6,34) and await walk_to(6,32) and await hop(Vector2i.UP,true) and await walk_to(8,30) and await hop(Vector2i.RIGHT,true) and await walk_to(18,30)
   if ok:ok=await walk_to(18,26) and await walk_to(17,26) and await walk_to(17,25) and await walk_to(16,25) and await hop(Vector2i.LEFT,true) and await walk_to(10,25) and await walk_to(10,21)
@@ -52,7 +43,7 @@ func course(index: int,wait: float=0,shortcut: bool=false) -> void:
   if ok:
    if shortcut:ok=await walk_to(13,11) and await hop(Vector2i.RIGHT,true) and await walk_to(17,11) and await hop(Vector2i.UP,true) and await walk_to(18,9) and await walk_to(18,5) and await hop(Vector2i.UP,true) and await walk_to(17,3) and await walk_to(17,2)
    else:ok=await walk_to(11,11) and await hop(Vector2i.UP,true) and await walk_to(10,9) and await walk_to(10,5) and await hop(Vector2i.UP,true) and await walk_to(17,3) and await walk_to(17,2)
- var r={"level":app.level.name,"initial_wait":wait,"vault_shortcut":shortcut,"result":app.world.result,"hops":app.world.tile_rules.hop_count,"elapsed":app.world.elapsed,"position":app.world.position_cell(app.world.player.position),"checkpoints":app.world.claimed_checkpoints.size(),"spike_slams":app.world.spikes.balls.map(func(ball: Dictionary):return ball.slams)}
+ var r={"level":app.level.name,"initial_wait":wait,"vault_shortcut":shortcut,"result":app.world.result,"hops":app.world.tile_rules.hop_count,"long_hops":app.world.tile_rules.long_hops_used,"elapsed":app.world.elapsed,"position":app.world.position_cell(app.world.player.position),"checkpoints":app.world.claimed_checkpoints.size(),"spike_slams":app.world.spikes.balls.map(func(ball: Dictionary):return ball.slams)}
  results.append(r)
  print("ROUTE "+JSON.stringify(r))
  if not ok or app.world.result!="LEVEL COMPLETE!":failed=true
@@ -62,6 +53,11 @@ func run() -> void:
  app.world.set_physics_process(false)
  app.set_sound_enabled(false)
  app.exit_preview=false
+ if "--second-only" in OS.get_cmdline_user_args():
+  await course(1)
+  await course(1,0,true)
+  quit(1 if failed else 0)
+  return
  if "--shortcut-only" in OS.get_cmdline_user_args():
   await course(1,0,true)
   quit(1 if failed else 0)

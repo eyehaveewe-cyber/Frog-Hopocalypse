@@ -15,7 +15,7 @@ const MAZES = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtya
 const BUILTINS = MAZES + ["res://levels/little_frog_crossing.json"]
 const HUMAN_TITLE = "Not as Hard as It Looks"
 const HUMAN_LEVELS = ["res://levels/not_as_hard/Hardbutt.json", "res://levels/not_as_hard/Gloopbutt.json", "res://levels/not_as_hard/Treebutt.json", "res://levels/not_as_hard/Frogbutt.json"]
-const TILE_LEVELS = ["res://levels/tile_hop/big_hop_boulevard.json", "res://levels/tile_hop/your_move_crossing.json"]
+const TILE_LEVELS = ["res://levels/tile_hop/big_hop_boulevard.json", "res://levels/tile_hop/your_move_crossing.json", "res://levels/tile_hop/shardwater_sanctuary.json", "res://levels/tile_hop/seed_vault.json", "res://levels/tile_hop/twenty_five_terraces.json"]
 const MOVE_DEMO = "res://levels/bonus/your_move_hopan.json"
 const BONUS_LEVELS = ["res://levels/bonus/Shelby.json", MOVE_DEMO]
 const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus", "tile": "Tile Hop"}
@@ -94,6 +94,8 @@ var completed_bonus_stages: Array = []
 var completed_tile_stages: Array = []
 var long_hop_button: Button
 var long_hop_indicator: Label
+var long_hop_help: Label
+var checkpoint_hop_state: Dictionary = {}
 var tile_mode_toggle: CheckButton
 var movement_toggle: CheckButton
 var draw_distance_picker: SpinBox
@@ -249,13 +251,20 @@ func build_ui() -> void:
 	hat_button.tooltip_text = str(HAT_NAMES[hat]) + " · Cycle unlocked hats"
 	map_button = button(top, "Map", toggle_map)
 	map_button.tooltip_text = "M: inspect the overhead map; the world pauses"
-	long_hop_button = button(top, "Long hop", func():
-		if world.tile_rules != null and not world.tile_rules.long_hop_ready():
-			long_hop_button.set_pressed_no_signal(false))
+	long_hop_button = button(self, "Long hop", activate_long_hop)
 	long_hop_button.add_theme_font_size_override("font_size",13)
 	long_hop_button.toggle_mode = true
-	long_hop_button.tooltip_text = "Next hop covers two tiles. Hold Shift with a direction on keyboard."
-	# Keep the touch target and header width. Arming stays available during recovery.
+	long_hop_button.tooltip_text = "Tap or press Space, then choose a direction. Shift + direction also works."
+	long_hop_button.focus_mode = Control.FOCUS_NONE
+	long_hop_button.custom_minimum_size = Vector2(166,64)
+	long_hop_help = label("",12,LIME)
+	long_hop_help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	long_hop_help.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	long_hop_help.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	long_hop_help.add_theme_color_override("font_outline_color",Color("14243a"))
+	long_hop_help.add_theme_constant_override("outline_size",4)
+	add_child(long_hop_help)
+	# Large thumb target below the view; empty taps explain the current rule.
 	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
 		var style: StyleBox = long_hop_button.get_theme_stylebox(state).duplicate()
 		style.content_margin_top = 3
@@ -323,7 +332,9 @@ func build_ui() -> void:
 	hop_rule_picker = OptionButton.new()
 	hop_rule_picker.add_item("Free long hops")
 	hop_rule_picker.add_item("Charged long hops")
-	hop_rule_picker.item_selected.connect(func(index: int): change_hop_rule("long_hop", "charged" if index == 1 else "free"))
+	hop_rule_picker.add_item("Fragment long hops · 3 pieces")
+	hop_rule_picker.add_item("Power-up long hops · Hop seed")
+	hop_rule_picker.item_selected.connect(func(index: int): change_hop_rule("long_hop", ["free","charged","fragments","powerup"][index]))
 	tools.add_child(hop_rule_picker)
 	hop_charge_picker = SpinBox.new()
 	hop_charge_picker.min_value = 1
@@ -373,7 +384,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["backdrop", "Distant backdrop"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["hop_fragment", "Hop fragment"], ["hop_seed", "Hop seed"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["backdrop", "Distant backdrop"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -408,6 +419,7 @@ func build_ui() -> void:
 	world.hop_started.connect(func(_big: bool): long_hop_button.set_pressed_no_signal(false))
 	world.checkpoint_reached.connect(func(point: Array):
 		checkpoint_spawn = point.duplicate()
+		checkpoint_hop_state = world.tile_rules.checkpoint_state() if world.tile_rules != null else {}
 		if point not in checkpoint_history:
 			checkpoint_history.append(point.duplicate())
 		status("Checkpoint reached! Retry will return you here."))
@@ -427,6 +439,8 @@ func build_ui() -> void:
 	level_banner.add_theme_color_override("font_outline_color", Color("17243a"))
 	level_banner.add_theme_constant_override("outline_size", 6)
 	add_child(level_banner)
+	move_child(long_hop_button, get_child_count()-1)
+	move_child(long_hop_help, get_child_count()-1)
 	overlay = Control.new()
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -656,6 +670,8 @@ func show_level_rules(only_new: bool = false) -> void:
 		title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		overlay_box.add_child(title)
 		paragraph(overlay_box, card.body, 15)
+	if world.tile_rules != null:
+		paragraph(overlay_box, "Now: " + world.tile_rules.resource_label(), 15)
 	if cards.is_empty():
 		paragraph(overlay_box, "Move freely. Reach the exit. Avoid the hazards.", 15)
 	var close_button := button(overlay_box, "Play" if only_new else "Back", close_level_rules, true)
@@ -695,7 +711,7 @@ func set_level_rule(key: String, value: Variant) -> void:
 
 func show_movement_demos() -> void:
 	reset_overlay("Movement demos", "Load into the editor. Undo restores your previous map.")
-	var titles := ["Big Hop Boulevard", "Your Move Crossing", "Your Move Garden", "Charge Trial · 10 hops"]
+	var titles := ["Big Hop Boulevard", "Your Move Crossing", "Your Move Garden", "Charge Trial · 10 hops", "Shardwater Sanctuary", "The Seed Vault", "Twenty-Five Terraces"]
 	for i in range(titles.size()):
 		var index := i
 		button(overlay_box, titles[i], func(): open_movement_demo(index))
@@ -716,7 +732,7 @@ func show_scenery_demos() -> void:
 	button(overlay_box, "Keep editing", func(): overlay.hide())
 
 func open_movement_demo(index: int) -> void:
-	var paths: Array = TILE_LEVELS + [MOVE_DEMO, CHARGE_DEMO]
+	var paths: Array = TILE_LEVELS.slice(0,2) + [MOVE_DEMO, CHARGE_DEMO] + TILE_LEVELS.slice(2)
 	if index < 0 or index >= paths.size(): return
 	var demo := Data.load_json(paths[index])
 	if demo.is_empty():
@@ -780,6 +796,7 @@ func start_play(from_editor: bool = true) -> void:
 	mode = "test" if from_editor else "play"
 	checkpoint_spawn = []
 	checkpoint_history = []
+	checkpoint_hop_state = {}
 	paused = false
 	sidebar.hide()
 	overlay.hide()
@@ -801,7 +818,7 @@ func start_play(from_editor: bool = true) -> void:
 	status(level.name + (" · Reach checkpoints to save your place for retries." if level.has("checkpoint") or not level.get("checkpoints", []).is_empty() else " · WASD / arrows to move. M: map. R: retry."))
 	reset_touch()
 	if level.get("game_mode") == "tile":
-		status("Tile Hop · arrows / WASD: one tile · Shift or Long hop: two · Walls block both." + (" Move with me: stop to freeze hazards." if level.get("move_with_me",false) else ""))
+		status("Tile Hop · arrows / WASD: one tile · Space / Long hop, then a direction: two · Walls block both." + (" Move with me: stop to freeze hazards." if level.get("move_with_me",false) else ""))
 	start_announcements()
 	if rule_notices_enabled:
 		show_level_rules(true)
@@ -813,6 +830,7 @@ func enter_editor() -> void:
 	campaign_level = false
 	checkpoint_spawn = []
 	checkpoint_history = []
+	checkpoint_hop_state = {}
 	mode = "edit"
 	long_hop_button.hide()
 	rule_button.hide()
@@ -840,6 +858,8 @@ func retry() -> void:
 	overlay.hide()
 	world.load_level(level, false, hat, skin)
 	world.restore_checkpoints(checkpoint_history)
+	if not checkpoint_spawn.is_empty() and world.tile_rules != null:
+		world.tile_rules.restore_resource(checkpoint_hop_state)
 	if not checkpoint_spawn.is_empty():
 		world.player.position = world.cell_position(checkpoint_spawn)
 		world.crossing.checkpoint_claimed = true
@@ -1110,7 +1130,7 @@ func sync_editor(refresh_selection: bool = true) -> void:
 	ui_busy = true
 	tile_mode_toggle.set_pressed_no_signal(level.get("game_mode", "hopan") == "tile")
 	movement_toggle.set_pressed_no_signal(level.get("move_with_me", false))
-	hop_rule_picker.select(1 if level.get("rules", {}).get("long_hop", "free") == "charged" else 0)
+	hop_rule_picker.select(["free","charged","fragments","powerup"].find(level.get("rules", {}).get("long_hop", "free")))
 	hop_rule_picker.disabled = level.get("game_mode", "hopan") != "tile"
 	hop_charge_picker.set_value_no_signal(LevelRules.charge_hops(level))
 	hop_charge_picker.editable = LevelRules.charged(level)
@@ -1268,6 +1288,9 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 			level.erase("checkpoint")
 		rebuild()
 		return
+	if index >= 0 and level.objects[index].type in ["hop_fragment","hop_seed"] and tool == "road":
+		status("Erase the hop pickup before turning its safe bank into a road.")
+		return
 	var checkpoint_cell: bool = point in level.get("checkpoints", []) or point == level.get("checkpoint", [])
 	if checkpoint_cell and (tool in ["wall", "cheese_wall", "water", "road", "spawn", "exit", "pillar", "tree", "emitter"]):
 		status("Erase or move the checkpoint before blocking its safe tile.")
@@ -1322,6 +1345,9 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		if point == level.spawn or point == level.exit or terrain in ["wall", "cheese_wall"] or (terrain == "water" and tool != "log"):
 			status("Place objects on dry terrain away from the start and exit.")
 			return
+		if tool in ["hop_fragment", "hop_seed"] and terrain == "road":
+			status("Hop pickups need a safe bank, away from road traffic.")
+			return
 		if index >= 0 or level.objects.size() >= 180:
 			return
 		if tool == "seam_worm":
@@ -1361,7 +1387,7 @@ func refresh_inspector() -> void:
 	rot.suffix = "° rotation"
 	rot.value = fposmod(float(obj.get("rotation", 0)), 360)
 	rot.value_changed.connect(func(v: float): change_property("rotation", v, false))
-	if obj.type not in ["spike_ball", "backdrop"]: inspector.add_child(rot)
+	if obj.type not in ["spike_ball", "backdrop", "hop_fragment", "hop_seed"]: inspector.add_child(rot)
 	else: rot.queue_free()
 	if obj.type == "backdrop":
 		var model := OptionButton.new()
@@ -1380,6 +1406,8 @@ func refresh_inspector() -> void:
 			input.value_changed.connect(func(value:float):change_property(key,value,false))
 			inspector.add_child(input)
 		paragraph(inspector,"Distant art · The ground pin sets its direction. Art scale changes size without changing the course. Distance sets its fixed position beyond the shore.",12)
+	if obj.type in ["hop_fragment", "hop_seed"]:
+		paragraph(inspector,"Triangle fragment: collect three for one long hop in Fragment rules. Diamond Hop seed: one pickup, one hop in Power-up rules. Land to collect. Inactive in other rules.",12)
 	if obj.type == "landmark":
 		var model := OptionButton.new()
 		for title in LandmarkModels.TITLES: model.add_item(title)
@@ -1772,24 +1800,33 @@ func reset_touch() -> void:
 	if is_instance_valid(touch_knob):
 		touch_knob.position = Vector2(42, 42)
 
-func update_long_hop_indicator() -> void:
-	if not long_hop_button.visible or world.tile_rules == null:
+func activate_long_hop() -> void:
+	if world.tile_rules == null or mode not in ["play","test"] or overlay.visible or world.halted or world.map_view or world.intro_active or not world.result.is_empty():
+		long_hop_button.set_pressed_no_signal(false)
 		return
-	long_hop_button.disabled = not world.tile_rules.long_hop_ready()
+	if not world.tile_rules.long_hop_ready():
+		long_hop_button.set_pressed_no_signal(false)
+		show_level_rules(false)
+	else:
+		status("Choose a direction for two tiles. " + LevelRules.short_rule(level) + ".")
+
+func update_long_hop_indicator() -> void:
+	long_hop_help.visible = long_hop_button.visible and not overlay.visible and not world.map_view and world.result.is_empty()
+	if not long_hop_button.visible or world.tile_rules == null: return
+	long_hop_button.position = view_container.global_position + Vector2(maxf(8,view_container.size.x-180),maxf(96,view_container.size.y-76))
+	long_hop_button.size = Vector2(166,64)
+	long_hop_help.position = long_hop_button.position - Vector2(10,44)
+	long_hop_help.size = Vector2(186,42)
+	long_hop_button.disabled = paused or world.halted or world.map_view or world.intro_active or not world.result.is_empty()
 	var state := "READY"
-	if paused or world.halted or world.map_view:
-		state = "PAUSED"
-	elif world.intro_active or not world.active or overlay.visible:
-		state = "WAIT"
-	elif world.tile_rules.jumping:
-		state = "HOPPING"
-	elif not world.tile_rules.long_hop_ready():
-		state = "%d TO GO" % world.tile_rules.charge_remaining
-	elif not world.tile_rules.ready_for_input():
-		state = "WAIT"
-	elif long_hop_button.button_pressed or Input.is_physical_key_pressed(KEY_SHIFT):
-		state = "ARMED"
+	if paused or world.halted or world.map_view: state = "PAUSED"
+	elif world.intro_active or not world.active or overlay.visible: state = "WAIT"
+	elif world.tile_rules.jumping: state = "HOPPING"
+	elif not world.tile_rules.long_hop_ready(): state = world.tile_rules.resource_label()
+	elif not world.tile_rules.ready_for_input(): state = "WAIT"
+	elif long_hop_button.button_pressed or Input.is_physical_key_pressed(KEY_SHIFT): state = "ARMED"
 	long_hop_indicator.text = state
+	long_hop_help.text = ("Choose a direction" if state == "ARMED" else ("Tap, then move" if mobile_ui else "Space, then a direction")) + "\n" + LevelRules.short_rule(level)
 	long_hop_indicator.add_theme_color_override("font_color", LIME if state in ["READY", "ARMED"] else MUTED)
 
 func _process(delta: float) -> void:
@@ -1891,7 +1928,7 @@ func publish_browser_probe() -> void:
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"backdrops": world.backdrops.stats() if is_instance_valid(world.backdrops) else {}, "landmarks": world.landmarks.stats() if is_instance_valid(world.landmarks) else {}, "background_view": world.background_view, "backdrop_points": backdrop_points, "rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_portrait": splash_art.texture == SPLASH_PORTRAIT, "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"backdrops": world.backdrops.stats() if is_instance_valid(world.backdrops) else {}, "landmarks": world.landmarks.stats() if is_instance_valid(world.landmarks) else {}, "background_view": world.background_view, "backdrop_points": backdrop_points, "rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "hop_resource": world.tile_rules.checkpoint_state() if world.tile_rules != null else {}, "hop_help":long_hop_help.text, "long_hops_used":world.tile_rules.long_hops_used if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_portrait": splash_art.texture == SPLASH_PORTRAIT, "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:
@@ -1916,6 +1953,11 @@ func _input(event: InputEvent) -> void:
 	var focused := get_viewport().gui_get_focus_owner()
 	if event is InputEventKey and event.pressed and not event.echo and not (focused is LineEdit or focused is TextEdit):
 		if world.tile_rules != null and mode in ["play","test"] and not overlay.visible and not world.map_view and not world.intro_active:
+			if event.keycode == KEY_SPACE:
+				long_hop_button.set_pressed_no_signal(not long_hop_button.button_pressed)
+				activate_long_hop()
+				get_viewport().set_input_as_handled()
+				return
 			var directions := {KEY_W:Vector2i.UP,KEY_UP:Vector2i.UP,KEY_S:Vector2i.DOWN,KEY_DOWN:Vector2i.DOWN,KEY_A:Vector2i.LEFT,KEY_LEFT:Vector2i.LEFT,KEY_D:Vector2i.RIGHT,KEY_RIGHT:Vector2i.RIGHT}
 			if event.keycode in directions:
 				world.tile_rules.queue_hop(directions[event.keycode],event.shift_pressed or long_hop_button.button_pressed)

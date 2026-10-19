@@ -1,0 +1,290 @@
+{
+  "base_sha": "21f8ded10141a3514637c8e32236fbb8bff510a2",
+  "godot": "4.7.2",
+  "native_checks": {
+    "tile_tour_rules": 38,
+    "tile_mode": 55,
+    "level_rules": 35
+  },
+  "native_failures": 0,
+  "routes": [
+    {
+      "cell": "(8, 2)",
+      "checkpoints": 1,
+      "delay": 0.0,
+      "elapsed": 11.6166666666668,
+      "gates": [
+        {
+          "at": "(8, 37)",
+          "hops": 1,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 35)",
+          "hops": 2,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 31)",
+          "hops": 5,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 29)",
+          "hops": 6,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 26)",
+          "hops": 8,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 23)",
+          "hops": 10,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 16)",
+          "hops": 16,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 10)",
+          "hops": 21,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 6)",
+          "hops": 24,
+          "ready": true,
+          "remaining": 0
+        }
+      ],
+      "hops": 27,
+      "level": "Big Hop Boulevard",
+      "long_hops": 9,
+      "outer_route": false,
+      "pickups": 0,
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "cell": "(8, 2)",
+      "checkpoints": 1,
+      "delay": 1.5,
+      "elapsed": 17.8833333333336,
+      "gates": [
+        {
+          "at": "(8, 37)",
+          "hops": 1,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 35)",
+          "hops": 2,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 31)",
+          "hops": 5,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 16)",
+          "hops": 27,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 10)",
+          "hops": 32,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(8, 6)",
+          "hops": 35,
+          "ready": true,
+          "remaining": 0
+        }
+      ],
+      "hops": 38,
+      "level": "Big Hop Boulevard",
+      "long_hops": 6,
+      "outer_route": true,
+      "pickups": 0,
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "cell": "(9, 2)",
+      "checkpoints": 1,
+      "delay": 0.0,
+      "elapsed": 38.1499999999991,
+      "gates": [
+        {
+          "at": "(9, 26)",
+          "hops": 22,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(9, 16)",
+          "hops": 69,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(9, 7)",
+          "hops": 97,
+          "ready": true,
+          "remaining": 0
+        }
+      ],
+      "hops": 109,
+      "level": "Shardwater Sanctuary",
+      "long_hops": 3,
+      "outer_route": false,
+      "pickups": 9,
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "cell": "(17, 2)",
+      "checkpoints": 1,
+      "delay": 0.0,
+      "elapsed": 30.6833333333329,
+      "gates": [
+        {
+          "at": "(7, 29)",
+          "hops": 7,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(18, 24)",
+          "hops": 22,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(12, 18)",
+          "hops": 33,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(4, 16)",
+          "hops": 42,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(9, 9)",
+          "hops": 53,
+          "ready": true,
+          "remaining": 0
+        }
+      ],
+      "hops": 71,
+      "level": "The Seed Vault",
+      "long_hops": 5,
+      "outer_route": false,
+      "pickups": 5,
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "cell": "(10, 2)",
+      "checkpoints": 1,
+      "delay": 0.0,
+      "elapsed": 31.1499999999995,
+      "gates": [
+        {
+          "at": "(10, 38)",
+          "hops": 2,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(10, 24)",
+          "hops": 37,
+          "ready": true,
+          "remaining": 0
+        },
+        {
+          "at": "(10, 8)",
+          "hops": 80,
+          "ready": true,
+          "remaining": 0
+        }
+      ],
+      "hops": 89,
+      "level": "Twenty-Five Terraces",
+      "long_hops": 3,
+      "outer_route": false,
+      "pickups": 0,
+      "result": "LEVEL COMPLETE!"
+    },
+    {
+      "checkpoints": 1,
+      "elapsed": 24.4999999999999,
+      "hops": 70,
+      "initial_wait": 0.0,
+      "level": "Your Move Crossing",
+      "long_hops": 8,
+      "position": "(17, 2)",
+      "result": "LEVEL COMPLETE!",
+      "spike_slams": [
+        23,
+        23,
+        23,
+        23
+      ],
+      "vault_shortcut": false
+    },
+    {
+      "checkpoints": 1,
+      "elapsed": 23.4499999999999,
+      "hops": 67,
+      "initial_wait": 0.0,
+      "level": "Your Move Crossing",
+      "long_hops": 9,
+      "position": "(17, 2)",
+      "result": "LEVEL COMPLETE!",
+      "spike_slams": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "vault_shortcut": true
+    }
+  ],
+  "browser": "previews/tile-tours/results.json",
+  "builds": {
+    "web_release": "passed",
+    "web_debug": "passed",
+    "windows_release": "passed",
+    "web_release_startup": "Chromium startup passed; no console/page errors"
+  },
+  "preservation": {
+    "existing_maps_audio_byte_identical": 51,
+    "second_stage_terrain_objects_spawn_exit_unchanged": true
+  },
+  "design_document": {
+    "file": "design/Hopan-Tile-Long-Hop-Review.docx",
+    "revision": "2.0",
+    "pages_rendered_and_inspected": 7,
+    "historical_review_text_retained": true
+  },
+  "scope": "No merge or deployment. Chromium/SwiftShader touch emulation; physical iPhone/Safari and novice enjoyment unverified."
+}

@@ -1,3 +1,7 @@
+> Historical v22 encounter record. The [five-stage Tile Hop tour](TILE_TOURS.md)
+> supersedes the first layout and reduces both original stages to one checkpoint.
+> The second stage retains its terrain and hazards.
+
 # Tile Hop encounter redesign and spike balls
 
 This implements the user's Levelwright request: replace the two open tutorial
