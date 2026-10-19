@@ -178,3 +178,12 @@ portable backup.
 Turret interval, rotation, speed and length spinners stay attached during edits.
 Tile turrets fire at intervals of at least one whole beat. Brick walls and stone caps use lower-contrast mortar and filtered mipmaps
 to reduce shimmer at oblique angles.
+
+**Tile-level redesign:** Big Hop Boulevard now uses four timed encounter courts
+with refuge banks; Your Move Crossing adds sideways crossings, a dart/rail court
+and two approaches to a water-gated vault. Both retain four checkpoint flags.
+**Spike ball** in the editor holds, marks its next destination, and slams along a
+cardinal patrol or a free shift with one to four enabled directions. Its inspector
+sets hold length, free-shift range and patrol loop. Walls, cheese, scenery and
+water stop it; a long hop can clear its path. See
+[design and playtest evidence](docs/TILE_LEVEL_REDESIGN.md).

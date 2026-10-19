@@ -60,6 +60,7 @@ func death_cue(reason: String, cause: String) -> String:
 	if rng.randf() < 0.06:
 		return "busted"
 	match reason:
+		"SPIKED!": return "busted"
 		"SQUISHED!": return "splatted"
 		"HIT!": return "dartsploded"
 		"SPLASHED!":

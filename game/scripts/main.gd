@@ -314,7 +314,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -700,7 +700,7 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 	var complete_title: String = str(SET_TITLES.get(campaign_set, "Level")).to_upper() + " COMPLETE!"
 	reset_overlay(complete_title if set_complete else reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths])
 	if reason != "LEVEL COMPLETE!":
-		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "Ride the logs to stay above the water.", "HIT!": "Ancient security systems still work.", "SQUISHED!": "Wait on the bank for a wider gap in traffic."}.get(reason, ""))
+		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "Ride the logs to stay above the water.", "HIT!": "Ancient security systems still work.", "SQUISHED!": "Wait on the bank for a wider gap in traffic.", "SPIKED!": "Watch the copper track before the spike ball slams."}.get(reason, ""))
 	else:
 		paragraph(overlay_box, "One small frog. One magnificent escape.")
 		if mode == "play" and campaign_level:
@@ -964,7 +964,7 @@ func set_tool(key: String) -> void:
 	tool = key
 	tool_label.text = "TOOL  /  " + key.replace("_", " ").to_upper()
 	if key == "route":
-		status("Select a critter or patrol car, then draw waypoints on its permitted terrain.")
+		status("Select a critter, patrol car or spike ball, then draw its route.")
 
 func rebuild(refresh_selection: bool = true) -> void:
 	world.load_level(level, true, hat, skin)
@@ -997,8 +997,8 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		return
 	if tool == "route" and not erase:
 		var obj := selected_object()
-		if obj.is_empty() or obj.type not in ["critter", "patrol_car"]:
-			status("Select a critter or patrol car, then choose Patrol route.")
+		if obj.is_empty() or obj.type not in ["critter", "patrol_car", "spike_ball"]:
+			status("Select a critter, patrol car or spike ball, then choose Patrol route.")
 			return
 		if level.tiles[cell.y][cell.x] in ["wall", "cheese_wall", "water"]:
 			status("Waypoints need dry, open terrain.")
@@ -1007,6 +1007,11 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 			var previous: Array = obj.get("waypoints", [])[-1] if not obj.get("waypoints", []).is_empty() else obj.pos
 			if not Data.road_segment_open(level, previous, point):
 				status("Car patrols need connected road cells. Add a waypoint at each turn.")
+				return
+		if obj.type == "spike_ball":
+			var previous: Array = obj.get("waypoints",[])[-1] if not obj.get("waypoints",[]).is_empty() else obj.pos
+			if not Data.spike_segment_open(level,previous,point):
+				status("Spike routes need clear, dry cardinal segments. Add a corner before turning.")
 				return
 		if obj.get("behavior") == "seam_patrol":
 			point = [cell.x + 0.5, cell.y + 0.5]
@@ -1017,6 +1022,7 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		if obj.get("waypoints", []).size() >= 64:
 			return
 		record_undo()
+		if obj.type == "spike_ball": obj.behavior = "slam_patrol"
 		if obj.type == "critter" and obj.get("behavior") != "seam_patrol":
 			obj.behavior = "patrol"
 		if not obj.has("waypoints"):
@@ -1097,6 +1103,8 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 			obj.merge({"behavior": "seam_patrol" if tool == "seam_worm" else "wander", "speed": 1.6, "waypoints": []})
 		if tool == "seam_worm":
 			obj.seam_anchor = [cell.x, cell.y]
+		if tool == "spike_ball":
+			obj.merge({"behavior":"free_shift","pause":2,"range":3,"directions":[0,90,180,270],"waypoints":[],"patrol_loop":true})
 		if tool == "emitter":
 			obj.interval = 2.5
 		if tool in ["car", "patrol_car", "log"]:
@@ -1122,7 +1130,8 @@ func refresh_inspector() -> void:
 	rot.suffix = "° rotation"
 	rot.value = fposmod(float(obj.get("rotation", 0)), 360)
 	rot.value_changed.connect(func(v: float): change_property("rotation", v, false))
-	inspector.add_child(rot)
+	if obj.type != "spike_ball": inspector.add_child(rot)
+	else: rot.queue_free()
 	if obj.type == "critter":
 		var behavior := OptionButton.new()
 		behavior.add_item("Wander")
@@ -1161,6 +1170,54 @@ func refresh_inspector() -> void:
 		if obj.get("behavior") != "seam_patrol":
 			button(inspector, "North–south loop", make_north_south_loop)
 		button(inspector, "Clear route (%d points)" % obj.get("waypoints", []).size(), func(): change_property("waypoints", []))
+	if obj.type == "spike_ball":
+		var behavior := OptionButton.new()
+		behavior.add_item("Free cardinal shifts")
+		behavior.add_item("Slam patrol route")
+		behavior.select(1 if obj.get("behavior")=="slam_patrol" else 0)
+		behavior.item_selected.connect(func(i: int): change_property("behavior","free_shift" if i==0 else "slam_patrol"))
+		inspector.add_child(behavior)
+		var hold := SpinBox.new()
+		hold.min_value=1
+		hold.max_value=6
+		hold.step=1
+		hold.value=obj.get("pause",2)
+		hold.suffix="hold beats" if level.get("game_mode")=="tile" else "hold seconds"
+		hold.value_changed.connect(func(value: float): change_property("pause",value,false))
+		inspector.add_child(hold)
+		if obj.get("behavior","free_shift")=="free_shift":
+			var distance := SpinBox.new()
+			distance.min_value=1
+			distance.max_value=5
+			distance.value=obj.get("range",3)
+			distance.suffix="tiles / shift"
+			distance.value_changed.connect(func(value: float): change_property("range",value,false))
+			inspector.add_child(distance)
+			var directions := row(inspector)
+			for entry in [[0,"N"],[270,"E"],[180,"S"],[90,"W"]]:
+				var angle: int=entry[0]
+				var check := CheckBox.new()
+				check.text=entry[1]
+				check.button_pressed=angle in obj.get("directions",[0,90,180,270])
+				check.toggled.connect(func(enabled: bool):
+					var selected: Array=obj.get("directions",[0,90,180,270]).duplicate()
+					if enabled and angle not in selected: selected.append(angle)
+					elif not enabled: selected.erase(angle)
+					if selected.is_empty():
+						refresh_inspector.call_deferred()
+						status("Keep at least one spike direction enabled.")
+					else: change_property("directions",selected))
+				directions.add_child(check)
+		else:
+			var route_controls := row(inspector)
+			button(route_controls,"Draw route",func(): set_tool("route"))
+			var loop := CheckBox.new()
+			loop.text="Loop"
+			loop.button_pressed=obj.get("patrol_loop",true)
+			loop.toggled.connect(func(value: bool): change_property("patrol_loop",value))
+			route_controls.add_child(loop)
+			button(inspector,"Clear route",func(): change_property("waypoints",[]))
+		paragraph(inspector,"Copper track marks the next slam. Hold, then move fast. Walls, cheese and scenery stop it.",12)
 	if obj.type == "emitter":
 		var interval := SpinBox.new()
 		interval.min_value = 1.0 if level.get("game_mode") == "tile" else 0.5

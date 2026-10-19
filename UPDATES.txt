@@ -1,3 +1,28 @@
+2026-10-19 — Tile encounter redesign and spike-ball editor hazard
+
+1. Levelwright redesigns both Tile Hop stages. Boulevard is now four timed
+   encounter courts with bends, adjacent traffic and a water-bounded spike arena.
+   Your Move uses sideways crossings, vertical road patrols, sheltered/exposed
+   approaches and a water-gated final vault. Four refuge flags remain in each;
+   stage identities, progression, unlock rules and dimensions remain unchanged.
+2. Added Spike ball: a steady copper track marks its next target during a hold,
+   then a 0.16-second cardinal slam traverses the full clear segment. Relative
+   swept collision prevents tunneling; airborne long hops can clear it.
+   Free shifts enable 1–4 directions and 1–5-cell range; patrol routes support
+   square corners and optional looping. Barriers and water bound its travel.
+3. Inspector controls, portable JSON, Undo, saves and editor recovery support
+   the hazard. Holds obey tile beats or regular-mode seconds, and both forms
+   of Move with me. Original procedural geometry uses instanced material groups.
+4. 26 focused hazard checks, 45 tile-rule and 23 editor/recovery checks pass.
+   Hazard-active routes complete at 61 and 70 hops; alternate traffic timing
+   and a 67-hop vault shortcut also complete. Five browser input/editor checks
+   pass without errors. Four Android-UA touch checks and compressed production
+   startup also pass, with no debug probe in release. Both full maps,
+   perspective and editor were inspected.
+   Other 46 prior level/audio/assets match; regular movement demo is unchanged.
+   Physical-device/Safari performance and first-time human difficulty remain
+   unverified. Rules, metrics and evidence: docs/TILE_LEVEL_REDESIGN.md.
+
 2026-10-18 — Editor recovery, turret spinner and brick shimmer fixes (published v21)
 
 1. New Egypt / New Swamp editor maps now create an Autosave recovery entry

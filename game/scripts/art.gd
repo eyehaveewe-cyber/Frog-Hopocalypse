@@ -301,6 +301,18 @@ static func scenery(kind: String, theme_name: String, variant: int = 0) -> Node3
 			cylinder(root, 0.18, 0.22, 0.1, Vector3(0, 0.52, 0), Color("ead391"))
 	return root
 
+static func spike_ball() -> Node3D:
+	var root := Node3D.new()
+	root.name = "SpikeBall"
+	orb(root,Vector3(0.8,0.8,0.8),Vector3(0,0.46,0),Color("55596b"))
+	cylinder(root,0.39,0.39,0.10,Vector3(0,0.47,0),Color("b8874d"),10)
+	for i in range(8):
+		var dir := Vector3(sin(i*TAU/8),0,cos(i*TAU/8))
+		var spike := cylinder(root,0.13,0,0.36,Vector3(0,0.46,0)+dir*0.45,Color("d8cfad"),4)
+		spike.quaternion = Quaternion(Vector3.UP,dir)
+	cylinder(root,0.14,0,0.35,Vector3(0,0.96,0),Color("d8cfad"),4)
+	return root
+
 static func palm_leaf_mesh() -> ArrayMesh:
 	if meshes.has("palm_leaf"):
 		return meshes["palm_leaf"]

@@ -39,8 +39,8 @@ layout. Checkpoints, saves, hats, sound and map inspection remain available.
 
 | Demo | Size | Purpose | Time rule |
 | --- | --- | --- | --- |
-| Big Hop Boulevard | 17 × 49 | Learn short hops, clear a tree and a full-width one-tile ditch, then combine traffic, logs, darts and bugs with safe-bank checkpoints. | Hazards run while idle. |
-| Your Move Crossing | 21 × 41 | Plan each step through lanes, a wall chicane, darts and a patrolling bug; stopping gives planning time. | One valid hop advances one beat. |
+| Big Hop Boulevard | 17 × 49 | Four timed courts: copper rails, adjacent traffic, a bounded free-shift arena, and separated dart/bug/road crossings. | Hazards run while idle. |
+| Your Move Crossing | 21 × 41 | Sideways water and traffic crossings, route-dependent clock phases, and a water-gated four-way spike vault. | One valid hop advances one beat. |
 | Your Move Garden | 17 × 33 | Demonstrate the same freeze-on-rest rule with regular continuous Hopán movement. | Hazards run during actual movement. |
 
 The regular movement demo joins the immediate Bonus set after Shelby. The two
@@ -83,3 +83,7 @@ Browser checks exercise actual keyboard/touch controls and inspect the rendered
 views. Desktop software rendering cannot establish physical Android/iPhone
 performance or Safari compatibility. Existing cleanup warnings in some native
 regression processes are retained in the logs rather than counted as assertions.
+
+The two tile levels were redesigned with Levelwright. See [encounter layouts,
+spike-ball rules and playtest evidence](TILE_LEVEL_REDESIGN.md). Spike balls
+telegraph and then slam multiple cells; other hazards retain their tile beats.

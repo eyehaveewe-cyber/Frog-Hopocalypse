@@ -6,6 +6,7 @@ signal hint_changed(text: String)
 const TileRules = preload("res://scripts/tile_rules.gd")
 const Art = preload("res://scripts/art.gd")
 const Actor = preload("res://scripts/actor.gd")
+const SpikeBalls = preload("res://scripts/spike_balls.gd")
 const Crossing = preload("res://scripts/crossing.gd")
 const CELL = 1.8
 var level: Dictionary = {}
@@ -37,6 +38,7 @@ var tile_rules: RefCounted
 var long_hop_input := false
 var simulation_time := 0.0
 var last_hint := ""
+var spikes: Node3D
 var crossing: Node3D
 var claimed_checkpoints: Array = []
 var checkpoint_flags: Array = []
@@ -155,7 +157,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 		Art.solid(geometry, Vector3(0.2, 2, h + 2), Vector3(side * (w / 2 + 0.1), 0.5, 0))
 	for obj in level.objects:
 		var p := cell_position(obj.pos)
-		if obj.type in ["car", "patrol_car", "log"]:
+		if obj.type in ["car", "patrol_car", "log", "spike_ball"]:
 			continue
 		if obj.type == "critter":
 			var actor := Actor.new()
@@ -194,6 +196,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	crossing = Crossing.new()
 	geometry.add_child(crossing)
 	crossing.setup(level, self)
+	spikes = SpikeBalls.new()
+	geometry.add_child(spikes)
+	spikes.setup(level,self)
 	player = Actor.new()
 	player.setup(true, level.theme, {}, true)
 	player.set_hat(hat)
@@ -215,7 +220,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	route_root = Node3D.new()
 	geometry.add_child(route_root)
 	underlay.name = "HorizonOcean"
-	var excluded: Array = [player, cursor, gate, route_root, crossing, underlay] + critters
+	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, underlay] + critters
 	for emitter in emitters:
 		excluded.append(emitter.model)
 	for marker in checkpoint_flags:
@@ -387,6 +392,8 @@ func _physics_process(delta: float) -> void:
 		crossing.advance(delta, player)
 		player.step(delta, input_vector)
 		update_camera(minf(1, delta * 8))
+	spikes.advance(delta,previous_player,player.position,false)
+	if not result.is_empty(): return
 	elapsed += delta
 	Art.set_simulation_time(elapsed, level.get("move_with_me",false))
 	var tile := position_cell(player.position)

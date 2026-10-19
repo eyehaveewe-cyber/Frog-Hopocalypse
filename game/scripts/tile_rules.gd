@@ -69,6 +69,7 @@ func begin_beat() -> void:
   if is_instance_valid(motion.node): motion.node.position = motion.to
  moves.clear()
  beat_count += 1
+ world.spikes.begin_beat()
  for actor in world.critters:
   var here = point(actor.position).snapped(Vector2(0.5,0.5))
   var dir = Vector2.ZERO
@@ -191,6 +192,8 @@ func advance(delta: float, input: Vector2, big: bool) -> void:
   if mover.kind == "patrol_car":
    mover.segments.append({"from":mover.previous,"to":mover.node.position,"vertical":mover.vertical})
  var protected = airborne()
+ world.spikes.advance(delta,last_player,world.player.position,protected,true)
+ if not world.result.is_empty(): return
  if not protected and world.crossing.traffic_hit(last_player,world.player.position):
   world.finish("SQUISHED!")
   return

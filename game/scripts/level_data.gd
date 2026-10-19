@@ -3,7 +3,7 @@ extends RefCounted
 const VERSION = 1
 const MAX_SIDE = 64
 const TILES = ["floor", "wall", "cheese_wall", "water", "path", "road"]
-const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log"]
+const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball"]
 
 static func blank(title: String = "My magnificent maze", theme_name: String = "egypt", w: int = 17, h: int = 13) -> Dictionary:
 	var tiles: Array = []
@@ -139,6 +139,30 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 						return "Seam worms need open tile corners."
 					if not editor_snapshot and i > 0 and not seam_segment_open(d, route[i - 1], route[i]):
 						return "Seam worm routes must follow clear horizontal or vertical tile edges. Add a corner before turning."
+		if obj.type == "spike_ball":
+			if obj.pos[0] != int(obj.pos[0]) or obj.pos[1] != int(obj.pos[1]) or obj.get("behavior","free_shift") not in ["free_shift","slam_patrol"]:
+				return "Spike balls need whole cells and free-shift or slam-patrol behavior."
+			if obj.get("solid",false): return "Spike balls are moving hazards, not static blockers."
+			if not finite_number(obj.get("pause",2)) or obj.get("pause",2)<1 or obj.get("pause",2)>6:
+				return "Spike hold must be between 1 and 6 beats/seconds."
+			if not finite_number(obj.get("range",3)) or obj.get("range",3)!=int(obj.get("range",3)) or obj.get("range",3)<1 or obj.get("range",3)>5:
+				return "Free spike shifts cover 1–5 whole tiles."
+			var directions: Variant = obj.get("directions",[0,90,180,270])
+			if not directions is Array or directions.is_empty() or directions.size()>4:
+				return "Enable one to four cardinal spike directions."
+			var seen: Array=[]
+			for direction in directions:
+				if not finite_number(direction) or direction!=int(direction) or int(direction) not in [0,90,180,270] or int(direction) in seen: return "Spike directions must be distinct cardinal directions."
+				seen.append(int(direction))
+			if obj.has("patrol_loop") and not obj.patrol_loop is bool: return "Loop route must be true or false."
+			if not obj.get("waypoints",[]) is Array or obj.get("waypoints",[]).size()>64: return "Spike patrols support up to 64 points."
+			if not editor_snapshot and not spike_cell_open(d,Vector2i(obj.pos[0],obj.pos[1])): return "Spike balls need clear, dry starting cells."
+			var route: Array=[obj.pos]+obj.get("waypoints",[])
+			if obj.get("patrol_loop",true) and route.size()>1: route.append(obj.pos)
+			for i in range(route.size()):
+				if not point_valid(route[i],w,h) or route[i][0]!=int(route[i][0]) or route[i][1]!=int(route[i][1]): return "Spike patrol points need whole cells inside the map."
+				if not editor_snapshot and obj.get("behavior","free_shift")=="slam_patrol" and (not spike_cell_open(d,Vector2i(route[i][0],route[i][1])) or (i>0 and not spike_segment_open(d,route[i-1],route[i]))):
+					return "Spike patrols need clear dry cardinal segments; use corners or disable Loop."
 		if obj.type == "emitter":
 			if not finite_number(obj.get("interval", 2.5)) or obj.get("interval", 2.5) < 0.5 or obj.get("interval", 2.5) > 10:
 				return "Firing interval must be between 0.5 and 10 seconds."
@@ -278,4 +302,20 @@ static func road_segment_open(d: Dictionary, a: Array, b: Array) -> bool:
 		var point := from.lerp(to, float(i) / maxf(1, steps))
 		if not road_cell_open(d, Vector2i(roundi(point.x),roundi(point.y))):
 			return false
+	return true
+
+static func spike_cell_open(d: Dictionary, cell: Vector2i) -> bool:
+	if cell.x<0 or cell.y<0 or cell.x>=d.width or cell.y>=d.height or d.tiles[cell.y][cell.x] in ["wall","cheese_wall","water"]: return false
+	for obj in d.objects:
+		if Vector2(obj.pos[0],obj.pos[1])==Vector2(cell) and (obj.type in ["pillar","tree","emitter"] or obj.get("solid",false)): return false
+	return true
+
+static func spike_segment_open(d: Dictionary, from: Array, to: Array) -> bool:
+	var start:=Vector2i(from[0],from[1])
+	var end:=Vector2i(to[0],to[1])
+	if start.x!=end.x and start.y!=end.y: return false
+	var difference:=end-start
+	var direction:=Vector2i(signi(difference.x),signi(difference.y))
+	for i in range(maxi(absi(difference.x),absi(difference.y))+1):
+		if not spike_cell_open(d,start+direction*i): return false
 	return true

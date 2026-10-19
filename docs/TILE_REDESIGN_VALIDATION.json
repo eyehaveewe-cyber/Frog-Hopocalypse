@@ -1,0 +1,115 @@
+{
+  "native_assertions": {
+    "spike_balls": 26,
+    "tile_rules": 45,
+    "editor_recovery": 23
+  },
+  "controller_routes": [
+    {
+      "checkpoints": 4,
+      "elapsed": 26.3499999999998,
+      "hops": 61,
+      "initial_wait": 0.0,
+      "level": "Big Hop Boulevard",
+      "position": "(8, 2)",
+      "result": "LEVEL COMPLETE!",
+      "spike_slams": [
+        10,
+        14,
+        10,
+        14
+      ],
+      "vault_shortcut": false
+    },
+    {
+      "checkpoints": 4,
+      "elapsed": 24.4999999999999,
+      "hops": 70,
+      "initial_wait": 0.0,
+      "level": "Your Move Crossing",
+      "position": "(17, 2)",
+      "result": "LEVEL COMPLETE!",
+      "spike_slams": [
+        23,
+        23,
+        23,
+        23
+      ],
+      "vault_shortcut": false
+    },
+    {
+      "checkpoints": 4,
+      "elapsed": 29.3999999999996,
+      "hops": 61,
+      "initial_wait": 1.55,
+      "level": "Big Hop Boulevard",
+      "position": "(8, 2)",
+      "result": "LEVEL COMPLETE!",
+      "spike_slams": [
+        11,
+        15,
+        11,
+        15
+      ],
+      "vault_shortcut": false
+    },
+    {
+      "checkpoints": 4,
+      "elapsed": 23.4499999999999,
+      "hops": 67,
+      "initial_wait": 0.0,
+      "level": "Your Move Crossing",
+      "position": "(17, 2)",
+      "result": "LEVEL COMPLETE!",
+      "spike_slams": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "vault_shortcut": true
+    },
+    {
+      "elapsed": 11.8666666666668,
+      "level": "Your Move Garden",
+      "result": "LEVEL COMPLETE!"
+    }
+  ],
+  "browser": {
+    "checks": [
+      "Actual keyboard long hop clears the first live spike rail",
+      "Full map shows encounter courts, turns and refuge checkpoints",
+      "Linked time freezes while idle; the third hop clears the first slam",
+      "Editor placement and cardinal-direction toggles produce a valid spike",
+      "Drawn cardinal patrol saves and enters real playtest without errors"
+    ],
+    "errors": [],
+    "physicalDevicesTested": false
+  },
+  "prior_level_audio_assets_unchanged": 46,
+  "physical_devices_tested": false,
+  "human_playtest": false,
+  "source_notes": "Levelwright synthesis grounded in inspected movement and authored layouts; no human fun/performance claim.",
+  "android_emulation": {
+    "checks": [
+      "Tile mode launches through touch on Android-UA mobile viewport",
+      "Long hop control stays on screen",
+      "Brief joystick drag queues exactly one two-tile hop",
+      "Sound, map and pause remain reachable"
+    ],
+    "errors": [],
+    "engine": "Desktop Chromium Android UA/touch emulation; unshaded compatibility mode; not physical Android"
+  },
+  "protected_hosting_riversim_files_unchanged": 17,
+  "compressed_production_startup": {
+    "productionFirstFrame": true,
+    "compressedWasm": true,
+    "canvas": [
+      844,
+      390
+    ],
+    "debugProbeAbsent": true,
+    "errors": [],
+    "device": "Desktop Chromium Android emulation; physical phone not tested"
+  }
+}
