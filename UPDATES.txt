@@ -1,3 +1,26 @@
+2026-10-19 — Five-stage tour published publicly as version 25
+
+1. Live URL: https://hopan.fiiendward.chatgpt.site
+   Tested game source: 94c3dac27324666ec1d276d877dcd070a5babef5.
+   Site source: ad1e920ce216c62427a48a5ff16abcb493fa3bcf.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_63c54644b2248191a2c72c4fad2a0cfd.
+   Deployment: appgdep_6ad687743898819186a338a4383d8c4c (succeeded).
+   Existing public audience retained; GitHub main remains unchanged.
+2. Includes the five-stage Tile Hop tour, pickup rules, one late checkpoint
+   per tile stage and phone/Space long-hop controls, plus the preceding tested
+   rule notices, static splash and scenery work in this source chain.
+3. Official Sites source helper opened the latest source, pushed the exact
+   staged export, packaged and published it. Proven gzip engine retained with
+   an exact decompression match. RiverSim, its adapter and headers: 16 files
+   byte-identical. Compressed staged release starts without console/page errors,
+   with no debug probe. Current live browser and asset requests are blocked by
+   this executor's proxy (CONNECT 403 / ERR_TUNNEL_CONNECTION_FAILED); native
+   deployment success is confirmed. Physical iPhone/Safari remain unverified.
+4. Confirmed rollback is live version 23, not saved-only version 24:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_40672cd2d2d88191a0fd8d7597b6d559.
+   Preserve custom pickup-rule map exports before using an older reader.
+   Full evidence: docs/TILE_TOURS_PUBLICATION.json.
+
 2026-10-19 — Five-stage Tile Hop variety tour (not deployed)
 
 1. Replaced Big Hop Boulevard with a moat/island fork: longer outer bank or

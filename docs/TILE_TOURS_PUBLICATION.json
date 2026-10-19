@@ -1,0 +1,25 @@
+{
+  "game_source_commit": "94c3dac27324666ec1d276d877dcd070a5babef5",
+  "site_source_commit": "ad1e920ce216c62427a48a5ff16abcb493fa3bcf",
+  "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+  "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_63c54644b2248191a2c72c4fad2a0cfd",
+  "version_number": 25,
+  "deployment_id": "appgdep_6ad687743898819186a338a4383d8c4c",
+  "status": "succeeded",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "access": "public",
+  "previous_confirmed_production": {
+    "version_number": 23,
+    "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_40672cd2d2d88191a0fd8d7597b6d559",
+    "deployment_id": "appgdep_6ad66fc7249081919e073fb146c03166",
+    "source_commit": "ac68307fa3d68d829280a62be30dd8bef3e0e2a8"
+  },
+  "live_verification": {
+    "native_deployment": "succeeded",
+    "compressed_staged_release": "startup passed; no console/page errors; debug probe absent",
+    "live_browser": "blocked by executor network proxy: ERR_TUNNEL_CONNECTION_FAILED",
+    "live_asset_requests": "blocked by executor proxy: CONNECT 403 Forbidden",
+    "riversim_adapter_headers": "16 files byte-identical to previous Site checkout",
+    "physical_iphone_safari": "unverified"
+  }
+}

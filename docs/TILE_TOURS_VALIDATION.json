@@ -286,5 +286,6 @@
     "pages_rendered_and_inspected": 7,
     "historical_review_text_retained": true
   },
-  "scope": "No merge or deployment. Chromium/SwiftShader touch emulation; physical iPhone/Safari and novice enjoyment unverified."
+  "scope": "Source unmerged; export published as public version 25. Native deployment succeeded; live browser/HTTP blocked by executor CONNECT 403. Chromium touch emulation; physical iPhone/Safari and novice enjoyment unverified.",
+  "publication": "TILE_TOURS_PUBLICATION.json"
 }

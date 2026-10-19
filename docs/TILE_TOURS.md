@@ -3,8 +3,9 @@
 Implements the user's Levelwright / Channel Hideo request of October 19, 2026.
 The set still unlocks after Not as Hard as It Looks. Stage IDs 0/1 stay in place;
 stages 2–4 extend the set. Old completion records do not complete new stages.
-Existing campaign/audio files outside this tile set are preserved. This branch
-is not merged or deployed.
+Existing campaign/audio files outside this tile set are preserved. The source branch remains
+unmerged; the tested export is published publicly as version 25 at
+https://hopan.fiiendward.chatgpt.site.
 
 ## Spatial direction and authorship
 
@@ -97,7 +98,9 @@ novice comprehension, enjoyment, every possible timing or device FPS. A human
 pilot should focus on identifying pickup silhouettes from the gameplay camera,
 understanding that empty tapping explains the rule, and recovering after wasting
 power. Phone validation uses Chromium with touch/Android-UA emulation; physical
-iPhone and Safari remain unverified. No live-site publication is performed.
+iPhone and Safari remain unverified. Native Sites publication succeeded as version 25. This executor cannot open
+the live URL because its network proxy rejects CONNECT (403); the exact staged
+compressed release starts successfully. See `TILE_TOURS_PUBLICATION.json`.
 
 Regenerate layouts with `python3 tools/design_tile_tours.py`; the older movement
 map generator invokes it after its historical baseline. Revert this feature

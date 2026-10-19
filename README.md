@@ -1,3 +1,8 @@
+**Current public build: [Hopán version 25](https://hopan.fiiendward.chatgpt.site).**
+The five-stage Tile Hop tour, resource rules, clear phone controls and preceding
+rule notices/splash/scenery features are published. Earlier review notes below
+record their state when written. [Publication and rollback](docs/TILE_TOURS_PUBLICATION.json).
+
 # Hopocalypse: Pharaoh Frog Hopán
 
 A playable Godot **4.7.2** 3D arcade maze game with an integrated desktop level editor, following the [original design brief](docs/game-design-brief.md). The presentation now follows the user's PS1-style direction and Frog Frenzy references: a receding perspective camera, original pixel textures, low-poly models, vertex snapping, limited-color dithering and a low-resolution 3D scene. See [art direction](docs/ART_DIRECTION.md).
@@ -251,4 +256,4 @@ a 25-short-hop recharge. **Space, then a direction** or the larger lower-right
 **Long hop** button selects the action; phones show the rule and live resource
 count. Empty taps explain the rule. Editor pickup/rule controls are included.
 See [tour design and evidence](docs/TILE_TOURS.md) and the
-[working design document](docs/design/Hopan-Tile-Long-Hop-Review.docx). Not deployed.
+[working design document](docs/design/Hopan-Tile-Long-Hop-Review.docx). Published in version 25.
