@@ -1,7 +1,7 @@
-**Current public build: [Hopán version 25](https://hopan.fiiendward.chatgpt.site).**
-The five-stage Tile Hop tour, resource rules, clear phone controls and preceding
-rule notices/splash/scenery features are published. Earlier review notes below
-record their state when written. [Publication and rollback](docs/TILE_TOURS_PUBLICATION.json).
+**Current public build: [Hopán version 26](https://hopan.fiiendward.chatgpt.site).**
+The harder five-stage Tile Hop tour is published. Existing rules, unlocks, campaign,
+RiverSim testing route and audio are preserved. Earlier review notes below record
+their state when written. [Publication and rollback](docs/TILE_HARDNESS_PUBLICATION.json).
 
 ## Harder Tile Hop tour
 

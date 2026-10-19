@@ -1,3 +1,19 @@
+2026-10-19 — Harder Tile Hop tour published publicly as version 26
+
+1. Live URL: https://hopan.fiiendward.chatgpt.site
+   Tested game source: 35657f927099d37172d3c9f8db17df4297c281c4.
+   Site source: 6140af679a9e1e969c56199ff9cf50642af0ed93.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_c34f8b3b62908191b887faf0616733bc.
+   Deployment: appgdep_6ad690e85c4c81919d0b0b21cc55c757 (succeeded).
+2. All five stages hardened; all 21 emitters face cheese. Public access retained.
+   RiverSim, adapter and headers preserved (16 identical files). Staged gzip
+   release starts without browser errors; debug probe absent. GitHub main unchanged.
+3. Rollback target is confirmed live version 25:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_63c54644b2248191a2c72c4fad2a0cfd.
+   Live browser check is blocked by executor CONNECT proxy 403; physical iPhone,
+   Safari and exact human difficulty multiplier remain unverified.
+   Evidence and exact IDs: docs/TILE_HARDNESS_PUBLICATION.json.
+
 2026-10-19 — Harder Tile Hop tour
 
 1. Raised all five Tile Hop stages toward the requested 2½× challenge through
