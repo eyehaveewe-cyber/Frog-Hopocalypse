@@ -40,6 +40,9 @@ var simulation_time := 0.0
 var last_hint := ""
 var spikes: Node3D
 var crossing: Node3D
+const Landmarks = preload("res://scripts/landmarks.gd")
+var landmarks: Node3D
+var background_view = false
 var claimed_checkpoints: Array = []
 var checkpoint_flags: Array = []
 
@@ -157,7 +160,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 		Art.solid(geometry, Vector3(0.2, 2, h + 2), Vector3(side * (w / 2 + 0.1), 0.5, 0))
 	for obj in level.objects:
 		var p := cell_position(obj.pos)
-		if obj.type in ["car", "patrol_car", "log", "spike_ball"]:
+		if obj.type in ["car", "patrol_car", "log", "spike_ball", "landmark"]:
 			continue
 		if obj.type == "critter":
 			var actor := Actor.new()
@@ -199,6 +202,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	spikes = SpikeBalls.new()
 	geometry.add_child(spikes)
 	spikes.setup(level,self)
+	landmarks = Landmarks.new()
+	geometry.add_child(landmarks)
+	landmarks.setup(level, self)
 	player = Actor.new()
 	player.setup(true, level.theme, {}, true)
 	player.set_hat(hat)
@@ -220,7 +226,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	route_root = Node3D.new()
 	geometry.add_child(route_root)
 	underlay.name = "HorizonOcean"
-	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, underlay] + critters
+	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, landmarks, underlay] + critters
 	for emitter in emitters:
 		excluded.append(emitter.model)
 	for marker in checkpoint_flags:
@@ -242,6 +248,7 @@ func fit_camera() -> void:
 		var size := get_viewport().get_visible_rect().size
 		var aspect := size.x / maxf(1, size.y)
 		camera.size = maxf(level.height * CELL * 0.86 + 2.8, (level.width * CELL + 2.5) / maxf(aspect, 0.1))
+		if editing and background_view: camera.size = maxf((level.height+32) * CELL * 0.86+2.8, ((level.width+32)*CELL+2.5)/maxf(aspect,0.1))
 		camera_target = Vector3.ZERO
 	else:
 		camera.projection = Camera3D.PROJECTION_PERSPECTIVE
@@ -251,12 +258,13 @@ func fit_camera() -> void:
 		camera_target = player.position + Vector3(0, 0.25, -2.0)
 	update_draw_range()
 	update_camera(1.0)
+	if is_instance_valid(landmarks): landmarks.update_lod()
 
 func update_draw_range() -> void:
 	var limit := 0.0 if editing or map_view else float(level.get("draw_distance",18)) * CELL
 	Art.set_draw_distance(limit)
 	for mesh in geometry.find_children("*", "GeometryInstance3D", true, false):
-		if mesh.name != "HorizonOcean":
+		if mesh.name != "HorizonOcean" and (not is_instance_valid(landmarks) or not landmarks.is_ancestor_of(mesh)):
 			mesh.visibility_range_end = limit
 			mesh.visibility_range_end_margin = CELL
 
@@ -269,7 +277,12 @@ func update_camera(weight: float) -> void:
 		camera.position = camera_target + Vector3(0, 4.6, 8.0)
 	else:
 		camera.position = camera_target + Vector3(0, 30, 22)
-	camera.look_at(camera_target)
+	camera.look_at(camera_target + landmark_focus_offset())
+
+func landmark_focus_offset() -> Vector3:
+	# Keep the existing camera position and follower. Scenery levels need a little
+	# more sky above the walking route so tall silhouettes can enter the frame.
+	return Vector3(0,1.7,0) if not editing and not map_view and is_instance_valid(landmarks) and not landmarks.entries.is_empty() else Vector3.ZERO
 
 func begin_exit_preview() -> void:
 	if editing or not active:
@@ -298,7 +311,7 @@ func preview_camera() -> void:
 	camera_target = home.lerp(goal, blend)
 	var lift := sin(clampf(intro_time / INTRO_DURATION, 0, 1) * PI)
 	camera.position = camera_target + Vector3(0, 4.6 + lift * 5.0, 8.0 + lift * 3.0)
-	camera.look_at(camera_target)
+	camera.look_at(camera_target + landmark_focus_offset() * (1.0-blend))
 
 func set_map_view(enabled: bool) -> void:
 	if intro_active:
@@ -315,11 +328,11 @@ func pick(screen_pos: Vector2) -> Vector2i:
 	var hit: Variant = Plane(Vector3.UP, 0).intersects_ray(from, dir)
 	return position_cell(hit) if hit != null else Vector2i(-1, -1)
 
-func show_cursor(cell: Vector2i) -> void:
+func show_cursor(cell: Vector2i, backdrop: bool = false) -> void:
 	if is_instance_valid(cursor):
-		cursor.visible = editing and inside(cell)
+		cursor.visible = editing and (inside(cell) or (backdrop and cell.x >= -16 and cell.y >= -16 and cell.x < level.width+16 and cell.y < level.height+16))
 		if cursor.visible:
-			cursor.position = cell_position([cell.x, cell.y]) + Vector3(0, 0.72 if level.tiles[cell.y][cell.x] in ["wall", "cheese_wall"] else 0.07, 0)
+			cursor.position = cell_position([cell.x, cell.y]) + Vector3(0, 0.72 if inside(cell) and level.tiles[cell.y][cell.x] in ["wall", "cheese_wall"] else 0.07, 0)
 
 func show_route(obj: Dictionary) -> void:
 	for child in route_root.get_children():

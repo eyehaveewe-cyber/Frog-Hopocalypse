@@ -1,3 +1,32 @@
+2026-10-19 — Placeable low-poly landmarks and shoreline demos (not deployed)
+
+1. Added original Sphinx, Osiris-inspired statue, pyramid, giant moss tree and
+   heron models. The palette places them on the course or in painted/surrounding
+   water. Background view exposes a 16-cell editing margin. Gold editor pins,
+   rotation, model choice, 0.25–2x scale, select/erase, Undo/Redo and JSON work.
+   Landmarks are non-blocking: no new physics, path blockage or actor behavior.
+2. Cached near/far geometry uses one surface per active model, shared materials,
+   no shadows and no alpha foliage. Broad 16x16 near textures provide the enlarged
+   coarse look; untextured far meshes have painted shading. One copy of each
+   asset drops from 1,856 to 346 eligible triangles at distance (~81% fewer).
+   Range cutoff and hysteresis bring whole landmarks into view as you approach;
+   full Map/editor use cheap geometry for all landmarks. Budget: 32 per map.
+3. Temple Shore and Heron Marsh are separate editor scenery demos with distant
+   and course-size props. Camera position/following remains; only scenery levels
+   raise the look target slightly so tall silhouettes share the frame with the
+   frog. Normal levels and overhead framing remain unchanged.
+4. 49 landmark checks, 23 editor/recovery checks and 35 rule checks pass.
+   Seven desktop/touch browser checks cover real approaches, LOD changes, full
+   maps, background placement/Save/Undo and Android-UA compatibility rendering.
+   Web release/debug and Windows release build. Perspective, map and editor
+   images inspected. Geometry savings are measured; physical device/GPU FPS,
+   Safari and novice recognition remain unverified.
+5. Branch feature/landmark-scenery follows 98781cf per-level rules. No merge or
+   website deployment. Prior campaign/audio bytes are unchanged. Revert this
+   feature commit for source rollback; preserve custom landmark-map exports,
+   because earlier readers reject this new object type. Sources, model budgets,
+   reference grounding and limitations: docs/LANDMARK_SCENERY.md.
+
 2026-10-19 — Per-level variety rules and first-seen notices (not deployed)
 
 1. User direction: rules belong to each level, rather than a global charge mode.

@@ -1,0 +1,50 @@
+{
+  "checks": [
+    "Temple Shore: real walking changes visible LODs and reveals landmarks without blocking movement",
+    "temple: full map shows all six landmarks with their cheap meshes",
+    "Editor: background zoom, actual outside-water Heron placement, Save and Undo work",
+    "Heron Marsh: real walking changes visible LODs and reveals landmarks without blocking movement",
+    "heron: full map shows all six landmarks with their cheap meshes",
+    "Android-UA touch: unshaded landmarks render and joystick moves on the demo",
+    "touch-heron: full map shows all six landmarks with their cheap meshes"
+  ],
+  "errors": [],
+  "scope": "Desktop Chromium/SwiftShader and Android-UA touch emulation; no physical GPU/device FPS claim",
+  "nativeLandmarkChecks": 49,
+  "editorRegressionChecks": 23,
+  "levelRuleChecks": 35,
+  "builds": [
+    "Web release",
+    "Web debug",
+    "Windows release"
+  ],
+  "priorLevelAudioFilesUnchanged": 49,
+  "publication": "Source branch only; no merge or deployment",
+  "meshMetrics": [
+    {
+      "far_triangles": 108,
+      "kind": "sphinx",
+      "near_triangles": 334
+    },
+    {
+      "far_triangles": 84,
+      "kind": "osiris",
+      "near_triangles": 502
+    },
+    {
+      "far_triangles": 6,
+      "kind": "pyramid",
+      "near_triangles": 222
+    },
+    {
+      "far_triangles": 32,
+      "kind": "moss_tree",
+      "near_triangles": 450
+    },
+    {
+      "far_triangles": 116,
+      "kind": "heron",
+      "near_triangles": 348
+    }
+  ]
+}

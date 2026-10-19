@@ -53,6 +53,19 @@ Existing campaigns and unlocks retain their rules. See [rule behavior and tests]
 and the [new-rule preview](docs/previews/rules/new-charge-rule.png).
 This branch is committed for review; the website has not been updated.
 
+## Landmark scenery (review branch)
+
+The editor palette now includes **Sphinx, Osiris statue, Pyramid, Moss tree and
+Heron**. **Background view** exposes the surrounding water for placement. Select
+an object's gold ground pin to change model, rotation or scale. Landmarks are
+non-blocking decorations and may also sit on the course.
+
+Try **Editor → Scenery demos → Temple Shore / Heron Marsh → Playtest**.
+Two cached model LODs and range culling reduce distant geometry; enlarged 16×16
+texture patches provide the coarse look. Scenery levels gain a little camera
+headroom; ordinary levels retain their framing. See [asset and rendering notes](docs/LANDMARK_SCENERY.md)
+and [Temple preview](docs/previews/landmarks/temple-near.png).
+
 ## Implemented
 
 - Tile-mode **Long hop** shows READY / ARMED / HOPPING / WAIT / PAUSED inside its existing touch target. READY follows the same recovery gate as queued directional input; selecting the button still arms a future hop.

@@ -3,7 +3,7 @@ extends RefCounted
 const VERSION = 1
 const MAX_SIDE = 64
 const TILES = ["floor", "wall", "cheese_wall", "water", "path", "road"]
-const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball"]
+const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball", "landmark"]
 
 static func blank(title: String = "My magnificent maze", theme_name: String = "egypt", w: int = 17, h: int = 13) -> Dictionary:
 	var tiles: Array = []
@@ -20,6 +20,9 @@ static func finite_number(v: Variant) -> bool:
 
 static func point_valid(p: Variant, w: int, h: int) -> bool:
 	return p is Array and p.size() == 2 and finite_number(p[0]) and finite_number(p[1]) and p[0] >= 0 and p[0] < w and p[1] >= 0 and p[1] < h
+
+static func landmark_point_valid(p: Variant, w: int, h: int) -> bool:
+	return p is Array and p.size() == 2 and finite_number(p[0]) and finite_number(p[1]) and p[0] >= -16 and p[1] >= -16 and p[0] < w+16 and p[1] < h+16
 
 static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 	if not d is Dictionary:
@@ -76,8 +79,9 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 	if not d.get("objects") is Array or d.objects.size() > 180:
 		return "A level supports up to 180 objects."
 	var ids: Dictionary = {}
+	var landmark_count := 0
 	for obj in d.objects:
-		if not obj is Dictionary or obj.get("type") not in OBJECTS or not point_valid(obj.get("pos"), w, h):
+		if not obj is Dictionary or obj.get("type") not in OBJECTS or not (landmark_point_valid(obj.get("pos"),w,h) if obj.get("type") == "landmark" else point_valid(obj.get("pos"), w, h)):
 			return "Invalid object type or position."
 		if not obj.get("id") is String or obj.id.is_empty() or ids.has(obj.id):
 			return "Every object needs a unique ID."
@@ -92,6 +96,14 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 					return "Tile mode patrols need whole tile waypoints."
 			if obj.type == "emitter" and not is_zero_approx(fposmod(float(obj.get("rotation",0)),90)):
 				return "Tile-mode darts need a cardinal direction."
+		if obj.type == "landmark":
+			landmark_count += 1
+			if landmark_count > 32: return "A level supports up to 32 landmarks."
+			if obj.get("landmark_kind", "sphinx") not in ["sphinx","osiris","pyramid","moss_tree","heron"]:
+				return "Unknown landmark model."
+			if not finite_number(obj.get("landmark_scale",1)) or obj.get("landmark_scale",1) < 0.25 or obj.get("landmark_scale",1) > 2:
+				return "Landmark scale must be between 0.25 and 2."
+			if obj.get("solid",false) != false: return "Landmarks are non-blocking scenery."
 		if obj.has("solid") and not obj.solid is bool:
 			return "Solid must be true or false."
 		if obj.type in ["car", "patrol_car", "log"]:

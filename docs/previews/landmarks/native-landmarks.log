@@ -1,0 +1,53 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Each sphinx LOD is one material surface
+PASS: Far sphinx uses fewer triangles with a bounded near mesh
+PASS: Repeated sphinx shares cached geometry
+PASS: Mesh attributes match for sphinx
+PASS: Each osiris LOD is one material surface
+PASS: Far osiris uses fewer triangles with a bounded near mesh
+PASS: Repeated osiris shares cached geometry
+PASS: Mesh attributes match for osiris
+PASS: Each pyramid LOD is one material surface
+PASS: Far pyramid uses fewer triangles with a bounded near mesh
+PASS: Repeated pyramid shares cached geometry
+PASS: Mesh attributes match for pyramid
+PASS: Each moss_tree LOD is one material surface
+PASS: Far moss_tree uses fewer triangles with a bounded near mesh
+PASS: Repeated moss_tree shares cached geometry
+PASS: Mesh attributes match for moss_tree
+PASS: Each heron LOD is one material surface
+PASS: Far heron uses fewer triangles with a bounded near mesh
+PASS: Repeated heron shares cached geometry
+PASS: Mesh attributes match for heron
+PASS: Shore demo validates and preserves a route: res://levels/scenery/temple_shore.json
+PASS: Shore demo validates and preserves a route: res://levels/scenery/heron_marsh.json
+PASS: Background anchors can be outside the playable rectangle
+PASS: Tile mode also accepts whole-cell background landmarks
+PASS: Non-blocking landmarks can stand directly in water
+PASS: Background placement bounds are enforced
+PASS: Background models cannot accidentally become tile blockers
+PASS: Invalid large scales are rejected
+PASS: Unknown model variants are rejected
+PASS: Landmark scene budget is enforced
+PASS: Runtime creates a background landmark outside the course
+PASS: Landmarks have no physics bodies
+PASS: Background view exposes the surrounding water for placement
+PASS: Editor places a selected landmark in the outer water
+PASS: Undo removes a background placement
+PASS: Redo restores a background placement
+PASS: Outside landmark selection and scale editing work
+PASS: Portable JSON preserves outside placement and model settings
+PASS: Erase removes a landmark outside the course without touching terrain
+PASS: Scenery camera leaves headroom while keeping the normal follower position
+PASS: Close view submits only the near LOD
+PASS: Distant view swaps to one cheaper LOD
+PASS: A distant landmark submits one draw, not its individual modeling pieces
+PASS: Beyond the draw range, neither LOD is submitted
+PASS: Culling hysteresis prevents threshold chatter
+PASS: Overhead view retains its normal camera framing
+PASS: Overhead inspection reveals all landmarks using cheap geometry
+PASS: Course decoration never becomes a false exit-path blocker
+PASS: Levels without landmarks keep their original framing
+LANDMARK METRICS [{"far_triangles":108,"kind":"sphinx","near_triangles":334},{"far_triangles":84,"kind":"osiris","near_triangles":502},{"far_triangles":6,"kind":"pyramid","near_triangles":222},{"far_triangles":32,"kind":"moss_tree","near_triangles":450},{"far_triangles":116,"kind":"heron","near_triangles":348}]
+LANDMARKS: 49 checks, 0 failures

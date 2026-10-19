@@ -1,0 +1,25 @@
+const {chromium,devices}=require('playwright');
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const out=path.resolve(__dirname,'../docs/previews/landmarks');fs.mkdirSync(out,{recursive:true});
+(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--enable-unsafe-swiftshader','--use-angle=swiftshader']});const errors=[],checks=[];
+try{for(const [demo,mobile]of [['Temple Shore',false],['Heron Marsh',false],['Heron Marsh',true]]){
+ const opts=mobile?{...devices['iPhone 13 landscape'],userAgent:'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/131.0.0.0 Mobile Safari/537.36'}:{viewport:{width:1280,height:900}};
+ const p=await b.newPage(opts);p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+ const state=()=>p.evaluate(()=>hopanState);
+ async function click(text){for(let i=0;i<50;i++){const current=await state(),a=current.buttons.find(v=>v.text===text);if(!a){await p.waitForTimeout(180);continue}const v=p.viewportSize();const top=current.mode==='edit'&&!current.overlay&&a.x<280?90:8;const bottom=current.mode==='edit'&&!current.overlay?v.height-60:v.height-18;if(a.y<top||a.y>bottom){await p.mouse.move(a.x,v.height/2);await p.mouse.wheel(0,a.y<top?-150:150);await p.waitForTimeout(180);continue}if(mobile)await p.touchscreen.tap(a.x,a.y);else await p.mouse.click(a.x,a.y);await p.waitForTimeout(400);return}throw Error('Missing/offscreen '+text+' '+JSON.stringify(await state()).slice(0,300))}
+ await p.goto('http://127.0.0.1:8060/test-web/?browser-test=1');await p.waitForFunction(()=>window.hopanState&&!document.getElementById('loading'),null,{timeout:60000});await p.waitForTimeout(400);
+ await click('Level editor · Create a maze');await click('Scenery demos');await click(demo);await click('Playtest ▶');await p.waitForFunction(()=>!hopanState.overlay&&hopanState.mode==='test');await p.waitForTimeout(400);
+ const prefix=mobile?'touch-heron':demo==='Temple Shore'?'temple':'heron';
+ const far=(await state()).landmarks;assert.ok(far.hidden>0&&far.far>0,'Distance culling starts with both distant and hidden landmarks');
+ await p.screenshot({path:path.join(out,prefix+'-far.png'),scale:'css'});
+ if(!mobile){await p.keyboard.down('w');await p.waitForFunction(limit=>hopanState.player[1]<limit,demo==='Heron Marsh'?32.5:25.6,{timeout:15000});await p.keyboard.up('w');await p.waitForTimeout(250);
+ await p.keyboard.down('a');await p.waitForFunction(()=>hopanState.player[0]<-7.2,null,{timeout:10000});await p.keyboard.up('a');await p.waitForTimeout(350);assert.ok((await state()).landmarks.near>0);
+ await p.screenshot({path:path.join(out,prefix+'-near.png'),scale:'css'});assert.equal((await state()).result,'');checks.push(demo+': real walking changes visible LODs and reveals landmarks without blocking movement');
+ }else{const before=(await state()).player[1];const cdp=await p.context().newCDPSession(p);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:160,y:220,id:1}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:160,y:140,id:1}]});await p.waitForTimeout(650);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await p.waitForTimeout(300);assert.ok((await state()).player[1]<before);checks.push('Android-UA touch: unshaded landmarks render and joystick moves on the demo');}
+ await click('Map');await p.waitForFunction(()=>hopanState.map_view);await p.waitForTimeout(300);assert.equal((await state()).landmarks.far,6);assert.equal((await state()).landmarks.near,0);await p.screenshot({path:path.join(out,prefix+'-map.png'),scale:'css'});checks.push(prefix+': full map shows all six landmarks with their cheap meshes');
+ if(demo==='Temple Shore'){
+ await click('Menu');await click('Level editor · Create a maze');await p.waitForFunction(()=>hopanState.mode==='edit'&&!hopanState.overlay);await click('Background view');await p.waitForFunction(()=>hopanState.background_view);await click('Heron');let s=await state(),a=s.backdrop_points[0];await p.mouse.click(a.x,a.y);await p.waitForFunction(()=>hopanState.selection&&hopanState.map.objects.some(o=>o.type==='landmark'&&o.pos[0]===-2&&o.pos[1]===8));await p.screenshot({path:path.join(out,'background-editor.png'),scale:'css'});
+ await click('Save');await p.waitForFunction(()=>hopanState.saved>=1);await p.keyboard.press('Control+z');await p.waitForFunction(()=>!hopanState.map.objects.some(o=>o.type==='landmark'&&o.pos[0]===-2&&o.pos[1]===8));checks.push('Editor: background zoom, actual outside-water Heron placement, Save and Undo work');
+ }
+ await p.close();
+}assert.deepEqual(errors,[]);const result={checks,errors,scope:'Desktop Chromium/SwiftShader and Android-UA touch emulation; no physical GPU/device FPS claim'};fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));}finally{await b.close()}})().catch(e=>{console.error(e.stack);process.exitCode=1});
