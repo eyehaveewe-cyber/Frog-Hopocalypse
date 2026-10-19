@@ -852,6 +852,23 @@ func enter_editor() -> void:
 func playtest() -> void:
 	start_play(true)
 
+func retry_action_text() -> String:
+	return "Retry checkpoint · R" if not checkpoint_spawn.is_empty() else "Retry from start · R"
+
+func retry_description() -> String:
+	var text := "Returns to your checkpoint. Hazards restart." if not checkpoint_spawn.is_empty() else "Returns to the level start. Hazards restart."
+	if level.get("game_mode", "hopan") != "tile":
+		return text
+	var rule := LevelRules.mode(level)
+	if rule == "charged" or rule == "free":
+		return text + "\nLong hop: ready."
+	var saved: Dictionary = checkpoint_hop_state if not checkpoint_spawn.is_empty() else {}
+	if saved.get("reserve", false):
+		return text + "\nLong hop: saved reserve restored."
+	if rule == "fragments":
+		return text + "\nLong hop: %d / 3 fragments restored." % int(saved.get("fragments", 0))
+	return text + "\nLong hop: collect a Hop seed."
+
 func retry() -> void:
 	pending_result = ""
 	paused = false
@@ -869,7 +886,7 @@ func retry() -> void:
 	configure_view()
 	reset_touch()
 	joystick.visible = DisplayServer.is_touchscreen_available()
-	status(level.name + " · A fresh hop. R to retry.")
+	status("Checkpoint restored. " + level.name if not checkpoint_spawn.is_empty() else level.name + " · Restarted from the beginning.")
 	start_announcements(true)
 
 func on_finished(reason: String) -> void:
@@ -940,7 +957,9 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 			button(overlay_box, "Next level →", func(): play_builtin(builtin_index + 1, campaign_set), true)
 	var has_continuation := mode == "play" and campaign_level and (builtin_index < campaign_paths().size() - 1 or campaign_set in ["baby", "human"])
 	if not set_complete or has_continuation:
-		button(overlay_box, "Retry · R", retry, true)
+		if reason != "LEVEL COMPLETE!":
+			paragraph(overlay_box, retry_description())
+		button(overlay_box, retry_action_text(), retry, true)
 	button(overlay_box, "Menu", show_menu)
 	joystick.hide()
 

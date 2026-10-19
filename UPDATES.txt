@@ -1,3 +1,12 @@
+2026-10-19 — Speculative recovery pass one (repository only)
+
+1. Death screen names retry destination and restored long-hop resource. Later
+   inventory cannot be mistaken for the saved checkpoint state. Status confirms
+   checkpoint return. Retry semantics and v26 hazards/dart alignment unchanged.
+2. 17 focused native checks pass. No Site deployment or branch merge. Based on
+   b36f338 on speculative/hopan-recovery-two-pass. Device preview pending pass two.
+   Progress: docs/SPECULATIVE_RECOVERY.md.
+
 2026-10-19 — Harder Tile Hop tour published publicly as version 26
 
 1. Live URL: https://hopan.fiiendward.chatgpt.site

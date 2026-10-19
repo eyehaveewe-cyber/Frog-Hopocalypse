@@ -3,6 +3,14 @@ The harder five-stage Tile Hop tour is published. Existing rules, unlocks, campa
 RiverSim testing route and audio are preserved. Earlier review notes below record
 their state when written. [Publication and rollback](docs/TILE_HARDNESS_PUBLICATION.json).
 
+## Speculative recovery updates — repository only
+
+Branch `speculative/hopan-recovery-two-pass` starts from the published v26 source
+chain (`b36f338`). These proposals are committed for testing; the live website
+still runs v26. **Pass one:** death screens name the retry destination and show
+the long-hop state that will actually be restored. Checkpoint retries confirm
+the return in the status line. [Progress and checks](docs/SPECULATIVE_RECOVERY.md).
+
 ## Harder Tile Hop tour
 
 All five stages now have tighter crossings and guarded landings: 60 active hazard placements versus 24. All 21 dart shooters face cheese through verified clear firing lines. Existing rules, one checkpoint per stage and unlocks stay intact. [Design and focused checks](docs/TILE_HARDNESS.md). The approximate 2½× target still needs human calibration.
