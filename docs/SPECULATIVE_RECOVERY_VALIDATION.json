@@ -1,0 +1,33 @@
+{
+  "branch": "speculative/hopan-recovery-two-pass",
+  "base": "b36f338",
+  "pass_one_commit": "15400a5",
+  "pass_one_recovery_checks": 17,
+  "final_recovery_checks": 34,
+  "level_set_menu_checks": 25,
+  "failures": 0,
+  "build": "Godot 4.7.2 debug Web export passed",
+  "preserved_v26_files": 57,
+  "preservation": "all bundled maps, audio and root WASM adapter byte-identical to base",
+  "live_site": "v26 unchanged; no deployment or merge",
+  "limits": [
+    "UI proposals need human usability validation",
+    "Chromium touch emulation is not physical iPhone/Safari testing",
+    "Tiny recovery fixture, not a full campaign regression run",
+    "Phone landscape Pause can require scrolling"
+  ],
+  "browser": {
+    "checks": [
+      "desktop: normal input claims a fragment checkpoint; Pause offers checkpoint retry",
+      "desktop: restart confirmation keeps hazards paused; R does not discard the flag; cancellation returns to Pause",
+      "desktop: actual water death presents checkpoint retry; retry preserves the saved fragment",
+      "desktop: confirmed full restart resets flag and pickup state while retaining playtest mode",
+      "touch-landscape: normal input claims a fragment checkpoint; Pause offers checkpoint retry",
+      "touch-landscape: restart confirmation keeps hazards paused; R does not discard the flag; cancellation returns to Pause",
+      "touch-landscape: actual water death presents checkpoint retry; retry preserves the saved fragment",
+      "touch-landscape: confirmed full restart resets flag and pickup state while retaining playtest mode"
+    ],
+    "errors": [],
+    "scope": "Local debug Web; Chromium desktop and Android-UA touch landscape emulation. Physical devices/Safari unverified. No live Site publication."
+  }
+}

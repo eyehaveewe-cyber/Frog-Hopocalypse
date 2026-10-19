@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "desktop: normal input claims a fragment checkpoint; Pause offers checkpoint retry",
+    "desktop: restart confirmation keeps hazards paused; R does not discard the flag; cancellation returns to Pause",
+    "desktop: actual water death presents checkpoint retry; retry preserves the saved fragment",
+    "desktop: confirmed full restart resets flag and pickup state while retaining playtest mode",
+    "touch-landscape: normal input claims a fragment checkpoint; Pause offers checkpoint retry",
+    "touch-landscape: restart confirmation keeps hazards paused; R does not discard the flag; cancellation returns to Pause",
+    "touch-landscape: actual water death presents checkpoint retry; retry preserves the saved fragment",
+    "touch-landscape: confirmed full restart resets flag and pickup state while retaining playtest mode"
+  ],
+  "errors": [],
+  "scope": "Local debug Web; Chromium desktop and Android-UA touch landscape emulation. Physical devices/Safari unverified. No live Site publication."
+}

@@ -1,3 +1,18 @@
+2026-10-19 — Speculative recovery pass two (repository only)
+
+1. Pause now explains the same checkpoint/resource recovery and offers retry.
+   After a flag, a separate full-restart choice resets the active map attempt
+   while preserving set progress and playtest/campaign context. Cancel/Escape
+   retain the flag; R cannot bypass the choice. No duplicate action before a flag.
+2. Fixed Pause header text after paused retry, and clarified pass one's initial
+   fragment wording. Keyboard button navigation remains available. Pause hides the touch joystick
+   so it cannot cover the recovery text.
+3. 34 focused recovery and 25 level-set menu checks pass; debug Web export builds.
+   Full browser details/previews: docs/SPECULATIVE_RECOVERY.md. Physical iPhone,
+   Safari and human wording preference remain unverified. No publish or merge.
+4. Pass one: 15400a5. Base: b36f338. Maps/audio/hosting adapters/RiverSim unchanged;
+   version 26 difficulty and all 21 dart alignments preserved.
+
 2026-10-19 — Speculative recovery pass one (repository only)
 
 1. Death screen names retry destination and restored long-hop resource. Later

@@ -105,6 +105,7 @@ var campaign_level := false
 var checkpoint_spawn: Array = []
 var checkpoint_history: Array = []
 var hat_button: Button
+var restart_confirmation_open := false
 var paused := false
 var ui_busy := false
 var last_view_size := Vector2.ZERO
@@ -526,6 +527,7 @@ func configure_splash_layout() -> void:
 	overlay_panel.custom_minimum_size.x = minf(500 if splash_menu else 560, viewport_size.x - edge * 2)
 
 func reset_overlay(title: String, subtitle: String = "") -> void:
+	restart_confirmation_open = false
 	rule_notice_open = false
 	splash_menu = false
 	splash_art.hide()
@@ -784,6 +786,7 @@ func load_builtin(index: int, set_key: String = "baby") -> bool:
 	return true
 
 func start_play(from_editor: bool = true) -> void:
+	restart_confirmation_open = false
 	pending_result = ""
 	commit_name()
 	var error := Data.validate(level)
@@ -866,10 +869,12 @@ func retry_description() -> String:
 	if saved.get("reserve", false):
 		return text + "\nLong hop: saved reserve restored."
 	if rule == "fragments":
-		return text + "\nLong hop: %d / 3 fragments restored." % int(saved.get("fragments", 0))
+		return text + "\nLong hop: %d / 3 fragments%s." % [int(saved.get("fragments", 0)), " restored" if not checkpoint_spawn.is_empty() else ""]
 	return text + "\nLong hop: collect a Hop seed."
 
 func retry() -> void:
+	restart_confirmation_open = false
+	pause_button.text = "Pause"
 	pending_result = ""
 	paused = false
 	overlay.hide()
@@ -970,13 +975,32 @@ func toggle_pause() -> void:
 	world.halted = paused
 	reset_touch()
 	if paused:
-		reset_overlay("Taking a breather.", "The maze will wait. So will the critters.")
-		button(overlay_box, "Resume", toggle_pause, true)
-		button(overlay_box, "Menu", show_menu)
+		show_pause_overlay()
 	else:
 		overlay.hide()
 		joystick.visible = DisplayServer.is_touchscreen_available()
 	pause_button.text = "Resume" if paused else "Pause"
+
+func show_pause_overlay() -> void:
+	joystick.hide()
+	reset_overlay("Taking a breather.", "The maze will wait. So will the critters.")
+	button(overlay_box, "Resume", toggle_pause, true)
+	paragraph(overlay_box, retry_description())
+	button(overlay_box, retry_action_text(), retry)
+	if not checkpoint_spawn.is_empty():
+		button(overlay_box, "Restart level…", confirm_level_restart)
+	button(overlay_box, "Menu", show_menu)
+
+func confirm_level_restart() -> void:
+	reset_overlay("Restart this level?", "Resets this level's checkpoint and pickups. Hazards restart. Campaign progress is kept.")
+	restart_confirmation_open = true
+	button(overlay_box, "Keep checkpoint", show_pause_overlay, true)
+	button(overlay_box, "Restart from beginning", restart_current_level)
+
+func restart_current_level() -> void:
+	if not restart_confirmation_open:
+		return
+	start_play(mode == "test")
 
 func toggle_map() -> void:
 	if mode not in ["play", "test"] or overlay.visible or not world.result.is_empty():
@@ -1956,6 +1980,13 @@ func _input(event: InputEvent) -> void:
 	if not is_instance_valid(world):
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
+		if restart_confirmation_open:
+			if event.keycode == KEY_ESCAPE:
+				show_pause_overlay()
+				get_viewport().set_input_as_handled()
+			elif event.keycode == KEY_R:
+				get_viewport().set_input_as_handled()
+			return
 		if rule_notice_open:
 			if event.keycode in [KEY_ESCAPE, KEY_ENTER, KEY_SPACE]:
 				close_level_rules()

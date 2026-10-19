@@ -9,7 +9,9 @@ Branch `speculative/hopan-recovery-two-pass` starts from the published v26 sourc
 chain (`b36f338`). These proposals are committed for testing; the live website
 still runs v26. **Pass one:** death screens name the retry destination and show
 the long-hop state that will actually be restored. Checkpoint retries confirm
-the return in the status line. [Progress and checks](docs/SPECULATIVE_RECOVERY.md).
+the return in the status line. **Pass two:** Pause offers the same recovery
+summary and checkpoint retry, plus a confirmed full-level restart that preserves
+campaign progress. Cancel/Escape keep the checkpoint. [Progress and checks](docs/SPECULATIVE_RECOVERY.md).
 
 ## Harder Tile Hop tour
 
