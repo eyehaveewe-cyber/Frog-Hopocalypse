@@ -1,0 +1,55 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Authored large demo has valid schema and a structurally achievable route: res://levels/tile_hop/big_hop_boulevard.json
+PASS: Authored large demo has valid schema and a structurally achievable route: res://levels/tile_hop/your_move_crossing.json
+PASS: Authored large demo has valid schema and a structurally achievable route: res://levels/bonus/your_move_hopan.json
+PASS: Fresh profile cannot bypass the Not as Hard as It Looks unlock
+PASS: Baby Mode completion alone does not unlock Tile Hop
+PASS: Fourth Not as Hard as It Looks clear offers the newly unlocked Tile Hop mode
+PASS: All four Not as Hard as It Looks stages unlock the separate tile set
+PASS: Tile mode builds the larger frog and grid simulation
+PASS: Tile play exposes Long hop and keeps Editor hidden
+PASS: Tile long hop starts ready
+PASS: Touch selection is visibly armed
+PASS: Accepted hop clears arming and displays hopping
+PASS: Indicator returns ready after landing
+PASS: Blocked-input recovery displays wait
+PASS: Ready matches the queued input acceptance threshold
+PASS: Map inspection cannot imply a hop is available
+PASS: Move with me has no simulation time while idle
+PASS: Single cardinal hop is accepted
+PASS: One hop lands exactly at the next tile center
+PASS: One accepted hop advances one hazard beat
+PASS: Long hop cannot pass through a wall or advance a blocked turn
+PASS: Cheese walls also block a long hop
+PASS: Long hop can clear a non-wall obstacle in the middle tile
+PASS: Long hop has a visibly raised airborne phase
+PASS: Two-tile hop lands safely beyond the obstacle
+PASS: Airborne long hop clears a middle-tile enemy
+PASS: Airborne long hop clears a middle-tile projectile
+PASS: Short hop stays vulnerable to the projectile
+PASS: A long hop clears a one-tile water gap
+PASS: Landing on unsupported water still drowns the frog
+PASS: Tile enemies remain frozen until a hop in Move with me
+PASS: Enemy beat moves exactly one cardinal tile, without a diagonal
+PASS: Tile traffic advances one whole road tile per beat
+PASS: Logs advance one whole water tile per beat
+PASS: North-south patrol cars use the same tile beat
+PASS: Darts emit from a cardinal tile and advance one cell in the beat
+PASS: Idle Move with me freezes cars, logs, projectiles and projectile lifetime
+PASS: Landing on a moving log stays on the exact tile center without double carry
+PASS: Regular tile mode continues ticking hazards while the frog rests
+PASS: Regular Hopán can freeze hazards while idle without grid movement
+PASS: Actual regular Hopán movement advances enemies and time
+PASS: Releasing regular movement freezes the world again
+PASS: Editor demo picker loads ordinary tile mode without changing the original maps
+PASS: Movement/editor settings round-trip in portable JSON
+PASS: Large demo uses spatial rendering chunks and a draw range shorter than its length
+PASS: Overhead map restores full distance and visibility
+PASS: Tile progress persists separately from Baby Mode
+PASS: Converted tile maps retain the legacy bank-checkpoint behavior
+PASS: Editor converts legacy off-center objects onto their owned grid tile
+PASS: Undo restores the original mode and off-center authoring data
+PASS: A short queued input remains a two-tile hop even when released before the next physics frame
+PASS: Holding regular movement against a wall stops the linked world after physical contact
+TILE MODE: 52 checks, 0 failures

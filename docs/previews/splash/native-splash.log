@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Main menu displays the illustrated splash
+PASS: Raster art cannot intercept menu input
+PASS: Both title lines are editable real UI labels
+PASS: Existing play and editor actions remain real buttons
+PASS: Menu buttons retain keyboard focus support
+PASS: Gameplay overlays restore the standard shaded presentation
+PASS: Portrait uses a separately composed illustration
+PASS: Portrait panel fits phone width
+PASS: Touch landscape uses art with the frog left of the menu
+PASS: Landscape removes portrait spacing on rotation
+PASS: Desktop returns to the wide composition
+PASS: Editor remains accessible from the splash
+PASS: Menu preserves continue-editing action
+PASS: Continue editing dismisses the splash
+SPLASH UI: 14 checks, 0 failures

@@ -1,0 +1,29 @@
+{
+  "checks": [
+    "Desktop: Tab/Shift+Tab then Enter starts Baby Mode",
+    "desktop: editor action works after scrolling when needed",
+    "Tile mode: READY \u2192 touch-button ARMED \u2192 real hop \u2192 READY; Map shows PAUSED",
+    "portrait: splash plays Baby Mode through its real button",
+    "portrait: editor action works after scrolling when needed",
+    "landscape: splash plays Baby Mode through its real button",
+    "landscape: editor action works after scrolling when needed"
+  ],
+  "errors": [],
+  "scope": "Local debug Web export, desktop Chromium with Android-UA touch emulation; no physical device or Safari test, no deployment",
+  "nativeSplashChecks": 14,
+  "tileModeChecks": 52,
+  "artReproducible": true,
+  "openRasterCompositesVerified": 3,
+  "builds": [
+    "Web release",
+    "Windows release",
+    "Web debug"
+  ],
+  "preexistingTestFailure": {
+    "suite": "integration",
+    "passed": 74,
+    "failed": 1,
+    "assertion": "Exit sweep returns to the frog before releasing play",
+    "reason": "presentation.gd expects the old -2.5 camera offset; current world.gd uses -2.0. Both statements already exist at dbd7354. Camera code unchanged."
+  }
+}

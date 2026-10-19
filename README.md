@@ -23,6 +23,25 @@ The browser entry point is `build/web/index.html`. Serve the **whole directory**
 
 `tools/bootstrap.py` downloads the pinned Linux editor and export templates from the official Godot release and verifies pinned SHA-512 hashes. Tools and caches live outside the checkout under `/workspace`. Set `HOPAN_TOOL_DIR` and `XDG_DATA_HOME` to relocate them. Desktop developers can install the official editor/templates normally instead.
 
+## Splash-screen review branch
+
+The static, manually drawn splash uses the existing frog and pharaoh hat, with
+**Pharaoh Frog** above a larger **Hopán**. Real menu buttons sit over the artwork.
+Separate desktop, touch-landscape and portrait compositions preserve the hero;
+all existing play, settings, editor and continuation actions remain available.
+[Art source and editable layers](art-source/splash/README.md) ·
+[Desktop preview](docs/previews/splash/desktop.png) ·
+[Phone portrait](docs/previews/splash/portrait.png) ·
+[Phone landscape](docs/previews/splash/landscape.png).
+
+Run focused UI checks with `bash tools/godot.sh --headless --fixed-fps 60 --script res://tests/splash_ui.gd`.
+Browser evidence uses `tools/splash_smoke.cjs` against the debug export on port
+8060; it requires local Playwright and Chromium. There are 14 passing splash
+checks, 52 tile-mode checks, and seven browser checks. Web and Windows build.
+One pre-existing broader presentation assertion still expects the old camera
+return offset (-2.5 rather than -2.0); no camera or level code changed in this pass.
+No merge or website deployment is authorized for this splash branch.
+
 ## Implemented
 
 - Tile-mode **Long hop** shows READY / ARMED / HOPPING / WAIT / PAUSED inside its existing touch target. READY follows the same recovery gate as queued directional input; selecting the button still arms a future hop.

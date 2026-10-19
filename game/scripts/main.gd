@@ -29,6 +29,13 @@ var view_container: SubViewportContainer
 var sidebar: PanelContainer
 var overlay: Control
 var overlay_panel: PanelContainer
+var overlay_layout: MarginContainer
+var overlay_shade: ColorRect
+var splash_art: TextureRect
+var splash_menu = false
+const SPLASH_WIDE = preload("res://art/splash/hopan-wide.png")
+const SPLASH_COMPACT = preload("res://art/splash/hopan-compact.png")
+const SPLASH_PORTRAIT = preload("res://art/splash/hopan-portrait.png")
 var overlay_box: VBoxContainer
 var status_label: Label
 var time_label: Label
@@ -386,7 +393,17 @@ func build_ui() -> void:
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(overlay)
+	splash_art = TextureRect.new()
+	splash_art.texture = SPLASH_WIDE
+	splash_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	splash_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	splash_art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	splash_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	splash_art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	splash_art.hide()
+	overlay.add_child(splash_art)
 	var shade := ColorRect.new()
+	overlay_shade = shade
 	shade.color = Color(0.025, 0.07, 0.055, 0.82)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -395,13 +412,16 @@ func build_ui() -> void:
 	overlay_scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	overlay.add_child(overlay_scroll)
-	var align := CenterContainer.new()
+	var align := MarginContainer.new()
+	overlay_layout = align
 	align.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	align.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	overlay_scroll.add_child(align)
 	overlay_panel = PanelContainer.new()
 	overlay_panel.custom_minimum_size.x = minf(560, get_window().content_scale_size.x - 24) if mobile_ui else 560
 	overlay_panel.add_theme_stylebox_override("panel", panel_style(Color("193a2e"), 16))
+	overlay_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	overlay_panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	align.add_child(overlay_panel)
 	overlay_box = VBoxContainer.new()
 	overlay_box.add_theme_constant_override("separation", 8 if mobile_ui else 14)
@@ -432,14 +452,33 @@ func build_joystick() -> void:
 	hint.position = Vector2(50, 145)
 	joystick.add_child(hint)
 
+func configure_splash_layout() -> void:
+	if not is_instance_valid(splash_art):
+		return
+	var viewport_size := get_window().content_scale_size
+	var portrait := viewport_size.y > viewport_size.x
+	splash_art.texture = SPLASH_PORTRAIT if portrait else (SPLASH_COMPACT if mobile_ui else SPLASH_WIDE)
+	var edge := 12 if mobile_ui else 32
+	for side in ["left", "right", "bottom"]:
+		overlay_layout.add_theme_constant_override("margin_" + side, edge if splash_menu else 0)
+	overlay_layout.add_theme_constant_override("margin_top", int(viewport_size.y * 0.47) if splash_menu and portrait else (edge if splash_menu else 0))
+	overlay_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER if not splash_menu or portrait else Control.SIZE_SHRINK_END
+	overlay_panel.custom_minimum_size.x = minf(500 if splash_menu else 560, viewport_size.x - edge * 2)
+
 func reset_overlay(title: String, subtitle: String = "") -> void:
+	splash_menu = false
+	splash_art.hide()
+	overlay_shade.color = Color(0.025, 0.07, 0.055, 0.82)
+	overlay_panel.add_theme_stylebox_override("panel", panel_style(Color("193a2e"), 16))
+	configure_splash_layout()
 	for child in overlay_box.get_children():
 		overlay_box.remove_child(child)
 		child.queue_free()
-	overlay_box.add_child(label("H O P O C A L Y P S E", 12, LIME))
-	var heading := label(title, 26 if mobile_ui else 36)
-	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	overlay_box.add_child(heading)
+	if not title.is_empty():
+		overlay_box.add_child(label("H O P O C A L Y P S E", 12, LIME))
+		var heading := label(title, 26 if mobile_ui else 36)
+		heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		overlay_box.add_child(heading)
 	if not subtitle.is_empty():
 		paragraph(overlay_box, subtitle)
 	overlay.show()
@@ -450,7 +489,19 @@ func show_menu() -> void:
 	voice.clear()
 	world.halted = true
 	edit_button.hide()
-	reset_overlay("Pharaoh Frog Hopán")
+	reset_overlay("")
+	splash_menu = true
+	splash_art.show()
+	overlay_shade.color = Color(0, 0, 0, 0)
+	var menu_style := panel_style(Color(0.035, 0.10, 0.12, 0.93), 12)
+	menu_style.border_color = Color(0.72, 0.70, 0.43, 0.35)
+	overlay_panel.add_theme_stylebox_override("panel", menu_style)
+	configure_splash_layout()
+	overlay_box.add_child(label("P H A R A O H   F R O G", 14, Color("e1c786")))
+	var title := label("Hopán", 54 if mobile_ui else 72, Color("f2dc9b"))
+	title.add_theme_color_override("font_shadow_color", Color("142f34"))
+	title.add_theme_constant_override("shadow_offset_y", 3)
+	overlay_box.add_child(title)
 	overlay_box.add_child(label("Level sets", 16, MUTED))
 	add_set_selector("baby", "Difficulty 1")
 	if human_set_unlocked():
@@ -494,7 +545,23 @@ func show_menu() -> void:
 			edit_button.visible = mode == "edit"
 			joystick.visible = mobile_ui and mode in ["play", "test"])
 	paragraph(overlay_box, "WASD / arrows · touch joystick on mobile\nM: overhead map   R: retry   Esc: pause", 12)
+	# Keep keyboard traversal within the visible splash actions, rather than
+	# tabbing to the obscured gameplay header or editor controls underneath.
+	var controls := overlay_box.find_children("*", "BaseButton", true, false)
+	for i in range(controls.size()):
+		controls[i].focus_next = controls[i].get_path_to(controls[(i + 1) % controls.size()])
+		controls[i].focus_previous = controls[i].get_path_to(controls[(i - 1 + controls.size()) % controls.size()])
+	if not controls.is_empty():
+		call_deferred("focus_splash_action")
 	joystick.hide()
+
+func focus_splash_action() -> void:
+	# A menu can be replaced before the deferred layout pass completes.
+	if not splash_menu or not overlay.visible or not is_inside_tree():
+		return
+	var controls := overlay_box.find_children("*", "BaseButton", true, false)
+	if not controls.is_empty() and controls[0].is_visible_in_tree():
+		controls[0].grab_focus()
 
 func set_sound_enabled(enabled: bool) -> void:
 	sound_enabled = enabled
@@ -1556,6 +1623,7 @@ func _process(delta: float) -> void:
 		last_render_size = view.size
 		configure_view()
 		world.fit_camera()
+		configure_splash_layout()
 	update_result_presentation()
 	update_announcements(delta)
 	level_banner.visible = mode in ["play", "test"] and not world.map_view and not overlay.visible
@@ -1602,7 +1670,7 @@ func resize_mobile_ui() -> void:
 	if desired.x > 0 and desired.y > 0 and get_window().content_scale_size != desired:
 		get_window().content_scale_size = desired
 		if is_instance_valid(overlay_panel):
-			overlay_panel.custom_minimum_size.x = minf(560, desired.x - 24)
+			configure_splash_layout()
 
 func publish_browser_probe() -> void:
 	# Read-only diagnostics in explicitly requested debug exports. Browser tests
@@ -1632,7 +1700,7 @@ func publish_browser_probe() -> void:
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"splash_menu": splash_menu, "splash_portrait": splash_art.texture == SPLASH_PORTRAIT, "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:

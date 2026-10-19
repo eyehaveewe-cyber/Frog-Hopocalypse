@@ -1,3 +1,31 @@
+2026-10-19 — Manually illustrated splash screen (review branch; not deployed)
+
+1. Added a static, original pixel illustration of the recognizable green frog
+   and gold/teal pharaoh hat beside moonlit water and a fictional sanctuary.
+   Desktop, touch-landscape and portrait compositions leave room for the menu.
+   No generated images or decorative animation. The title remains editable UI:
+   Pharaoh Frog smaller, Hopán dominant, without renaming the project.
+2. Existing real level-set buttons, expanders, settings, editor, saved-level
+   picker, skin and continue actions remain in the scrollable overlay. Other
+   overlays restore their normal centered shaded presentation. Art ignores input.
+   Keyboard focus starts on the first action and cycles within the menu.
+3. Editable drawing source, 18 transparent PNG layers and three OpenRaster
+   projects are included. All 21 source/export PNGs reproduce byte-identically;
+   OpenRaster merged composites match the game exports. Source details and
+   previews: art-source/splash/README.md and docs/previews/splash/.
+4. 14 focused splash/UI checks, 52 tile checks, seven desktop/touch browser
+   checks pass. Web release/debug and Windows release exports build. Existing
+   integration suite has 74 passes and one pre-existing camera assertion failure:
+   presentation.gd expects -2.5, while world.gd already uses -2.0 at dbd7354.
+   No camera, level, enemy, audio or unlock changes in this splash commit.
+   Browser screenshots were inspected; phone tests emulate touch in Chromium.
+   Physical devices/Safari, assistive technologies and desktop art-editor import
+   remain unverified. Screenwright/Motionwright skill guidance was unavailable.
+5. Branch feature/illustrated-splash includes preceding long-hop indicator commit
+   0f17d6c (also isolated on feature/long-hop-ready). Both are source changes only.
+   Latest explicit request forbids deployment. Public v22 remains untouched.
+   Review/revert this branch normally; no live-site rollback is needed.
+
 2026-10-19 — Tile-mode long-hop readiness (source prepared; not deployed)
 
 1. The existing Long hop button shows READY, ARMED, HOPPING, WAIT or PAUSED
