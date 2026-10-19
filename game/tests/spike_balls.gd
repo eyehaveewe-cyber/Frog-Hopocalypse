@@ -5,6 +5,7 @@ var suite=Suite.new()
 var app: Control
 func _initialize() -> void:
  app=preload("res://main.tscn").instantiate()
+ app.rule_notices_enabled=false
  root.add_child(app)
  call_deferred("run")
 func fresh(linked: bool=true) -> void:

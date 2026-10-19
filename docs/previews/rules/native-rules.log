@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Unseen per-level rules pause before play
+PASS: Rule reading advances neither hazards nor game clock
+PASS: Only the rules active on this level are introduced
+PASS: Acknowledging rules resumes and remembers them
+PASS: Seen rules survive profile reload
+PASS: Known rules do not interrupt another start
+PASS: Rules can be reopened at any time
+PASS: Repeated rule-open input cannot leave the world stuck on pause
+PASS: Charged levels start with a full reserve
+PASS: A charged long hop is accepted
+PASS: Long hop consumes the reserve without counting itself toward recharge
+PASS: An empty long hop cannot move or advance the linked beat
+PASS: HUD names the remaining hops and prevents empty touch arming
+PASS: Idle time never recharges
+PASS: Nine completed ordinary hops leave one remaining
+PASS: Taking off does not count as a completed ordinary hop
+PASS: The tenth landing restores the reserve
+PASS: A wall-blocked long hop never spends charge
+PASS: Checkpoint retry restores charge and the checkpoint position
+PASS: Retry does not repeat the rule introduction
+PASS: Changing to a new rule only introduces that changed rule
+PASS: Free long-hop levels retain unlimited long hops
+PASS: Editor can assign charged hops per level
+PASS: Editor spinner saves the per-level recharge count
+PASS: Recharge-count edits participate in Undo
+PASS: Rule edits participate in Undo
+PASS: Portable JSON preserves per-level rules
+PASS: Fractional recharge values are rejected
+PASS: Unsupported rules cannot silently load
+PASS: Malformed rules are rejected before gameplay
+PASS: Regular Hopán does not apply a tile-only charge rule
+PASS: A changed recharge amount has its own first-seen notice
+PASS: Reopening rules from the map preserves map pause on return
+PASS: Charge Trial completes through two water gates with exactly ten recharge hops between
+PASS: Charge Trial reaches its refuge checkpoint
+LEVEL RULES: 35 checks, 0 failures

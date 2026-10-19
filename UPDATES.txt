@@ -1,3 +1,31 @@
+2026-10-19 — Per-level variety rules and first-seen notices (not deployed)
+
+1. User direction: rules belong to each level, rather than a global charge mode.
+   Editor controls choose free/charged tile hops and 1–25 completed short hops
+   per recharge (default 10). Move with me remains composable in either mode.
+   Existing campaign layouts, rules, unlocks, audio and enemy behavior remain.
+2. Unseen rules pause stage entry until dismissed; acknowledged rule identities
+   persist in native/browser profiles. A translucent Rules control / F1 reopens
+   the active set. Retry does not repeat notices; map/pause state survives return.
+3. Original editable sharp/dripping display font handles short headings; body copy
+   stays plain and readable. Static presentation, no timed reading or flashing.
+   Copy example: "10 short hops recharge one long hop. Start charged."
+4. Charge Trial in editor Movement demos demonstrates two water gates with ten
+   recharge hops between. Empty touch arming is disabled; the HUD counts down.
+   Long-hop takeoff spends charge, ordinary landing recharges, rejected/idle
+   inputs do not, and checkpoint retry starts full. Rules support Undo and JSON.
+5. 35 rule, 52 tile and 23 editor/recovery checks pass. Five prior controller
+   routes still complete. Six desktop/touch browser checks pass without errors,
+   including real keyboard trial completion and first-seen persistence on reload.
+   Web release/debug and Windows release build. Previews inspected; physical
+   phones, Safari, assistive technologies and novice comprehension unverified.
+   Structural path validation does not model charge; authored maps need playtest.
+6. Branch feature/per-level-rules, based on unpublished splash source 491ad955.
+   No merge/deployment; existing public v22 remains untouched. Revert this
+   feature commit for source rollback. Preserve charged custom-map exports:
+   v22 ignores the new rules field and would play them with free long hops.
+   Full rules, editable font source and evidence: docs/LEVEL_RULES.md.
+
 2026-10-19 — Manually illustrated splash screen (review branch; not deployed)
 
 1. Added a static, original pixel illustration of the recognizable green frog

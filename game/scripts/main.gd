@@ -33,6 +33,17 @@ var overlay_layout: MarginContainer
 var overlay_shade: ColorRect
 var splash_art: TextureRect
 var splash_menu = false
+const LevelRules = preload("res://scripts/level_rules.gd")
+const RULE_INK = preload("res://art/rules/hopan-rule-ink.ttf")
+const CHARGE_DEMO = "res://levels/tile_hop/charge_trial.json"
+var rule_button: Button
+var hop_rule_picker: OptionButton
+var hop_charge_picker: SpinBox
+var seen_rule_ids: Array = []
+var pending_rule_ids: Array = []
+var rule_notice_open = false
+var rule_previous_halt = false
+var rule_notices_enabled = true
 const SPLASH_WIDE = preload("res://art/splash/hopan-wide.png")
 const SPLASH_COMPACT = preload("res://art/splash/hopan-compact.png")
 const SPLASH_PORTRAIT = preload("res://art/splash/hopan-portrait.png")
@@ -236,7 +247,9 @@ func build_ui() -> void:
 	hat_button.tooltip_text = str(HAT_NAMES[hat]) + " · Cycle unlocked hats"
 	map_button = button(top, "Map", toggle_map)
 	map_button.tooltip_text = "M: inspect the overhead map; the world pauses"
-	long_hop_button = button(top, "Long hop", func(): pass)
+	long_hop_button = button(top, "Long hop", func():
+		if world.tile_rules != null and not world.tile_rules.long_hop_ready():
+			long_hop_button.set_pressed_no_signal(false))
 	long_hop_button.add_theme_font_size_override("font_size",13)
 	long_hop_button.toggle_mode = true
 	long_hop_button.tooltip_text = "Next hop covers two tiles. Hold Shift with a direction on keyboard."
@@ -304,6 +317,21 @@ func build_ui() -> void:
 	movement_toggle.tooltip_text = "Hazards advance only with your movement. Works in both modes."
 	movement_toggle.toggled.connect(func(value: bool): set_level_rule("move_with_me",value))
 	tools.add_child(movement_toggle)
+	tools.add_child(label("Level rules", 13, LIME))
+	hop_rule_picker = OptionButton.new()
+	hop_rule_picker.add_item("Free long hops")
+	hop_rule_picker.add_item("Charged long hops")
+	hop_rule_picker.item_selected.connect(func(index: int): change_hop_rule("long_hop", "charged" if index == 1 else "free"))
+	tools.add_child(hop_rule_picker)
+	hop_charge_picker = SpinBox.new()
+	hop_charge_picker.min_value = 1
+	hop_charge_picker.max_value = 25
+	hop_charge_picker.step = 1
+	hop_charge_picker.value = 10
+	hop_charge_picker.suffix = "short hops to recharge"
+	hop_charge_picker.value_changed.connect(func(value: float): change_hop_rule("charge_hops", int(value)))
+	tools.add_child(hop_charge_picker)
+
 	draw_distance_picker = SpinBox.new()
 	draw_distance_picker.min_value = 10
 	draw_distance_picker.max_value = 30
@@ -427,6 +455,14 @@ func build_ui() -> void:
 	overlay_box.add_theme_constant_override("separation", 8 if mobile_ui else 14)
 	margin(overlay_panel, 16 if mobile_ui else 28).add_child(overlay_box)
 	build_joystick()
+	rule_button = button(self, "Rules", func(): show_level_rules(false))
+	rule_button.custom_minimum_size = Vector2(72, 44)
+	rule_button.tooltip_text = "Level rules · F1"
+	for state in ["normal", "hover", "pressed", "focus"]:
+		var rule_style := panel_style(Color(0.03, 0.10, 0.09, 0.42 if state == "normal" else 0.9), 4)
+		rule_style.border_color = Color(0.85, 0.95, 0.7, 0.7)
+		rule_button.add_theme_stylebox_override(state, rule_style)
+	rule_button.hide()
 	refresh_library_picker()
 	set_tool("floor")
 
@@ -466,6 +502,7 @@ func configure_splash_layout() -> void:
 	overlay_panel.custom_minimum_size.x = minf(500 if splash_menu else 560, viewport_size.x - edge * 2)
 
 func reset_overlay(title: String, subtitle: String = "") -> void:
+	rule_notice_open = false
 	splash_menu = false
 	splash_art.hide()
 	overlay_shade.color = Color(0.025, 0.07, 0.055, 0.82)
@@ -575,6 +612,61 @@ func set_sound_enabled(enabled: bool) -> void:
 func tile_mode_unlocked() -> bool:
 	return completed_human_stages.size() == HUMAN_LEVELS.size()
 
+func change_hop_rule(key: String, value: Variant) -> void:
+	if ui_busy or level.is_empty(): return
+	var rules: Dictionary = level.get("rules", {}).duplicate(true)
+	if rules.get(key, "free" if key == "long_hop" else 10) == value: return
+	rules[key] = value
+	set_level_rule("rules", rules)
+
+func show_level_rules(only_new: bool = false) -> void:
+	if rule_notice_open or mode not in ["play", "test"] or not world.result.is_empty(): return
+	var cards := LevelRules.cards(level)
+	if only_new:
+		cards = cards.filter(func(card): return card.id not in seen_rule_ids)
+		if cards.is_empty(): return
+	rule_previous_halt = world.halted
+	reset_overlay("")
+	rule_notice_open = true
+	rule_button.hide()
+	pending_rule_ids.clear()
+	world.halted = true
+	world.input_vector = Vector2.ZERO
+	if world.tile_rules != null:
+		world.tile_rules.queued_direction = Vector2i.ZERO
+	long_hop_button.set_pressed_no_signal(false)
+	paragraph(overlay_box, str(level.name), 13)
+	var heading := label("NEW RULES" if only_new else "LEVEL RULES", 30 if mobile_ui else 38, LIME)
+	heading.add_theme_font_override("font", RULE_INK)
+	overlay_box.add_child(heading)
+	for card in cards:
+		pending_rule_ids.append(card.id)
+		var title := label(card.title, 23 if mobile_ui else 28, Color("f0cf87"))
+		title.add_theme_font_override("font", RULE_INK)
+		title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		overlay_box.add_child(title)
+		paragraph(overlay_box, card.body, 15)
+	if cards.is_empty():
+		paragraph(overlay_box, "Move freely. Reach the exit. Avoid the hazards.", 15)
+	var close_button := button(overlay_box, "Play" if only_new else "Back", close_level_rules, true)
+	close_button.grab_focus()
+	close_button.focus_next = close_button.get_path_to(close_button)
+	close_button.focus_previous = close_button.get_path_to(close_button)
+	joystick.hide()
+
+func close_level_rules() -> void:
+	if not rule_notice_open: return
+	for id in pending_rule_ids:
+		if id not in seen_rule_ids: seen_rule_ids.append(id)
+	pending_rule_ids.clear()
+	rule_notice_open = false
+	overlay.hide()
+	world.halted = rule_previous_halt
+	reset_touch()
+	rule_button.release_focus()
+	joystick.visible = mobile_ui and not paused and not world.map_view
+	save_profile()
+
 func set_level_rule(key: String, value: Variant) -> void:
 	if ui_busy or level.is_empty(): return
 	record_undo()
@@ -593,14 +685,14 @@ func set_level_rule(key: String, value: Variant) -> void:
 
 func show_movement_demos() -> void:
 	reset_overlay("Movement demos", "Load into the editor. Undo restores your previous map.")
-	var titles := ["Big Hop Boulevard", "Your Move Crossing", "Your Move Garden"]
+	var titles := ["Big Hop Boulevard", "Your Move Crossing", "Your Move Garden", "Charge Trial · 10 hops"]
 	for i in range(titles.size()):
 		var index := i
 		button(overlay_box, titles[i], func(): open_movement_demo(index))
 	button(overlay_box,"Keep editing",func(): overlay.hide())
 
 func open_movement_demo(index: int) -> void:
-	var paths: Array = TILE_LEVELS + [MOVE_DEMO]
+	var paths: Array = TILE_LEVELS + [MOVE_DEMO, CHARGE_DEMO]
 	if index < 0 or index >= paths.size(): return
 	var demo := Data.load_json(paths[index])
 	if demo.is_empty():
@@ -687,6 +779,8 @@ func start_play(from_editor: bool = true) -> void:
 	if level.get("game_mode") == "tile":
 		status("Tile Hop · arrows / WASD: one tile · Shift or Long hop: two · Walls block both." + (" Move with me: stop to freeze hazards." if level.get("move_with_me",false) else ""))
 	start_announcements()
+	if rule_notices_enabled:
+		show_level_rules(true)
 
 func enter_editor() -> void:
 	begin_pending = false
@@ -697,6 +791,7 @@ func enter_editor() -> void:
 	checkpoint_history = []
 	mode = "edit"
 	long_hop_button.hide()
+	rule_button.hide()
 	paused = false
 	sidebar.show()
 	overlay.hide()
@@ -880,6 +975,7 @@ func unlock_baby_hat() -> void:
 
 func save_profile() -> void:
 	var profile := ConfigFile.new()
+	profile.set_value("rules", "seen", seen_rule_ids)
 	profile.set_value("settings", "exit_preview", exit_preview)
 	profile.set_value("settings", "recorded_voices", sound_enabled)
 	profile.set_value("hats", "baby_unlocked", "baby" in unlocked_hats)
@@ -895,7 +991,7 @@ func save_profile() -> void:
 	if OS.has_feature("web"):
 		# IndexedDB filesystem sync is asynchronous. Keep the small profile durable
 		# immediately as well, so a quick reload cannot restore an older hat/clear.
-		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "last_cleared": last_cleared_stages, "hat": hat, "skin": skin, "preview": exit_preview, "sound": sound_enabled})
+		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "last_cleared": last_cleared_stages, "hat": hat, "skin": skin, "preview": exit_preview, "sound": sound_enabled, "seen_rules": seen_rule_ids})
 		browser_saved = bool(JavaScriptBridge.eval("(function(){try{localStorage.setItem('hopan.profile.v1', " + JSON.stringify(payload) + ");return true;}catch(e){return false;}})()", true))
 	if not file_saved and not browser_saved:
 		status("Could not save progress on this device.")
@@ -907,6 +1003,7 @@ func load_profile() -> void:
 	completed_bonus_stages = []
 	completed_tile_stages = []
 	last_cleared_stages = {}
+	seen_rule_ids = []
 	hat = "pharaoh"
 	skin = "green"
 	var profile := ConfigFile.new()
@@ -928,6 +1025,7 @@ func load_profile() -> void:
 					profile.set_value("sets", "last_cleared", backup.last_cleared)
 				profile.set_value("hats", "equipped", backup.hat)
 				profile.set_value("skins", "equipped", backup.get("skin", "green"))
+				profile.set_value("rules", "seen", backup.get("seen_rules", []))
 				profile.set_value("settings", "exit_preview", backup.preview)
 				if backup.get("sound") is bool:
 					profile.set_value("settings", "recorded_voices", backup.sound)
@@ -970,6 +1068,11 @@ func load_profile() -> void:
 	hat = str(saved_hat) if saved_hat in unlocked_hats else "pharaoh"
 	var saved_skin: Variant = profile.get_value("skins", "equipped", "green")
 	skin = "purple" if saved_skin == "purple" and completed_stages.size() == BUILTINS.size() else "green"
+	var saved_rules: Variant = profile.get_value("rules", "seen", [])
+	if saved_rules is Array:
+		for value in saved_rules.slice(0, 64):
+			if value is String and value.length() <= 64 and value not in seen_rule_ids:
+				seen_rule_ids.append(value)
 	if browser_loaded:
 		save_profile()
 
@@ -983,6 +1086,10 @@ func sync_editor(refresh_selection: bool = true) -> void:
 	ui_busy = true
 	tile_mode_toggle.set_pressed_no_signal(level.get("game_mode", "hopan") == "tile")
 	movement_toggle.set_pressed_no_signal(level.get("move_with_me", false))
+	hop_rule_picker.select(1 if level.get("rules", {}).get("long_hop", "free") == "charged" else 0)
+	hop_rule_picker.disabled = level.get("game_mode", "hopan") != "tile"
+	hop_charge_picker.set_value_no_signal(LevelRules.charge_hops(level))
+	hop_charge_picker.editable = LevelRules.charged(level)
 	draw_distance_picker.set_value_no_signal(level.get("draw_distance",18))
 	name_field.text = level.name
 	theme_picker.select(0 if level.theme == "egypt" else 1)
@@ -1593,6 +1700,7 @@ func reset_touch() -> void:
 func update_long_hop_indicator() -> void:
 	if not long_hop_button.visible or world.tile_rules == null:
 		return
+	long_hop_button.disabled = not world.tile_rules.long_hop_ready()
 	var state := "READY"
 	if paused or world.halted or world.map_view:
 		state = "PAUSED"
@@ -1600,6 +1708,8 @@ func update_long_hop_indicator() -> void:
 		state = "WAIT"
 	elif world.tile_rules.jumping:
 		state = "HOPPING"
+	elif not world.tile_rules.long_hop_ready():
+		state = "%d TO GO" % world.tile_rules.charge_remaining
 	elif not world.tile_rules.ready_for_input():
 		state = "WAIT"
 	elif long_hop_button.button_pressed or Input.is_physical_key_pressed(KEY_SHIFT):
@@ -1624,6 +1734,8 @@ func _process(delta: float) -> void:
 		configure_view()
 		world.fit_camera()
 		configure_splash_layout()
+	rule_button.visible = mode in ["play", "test"] and not overlay.visible and world.result.is_empty()
+	rule_button.position = view_container.global_position + Vector2(maxf(0, view_container.size.x - 86), 52)
 	update_result_presentation()
 	update_announcements(delta)
 	level_banner.visible = mode in ["play", "test"] and not world.map_view and not overlay.visible
@@ -1700,7 +1812,7 @@ func publish_browser_probe() -> void:
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"splash_menu": splash_menu, "splash_portrait": splash_art.texture == SPLASH_PORTRAIT, "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_portrait": splash_art.texture == SPLASH_PORTRAIT, "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:
@@ -1708,6 +1820,16 @@ func _input(event: InputEvent) -> void:
 		voice.unlock()
 	if not is_instance_valid(world):
 		return
+	if event is InputEventKey and event.pressed and not event.echo:
+		if rule_notice_open:
+			if event.keycode in [KEY_ESCAPE, KEY_ENTER, KEY_SPACE]:
+				close_level_rules()
+				get_viewport().set_input_as_handled()
+			return
+		if event.keycode == KEY_F1 and mode in ["play", "test"] and not overlay.visible:
+			show_level_rules(false)
+			get_viewport().set_input_as_handled()
+			return
 	if world.intro_active and event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
 		world.cancel_exit_preview()
 		get_viewport().set_input_as_handled()

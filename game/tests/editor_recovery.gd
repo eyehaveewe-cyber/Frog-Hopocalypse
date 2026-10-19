@@ -6,6 +6,7 @@ var app: Control
 func _initialize() -> void:
  root.size=Vector2i(1280,1000)
  app=preload("res://main.tscn").instantiate()
+ app.rule_notices_enabled=false
  root.add_child(app)
  call_deferred("run")
 func run() -> void:

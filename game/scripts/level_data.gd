@@ -36,6 +36,17 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 		return "Choose Hopán or Tile Hop mode."
 	if not d.get("move_with_me", false) is bool:
 		return "Move with me must be true or false."
+	var rules: Variant = d.get("rules", {})
+	if not rules is Dictionary:
+		return "Level rules must be an object."
+	for key in rules:
+		if key not in ["long_hop", "charge_hops"]:
+			return "Unknown level rule: " + str(key)
+	if rules.get("long_hop", "free") not in ["free", "charged"]:
+		return "Choose free or charged long hops."
+	var charge: Variant = rules.get("charge_hops", 10)
+	if not finite_number(charge) or charge != int(charge) or charge < 1 or charge > 25:
+		return "Long-hop recharge must be 1–25 whole hops."
 	if not finite_number(d.get("draw_distance",18)) or d.get("draw_distance",18) < 10 or d.get("draw_distance",18) > 30:
 		return "Draw distance must be between 10 and 30 tiles."
 	var w: int = int(d.width)

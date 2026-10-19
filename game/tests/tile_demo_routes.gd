@@ -5,6 +5,7 @@ var results: Array=[]
 var failed=false
 func _initialize() -> void:
  app=preload("res://main.tscn").instantiate()
+ app.rule_notices_enabled=false
  root.add_child(app)
  call_deferred("run")
 func ticks(seconds: float) -> void:

@@ -1,0 +1,22 @@
+{
+  "checks": [
+    "Desktop: first rule pauses safely; translucent Rules control reopens it",
+    "Real keyboard route completes both gates, HUD counts recharge and returns READY",
+    "Desktop: seen rules survive reload and do not repeat",
+    "Touch: first rule pauses safely; translucent Rules control reopens it",
+    "Touch can dismiss new charge rules and reopen the full active rule set",
+    "Touch: seen rules survive reload and do not repeat"
+  ],
+  "errors": [],
+  "deviceScope": "Desktop Chromium and Android-UA touch emulation; physical phones and Safari unverified",
+  "nativeRuleChecks": 35,
+  "tileRegressionChecks": 52,
+  "editorRegressionChecks": 23,
+  "authoredRegressionRoutesCompleted": 5,
+  "builds": [
+    "Web release",
+    "Web debug",
+    "Windows release"
+  ],
+  "publication": "No merge or deployment; source review branch"
+}

@@ -42,6 +42,17 @@ One pre-existing broader presentation assertion still expects the old camera
 return offset (-2.5 rather than -2.0); no camera or level code changed in this pass.
 No merge or website deployment is authorized for this splash branch.
 
+## Per-level rules (review branch)
+
+In the editor, choose **Free long hops** or **Charged long hops** and the number
+of short hops needed to recharge. Combine these with **Move with me** per level.
+Only unseen rules interrupt stage entry; a translucent **Rules** button / F1
+reopens them. Original sharp, dripping headings sit above plain instructions.
+Try **Editor → Movement demos → Charge Trial · 10 hops → Playtest**.
+Existing campaigns and unlocks retain their rules. See [rule behavior and tests](docs/LEVEL_RULES.md)
+and the [new-rule preview](docs/previews/rules/new-charge-rule.png).
+This branch is committed for review; the website has not been updated.
+
 ## Implemented
 
 - Tile-mode **Long hop** shows READY / ARMED / HOPPING / WAIT / PAUSED inside its existing touch target. READY follows the same recovery gate as queued directional input; selecting the button still arms a future hop.

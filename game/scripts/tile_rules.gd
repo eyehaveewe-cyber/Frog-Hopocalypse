@@ -1,6 +1,7 @@
 extends RefCounted
 ## Cardinal tile simulation. One accepted hop advances one hazard beat in Move with me.
 const Data = preload("res://scripts/level_data.gd")
+const Rules = preload("res://scripts/level_rules.gd")
 const HOP_TIME = 0.34
 const BEAT_TIME = 0.62
 var world: Node3D
@@ -19,6 +20,7 @@ var last_block = ""
 var last_player = Vector3.ZERO
 var queued_direction = Vector2i.ZERO
 var queued_big = false
+var charge_remaining = 0
 
 func _init(owner_world: Node3D) -> void:
  world = owner_world
@@ -41,12 +43,18 @@ func open_cell(cell: Vector2i, landing: bool = true) -> bool:
 func ready_for_input() -> bool:
  return not jumping and repeat_clock <= 0.08
 
+func long_hop_ready() -> bool:
+ return not Rules.charged(world.level) or charge_remaining == 0
+
 func queue_hop(direction: Vector2i, big: bool) -> void:
  queued_direction = direction
  queued_big = big
 
 func request(direction: Vector2i, big: bool) -> bool:
  if jumping or direction == Vector2i.ZERO:
+  return false
+ if big and not long_hop_ready():
+  last_block = "%d short hops to recharge." % charge_remaining
   return false
  var start: Vector2i = world.position_cell(world.player.position)
  var target = start + direction * (2 if big else 1)
@@ -57,6 +65,8 @@ func request(direction: Vector2i, big: bool) -> bool:
  to = world.cell_position([target.x,target.y])
  facing = direction
  long_hop = big
+ if big and Rules.charged(world.level):
+  charge_remaining = Rules.charge_hops(world.level)
  hop_time = 0
  jumping = true
  hop_count += 1
@@ -175,6 +185,8 @@ func advance(delta: float, input: Vector2, big: bool) -> void:
   world.player.visual.get_node("HindLegR").rotation.x = -sin(t*PI)*0.7
   if t >= 1.0:
    jumping = false
+   if not long_hop and charge_remaining > 0:
+    charge_remaining -= 1
    world.player.position = to
    world.player.visual.position.y = 0
  for mover in world.crossing.movers:

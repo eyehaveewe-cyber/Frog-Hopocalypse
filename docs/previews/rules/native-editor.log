@@ -1,0 +1,26 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: New tileset creation starts a recovery-enabled map
+PASS: 39 actual edits have not created an early checkpoint
+PASS: The fortieth completed edit schedules an autosave
+PASS: Checkpoint waits for a paint stroke to finish
+PASS: Checkpoint stores the fortieth edit after the stroke
+PASS: The next forty edits update this map's recovery slot
+PASS: Recovery checkpoint survives reloading local storage
+PASS: Recovery restores the original map name and does not occupy its manual save slot
+PASS: Manual saving a recovered map preserves its recovery copy
+PASS: New Swamp starts its own recovery counter
+PASS: Recovery saves an unfinished patrol blocked by an editor wall
+PASS: Recovery restores unfinished edits exactly
+PASS: Recovery still rejects malformed out-of-bounds data
+PASS: Legacy zero interval displays at least one whole beat
+PASS: Spinner stays in the scene tree throughout its value callback
+PASS: Repeated spinner edits remain responsive
+PASS: Tile firing interval rejects zero
+PASS: Undo restores the prior turret interval
+PASS: Duplicating a map creates its own recovery identity
+PASS: Imported copies cannot overwrite their source recovery slot
+PASS: Brick texture has filtered distance levels
+PASS: Wall caps receive filtering without changing ground textures
+PASS: Compatibility renderer filters brick walls too
+EDITOR RECOVERY: 23 checks, 0 failures
