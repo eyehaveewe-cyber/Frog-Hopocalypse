@@ -1,0 +1,69 @@
+{
+  "checks": [
+    "1x: fixed distant cards render beyond ordinary vision with four total card triangles",
+    "1x: overhead mode uses small thumbnails instead of distant full-screen geometry",
+    "80x: fixed distant cards render beyond ordinary vision with four total card triangles",
+    "Real walking preserves the course and changes the perspective against the fixed horizon",
+    "Editor places, scales and saves independent backdrop art through real controls",
+    "Foreground occlusion comparison captured with real imported levels and identical cameras",
+    "80x: overhead mode uses small thumbnails instead of distant full-screen geometry",
+    "touch-80x: fixed distant cards render beyond ordinary vision with four total card triangles",
+    "touch-80x: overhead mode uses small thumbnails instead of distant full-screen geometry"
+  ],
+  "samples": [
+    {
+      "prefix": "1x",
+      "stats": {
+        "active_cards": 2,
+        "camera_far": 808.200012207031,
+        "card_triangles": 4,
+        "cards": 2,
+        "horizon_triangles": 2,
+        "quad_rect_pixels": 1,
+        "viewport_pixels": 113316
+      },
+      "player": [
+        0,
+        39.5999984741211
+      ]
+    },
+    {
+      "prefix": "80x",
+      "stats": {
+        "active_cards": 2,
+        "camera_far": 808.200012207031,
+        "card_triangles": 4,
+        "cards": 2,
+        "horizon_triangles": 2,
+        "quad_rect_pixels": 5604,
+        "viewport_pixels": 113316
+      },
+      "player": [
+        0,
+        39.5999984741211
+      ]
+    },
+    {
+      "prefix": "touch-80x",
+      "stats": {
+        "active_cards": 2,
+        "camera_far": 808.200012207031,
+        "card_triangles": 4,
+        "cards": 2,
+        "horizon_triangles": 2,
+        "quad_rect_pixels": 3859,
+        "viewport_pixels": 178500
+      },
+      "player": [
+        0,
+        39.5999984741211
+      ]
+    }
+  ],
+  "errors": [],
+  "scope": "Desktop Chromium/SwiftShader and Android-UA touch emulation. Pixel rectangle estimates are not hardware timings.",
+  "occlusion": {
+    "gold_backdrop_pixels_replaced_by_foreground_green": 31890,
+    "scope": "Paired fixed-camera 1280x900 browser fixture screenshots; colors and region are fixture-specific."
+  }
+}

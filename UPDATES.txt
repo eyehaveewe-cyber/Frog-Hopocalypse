@@ -1,3 +1,29 @@
+2026-10-19 — Fixed distant monumental backdrops (not deployed)
+
+1. Added a separate Distant backdrop editor tool: five original low-resolution
+   cutouts, 1–100x art scale (default 80), independent 128–2048 virtual distance,
+   outside-water pins, selection, Undo/Redo, local Save and JSON. Course landmark
+   placement, collision, level layouts, unlocks and sounds remain intact.
+2. World-space cutouts stay fixed as the camera moves; foreground meshes occlude
+   them. A flat sea horizon grounds their feet. Map/editor show small thumbnails.
+   Horizon 1x/80x demos use identical courses/cameras. Backdrop levels alone use
+   extra far clipping and modestly wider framing to retain the frog and monuments.
+3. Each cutout is two triangles, unlit, alpha-scissored, without physics/shadows.
+   The demo has four card triangles plus two sea triangles at both scales. At the
+   desktop browser render target, summed projected quad rectangles grow from 1
+   to 5,604 of 113,316 pixels. This is fill-area evidence, not hardware GPU timing;
+   opaque far geometry may be cheaper when fill-bound. Budget: four cards/map.
+4. 30 backdrop, 51 landmark and 23 editor/recovery native checks pass. Nine real
+   desktop/touch browser checks cover render, walking, map, editor edit/Save and
+   imported occlusion fixtures; paired screenshots confirm 31,890 gold backdrop
+   pixels replaced by green foreground. Browser errors: zero. Five baked PNGs
+   regenerate byte-identically. Web release/debug and Windows release build.
+   Chromium touch emulation is not an actual iPhone/Safari or a device FPS test.
+5. Branch feature/distant-backdrops follows fb6420c. No merge or deployment.
+   Revert the feature commit for rollback; keep custom exports because previous
+   readers reject backdrop objects. Editable geometry, bake snapshot/scripts,
+   comparison images, costs and limitations: docs/DISTANT_BACKDROPS.md.
+
 2026-10-19 — Placeable low-poly landmarks and shoreline demos (not deployed)
 
 1. Added original Sphinx, Osiris-inspired statue, pyramid, giant moss tree and

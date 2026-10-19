@@ -3,7 +3,7 @@ extends RefCounted
 const VERSION = 1
 const MAX_SIDE = 64
 const TILES = ["floor", "wall", "cheese_wall", "water", "path", "road"]
-const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball", "landmark"]
+const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball", "landmark", "backdrop"]
 
 static func blank(title: String = "My magnificent maze", theme_name: String = "egypt", w: int = 17, h: int = 13) -> Dictionary:
 	var tiles: Array = []
@@ -80,8 +80,9 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 		return "A level supports up to 180 objects."
 	var ids: Dictionary = {}
 	var landmark_count := 0
+	var backdrop_count := 0
 	for obj in d.objects:
-		if not obj is Dictionary or obj.get("type") not in OBJECTS or not (landmark_point_valid(obj.get("pos"),w,h) if obj.get("type") == "landmark" else point_valid(obj.get("pos"), w, h)):
+		if not obj is Dictionary or obj.get("type") not in OBJECTS or not (landmark_point_valid(obj.get("pos"),w,h) if obj.get("type") in ["landmark","backdrop"] else point_valid(obj.get("pos"), w, h)):
 			return "Invalid object type or position."
 		if not obj.get("id") is String or obj.id.is_empty() or ids.has(obj.id):
 			return "Every object needs a unique ID."
@@ -104,6 +105,13 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 			if not finite_number(obj.get("landmark_scale",1)) or obj.get("landmark_scale",1) < 0.25 or obj.get("landmark_scale",1) > 2:
 				return "Landmark scale must be between 0.25 and 2."
 			if obj.get("solid",false) != false: return "Landmarks are non-blocking scenery."
+		if obj.type == "backdrop":
+			backdrop_count += 1
+			if backdrop_count > 4: return "A level supports up to four distant backdrops."
+			if obj.get("backdrop_kind", "pyramid") not in ["sphinx","osiris","pyramid","moss_tree","heron"]: return "Unknown distant backdrop."
+			if not finite_number(obj.get("backdrop_scale",80)) or obj.get("backdrop_scale",80)<1 or obj.get("backdrop_scale",80)>100: return "Backdrop art scale must be between 1 and 100."
+			if not finite_number(obj.get("backdrop_distance",480)) or obj.get("backdrop_distance",480)<128 or obj.get("backdrop_distance",480)>2048: return "Backdrop distance must be between 128 and 2048."
+			if obj.get("solid",false) != false: return "Distant backdrops are non-blocking art."
 		if obj.has("solid") and not obj.solid is bool:
 			return "Solid must be true or false."
 		if obj.type in ["car", "patrol_car", "log"]:

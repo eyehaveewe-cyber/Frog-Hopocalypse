@@ -43,6 +43,8 @@ var crossing: Node3D
 const Landmarks = preload("res://scripts/landmarks.gd")
 var landmarks: Node3D
 var background_view = false
+const Backdrops = preload("res://scripts/backdrops.gd")
+var backdrops: Node3D
 var claimed_checkpoints: Array = []
 var checkpoint_flags: Array = []
 
@@ -160,7 +162,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 		Art.solid(geometry, Vector3(0.2, 2, h + 2), Vector3(side * (w / 2 + 0.1), 0.5, 0))
 	for obj in level.objects:
 		var p := cell_position(obj.pos)
-		if obj.type in ["car", "patrol_car", "log", "spike_ball", "landmark"]:
+		if obj.type in ["car", "patrol_car", "log", "spike_ball", "landmark", "backdrop"]:
 			continue
 		if obj.type == "critter":
 			var actor := Actor.new()
@@ -205,6 +207,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	landmarks = Landmarks.new()
 	geometry.add_child(landmarks)
 	landmarks.setup(level, self)
+	backdrops = Backdrops.new()
+	geometry.add_child(backdrops)
+	backdrops.setup(level,self)
 	player = Actor.new()
 	player.setup(true, level.theme, {}, true)
 	player.set_hat(hat)
@@ -226,7 +231,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	route_root = Node3D.new()
 	geometry.add_child(route_root)
 	underlay.name = "HorizonOcean"
-	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, landmarks, underlay] + critters
+	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, landmarks, backdrops, underlay] + critters
 	for emitter in emitters:
 		excluded.append(emitter.model)
 	for marker in checkpoint_flags:
@@ -253,18 +258,21 @@ func fit_camera() -> void:
 	else:
 		camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 		camera.fov = 63 if touch_mode else 58
+		if is_instance_valid(backdrops) and not backdrops.entries.is_empty():
+			camera.fov = 70 if touch_mode else 66
 		camera.near = 0.15
-		camera.far = float(level.get("draw_distance",18)) * CELL + 12
+		camera.far = maxf(float(level.get("draw_distance",18)) * CELL + 12, backdrops.far_limit() if is_instance_valid(backdrops) else 0)
 		camera_target = player.position + Vector3(0, 0.25, -2.0)
 	update_draw_range()
 	update_camera(1.0)
 	if is_instance_valid(landmarks): landmarks.update_lod()
+	if is_instance_valid(backdrops): backdrops.configure_view()
 
 func update_draw_range() -> void:
 	var limit := 0.0 if editing or map_view else float(level.get("draw_distance",18)) * CELL
 	Art.set_draw_distance(limit)
 	for mesh in geometry.find_children("*", "GeometryInstance3D", true, false):
-		if mesh.name != "HorizonOcean" and (not is_instance_valid(landmarks) or not landmarks.is_ancestor_of(mesh)):
+		if mesh.name != "HorizonOcean" and (not is_instance_valid(landmarks) or not landmarks.is_ancestor_of(mesh)) and (not is_instance_valid(backdrops) or not backdrops.is_ancestor_of(mesh)):
 			mesh.visibility_range_end = limit
 			mesh.visibility_range_end_margin = CELL
 
@@ -282,6 +290,7 @@ func update_camera(weight: float) -> void:
 func landmark_focus_offset() -> Vector3:
 	# Keep the existing camera position and follower. Scenery levels need a little
 	# more sky above the walking route so tall silhouettes can enter the frame.
+	if not editing and not map_view and is_instance_valid(backdrops) and not backdrops.entries.is_empty(): return Vector3(0,2.7,0)
 	return Vector3(0,1.7,0) if not editing and not map_view and is_instance_valid(landmarks) and not landmarks.entries.is_empty() else Vector3.ZERO
 
 func begin_exit_preview() -> void:

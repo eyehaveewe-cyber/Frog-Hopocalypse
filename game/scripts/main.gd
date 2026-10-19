@@ -36,7 +36,7 @@ var splash_menu = false
 const LevelRules = preload("res://scripts/level_rules.gd")
 const RULE_INK = preload("res://art/rules/hopan-rule-ink.ttf")
 const LandmarkModels = preload("res://scripts/landmark_models.gd")
-const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/scenery/heron_marsh.json"]
+const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/scenery/heron_marsh.json", "res://levels/scenery/temple_horizon_1x.json", "res://levels/scenery/temple_horizon_80x.json"]
 const CHARGE_DEMO = "res://levels/tile_hop/charge_trial.json"
 var rule_button: Button
 var hop_rule_picker: OptionButton
@@ -373,7 +373,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["backdrop", "Distant backdrop"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -705,7 +705,7 @@ func show_scenery_demos() -> void:
 	reset_overlay("Scenery demos", "Landmarks on the course and in the surrounding water. Loads into the editor; Undo restores your map.")
 	for i in range(SCENERY_DEMOS.size()):
 		var index := i
-		button(overlay_box, "Temple Shore" if i == 0 else "Heron Marsh", func():
+		button(overlay_box, ["Temple Shore", "Heron Marsh", "Horizon · 1x", "Horizon · 80x"][i], func():
 			var demo := Data.load_json(SCENERY_DEMOS[index])
 			if demo.is_empty(): return
 			record_undo()
@@ -1198,7 +1198,7 @@ func object_at(cell: Vector2i) -> int:
 	return -1
 
 func edit_cell(cell: Vector2i, erase: bool = false) -> void:
-	if not world.inside(cell) and not ((tool.begins_with("landmark_") or tool in ["select", "erase"] or erase) and Data.landmark_point_valid([cell.x,cell.y],level.width,level.height)):
+	if not world.inside(cell) and not ((tool.begins_with("landmark_") or tool in ["backdrop", "select", "erase"] or erase) and Data.landmark_point_valid([cell.x,cell.y],level.width,level.height)):
 		return
 	var point: Array = [cell.x, cell.y]
 	var index := object_at(cell)
@@ -1272,15 +1272,20 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 	if checkpoint_cell and (tool in ["wall", "cheese_wall", "water", "road", "spawn", "exit", "pillar", "tree", "emitter"]):
 		status("Erase or move the checkpoint before blocking its safe tile.")
 		return
-	if tool.begins_with("landmark_") and not erase:
+	if (tool.begins_with("landmark_") or tool == "backdrop") and not erase:
 		if index >= 0 or level.objects.size() >= 180: return
-		if level.objects.filter(func(obj): return obj.type == "landmark").size() >= 32:
+		if tool != "backdrop" and level.objects.filter(func(obj): return obj.type == "landmark").size() >= 32:
 			status("A level supports up to 32 landmarks.")
 			return
 		if point == level.spawn or point == level.exit or point in level.get("checkpoints", []) or point == level.get("checkpoint", []):
 			status("Keep the frog start, exit and checkpoint markers clear.")
 			return
 		var landmark := {"id":"landmark_%d" % Time.get_ticks_usec(),"type":"landmark","pos":point,"rotation":180,"solid":false,"landmark_kind":tool.trim_prefix("landmark_"),"landmark_scale":1.0}
+		if tool == "backdrop":
+			if level.objects.filter(func(obj):return obj.type=="backdrop").size()>=4:
+				status("Use up to four distant backdrops to limit screen overdraw.")
+				return
+			landmark={"id":"backdrop_%d" % Time.get_ticks_usec(),"type":"backdrop","pos":point,"solid":false,"backdrop_kind":"pyramid","backdrop_scale":80,"backdrop_distance":480}
 		level.objects.append(landmark)
 		selection = landmark.id
 		rebuild()
@@ -1356,8 +1361,25 @@ func refresh_inspector() -> void:
 	rot.suffix = "° rotation"
 	rot.value = fposmod(float(obj.get("rotation", 0)), 360)
 	rot.value_changed.connect(func(v: float): change_property("rotation", v, false))
-	if obj.type != "spike_ball": inspector.add_child(rot)
+	if obj.type not in ["spike_ball", "backdrop"]: inspector.add_child(rot)
 	else: rot.queue_free()
+	if obj.type == "backdrop":
+		var model := OptionButton.new()
+		for title in LandmarkModels.TITLES: model.add_item(title)
+		model.select(LandmarkModels.KINDS.find(obj.get("backdrop_kind","pyramid")))
+		model.item_selected.connect(func(index: int): change_property("backdrop_kind",LandmarkModels.KINDS[index]))
+		inspector.add_child(model)
+		for field in [["backdrop_scale",1,100,1,80,"x art scale"],["backdrop_distance",128,2048,32,480,"backdrop distance"]]:
+			var key: String=field[0]
+			var input:=SpinBox.new()
+			input.min_value=field[1]
+			input.max_value=field[2]
+			input.step=field[3]
+			input.value=obj.get(key,field[4])
+			input.suffix=field[5]
+			input.value_changed.connect(func(value:float):change_property(key,value,false))
+			inspector.add_child(input)
+		paragraph(inspector,"Distant art · The ground pin sets its direction. Art scale changes size without changing the course. Distance sets its fixed position beyond the shore.",12)
 	if obj.type == "landmark":
 		var model := OptionButton.new()
 		for title in LandmarkModels.TITLES: model.add_item(title)
@@ -1809,7 +1831,7 @@ func _process(delta: float) -> void:
 	if mode == "edit" and not overlay.visible:
 		var local := viewport_position(get_global_mouse_position())
 		var cell: Vector2i = world.pick(local)
-		world.show_cursor(cell if view_container.get_global_rect().has_point(get_global_mouse_position()) else Vector2i(-999, -999), tool.begins_with("landmark_") or tool in ["select", "erase"])
+		world.show_cursor(cell if view_container.get_global_rect().has_point(get_global_mouse_position()) else Vector2i(-999, -999), tool.begins_with("landmark_") or tool in ["backdrop", "select", "erase"])
 	if OS.has_feature("web"):
 		poll_timer += delta
 		if poll_timer > 0.3:
@@ -1865,11 +1887,11 @@ func publish_browser_probe() -> void:
 		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
 		"hat": hat, "skin": skin, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
-		"ui_size": [size.x, size.y], "saved": library.size(), "fields": fields, "editor_changes": editor_change_counts.get(str(level.get("editor_autosave_id","")),0), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
+		"ui_size": [size.x, size.y], "saved": library.size(), "status": status_label.text, "fields": fields, "editor_changes": editor_change_counts.get(str(level.get("editor_autosave_id","")),0), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"landmarks": world.landmarks.stats() if is_instance_valid(world.landmarks) else {}, "background_view": world.background_view, "backdrop_points": backdrop_points, "rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_portrait": splash_art.texture == SPLASH_PORTRAIT, "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"backdrops": world.backdrops.stats() if is_instance_valid(world.backdrops) else {}, "landmarks": world.landmarks.stats() if is_instance_valid(world.landmarks) else {}, "background_view": world.background_view, "backdrop_points": backdrop_points, "rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_portrait": splash_art.texture == SPLASH_PORTRAIT, "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:

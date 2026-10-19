@@ -237,3 +237,9 @@ water stop it; a long hop can clear its path. See
 Tile encounter redesign and spike balls are live in public **version 22** at
 https://hopan.fiiendward.chatgpt.site/ . Publication and rollback IDs are in
 `UPDATES.txt`; evidence is in `docs/TILE_REDESIGN_VALIDATION.json`.
+
+**Distant monuments (review branch):** the editor now has a separate **Distant backdrop**
+tool with five baked cutouts, independent art scale/distance, fixed world anchoring
+and small Map thumbnails. **Scenery demos → Horizon · 1x / Horizon · 80x** compare
+the same course at ordinary and monumental art scale. See [authoring, render costs
+and limitations](docs/DISTANT_BACKDROPS.md). This feature is not deployed.
