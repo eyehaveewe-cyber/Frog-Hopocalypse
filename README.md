@@ -187,3 +187,7 @@ cardinal patrol or a free shift with one to four enabled directions. Its inspect
 sets hold length, free-shift range and patrol loop. Walls, cheese, scenery and
 water stop it; a long hop can clear its path. See
 [design and playtest evidence](docs/TILE_LEVEL_REDESIGN.md).
+
+Tile encounter redesign and spike balls are live in public **version 22** at
+https://hopan.fiiendward.chatgpt.site/ . Publication and rollback IDs are in
+`UPDATES.txt`; evidence is in `docs/TILE_REDESIGN_VALIDATION.json`.

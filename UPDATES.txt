@@ -1,4 +1,4 @@
-2026-10-19 — Tile encounter redesign and spike-ball editor hazard
+2026-10-19 — Tile encounter redesign and spike-ball editor hazard (published v22)
 
 1. Levelwright redesigns both Tile Hop stages. Boulevard is now four timed
    encounter courts with bends, adjacent traffic and a water-bounded spike arena.
@@ -22,6 +22,21 @@
    Other 46 prior level/audio/assets match; regular movement demo is unchanged.
    Physical-device/Safari performance and first-time human difficulty remain
    unverified. Rules, metrics and evidence: docs/TILE_LEVEL_REDESIGN.md.
+5. Published public v22 at https://hopan.fiiendward.chatgpt.site/ .
+   Game source: dbd73545af8f652367a2deb3b55de60dfa45312c.
+   Branch: feature/tile-levels-spike-ball. Main remains
+   7be94416ead3e43595fd20b533e40e461234a802.
+   Site source: 378b9a9d4a3d635896077bbe9c65f3d45b14ea1d.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_8ea5f46745cc819190aa7c0335e6ee84.
+   Deployment succeeded: appgdep_6ad62643ad048191b547537eee92382b.
+   Public access remains unchanged. All 17 protected hosting/RiverSim files
+   match. Native Sites confirms publication; hosted gameplay was not directly
+   inspected. Physical devices, Safari and first-time human play remain
+   unverified. No pending blocker.
+6. Rollback retains public access and redeploys v21:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_6eae605ea9a481919ff58674f118660f.
+   Export custom maps containing spike_ball before rollback: v21's reader
+   rejects this new object type. Existing valid version-1 maps remain readable.
 
 2026-10-18 — Editor recovery, turret spinner and brick shimmer fixes (published v21)
 
