@@ -42,6 +42,28 @@ func run() -> void:
  fresh()
  suite.check(app.world.tile_rules != null and app.world.player.visual.scale.x == 1.5, "Tile mode builds the larger frog and grid simulation")
  suite.check(app.long_hop_button.visible and not app.edit_button.visible,"Tile play exposes Long hop and keeps Editor hidden")
+ app.update_long_hop_indicator()
+ suite.check(app.long_hop_indicator.text=="READY","Tile long hop starts ready")
+ app.long_hop_button.set_pressed_no_signal(true)
+ app.update_long_hop_indicator()
+ suite.check(app.long_hop_indicator.text=="ARMED","Touch selection is visibly armed")
+ app.world.tile_rules.request(Vector2i.RIGHT,true)
+ app.update_long_hop_indicator()
+ suite.check(app.long_hop_indicator.text=="HOPPING" and not app.long_hop_button.button_pressed,"Accepted hop clears arming and displays hopping")
+ await tick(0.4)
+ app.update_long_hop_indicator()
+ suite.check(app.long_hop_indicator.text=="READY","Indicator returns ready after landing")
+ app.world.tile_rules.repeat_clock=0.15
+ app.update_long_hop_indicator()
+ suite.check(app.long_hop_indicator.text=="WAIT","Blocked-input recovery displays wait")
+ app.world.tile_rules.repeat_clock=0.08
+ app.update_long_hop_indicator()
+ suite.check(app.long_hop_indicator.text=="READY" and app.world.tile_rules.ready_for_input(),"Ready matches the queued input acceptance threshold")
+ app.world.map_view=true
+ app.update_long_hop_indicator()
+ suite.check(app.long_hop_indicator.text=="PAUSED","Map inspection cannot imply a hop is available")
+ fresh()
+
  var p: Vector3 = app.world.player.position
  await tick(1)
  suite.check(app.world.elapsed == 0 and app.world.player.position == p,"Move with me has no simulation time while idle")

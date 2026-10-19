@@ -38,6 +38,9 @@ func open_cell(cell: Vector2i, landing: bool = true) -> bool:
     return false
  return true
 
+func ready_for_input() -> bool:
+ return not jumping and repeat_clock <= 0.08
+
 func queue_hop(direction: Vector2i, big: bool) -> void:
  queued_direction = direction
  queued_big = big
@@ -144,7 +147,7 @@ func begin_beat() -> void:
 func advance(delta: float, input: Vector2, big: bool) -> void:
  last_player = world.player.position
  repeat_clock = maxf(0,repeat_clock-delta)
- if not jumping and queued_direction != Vector2i.ZERO and repeat_clock <= 0.08:
+ if ready_for_input() and queued_direction != Vector2i.ZERO:
   var dir = queued_direction
   queued_direction = Vector2i.ZERO
   repeat_clock = HOP_TIME + 0.08 if request(dir,queued_big) else 0.15

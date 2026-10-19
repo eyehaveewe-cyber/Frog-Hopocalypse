@@ -73,6 +73,7 @@ var completed_human_stages: Array = []
 var completed_bonus_stages: Array = []
 var completed_tile_stages: Array = []
 var long_hop_button: Button
+var long_hop_indicator: Label
 var tile_mode_toggle: CheckButton
 var movement_toggle: CheckButton
 var draw_distance_picker: SpinBox
@@ -232,6 +233,19 @@ func build_ui() -> void:
 	long_hop_button.add_theme_font_size_override("font_size",13)
 	long_hop_button.toggle_mode = true
 	long_hop_button.tooltip_text = "Next hop covers two tiles. Hold Shift with a direction on keyboard."
+	# Keep the touch target and header width. Arming stays available during recovery.
+	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
+		var style: StyleBox = long_hop_button.get_theme_stylebox(state).duplicate()
+		style.content_margin_top = 3
+		style.content_margin_bottom = 19
+		long_hop_button.add_theme_stylebox_override(state, style)
+	long_hop_indicator = label("READY", 10, LIME)
+	long_hop_indicator.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	long_hop_indicator.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	long_hop_button.add_child(long_hop_indicator)
+	long_hop_indicator.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	long_hop_indicator.offset_top = -18
+	long_hop_indicator.offset_bottom = -2
 	long_hop_button.hide()
 	pause_button = button(top, "Pause", toggle_pause)
 	edit_button = button(top, "Editor", func():
@@ -1509,6 +1523,23 @@ func reset_touch() -> void:
 	if is_instance_valid(touch_knob):
 		touch_knob.position = Vector2(42, 42)
 
+func update_long_hop_indicator() -> void:
+	if not long_hop_button.visible or world.tile_rules == null:
+		return
+	var state := "READY"
+	if paused or world.halted or world.map_view:
+		state = "PAUSED"
+	elif world.intro_active or not world.active or overlay.visible:
+		state = "WAIT"
+	elif world.tile_rules.jumping:
+		state = "HOPPING"
+	elif not world.tile_rules.ready_for_input():
+		state = "WAIT"
+	elif long_hop_button.button_pressed or Input.is_physical_key_pressed(KEY_SHIFT):
+		state = "ARMED"
+	long_hop_indicator.text = state
+	long_hop_indicator.add_theme_color_override("font_color", LIME if state in ["READY", "ARMED"] else MUTED)
+
 func _process(delta: float) -> void:
 	if editor_autosave_due and mode == "edit" and not stroke:
 		editor_autosave_due = false
@@ -1540,6 +1571,7 @@ func _process(delta: float) -> void:
 			movement = thumb
 	world.input_vector = movement.limit_length()
 	world.long_hop_input = Input.is_physical_key_pressed(KEY_SHIFT) or long_hop_button.button_pressed
+	update_long_hop_indicator()
 	time_label.text = "%.1fs  /  %d croaks" % [world.elapsed, deaths] if mode in ["play", "test"] else "%d × %d · v1 JSON" % [level.width, level.height]
 	if mode == "edit" and not overlay.visible:
 		var local := viewport_position(get_global_mouse_position())
@@ -1600,7 +1632,7 @@ func publish_browser_probe() -> void:
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:

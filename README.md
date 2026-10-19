@@ -25,6 +25,9 @@ The browser entry point is `build/web/index.html`. Serve the **whole directory**
 
 ## Implemented
 
+- Tile-mode **Long hop** shows READY / ARMED / HOPPING / WAIT / PAUSED inside its existing touch target. READY follows the same recovery gate as queued directional input; selecting the button still arms a future hop.
+
+
 - **Cheese wall**: yellow, hole-patterned terrain that blocks the frog and critters but lets darts pass through. Painting, erasing, undo and JSON save/load support it.
 - **Seam worm**: a blue-and-gold patrol variant. Its points snap to the lower-right corners of clicked tiles, and routes follow clear horizontal/vertical tile edges. Add square corners to close a loop. Invalid diagonals, water and solid obstructions are rejected. Old worms and their routes stay unchanged.
 - **Patrol car**: road-only traffic. Choose east–west or north–south; without waypoints it turns back at walls, blockers and road ends. Draw car waypoints for repeating road routes, with a point at every turn. Clear the route to restore axis patrol. Preview, pause and retry follow the existing game controls.

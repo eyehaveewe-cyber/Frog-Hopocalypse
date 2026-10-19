@@ -1,3 +1,14 @@
+2026-10-19 — Tile-mode long-hop readiness (source prepared; not deployed)
+
+1. The existing Long hop button shows READY, ARMED, HOPPING, WAIT or PAUSED
+   beneath its title, without adding header width or changing hop timing.
+   Readiness shares the actual queued-input gate; touch arming remains usable
+   during recovery. Text and steady color both communicate state.
+2. Tile-rule suite: 52 checks pass, including seven readiness/arming/landing,
+   recovery-threshold and map-pause checks. Physical devices unverified.
+3. Source branch: feature/long-hop-ready. Existing public v22 is unchanged;
+   latest splash-screen delegation explicitly requests no website deployment.
+
 2026-10-19 — Tile encounter redesign and spike-ball editor hazard (published v22)
 
 1. Levelwright redesigns both Tile Hop stages. Boulevard is now four timed
