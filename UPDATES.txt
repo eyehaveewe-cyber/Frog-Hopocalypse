@@ -1,3 +1,21 @@
+2026-10-20 — Requested sound/editor update published as version 28
+
+1. Live: https://hopan.fiiendward.chatgpt.site
+   Game source: bfcd9ad25f847da7e27c52056e97ba16d45a310f.
+   Site source: 4a942e7365c3e6e1b3f7738683b22bbd28c9d128.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9212be71bba8819193dde7582d3d03f2.
+   Deployment: appgdep_6ad7dc8c7708819183751178a5447411 (succeeded).
+2. Long-hop boing, non-repeating basic hop variation, editor save/discard/continue
+   and road fragments included. Fifty-one sound and 26 editor/road native checks
+   pass; ten sound and four editor browser checks pass. Actual boing routing on
+   desktop/touch verified. Compressed staged release starts without browser errors.
+3. Public access retained. RiverSim/headers/adapter: 16 byte-identical files.
+   Existing maps, old recordings, timing and difficulty preserved. No main merge.
+4. Rollback v27: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_ad9a3341d734819189f99d896805a89d.
+   Export road-fragment maps before using the older reader. Physical iPhone/Safari,
+   subjective comfort and browser-native close prompts remain unverified.
+   Evidence: docs/BOING_EDITOR_PUBLICATION.json and BOING_EDITOR_UPDATE.md.
+
 2026-10-20 — Long-hop boing, varied basic hops, editor saves and road fragments
 
 1. Long-hop takeoff uses a dedicated original CC0 spring boing in either palette.

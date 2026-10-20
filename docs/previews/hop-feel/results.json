@@ -15,13 +15,13 @@
   "measurements": [
     {
       "device": "desktop",
-      "lowPeak": 0.022402403876185417,
-      "highPeak": 0.057768676429986954
+      "lowPeak": 0.01895727589726448,
+      "highPeak": 0.09291010349988937
     },
     {
       "device": "touch",
-      "lowPeak": 0.06717199832201004,
-      "highPeak": 0.27506011724472046
+      "lowPeak": 0.06370431929826736,
+      "highPeak": 0.2726161479949951
     }
   ],
   "scope": "Chromium desktop and Android-UA touch landscape; actual WebAudio output sampled after pending voice announcements drained while muted. Physical iPhone/Safari and subjective loudness unverified."

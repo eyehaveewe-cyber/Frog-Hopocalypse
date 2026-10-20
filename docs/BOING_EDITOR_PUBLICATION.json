@@ -1,0 +1,39 @@
+{
+  "game_source_commit": "bfcd9ad25f847da7e27c52056e97ba16d45a310f",
+  "site_source_commit": "4a942e7365c3e6e1b3f7738683b22bbd28c9d128",
+  "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+  "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_9212be71bba8819193dde7582d3d03f2",
+  "version_number": 28,
+  "deployment_id": "appgdep_6ad7dc8c7708819183751178a5447411",
+  "status": "succeeded",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "access": "public",
+  "features": [
+    "dedicated long-hop boing",
+    "basic-hop shuffled variants, bounded pitch and attenuation-only level jitter",
+    "editor Save and leave / Leave without saving / Continue editing",
+    "Hop fragments on road tiles"
+  ],
+  "validation": {
+    "native_hop_sound_checks": 51,
+    "native_editor_fragment_checks": 26,
+    "browser_audio_checks": 10,
+    "browser_editor_checks": 4,
+    "long_boing_selection": "actual gameplay and audition on desktop and touch verified",
+    "compressed_release_startup": "passed; no browser errors; debug probe absent",
+    "protected_riversim_headers_adapter": "16 byte-identical files",
+    "wasm_transport": "retained gzip exactly decompresses to new raw export"
+  },
+  "rollback": {
+    "version_number": 27,
+    "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_ad9a3341d734819189f99d896805a89d",
+    "site_source_commit": "66eee8f1a71b6d2fe2d070e9cb183fe78e61059c",
+    "note": "Export new custom road-fragment maps before reverting; v27 validation rejects those placements"
+  },
+  "limitations": [
+    "Physical iPhone/Safari and subjective sound comfort unverified",
+    "Browser-native tab-close prompt unconfirmed; in-app guard verified",
+    "Live browser URL checks previously blocked by executor CONNECT proxy 403; native deployment confirms publication",
+    "Channel Hideo DOCX update blocked by missing rendering tools; implementation note preserved"
+  ]
+}

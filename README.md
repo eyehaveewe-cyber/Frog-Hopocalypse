@@ -1,8 +1,8 @@
-**Current public build: [Hopán version 27](https://hopan.fiiendward.chatgpt.site).**
-The requested tile-frog leg and sound comparison, plus the preceding checkpoint
-recovery UI, are now published. Choose **Hop feel comparison** in Menu or Pause.
-Maps, difficulty, recordings and RiverSim are preserved. Earlier repository-only
-notes below describe their state when written. [Publication and rollback](docs/HOP_FEEL_PUBLICATION.json).
+**Current public build: [Hopán version 28](https://hopan.fiiendward.chatgpt.site).**
+Long-hop boing, varied basic hops, the unsaved editor leave dialog and road
+fragments are now published. Existing maps, recordings, difficulty and RiverSim
+are preserved. [Publication and rollback](docs/BOING_EDITOR_PUBLICATION.json).
+Earlier repository-only/publication notes below describe their historical state.
 
 ## Latest requested sound/editor update
 

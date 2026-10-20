@@ -3,7 +3,7 @@
 Jonathan requested a distinct long-hop boing, more pleasant ordinary-hop variety,
 a Channel Hideo pass, a Save/No/Continue editor prompt, and road-placeable Hop
 fragments. All are implemented in this source branch; publication IDs follow in
-BOING_EDITOR_PUBLICATION.json after the deployment.
+[BOING_EDITOR_PUBLICATION.json](BOING_EDITOR_PUBLICATION.json). This update is now published as version 28.
 
 ## Sound direction and implementation
 
