@@ -185,12 +185,16 @@ static func frog(hat: bool = true) -> Node3D:
 	for side in [-1, 1]:
 		var thigh := orb(root, Vector3(0.40, 0.26, 0.52), Vector3(side * 0.36, 0.17, 0.32), green)
 		thigh.name = "HindLegL" if side == -1 else "HindLegR"
+		var shin := orb(root, Vector3(0.14, 0.13, 0.3), Vector3(side * 0.45, 0.12, 0.4), green)
+		shin.name = "HindShinL" if side == -1 else "HindShinR"
+		shin.hide()
 		orb(root, Vector3(0.14, 0.14, 0.42), Vector3(side * 0.35, 0.12, -0.32), green)
 		for toe in range(3):
 			var foot := box(root, Vector3(0.06, 0.045, 0.24), Vector3(side * (0.39 + toe * 0.065), 0.045, -0.52 + toe * 0.04), Color("c6b95a"))
 			foot.rotation.y = side * (toe - 1) * 0.35
 			var back_foot := box(root, Vector3(0.07, 0.05, 0.28), Vector3(side * (0.38 + toe * 0.065), 0.045, 0.43 + toe * 0.02), green)
 			back_foot.rotation.y = side * (toe - 1) * 0.3
+			back_foot.name = ("HindToeL" if side == -1 else "HindToeR") + str(toe)
 		orb(root, Vector3(0.29, 0.29, 0.28), Vector3(side * 0.26, 0.59, -0.29), green)
 		orb(root, Vector3(0.20, 0.19, 0.12), Vector3(side * 0.26, 0.61, -0.41), Color("e7b94f"))
 		orb(root, Vector3(0.07, 0.145, 0.05), Vector3(side * 0.26, 0.61, -0.47), Color("172b22"))

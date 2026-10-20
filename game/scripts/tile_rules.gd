@@ -220,8 +220,8 @@ func advance(delta: float, input: Vector2, big: bool) -> void:
   var t = hop_time / HOP_TIME
   world.player.position = from.lerp(to,t)
   world.player.visual.position.y = sin(t*PI) * (1.35 if long_hop else 0.48)
-  world.player.visual.get_node("HindLegL").rotation.x = -sin(t*PI)*0.7
-  world.player.visual.get_node("HindLegR").rotation.x = -sin(t*PI)*0.7
+  world.player.hop_pose_style = world.hop_pose_style
+  world.player.pose_tile_hop(t, long_hop)
   if t >= 1.0:
    jumping = false
    if not long_hop and charge_remaining > 0:
@@ -278,6 +278,7 @@ func advance(delta: float, input: Vector2, big: bool) -> void:
   if not world.inside(cell) or (world.level.tiles[cell.y][cell.x] == "water" and world.crossing.log_at(world.player.position).is_empty()):
    world.finish("SPLASHED!")
    return
+  if was_jumping: world.hop_landed.emit(long_hop)
   collect_landing(cell)
   if world.level.has("checkpoint") and not world.crossing.checkpoint_claimed and cell.y <= int(world.level.checkpoint[1]) and world.level.tiles[cell.y][cell.x] not in ["water","road"]:
    world.crossing.checkpoint_claimed = true

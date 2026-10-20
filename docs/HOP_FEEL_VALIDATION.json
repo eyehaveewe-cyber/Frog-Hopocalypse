@@ -1,0 +1,62 @@
+{
+  "base": "156fdd462a587a8c1b87c6155a86e2c089644c53",
+  "branch": "feature/hopan-hop-feel",
+  "motion_skill": "Motionwright character-animation; Godot/production/runtime references read",
+  "native_checks": 40,
+  "native_failures": 0,
+  "phase_rates_hz": [
+    30,
+    60,
+    120
+  ],
+  "unchanged_timing": "0.34 seconds, one or two cardinal tiles",
+  "routes": {
+    "fresh_completions": 5,
+    "checkpoint_retry_completions": 5,
+    "hazards": "active"
+  },
+  "browser": {
+    "checks": [
+      "desktop: no hop audio before a gesture",
+      "desktop: real hop has audible takeoff and landing after gesture",
+      "desktop: Sound Off suppresses voices and hop effects; unmute has no stale replay",
+      "desktop: actual audio level follows volume, zero is silent, headroom retained",
+      "desktop: both original sound palettes and smooth/stepped selection are playable",
+      "touch: no hop audio before a gesture",
+      "touch: real hop has audible takeoff and landing after gesture",
+      "touch: Sound Off suppresses voices and hop effects; unmute has no stale replay",
+      "touch: actual audio level follows volume, zero is silent, headroom retained",
+      "touch: both original sound palettes and smooth/stepped selection are playable"
+    ],
+    "errors": [],
+    "measurements": [
+      {
+        "device": "desktop",
+        "lowPeak": 0.022402403876185417,
+        "highPeak": 0.057768676429986954
+      },
+      {
+        "device": "touch",
+        "lowPeak": 0.06717199832201004,
+        "highPeak": 0.27506011724472046
+      }
+    ],
+    "scope": "Chromium desktop and Android-UA touch landscape; actual WebAudio output sampled after pending voice announcements drained while muted. Physical iPhone/Safari and subjective loudness unverified."
+  },
+  "preserved_files": 57,
+  "preserved_scope": "all pre-existing maps, recordings and root WASM adapter byte-identical to 156fdd4; Site source and RiverSim untouched",
+  "license": "Original procedural synthesis, CC0-1.0",
+  "external_source_attempt": "Kenney Impact Sounds primary page CC0 verified; ZIP download blocked by executor CONNECT 403, no third-party bytes included",
+  "limitations": [
+    "No physical iPhone/Safari test",
+    "No subjective listening or user preference test",
+    "Preview is Chromium/SwiftShader, not a performance benchmark",
+    "Pose and sound settings are session-only",
+    "Hop effects and new leg poses apply to Tile Hop; classic movement retains its established motion and voices"
+  ],
+  "builds": [
+    "Godot 4.7.2 Web release",
+    "Windows release",
+    "Web debug"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "source": "Playwright recording of ordinary keyboard hops in imported safe fixture",
+  "playback": "real time; GIF sampled at 20 fps; desktop Chromium/SwiftShader",
+  "segments": [
+    {
+      "style": "stepped",
+      "start": 23.773,
+      "duration": 9.648999999999997
+    },
+    {
+      "style": "smooth",
+      "start": 35.96,
+      "duration": 9.308999999999997
+    }
+  ]
+}

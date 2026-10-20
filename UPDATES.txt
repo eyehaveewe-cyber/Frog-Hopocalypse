@@ -1,3 +1,19 @@
+2026-10-20 — Requested Tile Hop leg/sound comparison (repository only)
+
+1. Rear legs now extend back and spread in flight, then tuck before contact.
+   Connected visual shins and exact rest-pose reset; Smooth default versus
+   Stepped 12 poses/s can be compared on the same playable map.
+2. Added original CC0 Soft and Retro takeoff/landing pairs, three variants each.
+   Separate short effects duck under speech, require input unlock and honor
+   Sound Off/On. Menu/Pause comparison panel adds hop gain and an audition pair.
+   Kenney CC0 source investigated; ZIP blocked by proxy 403, no samples bundled.
+3. 40 focused native and ten desktop/touch browser checks pass. Five existing
+   harder routes and five checkpoint retries complete with hazards active.
+   Maps, old recordings, rules, collision, hop duration and difficulty preserved.
+4. No merge or deployment. RiverSim/Site files untouched. Physical iPhone/Safari,
+   subjective sound comfort and preference remain unverified. Reproducible source,
+   GIF/MP4/WAV previews, attribution and test export: docs/HOP_FEEL.md.
+
 2026-10-19 — Speculative recovery pass two (repository only)
 
 1. Pause now explains the same checkpoint/resource recovery and offers retry.

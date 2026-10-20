@@ -1,0 +1,28 @@
+{
+  "checks": [
+    "desktop: no hop audio before a gesture",
+    "desktop: real hop has audible takeoff and landing after gesture",
+    "desktop: Sound Off suppresses voices and hop effects; unmute has no stale replay",
+    "desktop: actual audio level follows volume, zero is silent, headroom retained",
+    "desktop: both original sound palettes and smooth/stepped selection are playable",
+    "touch: no hop audio before a gesture",
+    "touch: real hop has audible takeoff and landing after gesture",
+    "touch: Sound Off suppresses voices and hop effects; unmute has no stale replay",
+    "touch: actual audio level follows volume, zero is silent, headroom retained",
+    "touch: both original sound palettes and smooth/stepped selection are playable"
+  ],
+  "errors": [],
+  "measurements": [
+    {
+      "device": "desktop",
+      "lowPeak": 0.022402403876185417,
+      "highPeak": 0.057768676429986954
+    },
+    {
+      "device": "touch",
+      "lowPeak": 0.06717199832201004,
+      "highPeak": 0.27506011724472046
+    }
+  ],
+  "scope": "Chromium desktop and Android-UA touch landscape; actual WebAudio output sampled after pending voice announcements drained while muted. Physical iPhone/Safari and subjective loudness unverified."
+}

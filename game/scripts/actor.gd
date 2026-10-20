@@ -13,6 +13,10 @@ var turn_timer := 0.0
 var hop_clock := 0.0
 var rng := RandomNumberGenerator.new()
 var stuck_time := 0.0
+var hop_pose_style := "smooth"
+var hop_parts: Array[Node3D] = []
+var hop_rest: Array[Transform3D] = []
+var pose_phase := 0.0
 
 func setup(player: bool, theme_name: String, obj: Dictionary = {}, hat: bool = true) -> void:
 	is_player = player
@@ -30,6 +34,12 @@ func setup(player: bool, theme_name: String, obj: Dictionary = {}, hat: bool = t
 	add_child(shape)
 	visual = Art.frog(hat) if player else Art.critter(theme_name, behavior)
 	add_child(visual)
+	if player:
+		for side in ["L", "R"]:
+			for part_name in ["HindLeg" + side, "HindShin" + side, "HindToe" + side + "0", "HindToe" + side + "1", "HindToe" + side + "2"]:
+				var part := visual.get_node(part_name) as Node3D
+				hop_parts.append(part)
+				hop_rest.append(part.transform)
 	var shadow := Art.cylinder(self, 0.43 if player else 0.4, 0.43 if player else 0.4, 0.012, Vector3(0, 0.015, 0), Color(0.06, 0.09, 0.06, 0.4))
 	var shadow_material := Art.mat(Color(0.06, 0.09, 0.06, 0.4)).duplicate() as StandardMaterial3D
 	shadow_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -117,3 +127,41 @@ func advance_waypoint() -> void:
 		waypoint_index = 0
 	else:
 		patrol_finished = true
+
+func reset_tile_pose() -> void:
+	for i in range(hop_parts.size()):
+		hop_parts[i].transform = hop_rest[i]
+		hop_parts[i].visible = i % 5 != 1
+	pose_phase = 0.0
+
+func pose_tile_hop(phase: float, big: bool) -> void:
+	# Cosmetic local-space rig only; the tile controller owns translation/airborne rules.
+	var t := clampf(phase, 0.0, 1.0)
+	if t >= 1.0:
+		reset_tile_pose()
+		return
+	if hop_pose_style == "stepped":
+		t = floorf(t * 0.34 * 12.0) / (0.34 * 12.0)
+	pose_phase = t
+	var extension := smoothstep(0.0, 0.23, t) * (1.0 - smoothstep(0.55, 0.98, t))
+	var e := extension * (1.0 if big else 0.90)
+	for index in range(2):
+		var side := -1.0 if index == 0 else 1.0
+		var base := index * 5
+		var hip := Vector3(side * 0.30, 0.20, 0.20)
+		var knee := Vector3(side * (0.43 + 0.20 * e), 0.17 + 0.08 * e, 0.40 + 0.15 * e)
+		var ankle := Vector3(side * (0.46 + 0.32 * e), 0.07 + 0.10 * e, 0.47 + 0.64 * e)
+		# Blend out of the original squat, preserving the exact rest at contact.
+		var thigh := hop_parts[base]
+		thigh.position = hop_rest[base].origin.lerp((hip + knee) * 0.5, extension)
+		thigh.quaternion = Quaternion.IDENTITY.slerp(Quaternion(Vector3.BACK, (knee - hip).normalized()), extension)
+		thigh.scale = Vector3(0.40, 0.26, lerpf(0.52, hip.distance_to(knee) + 0.12, extension))
+		var shin := hop_parts[base + 1]
+		shin.visible = extension > 0.03
+		shin.position = (knee + ankle) * 0.5
+		shin.quaternion = Quaternion(Vector3.BACK, (ankle - knee).normalized())
+		shin.scale = Vector3(0.14, 0.13, knee.distance_to(ankle) + 0.08)
+		for toe in range(3):
+			var foot := hop_parts[base + 2 + toe]
+			foot.position = hop_rest[base + 2 + toe].origin + Vector3(side * 0.32 * e, 0.10 * e, 0.64 * e)
+			foot.rotation = Vector3(-0.22 * e, side * ((toe - 1) * 0.30 + 0.25 * e), 0)

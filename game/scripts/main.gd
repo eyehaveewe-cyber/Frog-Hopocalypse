@@ -2,6 +2,9 @@ extends Control
 const Data = preload("res://scripts/level_data.gd")
 const World = preload("res://scripts/world.gd")
 const Voice = preload("res://scripts/voice.gd")
+const HopAudio = preload("res://scripts/hop_audio.gd")
+var hop_audio: Node
+var hop_volume_slider: HSlider
 var voice: Node
 var sound_enabled := true
 var skin := "green"
@@ -136,6 +139,9 @@ func _ready() -> void:
 	voice = Voice.new()
 	add_child(voice)
 	voice.set_enabled(sound_enabled)
+	hop_audio = HopAudio.new()
+	add_child(hop_audio)
+	hop_audio.set_enabled(sound_enabled)
 	load_library()
 	build_ui()
 	load_builtin(0)
@@ -417,7 +423,10 @@ func build_ui() -> void:
 	view.add_child(world)
 	world.finished.connect(on_finished)
 	world.hint_changed.connect(status)
-	world.hop_started.connect(func(_big: bool): long_hop_button.set_pressed_no_signal(false))
+	world.hop_started.connect(func(_big: bool):
+		long_hop_button.set_pressed_no_signal(false)
+		hop_audio.play_event("takeoff", voice.busy()))
+	world.hop_landed.connect(func(_big: bool): hop_audio.play_event("landing", voice.busy()))
 	world.checkpoint_reached.connect(func(point: Array):
 		checkpoint_spawn = point.duplicate()
 		checkpoint_hop_state = world.tile_rules.checkpoint_state() if world.tile_rules != null else {}
@@ -548,6 +557,7 @@ func reset_overlay(title: String, subtitle: String = "") -> void:
 	reset_touch()
 
 func show_menu() -> void:
+	hop_audio.clear()
 	begin_pending = false
 	voice.clear()
 	world.halted = true
@@ -587,6 +597,7 @@ func show_menu() -> void:
 	menu_sound_toggle.button_pressed = sound_enabled
 	menu_sound_toggle.toggled.connect(set_sound_enabled)
 	overlay_box.add_child(menu_sound_toggle)
+	button(overlay_box, "Hop feel comparison", show_hop_comparison)
 	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
 	if completed_stages.size() == BUILTINS.size():
 		button(overlay_box, "Skin: " + skin.capitalize(), toggle_skin)
@@ -629,6 +640,7 @@ func focus_splash_action() -> void:
 func set_sound_enabled(enabled: bool) -> void:
 	sound_enabled = enabled
 	voice.set_enabled(enabled)
+	if is_instance_valid(hop_audio): hop_audio.set_enabled(enabled)
 	if is_instance_valid(sound_button):
 		sound_button.text = "Sound: On" if enabled else "Sound: Off"
 	if is_instance_valid(menu_sound_toggle):
@@ -786,6 +798,7 @@ func load_builtin(index: int, set_key: String = "baby") -> bool:
 	return true
 
 func start_play(from_editor: bool = true) -> void:
+	hop_audio.clear()
 	restart_confirmation_open = false
 	pending_result = ""
 	commit_name()
@@ -827,6 +840,7 @@ func start_play(from_editor: bool = true) -> void:
 		show_level_rules(true)
 
 func enter_editor() -> void:
+	hop_audio.clear()
 	begin_pending = false
 	voice.clear()
 	pending_result = ""
@@ -873,6 +887,7 @@ func retry_description() -> String:
 	return text + "\nLong hop: collect a Hop seed."
 
 func retry() -> void:
+	hop_audio.clear()
 	restart_confirmation_open = false
 	pause_button.text = "Pause"
 	pending_result = ""
@@ -895,6 +910,7 @@ func retry() -> void:
 	start_announcements(true)
 
 func on_finished(reason: String) -> void:
+	if reason != "LEVEL COMPLETE!": hop_audio.clear()
 	if not pending_result.is_empty():
 		return
 	begin_pending = false
@@ -982,6 +998,7 @@ func toggle_pause() -> void:
 	pause_button.text = "Resume" if paused else "Pause"
 
 func show_pause_overlay() -> void:
+	hop_audio.clear()
 	joystick.hide()
 	reset_overlay("Taking a breather.", "The maze will wait. So will the critters.")
 	button(overlay_box, "Resume", toggle_pause, true)
@@ -989,7 +1006,39 @@ func show_pause_overlay() -> void:
 	button(overlay_box, retry_action_text(), retry)
 	if not checkpoint_spawn.is_empty():
 		button(overlay_box, "Restart level…", confirm_level_restart)
+	button(overlay_box, "Hop feel comparison", show_hop_comparison)
 	button(overlay_box, "Menu", show_menu)
+
+func show_hop_comparison() -> void:
+	reset_overlay("Hop feel", "Compare on the same level. Only leg poses and hop sounds change. Choices last for this session.")
+	button(overlay_box, "Animation: " + ("Stepped · 12 poses/s" if world.hop_pose_style == "stepped" else "Smooth"), func():
+		world.hop_pose_style = "smooth" if world.hop_pose_style == "stepped" else "stepped"
+		show_hop_comparison())
+	button(overlay_box, "Hop sound: " + ("Soft" if hop_audio.palette == "soft" else "Retro") + " · original", func():
+		hop_audio.clear()
+		hop_audio.palette = "retro" if hop_audio.palette == "soft" else "soft"
+		show_hop_comparison())
+	var volume_label := paragraph(overlay_box, "Hop volume · %d%%" % roundi(hop_audio.gain * 100))
+	hop_volume_slider = HSlider.new()
+	hop_volume_slider.min_value=0;hop_volume_slider.max_value=100;hop_volume_slider.step=5
+	hop_volume_slider.value=hop_audio.gain*100
+	hop_volume_slider.custom_minimum_size=Vector2(0,44)
+	hop_volume_slider.value_changed.connect(func(value: float):
+		hop_audio.set_gain(value/100.0)
+		volume_label.text = "Hop volume · %d%%" % roundi(value))
+	overlay_box.add_child(hop_volume_slider)
+	button(overlay_box, "Hear takeoff + landing", func(): preview_hop_sound())
+	paragraph(overlay_box, "Original synthesized effects, CC0. Sound Off mutes effects and voices. Landing is softer; effects duck during speech.")
+	button(overlay_box, "Back to Pause" if paused else "Back to Menu", show_pause_overlay if paused else show_menu)
+
+func preview_hop_sound() -> void:
+	hop_audio.clear()
+	hop_audio.play_event("takeoff", voice.busy())
+	var generation: int = hop_audio.generation
+	# Audition only; gameplay uses its authoritative safe-landing event.
+	await get_tree().create_timer(0.34).timeout
+	if generation == hop_audio.generation and overlay.visible and is_instance_valid(hop_volume_slider) and hop_volume_slider.is_visible_in_tree():
+		hop_audio.play_event("landing", voice.busy())
 
 func confirm_level_restart() -> void:
 	reset_overlay("Restart this level?", "Resets this level's checkpoint and pickups. Hazards restart. Campaign progress is kept.")
@@ -1967,6 +2016,8 @@ func publish_browser_probe() -> void:
 		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
 		"hat": hat, "skin": skin, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
+		"hop_audio": {"unlocked":hop_audio.unlocked,"history":hop_audio.history,"gain":hop_audio.gain,"palette":hop_audio.palette,"playing":hop_audio.takeoff.playing or hop_audio.landing.playing,"db":hop_audio.takeoff.volume_db}, "hop_pose":world.hop_pose_style,"pose_phase":world.player.pose_phase,
+		"hop_volume_rect": [hop_volume_slider.global_position.x,hop_volume_slider.global_position.y,hop_volume_slider.size.x,hop_volume_slider.size.y] if is_instance_valid(hop_volume_slider) and hop_volume_slider.is_visible_in_tree() else [],
 		"ui_size": [size.x, size.y], "saved": library.size(), "status": status_label.text, "fields": fields, "editor_changes": editor_change_counts.get(str(level.get("editor_autosave_id","")),0), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
@@ -1977,6 +2028,7 @@ func publish_browser_probe() -> void:
 func _input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton or event is InputEventScreenTouch or event is InputEventKey) and event.is_pressed():
 		voice.unlock()
+		hop_audio.unlocked = true
 	if not is_instance_valid(world):
 		return
 	if event is InputEventKey and event.pressed and not event.echo:

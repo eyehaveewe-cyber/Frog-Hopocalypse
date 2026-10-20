@@ -3,6 +3,18 @@ The harder five-stage Tile Hop tour is published. Existing rules, unlocks, campa
 RiverSim testing route and audio are preserved. Earlier review notes below record
 their state when written. [Publication and rollback](docs/TILE_HARDNESS_PUBLICATION.json).
 
+## Requested Tile Hop sound and leg comparison — repository only
+
+Branch `feature/hopan-hop-feel` adds stronger rear-leg extension/spread and tuck,
+with playable **Smooth / Stepped (12 poses/s)** and **Soft / Retro original hop
+sounds**. Open **Hop feel comparison** from the menu or Pause; its hop-volume
+control and Sound Off work together. Gameplay timing, collision, maps and
+hazard difficulty stay unchanged. [How to play, attribution and checks](docs/HOP_FEEL.md) ·
+[Animated/audio previews](docs/previews/hop-feel/) ·
+[Standalone Web test ZIP](artifacts/hopan-hop-feel-web.zip).
+The public Site remains v26; this requested branch also retains the preceding
+repository-only recovery proposals.
+
 ## Speculative recovery updates — repository only
 
 Branch `speculative/hopan-recovery-two-pass` starts from the published v26 source

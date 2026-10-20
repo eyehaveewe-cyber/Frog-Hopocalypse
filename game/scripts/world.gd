@@ -2,6 +2,8 @@ extends Node3D
 signal finished(reason: String)
 signal checkpoint_reached(point: Array)
 signal hop_started(big: bool)
+signal hop_landed(big: bool)
+var hop_pose_style := "smooth"
 signal hint_changed(text: String)
 const TileRules = preload("res://scripts/tile_rules.gd")
 const Art = preload("res://scripts/art.gd")
@@ -531,6 +533,7 @@ func finish(reason: String) -> void:
 	if not result.is_empty():
 		return
 	intro_active = false
+	if tile_rules != null: player.reset_tile_pose()
 	result = reason
 	result_time = 0
 	active = false
