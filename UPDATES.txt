@@ -1,3 +1,20 @@
+2026-10-20 — Long-hop boing, varied basic hops, editor saves and road fragments
+
+1. Long-hop takeoff uses a dedicated original CC0 spring boing in either palette.
+   Ordinary hops shuffle three variants with no immediate repeat; restrained
+   pitch changes and level attenuation reduce exact repetition without boosting
+   peaks. Separate audio RNG preserves gameplay. Channel Hideo applied.
+2. Active unsaved editor maps prompt Save and leave / Leave without saving /
+   Continue editing before Menu or map replacement. Failed validation or writes
+   preserve the editor, saved file and library. Undo-to-saved clears dirty state;
+   autosaves do not count as manual saves. Browser-native close prompt unverified.
+3. Hop fragments can sit on roads and survive road painting and portable JSON.
+   Landing collects them; traffic remains lethal. Seeds retain safe-bank rules.
+4. 51 native audio/hop and 26 editor/fragment checks pass. Browser checks and
+   publication evidence follow. No bundled maps or existing recordings changed.
+   Details: docs/BOING_EDITOR_UPDATE.md. Physical iPhone/Safari, subjective sound
+   comfort and the renderer-dependent Channel Hideo DOCX update remain unverified.
+
 2026-10-20 — Hop feel comparison published publicly as version 27
 
 1. Live URL: https://hopan.fiiendward.chatgpt.site

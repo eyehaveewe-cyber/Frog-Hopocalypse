@@ -1,6 +1,6 @@
 # Hopan hop effects
 
-These twelve WAVs are **original procedural synthesis**, authored by the assistant
+These fifteen WAVs are **original procedural synthesis**, authored by the assistant
 for Jonathan's Hopan request on 2026-10-20. They contain no sampled recordings,
 mocap, third-party audio or purchased assets. Reproduce them with
 `python3 tools/synthesize_hops.py` (deterministic seed and variant parameters).
@@ -22,6 +22,19 @@ is another 2 dB lower. Effects duck by a factor of 0.55 while recorded speech is
 busy. Three deterministic variants reduce exact repetition. This is digital
 headroom, not a measured real-world sound pressure level or a comfort guarantee.
 See `measurements.json` for per-file peak/RMS and SHA256.
+
+## Long hop and non-repeating variation (2026-10-20)
+
+`long_takeoff_[0-2].wav` are original 240 ms spring boings with a falling
+resonance and decaying pitch wobble. They identify a long-hop takeoff in either
+palette; ordinary takeoff and landing source WAVs remain unchanged.
+
+Each cue group uses its own three-item shuffle bag, including an immediate-repeat
+check across bag boundaries. Runtime pitch jitter is +/-40 cents for ordinary
+takeoff, +/-25 for landing, and +/-15 for the long-hop boing. Runtime gain jitter
+is -0.9 to 0 dB, so variation never raises the existing source peak. Audio has its
+own RNG and cannot advance gameplay hazard RNG. These exact bounds are AI-origin
+Hopan tuning, not a claimed industry standard. Human preference remains open.
 
 ## Free source investigated, not bundled
 

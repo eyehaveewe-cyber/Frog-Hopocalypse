@@ -45,9 +45,15 @@ func run()->void:
    while app.world.tile_rules.jumping:
     await physics_frame;app.world._physics_process(1.0/fps);frames+=1
    check(app.world.player.position.is_equal_approx(start+Vector3(0,0,-3.6)) and frames==ceili(.34*fps),"Same two-tile destination and .34-second hop at %d Hz, %s"%[fps,style])
+   check(app.hop_audio.history[count].begins_with("long_takeoff_"),"Long hop selects the dedicated boing")
    check(app.hop_audio.history.size()==count+2 and app.hop_audio.history[-1].contains("landing"),"One takeoff and one landing at %d Hz, %s"%[fps,style])
    for i in range(8):app.world._physics_process(1.0/fps)
    check(app.hop_audio.history.size()==count+2,"Idle never repeats landing")
+ fresh()
+ var ordinary_count=app.hop_audio.history.size()
+ app.world.tile_rules.request(Vector2i.UP,false)
+ for i in range(26):await physics_frame;app.world._physics_process(1.0/60)
+ check(app.hop_audio.history[ordinary_count].begins_with("soft_takeoff_"),"Ordinary hop retains its existing takeoff")
  fresh();app.world.level.tiles[6][5]="water"
  var count=app.hop_audio.history.size()
  app.world.tile_rules.request(Vector2i.UP,true)
@@ -56,9 +62,9 @@ func run()->void:
  check(app.world.player.pose_phase==0 and not app.hop_audio.takeoff.playing,"Death interrupts pose and hop audio")
  fresh();count=app.hop_audio.history.size();app.world.level.tiles[7][5]="wall"
  check(not app.world.tile_rules.request(Vector2i.UP,false) and app.hop_audio.history.size()==count,"Blocked hop is silent")
- app.hop_audio.play_event("takeoff",false);var full:float=app.hop_audio.takeoff.volume_db
+ app.hop_audio.play_event("takeoff",false);var full:float=app.hop_audio.takeoff.volume_db-app.hop_audio.event_levels.takeoff
  app.hop_audio.play_event("takeoff",true)
- check(app.hop_audio.takeoff.volume_db<full-5,"Effects duck under recorded speech")
+ check(app.hop_audio.takeoff.volume_db-app.hop_audio.event_levels.takeoff<full-5,"Effects duck under recorded speech")
  app.hop_audio.set_gain(.25);var quiet:float=app.hop_audio.takeoff.volume_db
  app.hop_audio.set_gain(.75)
  check(app.hop_audio.takeoff.volume_db>quiet+9,"Volume gain changes actual playback level")
@@ -68,6 +74,19 @@ func run()->void:
  check(not app.hop_audio.takeoff.playing and not app.voice.enabled,"Existing Sound Off stops effects and voices together")
  app.set_sound_enabled(true)
  check(not app.hop_audio.takeoff.playing,"Unmute never replays stale effects")
+ app.hop_audio.clear();app.voice.clear()
+ app.hop_audio.rng.seed=7317;app.hop_audio.bags.clear();app.hop_audio.last_variants.clear()
+ var pitches:Array=[];var variants:Array=[];var levels:Array=[]
+ for i in range(18):
+  app.hop_audio.play_event("takeoff",false)
+  variants.append(app.hop_audio.history[-1]);pitches.append(app.hop_audio.last_pitch_cents);levels.append(app.hop_audio.event_levels.takeoff)
+  app.hop_audio.play_event("landing",false)
+ check(range(1,18).all(func(i):return variants[i]!=variants[i-1]),"Basic takeoffs never immediately repeat the same recording, including bag boundaries")
+ var bags_unique=true
+ for i in range(0,18,3):bags_unique=bags_unique and variants.slice(i,i+3).count(variants[i])==1 and variants[i]!=variants[i+1] and variants[i+1]!=variants[i+2]
+ check(bags_unique,"Each shuffle bag plays all three variants once")
+ check(pitches.all(func(v):return absf(v)<=40.0) and pitches.max()-pitches.min()>20.0,"Basic pitch varies within a restrained 40-cent range")
+ check(levels.all(func(v):return v>=-0.9 and v<=0.0),"Level variation only attenuates; no extra peak gain")
  print("HOP FEEL: %d checks, %d failures"%[checks,failures.size()])
  app.hop_audio.clear();app.voice.clear()
  # Let the audio mixer release stopped sample playbacks before forced test exit.

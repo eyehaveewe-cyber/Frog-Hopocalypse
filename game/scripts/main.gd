@@ -77,6 +77,12 @@ var redo_button: Button
 var level: Dictionary = {}
 var library: Array = []
 var slot_id := ""
+var editor_saved_snapshot: Dictionary = {}
+var pending_editor_navigation: Callable
+var editor_leave_open := false
+var editor_session_active := false
+var last_browser_unsaved := false
+var editor_navigation_bypass := false
 var editor_change_counts: Dictionary = {}
 var editor_autosave_due := false
 var builtin_index := 0
@@ -147,6 +153,7 @@ func _ready() -> void:
 	load_builtin(0)
 	show_menu()
 	if OS.has_feature("web"):
+		JavaScriptBridge.eval("window.hopanEditorUnsaved=false;window.addEventListener('beforeunload',function(e){if(window.hopanEditorUnsaved){e.preventDefault();e.returnValue='';}});",true)
 		RenderingServer.frame_post_draw.connect(notify_web_ready, CONNECT_ONE_SHOT)
 	if test_mode:
 		test_runner = preload("res://tests/integration.gd").new()
@@ -423,9 +430,9 @@ func build_ui() -> void:
 	view.add_child(world)
 	world.finished.connect(on_finished)
 	world.hint_changed.connect(status)
-	world.hop_started.connect(func(_big: bool):
+	world.hop_started.connect(func(big: bool):
 		long_hop_button.set_pressed_no_signal(false)
-		hop_audio.play_event("takeoff", voice.busy()))
+		hop_audio.play_event("takeoff", voice.busy(), big))
 	world.hop_landed.connect(func(_big: bool): hop_audio.play_event("landing", voice.busy()))
 	world.checkpoint_reached.connect(func(point: Array):
 		checkpoint_spawn = point.duplicate()
@@ -557,6 +564,8 @@ func reset_overlay(title: String, subtitle: String = "") -> void:
 	reset_touch()
 
 func show_menu() -> void:
+	if request_editor_navigation(show_menu): return
+	editor_session_active = false
 	hop_audio.clear()
 	begin_pending = false
 	voice.clear()
@@ -613,6 +622,7 @@ func show_menu() -> void:
 		overlay_box.add_child(custom)
 	if mode != "menu":
 		button(overlay_box, "Continue " + ("editing" if mode == "edit" else "playing"), func():
+			editor_session_active = mode in ["edit", "test"]
 			overlay.hide()
 			world.halted = false
 			paused = false
@@ -735,17 +745,22 @@ func show_scenery_demos() -> void:
 	reset_overlay("Scenery demos", "Landmarks on the course and in the surrounding water. Loads into the editor; Undo restores your map.")
 	for i in range(SCENERY_DEMOS.size()):
 		var index := i
-		button(overlay_box, ["Temple Shore", "Heron Marsh", "Horizon · 1x", "Horizon · 80x"][i], func():
-			var demo := Data.load_json(SCENERY_DEMOS[index])
-			if demo.is_empty(): return
-			record_undo()
-			level = demo
-			slot_id = ""
-			selection = ""
-			enter_editor())
+		button(overlay_box, ["Temple Shore", "Heron Marsh", "Horizon · 1x", "Horizon · 80x"][i], func(): open_scenery_demo(index))
 	button(overlay_box, "Keep editing", func(): overlay.hide())
 
+func open_scenery_demo(index: int) -> void:
+	if request_editor_navigation(func(): open_scenery_demo(index)): return
+	var demo := Data.load_json(SCENERY_DEMOS[index])
+	if demo.is_empty(): return
+	record_undo()
+	level = demo
+	editor_saved_snapshot = {}
+	slot_id = ""
+	selection = ""
+	enter_editor()
+
 func open_movement_demo(index: int) -> void:
+	if request_editor_navigation(func(): open_movement_demo(index)): return
 	var paths: Array = TILE_LEVELS.slice(0,2) + [MOVE_DEMO, CHARGE_DEMO] + TILE_LEVELS.slice(2)
 	if index < 0 or index >= paths.size(): return
 	var demo := Data.load_json(paths[index])
@@ -754,6 +769,7 @@ func open_movement_demo(index: int) -> void:
 		return
 	record_undo()
 	level = demo
+	editor_saved_snapshot = {}
 	slot_id = ""
 	selection = ""
 	enter_editor()
@@ -788,6 +804,7 @@ func load_builtin(index: int, set_key: String = "baby") -> bool:
 	builtin_index = index
 	campaign_level = true
 	level = loaded
+	editor_saved_snapshot = level.duplicate(true)
 	slot_id = ""
 	undo_stack.clear()
 	redo_stack.clear()
@@ -840,6 +857,7 @@ func start_play(from_editor: bool = true) -> void:
 		show_level_rules(true)
 
 func enter_editor() -> void:
+	editor_session_active = true
 	hop_audio.clear()
 	begin_pending = false
 	voice.clear()
@@ -987,6 +1005,7 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 func toggle_pause() -> void:
 	if mode not in ["play", "test"] or not world.result.is_empty():
 		return
+	if mode == "test": editor_session_active = true
 	paused = not paused
 	world.halted = paused
 	reset_touch()
@@ -1028,12 +1047,13 @@ func show_hop_comparison() -> void:
 		volume_label.text = "Hop volume · %d%%" % roundi(value))
 	overlay_box.add_child(hop_volume_slider)
 	button(overlay_box, "Hear takeoff + landing", func(): preview_hop_sound())
+	button(overlay_box, "Hear long-hop boing", func(): preview_hop_sound(true))
 	paragraph(overlay_box, "Original synthesized effects, CC0. Sound Off mutes effects and voices. Landing is softer; effects duck during speech.")
 	button(overlay_box, "Back to Pause" if paused else "Back to Menu", show_pause_overlay if paused else show_menu)
 
-func preview_hop_sound() -> void:
+func preview_hop_sound(big: bool = false) -> void:
 	hop_audio.clear()
-	hop_audio.play_event("takeoff", voice.busy())
+	hop_audio.play_event("takeoff", voice.busy(), big)
 	var generation: int = hop_audio.generation
 	# Audition only; gameplay uses its authoritative safe-landing event.
 	await get_tree().create_timer(0.34).timeout
@@ -1380,7 +1400,7 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 			level.erase("checkpoint")
 		rebuild()
 		return
-	if index >= 0 and level.objects[index].type in ["hop_fragment","hop_seed"] and tool == "road":
+	if index >= 0 and level.objects[index].type == "hop_seed" and tool == "road":
 		status("Erase the hop pickup before turning its safe bank into a road.")
 		return
 	var checkpoint_cell: bool = point in level.get("checkpoints", []) or point == level.get("checkpoint", [])
@@ -1437,7 +1457,7 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		if point == level.spawn or point == level.exit or terrain in ["wall", "cheese_wall"] or (terrain == "water" and tool != "log"):
 			status("Place objects on dry terrain away from the start and exit.")
 			return
-		if tool in ["hop_fragment", "hop_seed"] and terrain == "road":
+		if tool == "hop_seed" and terrain == "road":
 			status("Hop pickups need a safe bank, away from road traffic.")
 			return
 		if index >= 0 or level.objects.size() >= 180:
@@ -1715,32 +1735,75 @@ func refresh_library_picker() -> void:
 	for item in library:
 		saved_picker.add_item(str(item.level.name))
 
-func save_level() -> void:
+func editor_has_unsaved_changes() -> bool:
+	return not level.is_empty() and level != editor_saved_snapshot
+
+func request_editor_navigation(action: Callable) -> bool:
+	if editor_navigation_bypass or not editor_session_active or mode not in ["edit", "test"]: return false
+	if mode == "edit": commit_name()
+	if not editor_has_unsaved_changes(): return false
+	pending_editor_navigation = action
+	reset_overlay("Save before leaving?", "This level has unsaved changes. Save keeps a local copy on this device; export JSON for a portable backup.")
+	editor_leave_open = true
+	world.halted = true
+	joystick.hide()
+	button(overlay_box, "Yes · Save and leave", func():
+		if save_level(): finish_editor_navigation()
+		else: paragraph(overlay_box, status_label.text), true)
+	button(overlay_box, "No · Leave without saving", finish_editor_navigation)
+	button(overlay_box, "Continue editing", cancel_editor_navigation)
+	return true
+
+func finish_editor_navigation() -> void:
+	var action := pending_editor_navigation
+	pending_editor_navigation = Callable()
+	editor_leave_open = false
+	editor_navigation_bypass = true
+	if action.is_valid(): action.call()
+	editor_navigation_bypass = false
+
+func cancel_editor_navigation() -> void:
+	pending_editor_navigation = Callable()
+	editor_leave_open = false
+	if mode == "test":
+		world.halted = paused
+		if paused: show_pause_overlay()
+		else: overlay.hide()
+		joystick.visible = mobile_ui and not paused
+	else:
+		overlay.hide()
+		world.halted = false
+
+func save_level() -> bool:
 	commit_name()
 	var error := Data.validate(level)
 	if not error.is_empty():
 		status(error)
-		return
-	if slot_id.is_empty():
-		slot_id = "level_%d_%d" % [Time.get_unix_time_from_system(), Time.get_ticks_usec()]
+		return false
+	var saved_id := slot_id if not slot_id.is_empty() else "level_%d_%d" % [Time.get_unix_time_from_system(), Time.get_ticks_usec()]
+	var candidate: Array = library.duplicate(true)
 	var found := false
-	for item in library:
-		if item.id == slot_id:
+	for item in candidate:
+		if item.id == saved_id:
 			item.level = level.duplicate(true)
 			found = true
-	if not found:
-		library.append({"id": slot_id, "level": level.duplicate(true)})
+	if not found: candidate.append({"id": saved_id, "level": level.duplicate(true)})
 	var f := FileAccess.open("user://library.pending.json", FileAccess.WRITE)
 	if f == null:
-		status("Local save failed. Export JSON to keep a portable copy.")
-		return
-	f.store_string(JSON.stringify(library, "\t"))
+		status("Local save failed. Continue editing or export JSON to keep a portable copy.")
+		return false
+	f.store_string(JSON.stringify(candidate, "\t"))
+	var write_error := f.get_error()
 	f.close()
-	if DirAccess.rename_absolute("user://library.pending.json", "user://library.json") != OK:
-		status("Could not finish the local save. Export JSON to keep a backup.")
-		return
+	if write_error != OK or DirAccess.rename_absolute("user://library.pending.json", "user://library.json") != OK:
+		status("Could not finish the local save. Continue editing or export JSON for a backup.")
+		return false
+	library = candidate
+	slot_id = saved_id
+	editor_saved_snapshot = level.duplicate(true)
 	refresh_library_picker()
 	status("Saved locally: " + level.name + ". Export JSON for a backup outside this browser.")
+	return true
 
 func duplicate_level() -> void:
 	record_undo()
@@ -1753,6 +1816,7 @@ func duplicate_level() -> void:
 	save_level()
 
 func load_saved(index: int) -> void:
+	if index > 0 and request_editor_navigation(func(): load_saved(index)): return
 	if index > 0:
 		load_library_entry(index - 1)
 		enter_editor()
@@ -1760,6 +1824,7 @@ func load_saved(index: int) -> void:
 func load_library_entry(index: int) -> void:
 	campaign_level = false
 	level = library[index].level.duplicate(true)
+	editor_saved_snapshot = {} if library[index].get("autosave",false) else level.duplicate(true)
 	slot_id = "" if library[index].get("autosave",false) else library[index].id
 	if library[index].get("autosave",false):
 		level.name = library[index].original_name if library[index].get("original_name") is String else level.name
@@ -1821,8 +1886,10 @@ func import_text(text: String) -> bool:
 		# Show the error inside the dialog, too.
 		paragraph(overlay_box, error)
 		return false
+	if request_editor_navigation(func(): import_text(text)): return false
 	record_undo()
 	level = Data.normalize(data)
+	editor_saved_snapshot = {}
 	if level.has("editor_autosave_id"):
 		level.editor_autosave_id = "new_%d_%d" % [Time.get_unix_time_from_system(),Time.get_ticks_usec()]
 	slot_id = ""
@@ -1832,6 +1899,8 @@ func import_text(text: String) -> bool:
 	return true
 
 func new_level(theme_name: String = "egypt") -> void:
+	if request_editor_navigation(func(): new_level(theme_name)): return
+	editor_saved_snapshot = {}
 	record_undo()
 	level = Data.blank("New Egypt" if theme_name == "egypt" else "New Swamp", theme_name, [17,21,33][size_picker.selected], [13,16,49][size_picker.selected])
 	level.editor_autosave_id = "new_%d_%d" % [Time.get_unix_time_from_system(),Time.get_ticks_usec()]
@@ -1927,6 +1996,11 @@ func _process(delta: float) -> void:
 		save_editor_checkpoint()
 	if not is_instance_valid(world) or level.is_empty():
 		return
+	if OS.has_feature("web"):
+		var unsaved := editor_session_active and editor_has_unsaved_changes()
+		if unsaved != last_browser_unsaved:
+			last_browser_unsaved = unsaved
+			JavaScriptBridge.eval("window.hopanEditorUnsaved=" + ("true" if unsaved else "false"),true)
 	if browser_test:
 		probe_timer += delta
 		if probe_timer > 0.2:
@@ -2018,6 +2092,7 @@ func publish_browser_probe() -> void:
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
 		"hop_audio": {"unlocked":hop_audio.unlocked,"history":hop_audio.history,"gain":hop_audio.gain,"palette":hop_audio.palette,"playing":hop_audio.takeoff.playing or hop_audio.landing.playing,"db":hop_audio.takeoff.volume_db}, "hop_pose":world.hop_pose_style,"pose_phase":world.player.pose_phase,
 		"hop_volume_rect": [hop_volume_slider.global_position.x,hop_volume_slider.global_position.y,hop_volume_slider.size.x,hop_volume_slider.size.y] if is_instance_valid(hop_volume_slider) and hop_volume_slider.is_visible_in_tree() else [],
+		"editor_unsaved":editor_has_unsaved_changes(),"editor_leave_open":editor_leave_open,
 		"ui_size": [size.x, size.y], "saved": library.size(), "status": status_label.text, "fields": fields, "editor_changes": editor_change_counts.get(str(level.get("editor_autosave_id","")),0), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
@@ -2032,6 +2107,12 @@ func _input(event: InputEvent) -> void:
 	if not is_instance_valid(world):
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
+		if editor_leave_open:
+			if event.keycode == KEY_ESCAPE:
+				cancel_editor_navigation()
+				get_viewport().set_input_as_handled()
+			elif event.keycode == KEY_R: get_viewport().set_input_as_handled()
+			return
 		if restart_confirmation_open:
 			if event.keycode == KEY_ESCAPE:
 				show_pause_overlay()
@@ -2067,6 +2148,7 @@ func _input(event: InputEvent) -> void:
 			if mode in ["play", "test"]:
 				toggle_pause()
 			elif overlay.visible:
+				if mode == "edit": editor_session_active = true
 				overlay.hide()
 			else:
 				show_menu()

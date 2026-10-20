@@ -82,5 +82,26 @@
     "sample_peak_dbfs": -6.375175252488257,
     "rms_dbfs": -19.11564202096744,
     "sha256": "423a3dc97b711820d3304d19b5919bb479762a7d2c8243ea0e61cc1d068db610"
+  },
+  {
+    "file": "long_takeoff_0.wav",
+    "duration": 0.24,
+    "sample_peak_dbfs": -6.375175252488256,
+    "rms_dbfs": -15.995082999481427,
+    "sha256": "0addd68b551cbc32bfb9f4b98d3988cd24b4f33aec26c32fe4b0577910328464"
+  },
+  {
+    "file": "long_takeoff_1.wav",
+    "duration": 0.24,
+    "sample_peak_dbfs": -6.375175252488256,
+    "rms_dbfs": -15.983441226810665,
+    "sha256": "7061b78cc743829f5942271ce13101b7d0badeec2b98bf44aed43b0a506570a0"
+  },
+  {
+    "file": "long_takeoff_2.wav",
+    "duration": 0.24,
+    "sample_peak_dbfs": -6.375175252488256,
+    "rms_dbfs": -16.006436858663434,
+    "sha256": "d97b6db141be9be270edf3dce7d2779924cb3f2f35cc9b29ac7bb6a9a95f8ad5"
   }
 ]

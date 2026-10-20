@@ -99,7 +99,7 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 				return "Tile-mode darts need a cardinal direction."
 		if obj.type in ["hop_fragment", "hop_seed"]:
 			if obj.get("solid",false) != false or obj.pos[0] != int(obj.pos[0]) or obj.pos[1] != int(obj.pos[1]): return "Hop pickups need whole cells and cannot block movement."
-			if not editor_snapshot and not checkpoint_open(d,obj.pos): return "Hop pickups need clear, safe ground."
+			if not editor_snapshot and not checkpoint_open(d,obj.pos,obj.type == "hop_fragment"): return "Hop fragments need clear dry ground or road; Hop seeds need a safe bank."
 			if d.objects.any(func(other): return other is Dictionary and other.get("id") != obj.id and other.get("type") in ["hop_fragment","hop_seed"] and other.get("pos") == obj.pos): return "Place one hop pickup per tile."
 		if obj.type == "landmark":
 			landmark_count += 1
@@ -217,8 +217,8 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 		seen_checkpoints.append(p)
 	return ""
 
-static func checkpoint_open(d: Dictionary, p: Array) -> bool:
-	if not point_valid(p, int(d.width), int(d.height)) or d.tiles[int(p[1])][int(p[0])] in ["wall", "cheese_wall", "water", "road"]:
+static func checkpoint_open(d: Dictionary, p: Array, allow_road: bool = false) -> bool:
+	if not point_valid(p, int(d.width), int(d.height)) or d.tiles[int(p[1])][int(p[0])] in (["wall", "cheese_wall", "water"] if allow_road else ["wall", "cheese_wall", "water", "road"]):
 		return false
 	for obj in d.objects:
 		if not obj is Dictionary: return false

@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "Actual editor tools place a Hop fragment on a road",
+    "Leave prompt offers all three actions; Continue preserves edits",
+    "Save and leave stores the road-fragment map; returning to the editor is clean",
+    "Replacing a new unsaved map is guarded; No performs the intended replacement"
+  ],
+  "errors": [],
+  "scope": "Desktop Chromium actual editor buttons/cell painting . Browser-native tab-close prompt was not confirmed in headless Chromium; in-app guards are verified. Native checks cover failed saves, JSON, road collection and lethal traffic."
+}

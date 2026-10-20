@@ -4,6 +4,13 @@ recovery UI, are now published. Choose **Hop feel comparison** in Menu or Pause.
 Maps, difficulty, recordings and RiverSim are preserved. Earlier repository-only
 notes below describe their state when written. [Publication and rollback](docs/HOP_FEEL_PUBLICATION.json).
 
+## Latest requested sound/editor update
+
+Long hops have a distinct boing. Basic hops shuffle variants without immediate
+repeats, with subtle pitch and level variation. Unsaved editor navigation offers
+Save and leave / Leave without saving / Continue editing. Hop fragments can sit
+on road tiles; traffic is still dangerous. [Details, provenance and focused checks](docs/BOING_EDITOR_UPDATE.md).
+
 ## Requested Tile Hop sound and leg comparison — repository only
 
 Branch `feature/hopan-hop-feel` adds stronger rear-leg extension/spread and tuck,

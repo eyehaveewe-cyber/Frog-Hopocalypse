@@ -23,4 +23,17 @@ for palette in ['soft','retro']:
    path=ROOT/f'{palette}_{event}_{variant}.wav'
    with wave.open(str(path),'wb') as f:f.setnchannels(1);f.setsampwidth(2);f.setframerate(rate);f.writeframes(b''.join(struct.pack('<h',round(s*32767)) for s in samples))
    stats.append({'file':path.name,'duration':duration,'sample_peak_dbfs':20*math.log10(max(map(abs,samples))),'rms_dbfs':20*math.log10(math.sqrt(sum(s*s for s in samples)/len(samples))),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
+# Dedicated longer spring: falling resonance with a decaying pitch wobble.
+for variant in range(3):
+ duration=.24;phase=0.;samples=[]
+ for i in range(int(rate*duration)):
+  t=i/rate;p=t/duration
+  frequency=(145+430*math.exp(-15*t)+105*math.exp(-9*t)*math.sin(2*math.pi*19*t))*(1+(variant-1)*.025)
+  phase+=2*math.pi*frequency/rate
+  envelope=min(1,t/.005)*min(1,(duration-t)/.025)*math.exp(-p*2.2)
+  samples.append((math.sin(phase)+.16*math.sin(2*phase))*envelope)
+ peak=max(map(abs,samples));samples=[s*.48/peak for s in samples]
+ path=ROOT/f'long_takeoff_{variant}.wav'
+ with wave.open(str(path),'wb') as f:f.setnchannels(1);f.setsampwidth(2);f.setframerate(rate);f.writeframes(b''.join(struct.pack('<h',round(s*32767)) for s in samples))
+ stats.append({'file':path.name,'duration':duration,'sample_peak_dbfs':20*math.log10(max(map(abs,samples))),'rms_dbfs':20*math.log10(math.sqrt(sum(s*s for s in samples)/len(samples))),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
 (ROOT/'measurements.json').write_text(json.dumps(stats,indent=2)+'\n')
