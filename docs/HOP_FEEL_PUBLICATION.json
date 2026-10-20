@@ -1,0 +1,33 @@
+{
+  "game_source_commit": "ca14b276915d7c01a15c720eeb179a3da95a3b4e",
+  "artifact_commit": "c42d76daa0d3c0d51c9db631e6e2f3b9d3528a30",
+  "site_source_commit": "66eee8f1a71b6d2fe2d070e9cb183fe78e61059c",
+  "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+  "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_ad9a3341d734819189f99d896805a89d",
+  "version_number": 27,
+  "deployment_id": "appgdep_6ad7d7f01dac819182e9dc4553aee984",
+  "status": "succeeded",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "access": "public",
+  "scope": "Tile Hop pose/sound comparison plus preceding checkpoint recovery UI; existing maps, audio recordings, difficulty, collisions, hop timing and RiverSim preserved",
+  "rollback": {
+    "version_number": 26,
+    "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_c34f8b3b62908191b887faf0616733bc",
+    "site_source_commit": "6140af679a9e1e969c56199ff9cf50642af0ed93",
+    "deployment_id": "appgdep_6ad690e85c4c81919d0b0b21cc55c757"
+  },
+  "checks": {
+    "native_hop_feel": 40,
+    "browser": 10,
+    "stage_routes": 5,
+    "checkpoint_retries": 5,
+    "compressed_staged_release": "startup passed; no browser errors; debug probe absent",
+    "riversim_headers_adapter": "16 files byte-identical",
+    "engine": "retained gzip WASM exactly decompresses to release export",
+    "native_deployment": "succeeded"
+  },
+  "limitations": [
+    "Physical iPhone/Safari and subjective comfort unverified",
+    "Executor live-URL browser checks previously blocked by CONNECT proxy 403; publication confirmed by native Sites result"
+  ]
+}

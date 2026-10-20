@@ -1,5 +1,9 @@
 # Tile frog hop sound and leg comparison
 
+**Publication update:** now live as [Hopán version 27](https://hopan.fiiendward.chatgpt.site).
+[Publication evidence and v26 rollback](HOP_FEEL_PUBLICATION.json). Earlier
+repository-only statements below describe the source/testing phase.
+
 Requested by Jonathan on 2026-10-20; implemented with the actual Motionwright
 character-animation skill. Base: `156fdd4`; branch: `feature/hopan-hop-feel`.
 Repository-only. The live Site remains v26 and RiverSim is untouched.

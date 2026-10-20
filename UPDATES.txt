@@ -1,3 +1,22 @@
+2026-10-20 — Hop feel comparison published publicly as version 27
+
+1. Live URL: https://hopan.fiiendward.chatgpt.site
+   Code: ca14b276915d7c01a15c720eeb179a3da95a3b4e.
+   Site source: 66eee8f1a71b6d2fe2d070e9cb183fe78e61059c.
+   Version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_ad9a3341d734819189f99d896805a89d.
+   Deployment: appgdep_6ad7d7f01dac819182e9dc4553aee984 (succeeded).
+2. Smooth/stepped legs, two original hop sound palettes and volume controls
+   available in Menu/Pause > Hop feel comparison. Includes checkpoint recovery
+   UI from the preceding branch. Public audience retained; no GitHub main merge.
+3. Staged gzip release starts without browser errors; debug probe absent.
+   RiverSim, headers and adapter: 16 byte-identical files. Pinned engine retained
+   with an exact decompression match. Existing timing, collision and maps intact.
+4. Rollback: confirmed live version 26,
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_c34f8b3b62908191b887faf0616733bc.
+   Physical iPhone/Safari and subjective comfort remain unverified. Executor live
+   browser checks were blocked by CONNECT 403; native publication succeeded.
+   Full evidence: docs/HOP_FEEL_PUBLICATION.json.
+
 2026-10-20 — Requested Tile Hop leg/sound comparison (repository only)
 
 1. Rear legs now extend back and spread in flight, then tuck before contact.
