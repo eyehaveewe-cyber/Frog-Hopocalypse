@@ -10,7 +10,11 @@
 3. 40 focused native and ten desktop/touch browser checks pass. Five existing
    harder routes and five checkpoint retries complete with hazards active.
    Maps, old recordings, rules, collision, hop duration and difficulty preserved.
-4. No merge or deployment. RiverSim/Site files untouched. Physical iPhone/Safari,
+4. Standalone Web ZIP: artifacts/hopan-hop-feel-web.zip (10.7 MB). Code source
+   ca14b276915d7c01a15c720eeb179a3da95a3b4e; ZIP bytes/CRC verified. Local release
+   starts without browser errors, with no debug probe. GIF/MP4/WAV comparison
+   previews and original synthesis source are committed alongside it.
+5. No merge or deployment. RiverSim/Site files untouched. Physical iPhone/Safari,
    subjective sound comfort and preference remain unverified. Reproducible source,
    GIF/MP4/WAV previews, attribution and test export: docs/HOP_FEEL.md.
 

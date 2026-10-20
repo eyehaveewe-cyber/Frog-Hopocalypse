@@ -93,3 +93,13 @@ current Godot AudioStreamPlayer documentation (volume_db, play/stop and stream
 replacement), https://docs.godotengine.org/en/stable/classes/class_audiostreamplayer.html ;
 Kenney source page, https://kenney.nl/assets/impact-sounds . Implementation uses
 APIs verified against the installed Godot 4.7.2 parser and playback tests.
+
+## Delivered test artifact
+
+[Standalone Web ZIP](../artifacts/hopan-hop-feel-web.zip): 10,749,065 bytes,
+source `ca14b276915d7c01a15c720eeb179a3da95a3b4e`. Ten exported files are
+byte-checked inside the ZIP; CRC checks pass. Its release export starts locally
+without console/page errors and exposes no debug probe. SHA256 and provenance
+are recorded in [the artifact manifest](../artifacts/hopan-hop-feel-web.json).
+Repackage a completed build with `python3 tools/package_hop_feel.py`; this script
+creates a local ZIP and never calls Sites or deploys anything.

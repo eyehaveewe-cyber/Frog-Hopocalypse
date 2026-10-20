@@ -1,0 +1,8 @@
+{
+  "archive": "hopan-hop-feel-web.zip",
+  "bytes": 10749065,
+  "sha256": "9283d95f0ef78e393a250a5bbc572f7a93e880711dd0c4a8bbe02ddd94085d06",
+  "game_source_commit": "ca14b276915d7c01a15c720eeb179a3da95a3b4e",
+  "export_files": 10,
+  "verification": "every archived export file matched build bytes; ZIP CRC checks pass"
+}
