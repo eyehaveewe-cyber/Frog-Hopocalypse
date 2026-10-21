@@ -1,6 +1,7 @@
 2026-10-21 — Five Moves When You Move stages and hourglass reward
 
-1. Added a separate five-stage set under the existing Tile Hop unlock. Car
+1. Published v48 at https://hopan.fiiendward.chatgpt.site.
+   Added a separate five-stage set under the existing Tile Hop unlock. Car
    phases, dart cycles, fragment detours, moving-log landings and seed routing
    lead into Rush Hourglass, a hard paired-lane and perpendicular-traffic finale.
 2. Clearing all five distinct maps unlocks/equips an hourglass-themed pyramid
@@ -8,7 +9,11 @@
    Earlier campaign clears, hats, skins, editor saves and maps are preserved.
 3. Fresh real-physics and checkpoint-retry routes complete all five maps with
    ordinary requests and active collisions. Idle hazards freeze and each hop
-   spends one beat. See docs/YOUR_MOVE_SET.md for checks and playtest limits.
+   spends one beat. 61 focused, 25 set-menu and 15 skin checks pass; actual
+   desktop/touch browser navigation and staged production startup pass. All
+   14 RiverSim 0.4.12 files plus four unrelated files preserved exactly from
+   v47 in the verified archive. Rollback is v47. See docs/YOUR_MOVE_SET.md
+   and docs/YOUR_MOVE_PUBLICATION.json for evidence and playtest limits.
 
 2026-10-21 — Complete the supplied Test1 map as Cramerton
 

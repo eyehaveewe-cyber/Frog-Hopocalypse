@@ -1,0 +1,42 @@
+{
+  "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "version": 48,
+  "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_756d8ad507388191980dd827ad0b2be2",
+  "deployment_id": "appgdep_6ad941c9a5c48191b2022648afa4b256",
+  "status": "succeeded",
+  "published_at": "2026-10-21T22:50:59.077797+00:00",
+  "access": "public, unchanged",
+  "game_source_commit": "7b9f22c1dbdfe6b300e5f49ac1adcd35bb4f9419",
+  "site_source_commit": "0ae769cf64db13810caec9e698cc2ea98785020e",
+  "rollback_version": 47,
+  "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_229eba810b208191841e844a8b8199c3",
+  "set": "Moves When You Move",
+  "stages": [
+    "One Step Ahead",
+    "Needle Clock",
+    "Shard Switchyard",
+    "Stillwater Circuit",
+    "Rush Hourglass"
+  ],
+  "reward": "Hourglass pyramid hat, earned by clearing all five distinct stages",
+  "checks": {
+    "native": 61,
+    "existing_set_menu": 25,
+    "existing_skin": 15,
+    "fresh_route_completions": 5,
+    "checkpoint_retry_completions": 5,
+    "browser_scenarios": 4,
+    "browser_errors": [],
+    "staged_release": "Actual release starts One Step Ahead from the new set with hourglass hat visible. Compressed engine works; debug probe absent.",
+    "preservation": "All 14 RiverSim 0.4.12 files plus four unrelated hosted files exact in checkout and archive"
+  },
+  "preservation_record": "docs/previews/your-move/preservation-site.json",
+  "limits": [
+    "Chromium desktop and landscape phone touch emulation, not physical iPhone/Safari or Edge.",
+    "Human playtesting still needed for difficulty and pacing.",
+    "Windows release exported, not executed.",
+    "No independent hosted-origin runtime inspection through the executor proxy. Sites native success verifies publication."
+  ],
+  "rollback_note": "Check for subsequent shared-Site changes before rolling back the whole Site; preserve newer RiverSim content."
+}

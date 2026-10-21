@@ -4,6 +4,9 @@ Five new movement-linked Tile Hop challenges end in **Rush Hourglass**, a hard
 traffic finale. They use the existing NAHAIL unlock. Clear all five to earn the
 **hourglass pyramid hat**, then use Hat to cycle it with your other rewards.
 Each map has one late checkpoint. The original Tile Hop and Bonus maps remain.
+**Published as [Hopán v48](https://hopan.fiiendward.chatgpt.site).** RiverSim
+0.4.12 and every unrelated hosted file are retained byte-for-byte.
+[Publication and v47 rollback](docs/YOUR_MOVE_PUBLICATION.json).
 [Levels, controls, reward and checks](docs/YOUR_MOVE_SET.md).
 
 ## Cramerton — completed custom Bonus map
@@ -13,7 +16,7 @@ Your original canal opening and every existing object are preserved, followed
 by five connected city districts with fragment crossings, traffic, darts and
 one late checkpoint. The untouched uploaded JSON is retained alongside a
 machine-checked preservation record. [Design, source and checks](docs/CRAMERTON.md).
-**Published as [Hopán v44](https://hopan.fiiendward.chatgpt.site).** RiverSim
+**Cramerton publication: [Hopán v44](https://hopan.fiiendward.chatgpt.site).** RiverSim
 0.4.9 and all unrelated hosted files are preserved exactly.
 [Publication and v43 rollback](docs/CRAMERTON_PUBLICATION.json).
 

@@ -1,5 +1,8 @@
 # Moves When You Move
 
+Published as [Hopán v48](https://hopan.fiiendward.chatgpt.site).
+[Publication and v47 rollback](YOUR_MOVE_PUBLICATION.json).
+
 A separate five-stage Tile Hop set. Clear Not as Hard as It Looks to expose both
 Tile Hop sets, then choose **Moves When You Move → +**. The new set does not
 replace the original five Tile Hop maps, Cramerton or the existing Bonus entries.
@@ -65,7 +68,7 @@ The focused run passes 61 checks. Both fresh and checkpoint routes complete for
 all five maps. Idle snapshots before and during routes verify freeze behavior.
 Reward gating, profile reload, old campaign clears, editor-save preservation,
 set restart behavior, single-hat visibility and full hat cycling are checked.
-Existing set-menu and skin tests cover the previous result behavior, Baby Mode
+The 25 existing set-menu and 15 skin checks pass and cover the previous result behavior, Baby Mode
 reward and purple skin.
 
 The hat is original procedural low-poly art. Four quiet cyan glass panels and
@@ -83,3 +86,11 @@ playtesting remains necessary.
 
 Shared-site publishing preserves every current RiverSim and unrelated hosted
 file byte-for-byte, with a new baseline check before preparing the final archive.
+
+Production release bytes start the new set through real keyboard menu input.
+The release screenshot shows One Step Ahead, the correct 1/5 set header and
+the earned hourglass hat. No debug probe or browser errors are present. All five
+new overhead maps and the hat were visually inspected. Sites confirmed v48
+publication succeeded. All 14 current RiverSim 0.4.12 files and four unrelated
+hosted files match the v47 baseline, including in the final archive. A rollback
+to v47 is recorded; inspect intervening shared content before using it.
