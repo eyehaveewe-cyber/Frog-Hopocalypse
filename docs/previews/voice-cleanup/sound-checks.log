@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Sound off immediately stops playback and synchronizes both toggles
+PASS: Sound preference survives profile reload
+PASS: Sound on restores playback and both toggles
+PASS: Editor keeps its playtest button
+PASS: Editor places multiple visible checkpoint flags
+PASS: Undo removes the last checkpoint
+PASS: Redo restores checkpoint
+PASS: Multiple checkpoints round-trip through portable JSON
+PASS: Painting hazards cannot invalidate a checkpoint tile
+PASS: Checkpoint tool rejects walls
+PASS: Checkpoint tool rejects the frog start
+PASS: Checkpoint flag meshes remain live after static batching and frame cleanup
+PASS: Editor entry is hidden during playtest
+PASS: Passing a checkpoint row elsewhere does not claim an editor checkpoint
+PASS: Entering a flag tile claims its checkpoint
+PASS: Death retry restores checkpoint spawn and claimed flags
+PASS: A later checkpoint advances retry spawn; old claimed flags do not overwrite it
+PASS: Subsequent retry uses latest checkpoint
+ERROR: FAIL: Main screen retains the editor entry
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/integration.gd:10)
+       [1] run (res://tests/sound_checkpoints.gd:68)
+PASS: Erase removes a checkpoint without changing the underlying floor
+PASS: Starting a fresh playtest clears old checkpoint progress
+PASS: Existing Baby crossing bank checkpoint remains compatible and gameplay hides editor
+PASS: Duplicate checkpoints are rejected on import
+PASS: Fractional checkpoint cells are rejected on import
+SOUND/CHECKPOINTS: 24 checks, 1 failures

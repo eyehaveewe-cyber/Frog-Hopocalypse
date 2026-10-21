@@ -213,6 +213,11 @@ save and route checks with an isolated temporary save folder.
 
 ## Recorded voices
 
+All 17 voice clips now have conservative impulse repair to reduce recorded
+keyboard clicks. Phrasing, duration, sample rate and volume are retained; the
+synthesized hops/boing are untouched. Originals and before/after comparisons are
+retained. [Processing, measurements and listening limits](docs/VOICE_CLEANUP.md).
+
 Exactly the 17 user-selected clips are bundled in `game/audio/`, with their
 source manifest and supplied mapping instructions. The first Baby Mode take is
 trimmed at the first waveform burst (source seconds 1.708271–2.710); its breath

@@ -1,0 +1,21 @@
+{
+  "profile": "iPhone 13 landscape",
+  "engine": "Desktop Chromium with iPhone UA/touch/viewport; NOT Safari, iOS Simulator or hardware",
+  "checks": [
+    "No voice before trusted input",
+    "Touch starts game audio with nonzero output",
+    "Sound button remains within landscape viewport",
+    "Editor entry absent during play",
+    "Sound off stops active output",
+    "Mute survives reload",
+    "Sound on restores nonzero output after touch"
+  ],
+  "firstPeak": 0.39801937341690063,
+  "audio": {
+    "peak": 0.4736206829547882,
+    "states": [
+      "running"
+    ]
+  },
+  "errors": []
+}

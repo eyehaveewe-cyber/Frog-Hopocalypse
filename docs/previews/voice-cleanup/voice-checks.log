@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: All and only the 17 approved recordings load
+PASS: No audio before an input gesture
+PASS: Baby Mode and traffic warning serialize at stage-four start
+PASS: Begin waits for exit preview
+PASS: Begin follows stage display and completed preview
+PASS: Return warning fires once when leaving the final street toward the start
+PASS: Another visit to the final street rearms its return warning
+PASS: Retry cancels stale announcements and traversal state
+PASS: Specific deaths, occasional water line and rare general line are reachable
+PASS: Primary drowning/patrol lines alternate and general death line stays rare
+PASS: Fourth clear plays set victory then earned baby-frog hat announcement
+PASS: World result guard rejects duplicate death after victory
+PASS: Gloopbutt gets its authored level name
+PASS: Frogbutt gets its authored level name
+PASS: Bug collision triggers one bugsploded cue and one death
+PASS: Death screen does not replay or queue the bug cue
+PASS: Bug cue contains only the first take before the repeated speech section
+PASS: Mute immediately clears playback and pending voices
+PASS: Mute setting and campaign progress survive profile reload
+VOICE CHECKS: 19 passed, 0 failed

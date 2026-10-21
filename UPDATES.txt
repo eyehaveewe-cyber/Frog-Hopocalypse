@@ -1,3 +1,14 @@
+2026-10-21 — Reduce keyboard clicks in recorded voices
+
+1. Applied short-impulse repair to all 17 approved recordings. No gating, broad
+   low-pass, pitch shift, trimming or hop-effect edits. Exact decoded sample
+   lengths retained; maximum RMS change under 0.06 dB; no clipped samples.
+2. Retained untouched pre-cleanup clips and manifest. Reproducible FFmpeg tool,
+   measurements and before/after WAV comparisons are in the repository.
+3. Listening acceptance remains human: detected impulses are not automatically
+   identified keystrokes, and clicks overlapping speech may remain. See
+   docs/VOICE_CLEANUP.md for tests and publication status.
+
 2026-10-21 — Menu cycling fixes published as v33
 
 1. Skin and advanced animation/sound menu fixes are live at
