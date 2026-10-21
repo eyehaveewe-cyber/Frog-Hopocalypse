@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "#6 desktop: correct artwork, playable Baby Mode and same title on return, also stable through two orientation changes",
+    "#6 landscape: correct artwork, playable Baby Mode and same title on return",
+    "#6 portrait: correct artwork, playable Baby Mode and same title on return",
+    "#4 desktop: correct artwork, playable Baby Mode and same title on return, also stable through two orientation changes",
+    "#4 landscape: correct artwork, playable Baby Mode and same title on return",
+    "#4 portrait: correct artwork, playable Baby Mode and same title on return"
+  ],
+  "errors": [],
+  "scope": "Actual Chromium mouse/touch, desktop and iPhone-size landscape/portrait. Physical iPhone/Safari/Edge not tested. Native deterministic tests cover the 15% boundary."
+}

@@ -1,0 +1,104 @@
+[
+  {
+    "hat": "wrapped",
+    "layout": "wide",
+    "changed_pixel_bounds": [
+      264,
+      376,
+      612,
+      620
+    ],
+    "allowed_hat_bounds": [
+      252,
+      372,
+      620,
+      628
+    ],
+    "outside_hat": "identical to original"
+  },
+  {
+    "hat": "wrapped",
+    "layout": "compact",
+    "changed_pixel_bounds": [
+      76,
+      376,
+      424,
+      620
+    ],
+    "allowed_hat_bounds": [
+      64,
+      372,
+      432,
+      628
+    ],
+    "outside_hat": "identical to original"
+  },
+  {
+    "hat": "wrapped",
+    "layout": "portrait",
+    "changed_pixel_bounds": [
+      224,
+      268,
+      572,
+      512
+    ],
+    "allowed_hat_bounds": [
+      212,
+      264,
+      580,
+      520
+    ],
+    "outside_hat": "identical to original"
+  },
+  {
+    "hat": "layered",
+    "layout": "wide",
+    "changed_pixel_bounds": [
+      256,
+      376,
+      620,
+      624
+    ],
+    "allowed_hat_bounds": [
+      252,
+      372,
+      620,
+      628
+    ],
+    "outside_hat": "identical to original"
+  },
+  {
+    "hat": "layered",
+    "layout": "compact",
+    "changed_pixel_bounds": [
+      68,
+      376,
+      432,
+      624
+    ],
+    "allowed_hat_bounds": [
+      64,
+      372,
+      432,
+      628
+    ],
+    "outside_hat": "identical to original"
+  },
+  {
+    "hat": "layered",
+    "layout": "portrait",
+    "changed_pixel_bounds": [
+      216,
+      268,
+      580,
+      516
+    ],
+    "allowed_hat_bounds": [
+      212,
+      264,
+      580,
+      520
+    ],
+    "outside_hat": "identical to original"
+  }
+]

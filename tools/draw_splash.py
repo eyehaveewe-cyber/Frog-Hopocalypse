@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Original, hand-authored indexed-scale splash illustration. No generated imagery.
+"""Code-authored indexed-scale splash illustration.
+
+The wrapped/layered hat shapes adapt the user-selected generated preview concepts
+#6 and #4; flattened concept art is not used as a game texture.
 
 Edit the palette, polygons and positions below; Pillow is only the drawing/export
 tool. Each named pass is also exported as a transparent editable PNG layer.
@@ -20,7 +23,7 @@ PAL = dict(ink="#102c32", night="#143b43", teal="#205b60", haze="#548581",
            shadow="#455745", green="#72a750", leaf="#376b4e", light="#aed16c")
 
 
-def paint(portrait=False, compact=False):
+def paint(portrait=False, compact=False, hat="wrapped"):
     w, h = (216, 384) if portrait else (384, 216)
     canvas = Image.new("RGBA", (w, h))
     passes = []
@@ -117,6 +120,33 @@ def paint(portrait=False, compact=False):
             d.polygon(poly,fill="#285849")
     layer("04-stones-reeds", foreground)
 
+    def hat_cloth(d):
+        # Cloth sits BEHIND the eye lobes, not painted across their surface.
+        # Closed stripe polygons stay inside each drape's silhouette.
+        x, y = fx, fy
+        for side in [-1, 1]:
+            def points(coords):
+                return [(x + side * xx, y + yy) for xx, yy in coords]
+            if hat == "layered":
+                outline = [(30,-42),(38,-41),(45,-9),(42,-7),(36,-13),(29,-34)]
+                cloth = [(31,-41),(37,-40),(43,-11),(39,-12),(30,-34)]
+                bands = [[(32,-34),(38,-33),(39,-28),(33,-29)],
+                         [(34,-23),(40,-22),(41,-17),(35,-18)]]
+            else:
+                outline = [(29,-42),(38,-41),(43,-11),(40,-8),(34,-10),(28,-34)]
+                cloth = [(30,-41),(37,-40),(41,-12),(39,-10),(35,-11),(29,-34)]
+                bands = [[(31,-34),(38,-33),(39,-28),(32,-29)],
+                         [(33,-23),(40,-22),(40,-17),(34,-18)]]
+            d.polygon(points(outline), fill="#7b6339")
+            d.polygon(points(cloth), fill="#dfb95f")
+            for band in bands:
+                d.polygon(points(band), fill="#245c65")
+            d.line(points([(37,-39),(40,-25),(41,-12)]), fill="#f4d37e")
+            if hat == "layered":
+                d.polygon(points([(39,-13),(42,-10),(43,-11),(40,-17)]), fill="#ffe29a")
+                d.line(points([(42,-7),(38,-8),(35,-11)]), fill="#245c65")
+    layer("05-hat-cloth-behind-eyes", hat_cloth)
+
     def frog(d):
         # Wide squashy head, raised gold eyes, pale belly, three-toed hands.
         # This is an illustrated version of art.gd's existing procedural hero.
@@ -148,19 +178,37 @@ def paint(portrait=False, compact=False):
                 d.rectangle((tx-1,y+29+(j==1)*2,tx+2,y+31+(j==1)*2),fill="#d5cf80")
         for px,py in [(-31,-9),(-29,-6),(28,-8),(-23,18),(25,19)]:
             d.rectangle((x+px,y+py,x+px+2,y+py+1),fill="#638f40")
-        # Recognizable gold/teal striped hat: squat crown and two cloth sides.
-        for side in [-1,1]:
-            hx=x+side*32
-            d.polygon([(hx-6,y-43),(hx+7,y-42),(hx+side*4+7,y-12),(hx+side*4-7,y-11)],fill="#dab363")
-            for yy in [y-36,y-28,y-20]:
-                d.line((hx-5,yy,hx+8,yy+1),fill="#367b83",width=3)
-            d.line((hx-6,y-42,hx-5,y-15),fill="#f5d88b")
-        d.polygon([(x-34,y-45),(x-20,y-51),(x+21,y-49),(x+36,y-41),(x+32,y-36),(x-31,y-39)],fill="#b78b45")
-        d.polygon([(x-33,y-46),(x-20,y-53),(x+18,y-51),(x+34,y-44),(x+31,y-39),(x-31,y-41)],fill="#edc875")
-        d.line((x-26,y-46,x+27,y-44),fill="#fff0ac",width=2)
-        d.polygon([(x-3,y-47),(x-4,y-57),(x,y-63),(x+4,y-56),(x+3,y-47)],fill="#f4d277")
-        d.rectangle((x-1,y-57,x+1,y-54),fill="#447d7a")
-    layer("05-frog-hero-pharaoh-hat", frog)
+    layer("06-frog-hero", frog)
+
+    def crown(d):
+        x, y = fx, fy
+        def points(coords):
+            return [(x+xx,y+yy) for xx,yy in coords]
+        if hat == "layered":
+            shape = [(-34,-43),(-31,-49),(-20,-55),(13,-54),(28,-49),(34,-43)]
+            top = [(-28,-48),(-19,-53),(12,-52),(25,-48),(27,-45),(-28,-45)]
+        else:
+            # #6: a continuous domed crown, with a lit left plane and shaded rim.
+            shape = [(-35,-43),(-32,-50),(-25,-56),(-15,-59),(11,-59),
+                     (23,-55),(30,-49),(34,-43)]
+            top = [(-29,-48),(-24,-54),(-14,-57),(10,-57),(21,-53),(27,-48)]
+        d.polygon(points(shape), fill="#b68a40")
+        d.polygon(points(top), fill="#e8be62")
+        d.polygon(points([(-30,-49),(-24,-55),(-15,-57),(-10,-57),(-18,-52),(-21,-47)]), fill="#f7d985")
+        if hat == "wrapped":
+            d.line(points([(9,-57),(14,-53),(16,-47)]), fill="#cd9f4e")
+            d.line(points([(-16,-56),(-20,-51),(-21,-47)]), fill="#ffe59b")
+        # One fitted band. Its underside stops above the eye highlights.
+        d.polygon(points([(-34,-44),(-30,-47),(28,-47),(33,-43),(31,-39),(-31,-39)]), fill="#896635")
+        d.polygon(points([(-33,-44),(-29,-46),(27,-46),(32,-43),(30,-41),(-30,-41)]), fill="#dfb55c")
+        d.line(points([(-28,-45),(0,-45),(25,-44)]), fill="#ffe29a")
+        d.line(points([(-28,-39),(27,-39)]), fill="#344c36")
+        # Small upright ornament is attached to the crown, with one inset.
+        d.polygon(points([(-4,-49),(-5,-64),(-3,-68),(3,-68),(5,-64),(3,-49)]), fill="#bc9347")
+        d.polygon(points([(-3,-50),(-4,-63),(-2,-66),(2,-66),(3,-63),(2,-50)]), fill="#f3d079")
+        d.rectangle((x-1,y-62,x+1,y-59), fill="#285f63")
+        d.line((x-2,y-65,x+1,y-65), fill="#ffe8a5")
+    layer("07-fitted-" + hat + "-crown", crown)
 
     def frame(d):
         # Calm dark menu field is deliberately authored, rather than baked UI.
@@ -175,8 +223,10 @@ def paint(portrait=False, compact=False):
             d.rectangle((x,y,x+1,y+1),fill="#d5c77b")
             d.point((x-2,y),fill="#7b9a78")
         d.rectangle((0,h-2,w,h),fill="#102d33")
-    layer("06-menu-quiet-field", frame)
+    layer("08-menu-quiet-field", frame)
     variant="portrait" if portrait else ("compact" if compact else "wide")
+    if hat == "layered":
+        variant = "layered-" + variant
     OUT.mkdir(parents=True,exist_ok=True)
     (LAYERS/variant).mkdir(parents=True,exist_ok=True)
     canvas.convert("RGB").resize((w*4,h*4),Image.Resampling.NEAREST).save(OUT/f"hopan-{variant}.png")
@@ -197,7 +247,8 @@ def paint(portrait=False, compact=False):
 
 
 if __name__ == "__main__":
-    paint()
-    paint(True)
-    paint(compact=True)
-    print("Drew wide and portrait splash art and eighteen editable RGBA layers.")
+    for hat in ["wrapped", "layered"]:
+        paint(hat=hat)
+        paint(True, hat=hat)
+        paint(compact=True, hat=hat)
+    print("Drew #6 Wrapped Gold and #4 Layered Cloth in all three layouts, with editable layers.")

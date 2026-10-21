@@ -55,6 +55,11 @@ var rule_notices_enabled = true
 const SPLASH_WIDE = preload("res://art/splash/hopan-wide.png")
 const SPLASH_COMPACT = preload("res://art/splash/hopan-compact.png")
 const SPLASH_PORTRAIT = preload("res://art/splash/hopan-portrait.png")
+const SPLASH_LAYERED_WIDE = preload("res://art/splash/hopan-layered-wide.png")
+const SPLASH_LAYERED_COMPACT = preload("res://art/splash/hopan-layered-compact.png")
+const SPLASH_LAYERED_PORTRAIT = preload("res://art/splash/hopan-layered-portrait.png")
+const SPLASH_ALTERNATE_CHANCE := 0.15
+var splash_variant := "wrapped"
 var overlay_box: VBoxContainer
 var status_label: Label
 var time_label: Label
@@ -144,6 +149,7 @@ func _ready() -> void:
 	resize_mobile_ui()
 	test_mode = "--integration-test" in OS.get_cmdline_user_args()
 	browser_test = OS.is_debug_build() and ("--browser-test" in OS.get_cmdline_user_args() or "--browser-test" in OS.get_cmdline_args())
+	choose_splash_variant()
 	make_theme()
 	load_profile()
 	voice = Voice.new()
@@ -536,12 +542,34 @@ func build_joystick() -> void:
 	hint.position = Vector2(50, 145)
 	joystick.add_child(hint)
 
+static func splash_variant_for(roll: float, forced: String = "") -> String:
+	if forced == "4":
+		return "layered"
+	if forced == "6":
+		return "wrapped"
+	return "layered" if roll < SPLASH_ALTERNATE_CHANCE else "wrapped"
+
+func choose_splash_variant() -> void:
+	# One cosmetic roll per launch; never consume gameplay/voice RNG or save it.
+	var forced := ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--splash="):
+			forced = argument.trim_prefix("--splash=")
+	if OS.has_feature("web"):
+		forced = str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('splash') || ''", true))
+	var cosmetic_rng := RandomNumberGenerator.new()
+	cosmetic_rng.randomize()
+	splash_variant = splash_variant_for(cosmetic_rng.randf(), forced)
+
 func configure_splash_layout() -> void:
 	if not is_instance_valid(splash_art):
 		return
 	var viewport_size := get_window().content_scale_size
 	var portrait := viewport_size.y > viewport_size.x
-	splash_art.texture = SPLASH_PORTRAIT if portrait else (SPLASH_COMPACT if mobile_ui else SPLASH_WIDE)
+	if splash_variant == "layered":
+		splash_art.texture = SPLASH_LAYERED_PORTRAIT if portrait else (SPLASH_LAYERED_COMPACT if mobile_ui else SPLASH_LAYERED_WIDE)
+	else:
+		splash_art.texture = SPLASH_PORTRAIT if portrait else (SPLASH_COMPACT if mobile_ui else SPLASH_WIDE)
 	var edge := 12 if mobile_ui else 32
 	for side in ["left", "right", "bottom"]:
 		overlay_layout.add_theme_constant_override("margin_" + side, edge if splash_menu else 0)
@@ -2123,7 +2151,7 @@ func publish_browser_probe() -> void:
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"backdrops": world.backdrops.stats() if is_instance_valid(world.backdrops) else {}, "landmarks": world.landmarks.stats() if is_instance_valid(world.landmarks) else {}, "background_view": world.background_view, "backdrop_points": backdrop_points, "rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "hop_resource": world.tile_rules.checkpoint_state() if world.tile_rules != null else {}, "hop_help":long_hop_help.text, "long_hops_used":world.tile_rules.long_hops_used if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_portrait": splash_art.texture == SPLASH_PORTRAIT, "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"backdrops": world.backdrops.stats() if is_instance_valid(world.backdrops) else {}, "landmarks": world.landmarks.stats() if is_instance_valid(world.landmarks) else {}, "background_view": world.background_view, "backdrop_points": backdrop_points, "rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "hop_resource": world.tile_rules.checkpoint_state() if world.tile_rules != null else {}, "hop_help":long_hop_help.text, "long_hops_used":world.tile_rules.long_hops_used if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_variant": splash_variant, "splash_portrait": splash_art.texture in [SPLASH_PORTRAIT, SPLASH_LAYERED_PORTRAIT], "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:

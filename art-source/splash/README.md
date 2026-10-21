@@ -1,48 +1,37 @@
-# Hopán splash artwork — static first pass
+# Hopán splash artwork — Wrapped Gold and Layered Cloth
 
-Original manual pixel illustration, drawn with explicit shapes in
-[draw_splash.py](../../tools/draw_splash.py). No image generation, stock images,
-fonts baked into the raster, or animation. Palette and geometry are editable
-in the script. Regenerate with Python 3 and Pillow (`python3 tools/draw_splash.py`).
-Pillow 12.3.0 was used for this export; it is an art tool, not a game dependency.
+The user selected **#6 Wrapped Gold** as the main title illustration and **#4
+Layered Cloth** as an occasional alternate, from the generated six-hat concept
+sheet in `docs/previews/hat-variations/`. Their shapes are now adapted in the
+existing editable code-art source, [draw_splash.py](../../tools/draw_splash.py).
+The concept sheet is not cropped and baked into the game. Outside the hat region,
+the original frog and scenery pixels are preserved exactly in all six exports.
 
-Three compositions keep the existing frog recognizable: green squat body,
-pale belly, raised gold eyes and the procedural character's gold/teal striped
-pharaoh hat. A fictional Egyptian-inspired sanctuary, moonlit water and reeds
-support the existing adventure theme. This is not a claim of historical accuracy
-or a depiction of a specific site in Honduras or Mexico. No hybrid script or
-borrowed sacred imagery is included.
+Regenerate with Python/Pillow: `python3 tools/draw_splash.py`. PNGs use 384×216 or
+216×384 working pixels, exported at 4× with nearest-neighbor scaling. No new
+animation or gameplay hat/model change is included. Screenwright and Motionwright
+were available and read for this pass; the latter's scope was attachment/contact
+and layer separation for this static illustrated character.
 
-- `hopan-wide.ora`: desktop illustration, six named editable RGBA layers.
-- `hopan-compact.ora`: touch landscape, hero shifted left of the menu.
-- `hopan-portrait.ora`: phone portrait, hero above the menu.
-- `layers/`: the same layers as transparent PNGs, at working resolution.
-- `../../game/art/splash/`: flattened 4× nearest-neighbor game exports.
+- `hopan-{wide,compact,portrait}.ora` / matching game PNGs: #6 Wrapped Gold.
+- `hopan-layered-{wide,compact,portrait}.ora` / matching game PNGs: #4 Layered Cloth.
+- `layers/{layout}/`: eight editable RGBA passes per composition, with cloth,
+  frog and fitted crown on separate layers.
 
-The `.ora` files follow OpenRaster's layer-stack format for tools such as Krita
-and GIMP. Their merged composites were verified against the game exports;
-opening them in a desktop art application was not available in this environment.
-Drawings reproduce byte-identical PNGs from the source script. Each canvas is
-384×216 or 216×384 working pixels. Six passes separate sky, distant sanctuary,
-water, stones/reeds, frog/hat, and the quiet menu field.
+Side cloth is composited behind the eye lobes. Closed stripe polygons stay inside
+its silhouette; the crown's continuous underside supplies a restrained contact
+shadow. #6 has the domed crown; #4 has a lower crown and folded side edges. The
+small upright ornament joins the crown rather than floating above its brim.
+Both leave the eyes unobstructed. No hat motion or gameplay rig was changed.
 
-The full title is a UI treatment: **Pharaoh Frog** smaller, **Hopán** dominant.
-It does not rename the project. Title text, level-set actions, expansion buttons,
-settings, editor and continue controls remain Godot UI, separate from the image.
-Menu panels have opaque-enough backing for steady contrast and scroll when
-content exceeds the viewport. Existing keyboard focus/hover and touch targets
-remain active. The first menu action receives keyboard focus; Tab and Shift+Tab
-cycle within the menu. No decorative animation was added.
+The illustration is static; menu titles and controls remain live Godot UI.
+#4 is selected on 15% of launches, #6 on the remaining 85%, using a separate
+cosmetic RNG. Selection lasts for the app session, including menu returns and
+resizes, and is not written to the save profile. Preview with `?splash=6` or
+`?splash=4` on the website, or `--splash=6` / `--splash=4` in native user arguments.
+These overrides select art only and do not alter gameplay or unlocks.
 
-See [desktop preview](../../docs/previews/splash/desktop.png),
-[portrait](../../docs/previews/splash/portrait.png),
-[landscape](../../docs/previews/splash/landscape.png), and
-[validation](../../docs/previews/splash/browser-results.json).
-Phone views are desktop Chromium touch/Android-UA emulation; physical devices,
-Safari, assistive technologies and art-editor import remain unverified.
-
-Screenwright and Motionwright packages were requested as guidance but unavailable
-in this execution context (`skill package is not available`). The implementation
-therefore uses direct inspection and local drawing/UI verification.
-
-This branch is for review. No merge, Sites packaging, save, or deployment occurred.
+[Checks and screenshots](../../docs/HAT_SPLASH_VARIANTS.md). Historical first-pass
+screenshots remain under `docs/previews/splash/`; current evidence is under
+`docs/previews/hat-implementation/`. Physical iPhone/Safari/Edge and art-editor
+import are unverified. The files remain editable without the generation service.

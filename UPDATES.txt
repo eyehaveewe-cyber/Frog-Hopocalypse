@@ -1,3 +1,16 @@
+2026-10-21 — #6 Wrapped Gold title and occasional #4 alternate
+
+1. Rebuilt the selected hat shapes in the native pixel-art source: continuous
+   crown, fitted underside, cloth behind raised eyes and stripes contained
+   within drapes. All six layout exports preserve every pixel outside the hat.
+2. #6 is the main title; #4 appears on 15% of launches, chosen by isolated cosmetic
+   RNG once per session. No reroll on menu return/resize, no profile writes.
+   Use ?splash=6 or ?splash=4 to compare, also supported as native user arguments.
+3. Desktop, compact landscape and portrait exports remain editable as separate
+   cloth/frog/crown layers. Gameplay rig, timing, hats, audio and maps unchanged.
+   Current shared-site baseline is v36, including RiverSim 0.4.4; all of its
+   files are protected for publication. See docs/HAT_SPLASH_VARIANTS.md.
+
 2026-10-21 — Reduce keyboard clicks in recorded voices
 
 1. Published v34 at https://hopan.fiiendward.chatgpt.site; native deployment

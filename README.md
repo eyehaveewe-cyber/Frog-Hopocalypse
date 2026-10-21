@@ -8,6 +8,15 @@ The v33 menu cycling fixes remain included.
 Prior lane portals and theme kits remain included; [v31 publication history](docs/LANE_PORTALS_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
+## Wrapped Gold title artwork
+
+The selected #6 Wrapped Gold hat is the normal menu illustration; #4 Layered
+Cloth appears on 15% of launches. The choice stays stable while playing,
+returning to Menu or resizing. Preview either with `?splash=6` or `?splash=4`.
+Both hats are adapted to the original native pixel grid; all pixels outside the
+hat region match the previous artwork. Saves and the playable frog are unchanged.
+[Editable art, checks and screenshots](docs/HAT_SPLASH_VARIANTS.md).
+
 ## Skin and animation/sound menu cycling fix
 
 Changing skin now updates the frog and existing button label in place, preserving
