@@ -1,7 +1,8 @@
-**Current public build: [Hopán version 28](https://hopan.fiiendward.chatgpt.site).**
-Long-hop boing, varied basic hops, the unsaved editor leave dialog and road
-fragments are now published. Existing maps, recordings, difficulty and RiverSim
-are preserved. [Publication and rollback](docs/BOING_EDITOR_PUBLICATION.json).
+**Current public build: [Hopán version 31](https://hopan.fiiendward.chatgpt.site).**
+Lane portals and both Mexico/Honduras starter kits are published alongside the
+existing sound/editor updates. RiverSim 0.4.1 and all unrelated hosted content
+are byte-identical to confirmed v30 in the published artifact.
+[Publication, preservation checks and v30 rollback](docs/LANE_PORTALS_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
 ## Lane entrances and exits — guide phase 07
@@ -12,11 +13,10 @@ data unchanged. Baby Mode's traffic/log finale and Honduras Jungle River show
 the new structures. Tile and patrol movers retain their reversing endpoints.
 [Implementation, screenshots, active-route checks and shared-Site safety](docs/LANE_TUNNELS.md).
 Mexico/Honduras kits are preserved. The tested [standalone Web ZIP](artifacts/hopan-lane-tunnels-web.zip)
-is available. Publication is blocked on current RiverSim saved-versus-live
-coordination: v29 has no deployment ID; v28 is the last confirmed deployment.
-No Site source push, save or deployment was attempted in this pass.
+is available. Published as v31 after confirming the RiverSim v30 publication;
+all 14 RiverSim files and three other unrelated files were preserved exactly.
 
-## Honduras jungle-river kit — repository preview
+## Honduras jungle-river kit — included in v31
 
 The `feature/hopan-honduras-kit` branch continues the original theme roadmap with
 vine-covered stone, jungle terrain, five broadleaf tree variations, stepped
@@ -25,16 +25,16 @@ Jungle River · Honduras → Playtest**. The actual frog crosses its moving-log
 river with normal collisions and water hazards. Save/load, JSON and theme Undo/
 Redo are supported. [Plan, previews, playable export and checks](docs/HONDURAS_KIT.md).
 This is a starter kit; physical-device and human-playtest limits remain. No
-deployment or merge occurred; the public website remains v28.
+main merge occurred; the kit is included in the public v31 build.
 
-## Mexico courtyard kit — repository preview
+## Mexico courtyard kit — included in v31
 
 The isolated `feature/hopan-mexico-kit` branch advances the original theme-pack
 roadmap: terracotta/plaza terrain, stucco walls, cactus variations, painted
 columns and flower pots. Try **Level editor → New Mexico**, or **Scenery demos →
 Courtyard Gardens · Mexico → Playtest**. Save/load, Undo/Redo and portable JSON
 support the theme. [Preview, playable export and checks](docs/MEXICO_KIT.md).
-The public Site remains v28; this pass has not been deployed.
+The kit is included in the public v31 build.
 
 ## Latest requested sound/editor update
 

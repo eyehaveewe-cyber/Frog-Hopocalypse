@@ -1,0 +1,7 @@
+{
+  "startup": "first frame, loading removed",
+  "debug_probe": "undefined",
+  "errors": [],
+  "engine": "existing gzip WASM retained with exact decompression match",
+  "scope": "Local staged whole-Site compressed release; RiverSim files verified by hashes, not replayed."
+}

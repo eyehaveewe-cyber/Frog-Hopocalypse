@@ -1,3 +1,24 @@
+2026-10-21 — Tested lane portals and theme kits published as v31
+
+1. Live public URL: https://hopan.fiiendward.chatgpt.site.
+   Game source: 4a59b137fab72a5b11c59b3e0aa0b95603c7ea17.
+   Site source: 93f1f3451f301f8f350434f3beed0e043fa8e4f6.
+   Saved version: appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_75f2f14ff5a48191ad686531466a6111.
+   Deployment: appgdep_6ad859ad94548191b4b1eb69f7041fb8 (succeeded).
+2. Resumed only publication after RiverSim v30 was confirmed succeeded. All 14
+   RiverSim 0.4.1 files plus headers, hosting adapter and attribution (17 total)
+   match v30 byte-for-byte in the deployment archive. Existing engine gzip and
+   tracked hosting manifest retained. No RiverSim editing or new game feature.
+3. Latest official source checked before preparation and reopened just before
+   deploy: no newer concurrent source/version. Staged compressed release reaches
+   first frame without browser errors; debug probe absent. Native publication
+   confirms success. Hosted gameplay/response-byte checks and physical devices
+   remain unverified; executor live inspection had CONNECT proxy 403.
+4. Rollback is confirmed deployed v30, preserving the user's RiverSim update:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_e87de926763c81919b924f9f37c5f294.
+   Do not roll the shared Site back to v28/v29. Source/previews remain on the
+   feature branch; no main merge. Full evidence: docs/LANE_PORTALS_PUBLICATION.json.
+
 2026-10-21 — Lane entrance/exit portals, actual guide phase 07
 
 1. Selected explicit human H07 tunnel direction from the actual 80-phase guide,

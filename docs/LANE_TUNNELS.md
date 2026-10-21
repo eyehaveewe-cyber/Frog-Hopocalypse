@@ -1,5 +1,10 @@
 # Lane entrances and exits — guide phase 07
 
+**Published as v31 on 2026-10-21:** https://hopan.fiiendward.chatgpt.site.
+The initial shared-Site hold documented below was resolved after RiverSim v30
+was confirmed deployed. All current RiverSim files and unrelated content were
+preserved byte-for-byte. [Exact publication, checks and v30 rollback](LANE_PORTALS_PUBLICATION.json).
+
 This single substantive pass continues `fb52f0bdea60db1e6c345cc44219009634c5f510`,
 preserving both Mexico and Honduras kits. It follows the actual
 [Pharoah Frog Hopan 80-Phase Implementation Guide](https://chatgpt.com/api/library/files/libfile_20ce1be11938819192b93ed1d52dca49/download),
@@ -88,7 +93,7 @@ python3 -m http.server 8068 --directory build --bind 127.0.0.1
 node tools/lane_tunnels_smoke.cjs
 ```
 
-## Shared Site safety
+## Initial shared-Site hold — historical, resolved by v31
 
 Existing URL: https://hopan.fiiendward.chatgpt.site. The official Sites source
 helper opened the latest source before edits were considered. It advanced the
@@ -104,7 +109,7 @@ could erase it. A coordination question is pending. No Site files have been
 staged or modified by this pass. All 16 protected RiverSim/adapter/header hashes
 for both sources are recorded in the [shared-Site inspection](previews/lane-tunnels/shared-site-inspection.json).
 
-**Final publication outcome: blocked, not executed; coordination pending.** A
+**Initial pass outcome: blocked, not executed; coordination pending at that time.** A
 final native Site/version check still returns saved v29 with no deployment ID.
 The existing v28 deployment `appgdep_6ad7dc8c7708819183751178a5447411` reports
 `succeeded` at the URL above. No Site save, push or deployment was attempted by
