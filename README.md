@@ -1,8 +1,9 @@
 **Current public build: [Hopán version 32](https://hopan.fiiendward.chatgpt.site).**
-Lane portals and both Mexico/Honduras starter kits are published alongside the
-existing sound/editor updates. RiverSim 0.4.1 and all unrelated hosted content
-are byte-identical to confirmed v30 in the published artifact.
-[Publication, preservation checks and v30 rollback](docs/LANE_PORTALS_PUBLICATION.json).
+The complete skin and animation/sound menu fix is saved as v33 and awaits
+explicit deployment approval after automatic review blocked publication.
+The current Site includes RiverSim 0.4.2; its exact files are preserved in the
+saved v33 artifact. [Fix, checks, saved-version status and v32 rollback](docs/MENU_CYCLING_PUBLICATION.json).
+Prior lane portals and theme kits remain included; [v31 publication history](docs/LANE_PORTALS_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
 ## Skin and animation/sound menu cycling fix
