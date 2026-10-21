@@ -18,6 +18,11 @@
    Honduras theme ID. Cramerton remains blocked by Test1's CONNECT 403; no retry
    or invented layout. Physical phones and human visual/navigation tests remain.
    Details, original assets, previews and acceptance: docs/HONDURAS_KIT.md.
+5. Playable standalone Web ZIP: artifacts/hopan-honduras-kit-web.zip, 10,731,251
+   bytes, source d9abac7d232fb978acb9b26e7ab657fd06b6aa38. Exact export-byte and CRC
+   checks pass; manifest records SHA-256. Release startup reaches first frame
+   without reported browser errors and has no debug probe. Durable previews and
+   evidence are on the branch; the export is not a whole-Site replacement.
 
 2026-10-21 — Mexico courtyard theme roadmap pass (repository only)
 

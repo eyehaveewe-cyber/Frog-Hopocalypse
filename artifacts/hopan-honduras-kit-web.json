@@ -1,0 +1,8 @@
+{
+  "archive": "hopan-honduras-kit-web.zip",
+  "bytes": 10731251,
+  "sha256": "fd600fda65454ccecb27880928df0e378c43119d0d9e3c6b33575e2026b8c633",
+  "game_source_commit": "d9abac7d232fb978acb9b26e7ab657fd06b6aa38",
+  "export_files": 10,
+  "verification": "ZIP CRC passes; every archived export file exactly matches the built export"
+}

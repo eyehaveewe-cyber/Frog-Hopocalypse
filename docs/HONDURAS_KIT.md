@@ -73,6 +73,8 @@ trunks; run a real playtest to check clearance.
   controller route and save behavior as well as old Egypt/Swamp acceptance.
 - Web release, Windows release and debug Web export build with pinned Godot
   4.7.2. Windows was exported, not executed.
+- The standalone release reaches its first rendered frame without reported
+  console/page errors; its debug probe is absent. [Release evidence](previews/honduras-kit/release-results.json).
 - [Browser results](previews/honduras-kit/results.json) cover actual editor
   controls, save, showcase loading, keyboard movement and overhead view in retro
   and compatibility rendering. These are Chromium/SwiftShader checks.
@@ -82,6 +84,13 @@ trunks; run a real playtest to check clearance.
 [Compatibility](previews/honduras-kit/compat-play.png) ·
 [Native evidence](previews/honduras-kit/native.log) ·
 [Playable Web ZIP](../artifacts/hopan-honduras-kit-web.zip).
+
+The 10,731,251-byte ZIP contains the entire standalone Web folder, built from
+`d9abac7d232fb978acb9b26e7ab657fd06b6aa38`. All archived export files match the
+build exactly, and CRC checks pass. [Manifest and SHA-256](../artifacts/hopan-honduras-kit-web.json).
+Serve the unpacked folder over HTTP as described in PLAY.txt; opening the HTML
+as a file cannot load WASM. The ZIP includes the Mexico kit but excludes RiverSim
+and Site hosting adapters, so it must not replace the entire Site directory.
 
 Reproduce with an isolated save directory:
 
