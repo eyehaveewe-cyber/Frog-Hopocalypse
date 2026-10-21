@@ -5,8 +5,14 @@ PASS: Cycling keeps the active menu control, keyboard focus and scroll position 
 PASS: Chosen skin survives profile reload
 PASS: Skin selection preserves campaign progress and equipped hat
 PASS: Leaving the main menu clears its control reference
-PASS: Returning builds a valid fresh skin control
+PASS: Eighty animation/sound changes keep the populated panel, focus, scroll, height and slider alive
+PASS: Animation and sound cycling retain the selected volume
+PASS: Animation label follows the selected leg style
+PASS: Sound label follows the selected palette
+PASS: Changing palette cancels the previous audition generation
+PASS: Returning builds a fresh skin control and clears advanced references
 PASS: New menu control still cycles normally
 PASS: Locked profiles have no skin selector
 PASS: Locked profiles cannot cycle the skin
-MENU SKIN CYCLE: 9 checks, 0 failures
+PASS: Comparison controls also stay usable from Pause without unpausing the game
+MENU SKIN CYCLE: 15 checks, 0 failures

@@ -5,6 +5,8 @@ const Voice = preload("res://scripts/voice.gd")
 const HopAudio = preload("res://scripts/hop_audio.gd")
 var hop_audio: Node
 var hop_volume_slider: HSlider
+var hop_animation_button: Button
+var hop_palette_button: Button
 var voice: Node
 var sound_enabled := true
 var skin := "green"
@@ -549,6 +551,9 @@ func configure_splash_layout() -> void:
 
 func reset_overlay(title: String, subtitle: String = "") -> void:
 	skin_button = null
+	hop_animation_button = null
+	hop_palette_button = null
+	hop_volume_slider = null
 	restart_confirmation_open = false
 	rule_notice_open = false
 	splash_menu = false
@@ -1036,13 +1041,8 @@ func show_pause_overlay() -> void:
 
 func show_hop_comparison() -> void:
 	reset_overlay("Hop feel", "Compare on the same level. Only leg poses and hop sounds change. Choices last for this session.")
-	button(overlay_box, "Animation: " + ("Stepped · 12 poses/s" if world.hop_pose_style == "stepped" else "Smooth"), func():
-		world.hop_pose_style = "smooth" if world.hop_pose_style == "stepped" else "stepped"
-		show_hop_comparison())
-	button(overlay_box, "Hop sound: " + ("Soft" if hop_audio.palette == "soft" else "Retro") + " · original", func():
-		hop_audio.clear()
-		hop_audio.palette = "retro" if hop_audio.palette == "soft" else "soft"
-		show_hop_comparison())
+	hop_animation_button = button(overlay_box, "Animation: " + ("Stepped · 12 poses/s" if world.hop_pose_style == "stepped" else "Smooth"), cycle_hop_animation)
+	hop_palette_button = button(overlay_box, "Hop sound: " + ("Soft" if hop_audio.palette == "soft" else "Retro") + " · original", cycle_hop_palette)
 	var volume_label := paragraph(overlay_box, "Hop volume · %d%%" % roundi(hop_audio.gain * 100))
 	hop_volume_slider = HSlider.new()
 	hop_volume_slider.min_value=0;hop_volume_slider.max_value=100;hop_volume_slider.step=5
@@ -1056,6 +1056,17 @@ func show_hop_comparison() -> void:
 	button(overlay_box, "Hear long-hop boing", func(): preview_hop_sound(true))
 	paragraph(overlay_box, "Original synthesized effects, CC0. Sound Off mutes effects and voices. Landing is softer; effects duck during speech.")
 	button(overlay_box, "Back to Pause" if paused else "Back to Menu", show_pause_overlay if paused else show_menu)
+
+func cycle_hop_animation() -> void:
+	world.hop_pose_style = "smooth" if world.hop_pose_style == "stepped" else "stepped"
+	if is_instance_valid(hop_animation_button):
+		hop_animation_button.text = "Animation: " + ("Stepped · 12 poses/s" if world.hop_pose_style == "stepped" else "Smooth")
+
+func cycle_hop_palette() -> void:
+	hop_audio.clear()
+	hop_audio.palette = "retro" if hop_audio.palette == "soft" else "soft"
+	if is_instance_valid(hop_palette_button):
+		hop_palette_button.text = "Hop sound: " + ("Soft" if hop_audio.palette == "soft" else "Retro") + " · original"
 
 func preview_hop_sound(big: bool = false) -> void:
 	hop_audio.clear()
@@ -2101,6 +2112,7 @@ func publish_browser_probe() -> void:
 		var screen: Vector2 = world.camera.unproject_position(world.cell_position(point)) * view_container.size / Vector2(view.size) + view_container.global_position
 		backdrop_points.append({"cell":point,"x":screen.x,"y":screen.y})
 	var state := {"mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
+		"menu_panel": {"children":overlay_box.get_child_count(),"height":overlay_panel.size.y,"width":overlay_panel.size.x,"scroll":overlay_layout.get_parent().scroll_vertical},
 		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
 		"hat": hat, "skin": skin, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells, "lane_tunnels": world.lane_tunnel_plans,

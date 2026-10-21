@@ -1,16 +1,18 @@
-2026-10-21 — Main-menu skin cycling keeps its active controls
+2026-10-21 — Keep skin and animation/sound menu controls alive
 
-1. Skin cycling updates the existing button label instead of rebuilding the menu
-   inside its pressed callback. Menu control, scroll and keyboard/touch focus stay
-   alive; leaving the menu clears the reference. Color and profile saving retain
-   their existing behavior. No map/rule, hat, unlock or save-format changes.
-2. Nine focused native checks include 32 cycles and retained scroll/focus, saved
-   skin, progress, hat, menu return and locked profiles. All 15 existing skin
-   regression checks pass. Five browser checks cover mouse, Enter, portrait touch
-   and reload without errors. Web/Windows release and Web debug build.
-3. Original full engine crash not independently reproduced; the self-rebuilding
-   callback and loss of menu continuity were addressed. Physical iPhone/Safari
-   remain unverified. Publication/rollback follows. See docs/SKIN_MENU_FIX.md.
+1. Skin, animation and Soft/Retro sound selectors update their existing labels
+   instead of destroying/rebuilding menus from their own callbacks. Active menu
+   contents, scroll, focus and volume slider are retained. Leaving a panel clears
+   its control references. Audition cancellation and profile saving stay intact.
+2. Fifteen native menu checks include 32 skin cycles, 80 advanced-setting changes,
+   bounded populated panels, retained volume, Pause access and profile retention.
+   Fifteen existing skin and 51 hop/audio regression checks pass. Extended browser
+   coverage includes the user's wide window, editor context and portrait touch.
+3. User reports intermittent blank/stretched panels in Edge; supplied screenshots
+   show menus empty while backgrounds still render. Full original engine crash
+   not independently reproduced. Edge binary and physical iPhone/Safari are not
+   available here. No map/rule, unlock, hat or save-format changes.
+   Publication and exact browser results follow. See docs/SKIN_MENU_FIX.md.
 
 2026-10-21 — Tested lane portals and theme kits published as v31
 
