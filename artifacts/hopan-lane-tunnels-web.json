@@ -1,0 +1,8 @@
+{
+  "archive": "hopan-lane-tunnels-web.zip",
+  "bytes": 10741602,
+  "sha256": "28a8d068abcfdcff251c2ecf4fa0362b6d6e89fae2569d66670e52594345ca74",
+  "game_source_commit": "4a59b137fab72a5b11c59b3e0aa0b95603c7ea17",
+  "export_files": 10,
+  "verification": "ZIP CRC passes; every archived export file exactly matches the built export"
+}

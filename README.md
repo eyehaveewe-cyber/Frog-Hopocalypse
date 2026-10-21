@@ -11,8 +11,10 @@ continuous car/log lanes, keeping the playable area, collisions, speeds and map
 data unchanged. Baby Mode's traffic/log finale and Honduras Jungle River show
 the new structures. Tile and patrol movers retain their reversing endpoints.
 [Implementation, screenshots, active-route checks and shared-Site safety](docs/LANE_TUNNELS.md).
-Mexico/Honduras kits are preserved. Publication requires resolving the current
-RiverSim saved-versus-live conflict; no stale Site checkout will be deployed.
+Mexico/Honduras kits are preserved. The tested [standalone Web ZIP](artifacts/hopan-lane-tunnels-web.zip)
+is available. Publication is blocked on current RiverSim saved-versus-live
+coordination: v29 has no deployment ID; v28 is the last confirmed deployment.
+No Site source push, save or deployment was attempted in this pass.
 
 ## Honduras jungle-river kit — repository preview
 

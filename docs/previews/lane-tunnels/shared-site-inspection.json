@@ -48,5 +48,15 @@
     "dist/wasm-hosting-adapter.js": "aa0b977dd0f4b7cc7c61c357906aaea2ee6b15d1dcfd7a14153cf4bfde796c2a"
   },
   "live_runtime_check": "Blocked by executor CONNECT proxy 403. Native history distinguishes a saved version from deployment.",
-  "status": "Coordination pending; no Site files staged, saved or deployed by this pass."
+  "status": "Final: publication blocked, not executed; RiverSim coordination pending. No Site source push/save/deployment attempted.",
+  "confirmed_deployment": {
+    "version": 28,
+    "deployment_id": "appgdep_6ad7dc8c7708819183751178a5447411",
+    "status": "succeeded",
+    "url": "https://hopan.fiiendward.chatgpt.site"
+  },
+  "final_site_version": 29,
+  "final_site_updated_at": "2026-10-21T04:56:28.720452+00:00",
+  "approval_denial": false,
+  "site_source_checkout_clean": true
 }

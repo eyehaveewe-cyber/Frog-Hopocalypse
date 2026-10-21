@@ -1,0 +1,6 @@
+{
+  "startup": "first rendered frame and loading screen removed",
+  "debug_probe": "undefined",
+  "errors": [],
+  "scope": "Standalone release Chromium/SwiftShader. Full behavior verified in native/debug tests. No shared-Site deployment."
+}

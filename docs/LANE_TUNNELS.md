@@ -104,7 +104,22 @@ could erase it. A coordination question is pending. No Site files have been
 staged or modified by this pass. All 16 protected RiverSim/adapter/header hashes
 for both sources are recorded in the [shared-Site inspection](previews/lane-tunnels/shared-site-inspection.json).
 
-The final Site check and outcome are recorded separately with the packaged
-preview. Do not use the standalone frog export to overwrite the whole Site:
+**Final publication outcome: blocked, not executed; coordination pending.** A
+final native Site/version check still returns saved v29 with no deployment ID.
+The existing v28 deployment `appgdep_6ad7dc8c7708819183751178a5447411` reports
+`succeeded` at the URL above. No Site save, push or deployment was attempted by
+this pass, and the Site source checkout remains clean at `00c64e4`. This was
+not an approval denial. Missing evidence is a coordinated, confirmed current
+RiverSim publication/source before a whole-project deploy can preserve it.
+
+[Playable standalone Web ZIP](../artifacts/hopan-lane-tunnels-web.zip) is ready
+for review. Its game source is `4a59b137fab72a5b11c59b3e0aa0b95603c7ea17`.
+The 10,741,602-byte ZIP passed CRC and exact archived export-byte checks;
+[manifest and SHA-256](../artifacts/hopan-lane-tunnels-web.json). Serve the whole
+unpacked folder over HTTP as described in PLAY.txt. The release reaches its
+first rendered frame with no reported browser errors and no debug probe;
+[release evidence](previews/lane-tunnels/release-results.json).
+
+Do not use the standalone frog export to overwrite the whole Site:
 it excludes RiverSim. Cramerton remains blocked by unreadable Test1.json, whose
 layout has not been guessed or retried. No PR merge or ongoing update loop occurs.

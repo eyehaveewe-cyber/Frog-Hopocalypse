@@ -17,6 +17,13 @@
    deployment ID; live byte verification is blocked by CONNECT 403. Coordination
    pending. No Site files edited or overwritten; 16 protected hashes recorded.
    No main merge, Cramerton substitute or ongoing loop. See docs/LANE_TUNNELS.md.
+5. Tested standalone Web ZIP: artifacts/hopan-lane-tunnels-web.zip, 10,741,602
+   bytes, source 4a59b137fab72a5b11c59b3e0aa0b95603c7ea17. CRC and exact export-byte
+   checks pass; release starts without browser errors and has no debug probe.
+6. Final shared-Site publication blocked, not executed, coordination pending:
+   v29 remains saved-only in native history; v28 deployment confirms succeeded.
+   No Site source push/save/deploy was attempted. Latest RiverSim source remains
+   intact; no protected files changed. This was not an approval denial.
 
 2026-10-21 — Honduras jungle-river theme roadmap pass (repository only)
 
