@@ -1,11 +1,12 @@
-**Current public build: [Hopán version 37](https://hopan.fiiendward.chatgpt.site).**
-#6 Wrapped Gold is the normal title illustration; #4 Layered Cloth appears on
-15% of launches. Try [#6](https://hopan.fiiendward.chatgpt.site/?splash=6) or
-[#4](https://hopan.fiiendward.chatgpt.site/?splash=4) directly. Selection stays
-stable through menu returns and resizing. RiverSim 0.4.4 and all unrelated
-hosted files are preserved byte-for-byte from v36.
-[Publication, checks and v36 rollback](docs/HAT_SPLASH_PUBLICATION.json).
-The voice cleanup and v33 menu fixes remain included.
+**Current public build: [Hopán version 38](https://hopan.fiiendward.chatgpt.site).**
+The actual selected #6/#4 image pixels now replace v37’s approximated drawing.
+Try [#6](https://hopan.fiiendward.chatgpt.site/?splash=6) or
+[#4](https://hopan.fiiendward.chatgpt.site/?splash=4). The original source crops,
+editable masks and source/runtime comparisons are retained. #4 still has a 15%
+chance per launch; gameplay, saves and the playable frog are unchanged.
+RiverSim 0.4.4 and all unrelated hosted files are preserved byte-for-byte.
+[Source comparison and checks](docs/EXACT_SPLASH_CORRECTION.md) ·
+[Publication and v37 rollback](docs/EXACT_SPLASH_PUBLICATION.json).
 Prior lane portals and theme kits remain included; [v31 publication history](docs/LANE_PORTALS_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 

@@ -1,0 +1,65 @@
+{
+  "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "version": 38,
+  "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_f8d151c7d8348191bad5356efb24b6a0",
+  "deployment_id": "appgdep_6ad8f3fa62a481919cb26fea4ddeaaf9",
+  "status": "succeeded",
+  "published_at": "2026-10-21T17:18:59.254592+00:00",
+  "game_source_commit": "7c08dde20890c2c03caac5e10a5d52dfac5354f7",
+  "site_source_commit": "7eb80a34989decc4e956c62bd305f1482bcbc83c",
+  "archive_sha256": "2c63c2ae92022d078404db6b7e2fc3f30bda9142fb39fca0008e4259d5d863df",
+  "source_image_sha256": "2ae5269526c16b606ae0c79e5c31f18b89793133d60c04ca8320e5777ed99d80",
+  "artwork": "Actual #6/#4 source image pixels cut and aligned; no regeneration, RGB redraw or resampling",
+  "access": "public, unchanged",
+  "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_e7d086085a9c8191928e4988c71ac02a",
+  "preservation": {
+    "baseline_source": "21933cc0ac607ce7ee7a539481cbb99911448b9b",
+    "baseline_version": 37,
+    "riversim": "0.4.4-playable",
+    "protected_sha256": {
+      "_headers": "76700ff6421b20818c3c5d87f1602851e7c68002b36cb99b3e82d240737903bf",
+      "hop-sound-attribution.txt": "4c9751d13b9716ebd139c97abccef05107606aecdb6d87beaf1d59f54b9debfe",
+      "wasm-hosting-adapter.js": "aa0b977dd0f4b7cc7c61c357906aaea2ee6b15d1dcfd7a14153cf4bfde796c2a",
+      "riversim/index.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "riversim/index.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "riversim/index.png.import": "28ae7dc68aee22ba9c4a803fb05078f0c43a8607a454b69e4973ea6ca312446a",
+      "riversim/chart-ohio-224-1999.pdf": "8bd5e61b739e51b41024d61f1da8e64a19b20dad394c03ce8e962f53b54cd589",
+      "riversim/index.png": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "riversim/index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "riversim/index.icon.png.import": "61a7502dfc7f2e54bc98104e2855b62a9b2d4554f11e0f9c636d447bb36d0d97",
+      "riversim/index.icon.png": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+      "riversim/index.apple-touch-icon.png": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+      "riversim/index.apple-touch-icon.png.import": "f69336b35b689e971aa1d98faf50e8e5e0bcb72fe8898b111981c3e5c39d6e11",
+      "riversim/index.html": "16cd0854244ad2299049502b5dd258389969b03b4fccf3ee0312ffba9d10d227",
+      "riversim/index.pck": "45af2f8a787289d6d96036bd9386d961033f27db8326a8bbac0313d2d527bc03",
+      "riversim/build.json": "15b99b4868ccd498b0276303d087b3fef8656c3bebde1b0e0221958de66867ea",
+      "riversim/index.wasm": "2862a06f11ad1579c4ceb764f724013c1e62f8916d5d8d237fe5ee209c76f56e"
+    },
+    "engine_sha256": "8032306d52d52497129dce5b767baacb660d504bdde28668b1c1337b717eacd8",
+    "hosting_sha256": "9185194d47c56807541da9c7a671ffc9bdf7e00ed1a20b4ab4681bd0e698bb02"
+  },
+  "checks": {
+    "native_splash": 17,
+    "browser_scenarios": 6,
+    "source_pixel_comparisons": 6,
+    "source_hat_pixel_samples_per_layout": {
+      "6": 57337,
+      "4": 60312
+    },
+    "runtime_source_color_comparisons": 2,
+    "packaged_release_hat_matches_verified_debug_render": true,
+    "packaged_release_startup": "#6 and #4: first frame, no errors, debug probe absent",
+    "archived_pck_matches_tested_release": true
+  },
+  "limitations": [
+    "External live inspection attempted once: CONNECT tunnel rejected with HTTP 403 by executor proxy.",
+    "Visual comparison used the original source, saved v37 release render and corrected local debug/release runtime.",
+    "Sites native result confirmed successful production deployment; no claim of external live visual inspection.",
+    "Chromium mouse/touch emulation; physical iPhone/Safari and Edge untested. Windows exported, not run."
+  ],
+  "preview_urls": [
+    "https://hopan.fiiendward.chatgpt.site/?splash=6",
+    "https://hopan.fiiendward.chatgpt.site/?splash=4"
+  ]
+}

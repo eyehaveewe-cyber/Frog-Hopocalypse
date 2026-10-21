@@ -1,13 +1,17 @@
 2026-10-21 — Correct #6/#4 fidelity using the actual selected pixels
 
-1. Replaced v37's approximate redraw with cuts from the original six-preview
+1. Published v38 at https://hopan.fiiendward.chatgpt.site; native deployment
+   appgdep_6ad8f3fa62a481919cb26fea4ddeaaf9 succeeded.
+   Replaced v37's approximate redraw with cuts from the original six-preview
    PNG. Both selected frogs and hats remain together; no new image generation,
    RGB painting or resampling of those pixels. Backgrounds/menu controls retained.
 2. Source and all six exported PNGs have identical opaque hat pixel samples:
    57,337 per #6 export, 60,312 per #4 export. Fixed crop coordinates, masks,
    full-resolution editable composites and hash evidence are retained.
 3. Existing 15% #4 cosmetic launch selection, preview overrides, gameplay and
-   saves unchanged. Protect the latest shared RiverSim before publication.
+   saves unchanged. RiverSim 0.4.4 and all 17 unrelated files remain exact v37
+   bytes; rollback remains v37. Both staged releases match the verified source
+   render. Direct hosted inspection is blocked by CONNECT proxy 403.
    See docs/EXACT_SPLASH_CORRECTION.md for verification and publication outcome.
 
 2026-10-21 — #6 Wrapped Gold title and occasional #4 alternate

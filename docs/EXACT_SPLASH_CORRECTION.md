@@ -53,6 +53,16 @@ chance once per launch, and `?splash=6` / `?splash=4` preview the two directly.
 There are no gameplay-code, timing, level, audio, unlock or profile-format edits.
 
 The publication baseline is Site v37, source
-`21933cc0ac607ce7ee7a539481cbb99911448b9b`, including RiverSim 0.4.4. All current
-RiverSim and unrelated hosted files must be preserved exactly. Publication and
-rollback evidence will be recorded in `EXACT_SPLASH_PUBLICATION.json`.
+`21933cc0ac607ce7ee7a539481cbb99911448b9b`, including RiverSim 0.4.4. All 17 protected
+files, the hosting manifest and compressed engine are preserved exactly in the
+published artifact. The archive PCK equals the locally tested release. Both
+packaged release hat regions match the source-verified debug render pixel-for-pixel,
+and both release overrides start without errors with the debug probe absent.
+[Release source proof](previews/exact-splash/release-source-proof.json).
+
+Published **v38** successfully on October 21, 2026; native Sites returned a
+successful production deployment. A direct hosted inspection was attempted once
+and failed at the executor proxy with CONNECT HTTP 403. Therefore the visual
+acceptance above covers the source and corrected local running/packaged game;
+no external hosted visual inspection is claimed. No denial was bypassed.
+[Publication and v37 rollback evidence](EXACT_SPLASH_PUBLICATION.json).

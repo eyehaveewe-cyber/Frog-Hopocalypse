@@ -1,0 +1,22 @@
+[
+  {
+    "selection": 6,
+    "screen_bounds": [
+      90,
+      404,
+      481,
+      667
+    ],
+    "release_matches_source_verified_debug_hat_pixels": true
+  },
+  {
+    "selection": 4,
+    "screen_bounds": [
+      90,
+      414,
+      481,
+      689
+    ],
+    "release_matches_source_verified_debug_hat_pixels": true
+  }
+]
