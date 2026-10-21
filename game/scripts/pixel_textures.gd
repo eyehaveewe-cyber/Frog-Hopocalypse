@@ -17,6 +17,19 @@ static func get_texture(kind: String) -> Texture2D:
 				n = float(posmod(hash([kind, x / 4, y / 4]), 1000)) / 1000.0
 			var color := Color.WHITE
 			match base_kind:
+				"stucco":
+					# Broad, low-contrast patches; no fine dark mortar grid.
+					var patch := float(posmod(hash([x / 4,y / 4]),100)) / 100.0
+					color = Color("e5b788").lerp(Color("efd6aa"),patch*0.35)
+					if y >= 24: color = Color("57959b").lerp(Color("6fa7a7"),patch*0.3)
+				"terracotta":
+					var seam := x % 16 < 2 or y % 16 < 2
+					color = Color("ad775b") if seam else Color("c58b68").lerp(Color("d5a27c"),n*0.25)
+				"plaza":
+					var seam := x % 16 < 2 or y % 16 < 2
+					color = Color("aaa38b") if seam else Color("d1c5a5").lerp(Color("e3d8b8"),n*0.25)
+				"cactus":
+					color = Color("a3bca0") if x % 8 < 2 else Color("c3d0b6")
 				"cheese":
 					color = Color("f4c94a").lerp(Color("ffe28b"), n * 0.4)
 					for hole in [Vector3(7, 8, 4), Vector3(23, 6, 3), Vector3(18, 23, 5), Vector3(3, 27, 3)]:
@@ -68,7 +81,7 @@ static func get_texture(kind: String) -> Texture2D:
 					color = Color("87ae4c").lerp(Color("d1d772"), n * 0.5)
 					if n < 0.12:
 						color = Color("546e36")
-			if kind.ends_with("_wall"):
+			if kind.ends_with("_wall") and base_kind not in ["stucco", "terracotta"]:
 				color = color.lerp(Color("b6a080") if base_kind == "stone" else Color("95859b"),0.4)
 			image.set_pixel(x, y, color)
 	if base_kind == "brick" or kind.ends_with("_wall"):

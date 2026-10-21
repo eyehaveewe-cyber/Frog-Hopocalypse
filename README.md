@@ -4,6 +4,15 @@ fragments are now published. Existing maps, recordings, difficulty and RiverSim
 are preserved. [Publication and rollback](docs/BOING_EDITOR_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
+## Mexico courtyard kit — repository preview
+
+The isolated `feature/hopan-mexico-kit` branch advances the original theme-pack
+roadmap: terracotta/plaza terrain, stucco walls, cactus variations, painted
+columns and flower pots. Try **Level editor → New Mexico**, or **Scenery demos →
+Courtyard Gardens · Mexico → Playtest**. Save/load, Undo/Redo and portable JSON
+support the theme. [Preview, playable export and checks](docs/MEXICO_KIT.md).
+The public Site remains v28; this pass has not been deployed.
+
 ## Latest requested sound/editor update
 
 Long hops have a distinct boing. Basic hops shuffle variants without immediate

@@ -269,6 +269,8 @@ static func critter(theme_name: String, behavior: String) -> Node3D:
 	return root
 
 static func scenery(kind: String, theme_name: String, variant: int = 0) -> Node3D:
+	if theme_name == "mexico" and kind in ["pillar", "tree", "decoration"]:
+		return courtyard_scenery(kind, variant)
 	var root := Node3D.new()
 	var sand := Color("c9a66c") if theme_name == "egypt" else Color("736b94")
 	match kind:
@@ -303,6 +305,39 @@ static func scenery(kind: String, theme_name: String, variant: int = 0) -> Node3
 		"decoration":
 			cylinder(root, 0.3, 0.16, 0.5, Vector3(0, 0.25, 0), Color("6ca99b"))
 			cylinder(root, 0.18, 0.22, 0.1, Vector3(0, 0.52, 0), Color("ead391"))
+	return root
+
+static func courtyard_scenery(kind: String, variant: int) -> Node3D:
+	# Original modular courtyard kit. Existing object types retain their collider
+	# and editor semantics; this function only supplies the theme's visuals.
+	var root := Node3D.new()
+	root.set_meta("courtyard_kind",kind)
+	var v := posmod(variant,5)
+	var green := Color("447c57").lightened(v * 0.025)
+	if kind == "tree":
+		root.set_meta("tree_variant",v)
+		var height: float = [1.65,1.8,1.55,1.95,1.72][v]
+		textured(cylinder(root,0.23,0.20,height,Vector3(0,height/2,0),green,6),"cactus")
+		orb(root,Vector3(0.4,0.24,0.4),Vector3(0,height,0),green)
+		for side in [-1,1]:
+			var arm_y: float = 0.68 + 0.18 * posmod(v + side,3)
+			textured(box(root,Vector3(0.42,0.19,0.19),Vector3(side*0.30,arm_y,0),green),"cactus")
+			textured(cylinder(root,0.11,0.10,0.42,Vector3(side*0.48,arm_y+0.17,0),green,6),"cactus")
+		if v % 2 == 0:
+			orb(root,Vector3(0.23,0.12,0.23),Vector3(0,height+0.15,0),Color("df8a90"))
+	elif kind == "pillar":
+		textured(box(root,Vector3(0.85,0.15,0.85),Vector3(0,0.075,0),Color.WHITE),"terracotta")
+		textured(box(root,Vector3(0.48,1.10,0.48),Vector3(0,0.68,0),Color.WHITE),"stucco_wall")
+		box(root,Vector3(0.52,0.18,0.52),Vector3(0,0.40,0),Color("498f99"))
+		textured(box(root,Vector3(0.76,0.18,0.76),Vector3(0,1.25,0),Color.WHITE),"terracotta")
+	else:
+		textured(cylinder(root,0.22,0.31,0.40,Vector3(0,0.20,0),Color.WHITE),"terracotta")
+		cylinder(root,0.33,0.33,0.09,Vector3(0,0.42,0),Color("dba17b"))
+		cylinder(root,0.25,0.25,0.02,Vector3(0,0.47,0),Color("594c3c"))
+		for i in range(3):
+			var p := Vector3((i-1)*0.16,0.60 + (0.09 if i==1 else 0.0),0)
+			box(root,Vector3(0.04,0.28,0.04),p,green)
+			orb(root,Vector3(0.25,0.10,0.25),p+Vector3(0,0.17,0),Color("e7b35d") if v%2 else Color("d97c94"))
 	return root
 
 static func spike_ball() -> Node3D:

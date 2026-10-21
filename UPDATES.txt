@@ -1,3 +1,22 @@
+2026-10-21 — Mexico courtyard theme roadmap pass (repository only)
+
+1. Advanced the original user-authored theme-pack roadmap with an editable Mexico
+   starter kit: terracotta/plaza paving, teal-trimmed stucco walls, five cactus
+   silhouettes, painted columns and flower pots. New Mexico, theme switching,
+   contextual palette names and Courtyard Gardens scenery demo are available.
+2. Normal local save/load, portable JSON, Undo/Redo and new-map recovery identity
+   work with the theme. Existing tree/pillar/decoration collider semantics and
+   mesh/material batching are retained. Older readers reject the new theme ID.
+3. 28 focused native checks include an actual controller route to the exit and
+   physical wall collision; the existing 26 editor-leave/road-fragment checks
+   pass. Retro/compatibility browser controls and rendering pass without errors.
+   Web/Windows release and Web debug build; Windows execution and phones untested.
+4. Isolated on feature/hopan-mexico-kit from v28 source chain 0c8849a. No merge or
+   deployment. Campaign layouts, sounds, rules, Site adapters and RiverSim intact.
+   Proposed editor v0.2 was not treated as adopted. Cramerton remains blocked on
+   Test1 attachment bytes (CONNECT 403); no transfer retry or invented layout.
+   Screenshots, native evidence and playable Web preview: docs/MEXICO_KIT.md.
+
 2026-10-20 — Requested sound/editor update published as version 28
 
 1. Live: https://hopan.fiiendward.chatgpt.site

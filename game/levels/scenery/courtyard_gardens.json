@@ -1,0 +1,406 @@
+{
+  "version": 1,
+  "name": "Courtyard Gardens",
+  "theme": "mexico",
+  "width": 17,
+  "height": 13,
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "spawn": [
+    2,
+    10
+  ],
+  "exit": [
+    14,
+    2
+  ],
+  "objects": [
+    {
+      "id": "tree_3_5",
+      "type": "tree",
+      "pos": [
+        3,
+        5
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_3_7",
+      "type": "tree",
+      "pos": [
+        3,
+        7
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_13_5",
+      "type": "tree",
+      "pos": [
+        13,
+        5
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_13_7",
+      "type": "tree",
+      "pos": [
+        13,
+        7
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_5_9",
+      "type": "tree",
+      "pos": [
+        5,
+        9
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_11_9",
+      "type": "tree",
+      "pos": [
+        11,
+        9
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "pillar_6_4",
+      "type": "pillar",
+      "pos": [
+        6,
+        4
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "pillar_10_4",
+      "type": "pillar",
+      "pos": [
+        10,
+        4
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "pillar_6_8",
+      "type": "pillar",
+      "pos": [
+        6,
+        8
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "pillar_10_8",
+      "type": "pillar",
+      "pos": [
+        10,
+        8
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "decoration_4_2",
+      "type": "decoration",
+      "pos": [
+        4,
+        2
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "decoration_12_2",
+      "type": "decoration",
+      "pos": [
+        12,
+        2
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "decoration_4_10",
+      "type": "decoration",
+      "pos": [
+        4,
+        10
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "decoration_12_10",
+      "type": "decoration",
+      "pos": [
+        12,
+        10
+      ],
+      "rotation": 0,
+      "solid": false
+    }
+  ]
+}

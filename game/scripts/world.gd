@@ -123,9 +123,13 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	projectiles.clear()
 	effects.clear()
 	var swamp: bool = level.theme == "swamp"
+	var courtyard: bool = level.theme == "mexico"
 	Art.set_retro(not edit, swamp)
 	var floor_color := Color("63744a") if swamp else Color("d7bc7f")
 	var wall_color := Color("716582") if swamp else Color("ba9662")
+	if courtyard:
+		floor_color = Color.WHITE
+		wall_color = Color.WHITE
 	var underlay := Art.box(geometry, Vector3(level.width * CELL + 70, 0.12, level.height * CELL + 70), Vector3(0, -0.48, 0), Color.WHITE)
 	ocean_material = Art.retro_mat("swamp_water" if swamp else "water").duplicate()
 	if ocean_material is ShaderMaterial:
@@ -147,6 +151,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 				if tile == "path":
 					color = Color("b4ad8c") if swamp else Color("ead69b")
 				var texture_kind := "road" if tile == "road" else (("swamp_stone" if swamp else "stone") if tile == "path" else ("moss" if swamp else "grass"))
+				if courtyard and tile != "road":
+					texture_kind = "plaza" if tile == "path" else "terracotta"
+					color = Color.WHITE
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
 			if tile == "cheese_wall":
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.65, CELL), p + Vector3(0, 0.325, 0), Color.WHITE), "cheese")
@@ -155,8 +162,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 			if tile == "wall":
 				var perimeter: bool = x == 0 or z == 0 or x == level.width - 1
 				var height := 1.45 if perimeter else (0.3 if z == level.height - 1 else 0.55)
-				Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), "swamp_stone_wall" if swamp else "brick")
-				Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), "swamp_stone_wall" if swamp else "stone_wall")
+				Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), "stucco_wall" if courtyard else ("swamp_stone_wall" if swamp else "brick"))
+				Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), "terracotta_wall" if courtyard else ("swamp_stone_wall" if swamp else "stone_wall"))
 				Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
 	# Invisible boundary colliders prevent a painted-out perimeter from escaping the map.
 	var w: float = level.width * CELL

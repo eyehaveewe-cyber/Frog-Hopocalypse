@@ -39,7 +39,7 @@ var splash_menu = false
 const LevelRules = preload("res://scripts/level_rules.gd")
 const RULE_INK = preload("res://art/rules/hopan-rule-ink.ttf")
 const LandmarkModels = preload("res://scripts/landmark_models.gd")
-const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/scenery/heron_marsh.json", "res://levels/scenery/temple_horizon_1x.json", "res://levels/scenery/temple_horizon_80x.json"]
+const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/scenery/heron_marsh.json", "res://levels/scenery/temple_horizon_1x.json", "res://levels/scenery/temple_horizon_80x.json", "res://levels/scenery/courtyard_gardens.json"]
 const CHARGE_DEMO = "res://levels/tile_hop/charge_trial.json"
 var rule_button: Button
 var hop_rule_picker: OptionButton
@@ -69,6 +69,7 @@ var pending_result := ""
 var pending_set_complete := false
 var pending_earned_hat := false
 var theme_picker: OptionButton
+var themed_tool_buttons: Dictionary = {}
 var saved_picker: OptionButton
 var tool_label: Label
 var inspector: VBoxContainer
@@ -322,8 +323,8 @@ func build_ui() -> void:
 	name_field.focus_exited.connect(commit_name)
 	tools.add_child(name_field)
 	theme_picker = OptionButton.new()
-	theme_picker.add_item("Egyptian ruins")
-	theme_picker.add_item("Purple Swamp-Woods")
+	for title in Data.THEME_NAMES:
+		theme_picker.add_item(title)
 	theme_picker.item_selected.connect(change_theme)
 	tools.add_child(theme_picker)
 	size_picker = OptionButton.new()
@@ -378,6 +379,7 @@ func build_ui() -> void:
 	var new_row := row(tools)
 	button(new_row, "New Egypt", func(): new_level("egypt"))
 	button(new_row, "New Swamp", func(): new_level("swamp"))
+	button(tools, "New Mexico", func(): new_level("mexico"))
 	var saves := row(tools)
 	button(saves, "Save", save_level, true)
 	button(saves, "Duplicate", duplicate_level)
@@ -401,6 +403,7 @@ func build_ui() -> void:
 	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["hop_fragment", "Hop fragment"], ["hop_seed", "Hop seed"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["backdrop", "Distant backdrop"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
+		if key in ["tree", "pillar", "decoration"]: themed_tool_buttons[key] = b
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.add_theme_font_size_override("font_size", 13)
 		b.custom_minimum_size.y = 32
@@ -745,7 +748,7 @@ func show_scenery_demos() -> void:
 	reset_overlay("Scenery demos", "Landmarks on the course and in the surrounding water. Loads into the editor; Undo restores your map.")
 	for i in range(SCENERY_DEMOS.size()):
 		var index := i
-		button(overlay_box, ["Temple Shore", "Heron Marsh", "Horizon · 1x", "Horizon · 80x"][i], func(): open_scenery_demo(index))
+		button(overlay_box, ["Temple Shore", "Heron Marsh", "Horizon · 1x", "Horizon · 80x", "Courtyard Gardens · Mexico"][i], func(): open_scenery_demo(index))
 	button(overlay_box, "Keep editing", func(): overlay.hide())
 
 func open_scenery_demo(index: int) -> void:
@@ -1248,7 +1251,9 @@ func sync_editor(refresh_selection: bool = true) -> void:
 	hop_charge_picker.editable = LevelRules.charged(level)
 	draw_distance_picker.set_value_no_signal(level.get("draw_distance",18))
 	name_field.text = level.name
-	theme_picker.select(0 if level.theme == "egypt" else 1)
+	theme_picker.select(Data.THEMES.find(level.theme))
+	for key in themed_tool_buttons:
+		themed_tool_buttons[key].text = {"tree":"Cactus", "pillar":"Painted column", "decoration":"Flower pot"}[key] if level.theme == "mexico" else {"tree":"Tree", "pillar":"Pillar", "decoration":"Pot"}[key]
 	undo_button.disabled = undo_stack.is_empty()
 	redo_button.disabled = redo_stack.is_empty()
 	ui_busy = false
@@ -1269,7 +1274,7 @@ func change_theme(index: int) -> void:
 	if ui_busy:
 		return
 	record_undo()
-	level.theme = "egypt" if index == 0 else "swamp"
+	level.theme = Data.THEMES[index]
 	rebuild()
 
 func record_undo() -> void:
@@ -1902,7 +1907,7 @@ func new_level(theme_name: String = "egypt") -> void:
 	if request_editor_navigation(func(): new_level(theme_name)): return
 	editor_saved_snapshot = {}
 	record_undo()
-	level = Data.blank("New Egypt" if theme_name == "egypt" else "New Swamp", theme_name, [17,21,33][size_picker.selected], [13,16,49][size_picker.selected])
+	level = Data.blank(Data.NEW_NAMES[Data.THEMES.find(theme_name)], theme_name, [17,21,33][size_picker.selected], [13,16,49][size_picker.selected])
 	level.editor_autosave_id = "new_%d_%d" % [Time.get_unix_time_from_system(),Time.get_ticks_usec()]
 	editor_autosave_due = false
 	slot_id = ""

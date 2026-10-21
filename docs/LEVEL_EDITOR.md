@@ -2,6 +2,13 @@
 
 Choose **Level editor** from the menu. All four Baby Mode stages open in the same editor as your own maps. Choose **New Egypt** or **New Swamp** for an empty, enclosed 17 × 13 board.
 
+The repository preview also offers **New Mexico** and **Mexico · Courtyard
+gardens** in the theme picker. It changes the tree/pillar/pot visuals and palette
+names to Cactus/Painted column/Flower pot, with the same collision and editing
+rules. **Scenery demos → Courtyard Gardens · Mexico** loads an editable showcase.
+Theme changes support Undo/Redo. Mexico JSON requires this newer reader; earlier
+Egypt/Swamp documents retain their existing behavior. [Details](MEXICO_KIT.md).
+
 1. Give your level a name. Choose its Egyptian ruins or Purple Swamp-Woods theme.
 2. Select **Floor**, **Path**, **Wall**, or **Water**, then click or drag on the board. Walls block movement; water kills the frog. Floor and path are walkable. Move the start/exit first if you want to paint hazards over their old cells.
 3. Place the **Frog start** and **Exit gate** on different cells. These tools clear the selected cell for safe placement.

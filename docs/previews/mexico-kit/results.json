@@ -1,0 +1,8 @@
+{
+  "checks": [
+    "Retro: new theme, contextual palette, save, showcase loading, perspective movement and overhead map preserve the document",
+    "Compatibility: new theme, contextual palette, save, showcase loading, perspective movement and overhead map preserve the document"
+  ],
+  "errors": [],
+  "scope": "Desktop Chromium/SwiftShader in retro and compatibility render paths; actual keyboard movement. Native controller test completes the full showcase route. Physical phones/Safari and human visual comfort are unverified."
+}
