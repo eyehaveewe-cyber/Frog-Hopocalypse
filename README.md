@@ -1,4 +1,4 @@
-**Current public build: [Hopán version 31](https://hopan.fiiendward.chatgpt.site).**
+**Current public build: [Hopán version 32](https://hopan.fiiendward.chatgpt.site).**
 Lane portals and both Mexico/Honduras starter kits are published alongside the
 existing sound/editor updates. RiverSim 0.4.1 and all unrelated hosted content
 are byte-identical to confirmed v30 in the published artifact.
@@ -11,7 +11,8 @@ Changing skin now updates the frog and existing button label in place, preservin
 menu scroll and focus. It no longer destroys/rebuilds the menu from the Skin
 button's callback. Animation and Soft/Retro sound changes likewise update their
 existing controls instead of rebuilding the advanced panel. Unlocks, hats, volume
-and saved progress are retained. [Fix and
+and saved progress are retained. The complete fix is saved as v33; deployment is
+held by automatic approval review pending explicit permission. [Fix and
 mouse/keyboard/touch checks](docs/SKIN_MENU_FIX.md).
 
 ## Lane entrances and exits — guide phase 07

@@ -1,0 +1,79 @@
+{
+  "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "game_source_commit": "2b09f6e1f73c38973856e73a1f4907b02a743fad",
+  "validation_commit": "e642d67",
+  "site_source_commit": "c61fdd10218651edc7e497fa9d39388a01189bcd",
+  "saved_version_number": 33,
+  "saved_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_132ae396412481919583e5fef575bbb8",
+  "archive_sha256": "6329432521731f0afd901f19febccb664fb3182c5548a65aaaf219d3f8107c04",
+  "publication_status": "Denied by automatic approval review; deployment not executed. Explicit user approval requested and pending.",
+  "review_reason": "Review recognized publication permission for Cramerton, but not the public menu-fix update.",
+  "last_confirmed_live_version": 32,
+  "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_63d0cc3e6a4c819192678d00eb2ffb55",
+  "preservation": {
+    "baseline_version": 32,
+    "baseline_source": "b1f0c72a028edc33ce99456755407d6902bec2ed",
+    "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_63d0cc3e6a4c819192678d00eb2ffb55",
+    "protected_sha256": {
+      "_headers": "76700ff6421b20818c3c5d87f1602851e7c68002b36cb99b3e82d240737903bf",
+      "hop-sound-attribution.txt": "4c9751d13b9716ebd139c97abccef05107606aecdb6d87beaf1d59f54b9debfe",
+      "wasm-hosting-adapter.js": "aa0b977dd0f4b7cc7c61c357906aaea2ee6b15d1dcfd7a14153cf4bfde796c2a",
+      "riversim/index.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "riversim/index.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "riversim/index.png.import": "28ae7dc68aee22ba9c4a803fb05078f0c43a8607a454b69e4973ea6ca312446a",
+      "riversim/chart-ohio-224-1999.pdf": "8bd5e61b739e51b41024d61f1da8e64a19b20dad394c03ce8e962f53b54cd589",
+      "riversim/index.png": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "riversim/index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "riversim/index.icon.png.import": "61a7502dfc7f2e54bc98104e2855b62a9b2d4554f11e0f9c636d447bb36d0d97",
+      "riversim/index.icon.png": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+      "riversim/index.apple-touch-icon.png": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+      "riversim/index.apple-touch-icon.png.import": "f69336b35b689e971aa1d98faf50e8e5e0bcb72fe8898b111981c3e5c39d6e11",
+      "riversim/index.html": "e4528e1bcdfe750239fbdcc543385976f65000d7280608fc8c2fc3b50f80f84b",
+      "riversim/index.pck": "c9da895118edbf344f900ecb047f63bce5095751b7989ad19f0e596a69d42ebc",
+      "riversim/build.json": "722ca50195011177b9d02eff62a66f8e42f4b33d9b90d3e3126b84ff11ae461b",
+      "riversim/index.wasm": "2862a06f11ad1579c4ceb764f724013c1e62f8916d5d8d237fe5ee209c76f56e"
+    },
+    "engine_sha256": "8032306d52d52497129dce5b767baacb660d504bdde28668b1c1337b717eacd8",
+    "hosting_sha256": "9185194d47c56807541da9c7a671ffc9bdf7e00ed1a20b4ab4681bd0e698bb02",
+    "game_source_commit": "2b09f6e1f73c38973856e73a1f4907b02a743fad",
+    "validation_repository_commit": "e642d671e2189c254581d99d2617f96df4a9ac6b",
+    "export_sha256": {
+      "hopan-wasm.js": "3810742ff3809a9c2f419a8357ddd6377ff656f849c36d8772d909529ec088f7",
+      "index.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "index.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "index.png": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "index.icon.png": "7c3ba8949659536b5b4f35dba7257acee478ad0e63605e6f2c52e15995d4cde7",
+      "index.apple-touch-icon.png": "c797f2a2684a5ce0718d2457fc8ecaede25720c30fc5469554ae2bea8e5b7b50",
+      "index.html": "754291f39facbfea23718a88b47d61e928e42e432ac59dbc14211e825d829c08",
+      "index.pck": "a1edeb3b53fa6fc295c8e3493510ec48e956a97edc1d277f4f007033e4a8d2c9",
+      "index.wasm": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    },
+    "native_menu_checks": 15,
+    "palette_checks": 15,
+    "hop_audio_checks": 51,
+    "browser": {
+      "checks": [
+        "Desktop mouse retro: 21 activations cycle both skins without losing menu position, hat or progress",
+        "Desktop Enter repeatedly activates the focused selector without rebuilding or losing focus",
+        "Desktop: purple selection, existing progress and baby hat survive browser reload",
+        "Wide desktop: repeated animation/palette cycles keep the advanced panel populated and its height bounded; Back returns to Menu",
+        "Wide desktop editor-to-Menu context: 32 further setting changes retain panel contents and the entire editor document",
+        "Touch portrait compatibility: 21 activations cycle both skins without losing menu position, hat or progress",
+        "Touch: purple selection, existing progress and baby hat survive browser reload",
+        "Touch: repeated animation/palette cycles keep the advanced panel populated and its height bounded; Back returns to Menu"
+      ],
+      "errors": [],
+      "scope": "Actual Chromium mouse/Enter at the supplied 2465x1311 viewport plus iPhone-size touch/UA compatibility emulation; Microsoft Edge binary unavailable. This does not establish physical iPhone/Safari behavior. Full original crash was not reproduced; pre-fix repeated mouse cycling lost menu reachability after two activations."
+    },
+    "riversim": "0.4.2-playable",
+    "staged_browser": {
+      "startup": "first frame, loading removed",
+      "errors": [],
+      "debug_probe": "undefined",
+      "scope": "Final combined fix, staged compressed release. Full cycling exercised in same-source native/debug checks."
+    }
+  },
+  "verification_limits": "No Microsoft Edge binary or physical iPhone/Safari. Chromium wide viewport and touch emulation pass; final staged compressed startup has no errors and no debug probe."
+}

@@ -1,3 +1,18 @@
+2026-10-21 — Combined menu fix saved as v33; deployment denied/pending approval
+
+1. Complete skin, animation and Soft/Retro cycling fix saved as version 33:
+   appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_132ae396412481919583e5fef575bbb8.
+   Site source c61fdd10218651edc7e497fa9d39388a01189bcd; game source 2b09f6e.
+2. Fifteen menu, 15 palette and 51 audio checks pass; eight browser checks cover
+   46 skin selections and 96 advanced changes, wide/editor/touch layouts and
+   reload. Final staged compressed startup has no errors and no debug probe.
+3. All 14 RiverSim 0.4.2 files and three unrelated files match confirmed live v32
+   exactly. Hosting manifest and compressed engine preserved. Rollback is v32.
+4. Automatic approval review rejected public deployment, recognizing Cramerton
+   permission only. Deployment did not execute; explicit approval requested and
+   pending. No workaround/retry attempted. Current confirmed live build is v32.
+   Full evidence: docs/MENU_CYCLING_PUBLICATION.json. No main merge.
+
 2026-10-21 — Keep skin and animation/sound menu controls alive
 
 1. Skin, animation and Soft/Retro sound selectors update their existing labels

@@ -59,3 +59,14 @@ Web/Windows release and debug Web exports build with pinned Godot 4.7.2.
 Windows was exported, not executed. Publication uses the existing Hopán Site
 and preserves all current RiverSim and unrelated files. Exact publication IDs,
 rollback and preservation evidence are recorded after deployment.
+
+## Saved version and deployment hold
+
+The complete tested fix is saved as Site version **33**, source
+`c61fdd10218651edc7e497fa9d39388a01189bcd`. Automatic approval review rejected
+public deployment because it recognized Cramerton publication permission only.
+The action was denied and did not execute. Explicit user approval was requested;
+no workaround or deployment retry was attempted. Current confirmed live version
+is 32. The final artifact preserves all 14 RiverSim 0.4.2 files plus three other
+unrelated files exactly, as well as the compressed engine and hosting manifest.
+[Saved-version and preservation record](MENU_CYCLING_PUBLICATION.json).
