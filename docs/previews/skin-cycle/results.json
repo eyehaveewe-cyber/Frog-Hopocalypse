@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "Desktop mouse retro: thirteen activations cycle both skins without losing menu position, hat or progress",
+    "Desktop Enter repeatedly activates the focused selector without rebuilding or losing focus",
+    "Desktop: purple selection, existing progress and baby hat survive browser reload",
+    "Touch portrait compatibility: thirteen activations cycle both skins without losing menu position, hat or progress",
+    "Touch: purple selection, existing progress and baby hat survive browser reload"
+  ],
+  "errors": [],
+  "scope": "Actual Chromium mouse/Enter plus iPhone-size touch/UA compatibility emulation. This does not establish physical iPhone/Safari behavior. Full original crash was not reproduced; pre-fix repeated mouse cycling lost menu reachability after two activations."
+}

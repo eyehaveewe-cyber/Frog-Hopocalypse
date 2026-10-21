@@ -1,0 +1,12 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Repeated activation cycles both colors and updates the visible label
+PASS: Cycling keeps the active menu control, keyboard focus and scroll position alive
+PASS: Chosen skin survives profile reload
+PASS: Skin selection preserves campaign progress and equipped hat
+PASS: Leaving the main menu clears its control reference
+PASS: Returning builds a valid fresh skin control
+PASS: New menu control still cycles normally
+PASS: Locked profiles have no skin selector
+PASS: Locked profiles cannot cycle the skin
+MENU SKIN CYCLE: 9 checks, 0 failures

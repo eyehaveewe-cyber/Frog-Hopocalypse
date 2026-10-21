@@ -1,3 +1,17 @@
+2026-10-21 — Main-menu skin cycling keeps its active controls
+
+1. Skin cycling updates the existing button label instead of rebuilding the menu
+   inside its pressed callback. Menu control, scroll and keyboard/touch focus stay
+   alive; leaving the menu clears the reference. Color and profile saving retain
+   their existing behavior. No map/rule, hat, unlock or save-format changes.
+2. Nine focused native checks include 32 cycles and retained scroll/focus, saved
+   skin, progress, hat, menu return and locked profiles. All 15 existing skin
+   regression checks pass. Five browser checks cover mouse, Enter, portrait touch
+   and reload without errors. Web/Windows release and Web debug build.
+3. Original full engine crash not independently reproduced; the self-rebuilding
+   callback and loss of menu continuity were addressed. Physical iPhone/Safari
+   remain unverified. Publication/rollback follows. See docs/SKIN_MENU_FIX.md.
+
 2026-10-21 — Tested lane portals and theme kits published as v31
 
 1. Live public URL: https://hopan.fiiendward.chatgpt.site.

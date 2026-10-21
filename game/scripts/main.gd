@@ -8,6 +8,7 @@ var hop_volume_slider: HSlider
 var voice: Node
 var sound_enabled := true
 var skin := "green"
+var skin_button: Button
 var sound_button: Button
 var menu_sound_toggle: CheckButton
 var begin_pending := false
@@ -547,6 +548,7 @@ func configure_splash_layout() -> void:
 	overlay_panel.custom_minimum_size.x = minf(500 if splash_menu else 560, viewport_size.x - edge * 2)
 
 func reset_overlay(title: String, subtitle: String = "") -> void:
+	skin_button = null
 	restart_confirmation_open = false
 	rule_notice_open = false
 	splash_menu = false
@@ -613,7 +615,7 @@ func show_menu() -> void:
 	button(overlay_box, "Hop feel comparison", show_hop_comparison)
 	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
 	if completed_stages.size() == BUILTINS.size():
-		button(overlay_box, "Skin: " + skin.capitalize(), toggle_skin)
+		skin_button = button(overlay_box, "Skin: " + skin.capitalize(), toggle_skin)
 	if not library.is_empty():
 		var custom := OptionButton.new()
 		custom.add_item("Play a saved custom level…")
@@ -1110,7 +1112,10 @@ func toggle_skin() -> void:
 	skin = "purple" if skin == "green" else "green"
 	world.player.set_skin(skin)
 	save_profile()
-	show_menu()
+	# Keep the emitting control, scroll position and keyboard/touch focus alive.
+	# Rebuilding this menu from its own button callback can invalidate active UI.
+	if is_instance_valid(skin_button):
+		skin_button.text = "Skin: " + skin.capitalize()
 
 func toggle_hat() -> void:
 	var index := unlocked_hats.find(hat)

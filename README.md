@@ -5,6 +5,13 @@ are byte-identical to confirmed v30 in the published artifact.
 [Publication, preservation checks and v30 rollback](docs/LANE_PORTALS_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
+## Main-menu skin cycling fix
+
+Changing skin now updates the frog and existing button label in place, preserving
+menu scroll and focus. It no longer destroys/rebuilds the menu from the Skin
+button's callback. Unlocks, hats and saved progress are retained. [Fix and
+mouse/keyboard/touch checks](docs/SKIN_MENU_FIX.md).
+
 ## Lane entrances and exits — guide phase 07
 
 `feature/hopan-lane-tunnels` adds automatic theme-matched portals to full-width

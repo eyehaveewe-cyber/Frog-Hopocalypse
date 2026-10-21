@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Purple cannot be selected before Baby Mode completion
+PASS: Fourth Baby Mode clear unlocks and equips purple
+PASS: Frog body uses the purple palette
+PASS: Purple skin retains the earned baby hat
+PASS: Purple selection survives profile reload
+PASS: Green selector restores original materials
+PASS: Choosing green remains saved
+PASS: Purple remains equipped when loading another map
+PASS: Tree foliage variant 0 is fixed and cached
+PASS: Tree foliage variant 1 is fixed and cached
+PASS: Tree foliage variant 2 is fixed and cached
+PASS: Tree foliage variant 3 is fixed and cached
+PASS: Tree foliage variant 4 is fixed and cached
+PASS: Five distinct fixed foliage textures and tree silhouettes exist
+PASS: Incomplete progress cannot restore a locked purple skin
+SKIN VARIANTS: 15 checks, 0 failures
