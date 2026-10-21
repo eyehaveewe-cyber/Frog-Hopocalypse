@@ -1,6 +1,8 @@
 2026-10-21 — Reduce keyboard clicks in recorded voices
 
-1. Applied short-impulse repair to all 17 approved recordings. No gating, broad
+1. Published v34 at https://hopan.fiiendward.chatgpt.site; native deployment
+   appgdep_6ad8d00f9d9c8191aca388af0d61bc42 succeeded.
+   Applied short-impulse repair to all 17 approved recordings. No gating, broad
    low-pass, pitch shift, trimming or hop-effect edits. Exact decoded sample
    lengths retained; maximum RMS change under 0.06 dB; no clipped samples.
 2. Retained untouched pre-cleanup clips and manifest. Reproducible FFmpeg tool,

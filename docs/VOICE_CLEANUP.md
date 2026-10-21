@@ -37,6 +37,10 @@ play, mute silence, persisted mute and restored audio. This is not physical
 Safari/iPhone testing or subjective listening. [Browser results](previews/voice-cleanup/browser-results.json).
 Web and Windows release exports built with Godot 4.7.2; Windows not executed.
 
-Publication status and protected shared-Site hashes are recorded in
-`VOICE_CLEANUP_PUBLICATION.json` after publication. Existing RiverSim and unrelated
-hosted files must remain byte-for-byte unchanged. Rollback target: saved Site v33.
+Published successfully as Site **v34** on October 21, 2026. The staged compressed
+release reached its first frame without errors and contains no debug probe.
+Native Sites confirmed production deployment. All 17 protected shared-Site files,
+including RiverSim 0.4.2, retain their v33 hashes; compressed engine and hosting
+manifest are unchanged. [Publication record](VOICE_CLEANUP_PUBLICATION.json).
+Rollback target: saved Site v33. External hosted runtime inspection is limited by
+the executor's proxy.

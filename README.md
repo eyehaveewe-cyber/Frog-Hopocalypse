@@ -1,8 +1,10 @@
-**Current public build: [Hopán version 33](https://hopan.fiiendward.chatgpt.site).**
-The skin and animation/sound menu cycling fixes are published. Native Sites
-publication succeeded on October 21, 2026. RiverSim 0.4.2 and all unrelated
-hosted files are preserved byte-for-byte from v32.
-[Publication, checks and v32 rollback](docs/MENU_CYCLING_PUBLICATION.json).
+**Current public build: [Hopán version 34](https://hopan.fiiendward.chatgpt.site).**
+The 17 recorded voices now have conservative keyboard-click reduction, retaining
+exact durations and near-identical volume. Originals and before/after comparisons
+are preserved. [Processing and listening limits](docs/VOICE_CLEANUP.md).
+RiverSim 0.4.2 and all unrelated hosted files remain byte-for-byte unchanged.
+[Publication, checks and v33 rollback](docs/VOICE_CLEANUP_PUBLICATION.json).
+The v33 menu cycling fixes remain included.
 Prior lane portals and theme kits remain included; [v31 publication history](docs/LANE_PORTALS_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 

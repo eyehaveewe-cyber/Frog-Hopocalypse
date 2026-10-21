@@ -1,0 +1,53 @@
+{
+  "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "version": 34,
+  "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_53652f76f9a08191ab0e065f5a155711",
+  "deployment_id": "appgdep_6ad8d00f9d9c8191aca388af0d61bc42",
+  "status": "succeeded",
+  "published_at": "2026-10-21T14:45:44.166854+00:00",
+  "game_source_commit": "cdb80ea4711cd55dbe2bd80daf5bff835b1ff185",
+  "site_source_commit": "84495162b6a4fa13d9ae3ae44756ea591270a902",
+  "archive_sha256": "244953d06ee24acbd1293576435b86b5f10ec4a5c58aa7416503b3e063c74062",
+  "access": "public, unchanged",
+  "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_132ae396412481919583e5fef575bbb8",
+  "preservation": {
+    "baseline_source": "c61fdd10218651edc7e497fa9d39388a01189bcd",
+    "baseline_version": 33,
+    "protected_sha256": {
+      "_headers": "76700ff6421b20818c3c5d87f1602851e7c68002b36cb99b3e82d240737903bf",
+      "hop-sound-attribution.txt": "4c9751d13b9716ebd139c97abccef05107606aecdb6d87beaf1d59f54b9debfe",
+      "wasm-hosting-adapter.js": "aa0b977dd0f4b7cc7c61c357906aaea2ee6b15d1dcfd7a14153cf4bfde796c2a",
+      "riversim/index.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "riversim/index.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "riversim/index.png.import": "28ae7dc68aee22ba9c4a803fb05078f0c43a8607a454b69e4973ea6ca312446a",
+      "riversim/chart-ohio-224-1999.pdf": "8bd5e61b739e51b41024d61f1da8e64a19b20dad394c03ce8e962f53b54cd589",
+      "riversim/index.png": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "riversim/index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+      "riversim/index.icon.png.import": "61a7502dfc7f2e54bc98104e2855b62a9b2d4554f11e0f9c636d447bb36d0d97",
+      "riversim/index.icon.png": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+      "riversim/index.apple-touch-icon.png": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+      "riversim/index.apple-touch-icon.png.import": "f69336b35b689e971aa1d98faf50e8e5e0bcb72fe8898b111981c3e5c39d6e11",
+      "riversim/index.html": "e4528e1bcdfe750239fbdcc543385976f65000d7280608fc8c2fc3b50f80f84b",
+      "riversim/index.pck": "c9da895118edbf344f900ecb047f63bce5095751b7989ad19f0e596a69d42ebc",
+      "riversim/build.json": "722ca50195011177b9d02eff62a66f8e42f4b33d9b90d3e3126b84ff11ae461b",
+      "riversim/index.wasm": "2862a06f11ad1579c4ceb764f724013c1e62f8916d5d8d237fe5ee209c76f56e"
+    },
+    "engine_sha256": "8032306d52d52497129dce5b767baacb660d504bdde28668b1c1337b717eacd8",
+    "hosting_sha256": "9185194d47c56807541da9c7a671ffc9bdf7e00ed1a20b4ab4681bd0e698bb02"
+  },
+  "checks": {
+    "decoded_clips": 17,
+    "exact_duration_and_no_clipping": true,
+    "native_voice_checks": 19,
+    "touch_browser_checks": 7,
+    "staged_release_startup": "first frame, no errors, debug probe absent",
+    "unrelated_failure": "sound_checkpoints.gd main-screen editor-entry assertion fails in both modified and unchanged v33 worktrees; all 3 sound checks pass"
+  },
+  "limitations": [
+    "No independent human listening; clicks overlapping speech may remain.",
+    "Chromium touch/UA emulation, not physical iPhone/Safari.",
+    "Windows export not executed.",
+    "Native Sites success confirms deployment; external hosted runtime inspection limited by executor proxy."
+  ]
+}
