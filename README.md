@@ -1,3 +1,12 @@
+## Cramerton — completed custom Bonus map
+
+**Bonus → + → Play · Cramerton** opens the expanded Test1 map immediately.
+Your original canal opening and every existing object are preserved, followed
+by five connected city districts with fragment crossings, traffic, darts and
+one late checkpoint. The untouched uploaded JSON is retained alongside a
+machine-checked preservation record. [Design, source and checks](docs/CRAMERTON.md).
+Publication status will be recorded after the final shared-site update.
+
 **Current public build: [Hopán version 38](https://hopan.fiiendward.chatgpt.site).**
 The actual selected #6/#4 image pixels now replace v37’s approximated drawing.
 Try [#6](https://hopan.fiiendward.chatgpt.site/?splash=6) or

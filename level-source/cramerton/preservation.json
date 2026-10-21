@@ -1,0 +1,29 @@
+{
+  "source_sha256": "ec86e69e8cac53f09ef602cf28ed212d9f111556282a99ec2036dae967e4b521",
+  "source_bytes": 21849,
+  "source_library_file_id": "libfile_ed562615b7b88191b86fd284456583e8",
+  "original_objects_preserved": 11,
+  "original_opening_tiles_preserved": 169,
+  "all_original_non_floor_tiles_preserved": true,
+  "original_spawn_exit_rules_preserved": true,
+  "original_file_untouched": true,
+  "objects": 51,
+  "checkpoints": [
+    [
+      8,
+      16
+    ]
+  ],
+  "districts": [
+    "Authored canal opening",
+    "Customs Yard",
+    "Switcher Canal",
+    "Needle Arcade",
+    "Cramerton Square",
+    "Governor's Walk"
+  ],
+  "derivative_removed_fields": [
+    "editor_autosave_id"
+  ],
+  "rationale": "Bundled map must not reuse the author\u2019s local editor autosave identity"
+}

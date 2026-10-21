@@ -1,3 +1,17 @@
+2026-10-21 — Complete the supplied Test1 map as Cramerton
+
+1. Added Cramerton as the third immediately playable Bonus entry. Expanded the
+   authored canal opening into a turning six-district route rather than an
+   unrelated straight-line replacement. Existing Bonus indices stay unchanged.
+2. Preserved all 11 original objects, 169 opening cells, all non-floor terrain,
+   dimensions, spawn, exit and fragment rules. Untouched Test1.json and its
+   SHA-256 are retained; the bundled map does not reuse its local autosave ID.
+3. Added five city districts, 21 total fragments and one late checkpoint.
+   A real 153-hop physics playthrough earns/uses seven long hops; both fresh
+   completion and checkpoint retry pass with active hazards. No changes to
+   movement, collision, other maps, local editor saves or progression rules.
+   See docs/CRAMERTON.md for evidence, browser checks and playtesting limits.
+
 2026-10-21 — Correct #6/#4 fidelity using the actual selected pixels
 
 1. Published v38 at https://hopan.fiiendward.chatgpt.site; native deployment

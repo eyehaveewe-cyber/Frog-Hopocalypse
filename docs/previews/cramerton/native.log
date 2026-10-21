@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Cramerton loads under the current schema
+PASS: Original tile and fragment rules retained
+PASS: Original dimensions, start and exit retained
+PASS: One late checkpoint and no reuse of the author's local autosave identity
+PASS: Structural route reaches the original exit
+PASS: Bonus append preserves the two existing completion indices
+PASS: Bonus Cramerton plays immediately without campaign unlocks
+PASS: Loading the bonus map does not change local editor saves
+PASS: Full resource-aware route completes through active original and added hazards
+PASS: Route earns and uses seven hops from 21 fragment landings
+PASS: Full route claims exactly the one late checkpoint
+PASS: Completing Cramerton retains earlier Bonus progress
+PASS: Retry restores checkpoint position and its one-fragment snapshot
+PASS: Checkpoint retry completes with fresh hazard timing and restored pickups
+CRAMERTON: 14 checks, 0 failures

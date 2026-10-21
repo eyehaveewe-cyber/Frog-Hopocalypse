@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "device": "Chromium desktop",
+      "bonusUnlockedWithoutCampaign": true,
+      "exportedTilesAndObjectsExact": true,
+      "fragmentRules": true,
+      "longHopIndicator": true,
+      "editorSavesUnchanged": true
+    },
+    {
+      "device": "Chromium phone landscape emulation",
+      "bonusUnlockedWithoutCampaign": true,
+      "exportedTilesAndObjectsExact": true,
+      "fragmentRules": true,
+      "longHopIndicator": true,
+      "editorSavesUnchanged": true
+    }
+  ],
+  "errors": [],
+  "limits": "Chromium emulation; no physical phone, Edge or hosted-origin runtime test"
+}
