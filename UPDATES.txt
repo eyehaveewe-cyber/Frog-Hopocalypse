@@ -1,3 +1,23 @@
+2026-10-21 — Lane entrance/exit portals, actual guide phase 07
+
+1. Selected explicit human H07 tunnel direction from the actual 80-phase guide,
+   read in full. One bounded pass from fb52f0b preserves Mexico/Honduras. Automatic
+   theme-matched road/water portals hide continuous car/log wrap seams outside
+   playable reaction space. Original map data, collisions, speeds and rules stay.
+2. Shared rows use one pair sized to the longest mover. Partial lanes, playable
+   border cells, reversing tile movers and patrol cars are excluded. Little Frog
+   Crossing gains eight pairs; Jungle River gains one. No new campaign layout.
+3. 16 focused native and 18 existing crossing/reward checks pass, including three
+   complete traffic/log arrival timings. All five harder tile routes and five
+   checkpoint retries complete; 26 Honduras checks pass. Four browser theme views
+   pass without console/page errors, including touch compatibility. Web/Windows
+   release and debug Web build; real hardware and human readability unverified.
+4. Existing Site source has concurrent RiverSim 0.4.0 changes: saved v29/source
+   00c64e4 differs from confirmed v28 in three RiverSim files. v29 has no native
+   deployment ID; live byte verification is blocked by CONNECT 403. Coordination
+   pending. No Site files edited or overwritten; 16 protected hashes recorded.
+   No main merge, Cramerton substitute or ongoing loop. See docs/LANE_TUNNELS.md.
+
 2026-10-21 — Honduras jungle-river theme roadmap pass (repository only)
 
 1. One bounded pass advances the original user-authored Honduras theme roadmap:

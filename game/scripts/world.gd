@@ -10,6 +10,7 @@ const Art = preload("res://scripts/art.gd")
 const Actor = preload("res://scripts/actor.gd")
 const SpikeBalls = preload("res://scripts/spike_balls.gd")
 const Crossing = preload("res://scripts/crossing.gd")
+const LaneTunnels = preload("res://scripts/lane_tunnels.gd")
 const CELL = 1.8
 var level: Dictionary = {}
 var geometry: Node3D
@@ -42,6 +43,7 @@ var simulation_time := 0.0
 var last_hint := ""
 var spikes: Node3D
 var crossing: Node3D
+var lane_tunnel_plans: Array = []
 const Landmarks = preload("res://scripts/landmarks.gd")
 var landmarks: Node3D
 var background_view = false
@@ -125,6 +127,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	var swamp: bool = level.theme == "swamp"
 	var courtyard: bool = level.theme == "mexico"
 	var jungle: bool = level.theme == "honduras"
+	lane_tunnel_plans = LaneTunnels.plan(level,CELL)
 	Art.set_retro(not edit, swamp)
 	var floor_color := Color("63744a") if swamp else Color("d7bc7f")
 	var wall_color := Color("716582") if swamp else Color("ba9662")
@@ -150,8 +153,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 		for x in range(int(level.width)):
 			var p := cell_position([x, z])
 			var tile: String = level.tiles[z][x]
+			var tunnel_terrain := LaneTunnels.border_terrain(lane_tunnel_plans,x,z,int(level.width))
 			var tint: float = 0.025 * ((x * 3 + z * 7) % 4)
-			if tile == "water":
+			if tile == "water" or tunnel_terrain == "water":
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.15, CELL), p + Vector3(0, -0.19, 0), Color.WHITE), "swamp_water" if swamp else "water")
 				if (x + z) % 3 == 0:
 					Art.cylinder(geometry, 0.18, 0.18, 0.025, p + Vector3(0.2, -0.10, 0.2), Color("7eab80"))
@@ -166,6 +170,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 				elif jungle and tile != "road":
 					texture_kind = "jungle_stone" if tile == "path" else "jungle_ground"
 					color = Color.WHITE
+				if tunnel_terrain == "road":
+					texture_kind = "road"
+					color = Color.WHITE
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
 			if tile == "cheese_wall":
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.65, CELL), p + Vector3(0, 0.325, 0), Color.WHITE), "cheese")
@@ -174,9 +181,11 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 			if tile == "wall":
 				var perimeter: bool = x == 0 or z == 0 or x == level.width - 1
 				var height := 1.45 if perimeter else (0.3 if z == level.height - 1 else 0.55)
-				Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), wall_texture)
-				Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), cap_texture)
+				if tunnel_terrain.is_empty():
+					Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), wall_texture)
+					Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), cap_texture)
 				Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
+	LaneTunnels.build(geometry,lane_tunnel_plans,level.theme)
 	# Invisible boundary colliders prevent a painted-out perimeter from escaping the map.
 	var w: float = level.width * CELL
 	var h: float = level.height * CELL

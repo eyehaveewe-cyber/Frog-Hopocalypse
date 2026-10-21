@@ -4,6 +4,16 @@ fragments are now published. Existing maps, recordings, difficulty and RiverSim
 are preserved. [Publication and rollback](docs/BOING_EDITOR_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
+## Lane entrances and exits — guide phase 07
+
+`feature/hopan-lane-tunnels` adds automatic theme-matched portals to full-width
+continuous car/log lanes, keeping the playable area, collisions, speeds and map
+data unchanged. Baby Mode's traffic/log finale and Honduras Jungle River show
+the new structures. Tile and patrol movers retain their reversing endpoints.
+[Implementation, screenshots, active-route checks and shared-Site safety](docs/LANE_TUNNELS.md).
+Mexico/Honduras kits are preserved. Publication requires resolving the current
+RiverSim saved-versus-live conflict; no stale Site checkout will be deployed.
+
 ## Honduras jungle-river kit — repository preview
 
 The `feature/hopan-honduras-kit` branch continues the original theme roadmap with

@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Crossing JSON validates and log lanes connect the route
+PASS: Malformed lane properties are rejected
+PASS: Entering Baby Mode keeps the reward hat locked
+PASS: Hat skips the locked baby frog hat
+PASS: Repeating one stage cannot earn the four-stage reward
+PASS: Three distinct clears leave the baby frog hat locked
+PASS: An early legacy unlock is corrected while preserving stage progress
+PASS: A stationary frog rides a moving log without splashing
+PASS: Overhead map pauses cars and logs
+PASS: Open water between logs remains a hazard
+PASS: Moving traffic hits the frog
+PASS: After the log bank, retry restarts at the safe checkpoint
+PASS: Finale physically crossed with active traffic/logs at arrival phase 0
+PASS: Finale physically crossed with active traffic/logs at arrival phase 100
+PASS: Finale physically crossed with active traffic/logs at arrival phase 220
+PASS: Fourth distinct clear unlocks and equips the baby frog-head hat
+PASS: Earned frog hat joins the unlocked headwear cycle
+PASS: Earned hat, selection and four distinct clears survive reload
+LANE CROSSING REGRESSION: 18 checks, 0 failures

@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Two full-width wrapping lanes gain four portals without changing map data
+PASS: All four existing theme kits build both road and water portals
+PASS: Tunnel art adds no collision or gameplay obstacles
+PASS: Every tunnel mesh stays outside the playable interior, including the opening trim
+PASS: A partial interior road does not receive misleading full-width portals
+PASS: An authored playable border is never decorated over
+PASS: Tile movers that reverse instead of wrapping retain their visible endpoints
+PASS: Bounded patrol cars do not gain fake entrance tunnels
+PASS: A shared lane uses one pair sized to cover its longest mover
+PASS: Editor shows the same generated portals as gameplay
+PASS: Playtest retains the editor's original static boundary colliders
+PASS: Car speed is unchanged by the tunnel presentation
+PASS: Both car and longest log wrap inside the covered seam using real continuous simulation
+PASS: Portals do not alter the safe spawn or authored document
+PASS: Returning from playtest retains exact saved terrain and entity settings
+PASS: Baby Mode's traffic/log finale gains eight clear lane pairs
+LANE TUNNELS: 16 checks, 0 failures

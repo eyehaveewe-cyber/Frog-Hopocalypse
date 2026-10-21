@@ -2098,7 +2098,7 @@ func publish_browser_probe() -> void:
 	var state := {"mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
 		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
 		"hat": hat, "skin": skin, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
-		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
+		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells, "lane_tunnels": world.lane_tunnel_plans,
 		"hop_audio": {"unlocked":hop_audio.unlocked,"history":hop_audio.history,"gain":hop_audio.gain,"palette":hop_audio.palette,"playing":hop_audio.takeoff.playing or hop_audio.landing.playing,"db":hop_audio.takeoff.volume_db}, "hop_pose":world.hop_pose_style,"pose_phase":world.player.pose_phase,
 		"hop_volume_rect": [hop_volume_slider.global_position.x,hop_volume_slider.global_position.y,hop_volume_slider.size.x,hop_volume_slider.size.y] if is_instance_valid(hop_volume_slider) and hop_volume_slider.is_visible_in_tree() else [],
 		"editor_unsaved":editor_has_unsaved_changes(),"editor_leave_open":editor_leave_open,

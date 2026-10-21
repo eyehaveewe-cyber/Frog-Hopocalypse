@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "egypt: four generated portals load in editor/game without changing the map; overhead inspection pauses the actual lane simulation (desktop retro)",
+    "swamp: four generated portals load in editor/game without changing the map; overhead inspection pauses the actual lane simulation (desktop retro)",
+    "mexico: four generated portals load in editor/game without changing the map; overhead inspection pauses the actual lane simulation (desktop retro)",
+    "honduras: four generated portals load in editor/game without changing the map; overhead inspection pauses the actual lane simulation (Android-UA touch compatibility)"
+  ],
+  "errors": [],
+  "scope": "Three desktop retro themes and Honduras Android-UA touch compatibility. Native checks cover wrap seam bounds and active full routes. Physical devices/Safari and subjective readability unverified."
+}

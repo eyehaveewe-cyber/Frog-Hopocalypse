@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "name": "Lane tunnel viewing fixture",
+  "theme": "egypt",
+  "width": 9,
+  "height": 9,
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "spawn": [
+    1,
+    7
+  ],
+  "exit": [
+    7,
+    1
+  ],
+  "objects": [
+    {
+      "id": "car",
+      "type": "car",
+      "pos": [
+        7,
+        4
+      ],
+      "length": 1.5,
+      "speed": 4.0,
+      "direction": 1,
+      "solid": false
+    },
+    {
+      "id": "log",
+      "type": "log",
+      "pos": [
+        7,
+        5
+      ],
+      "length": 6.0,
+      "speed": 4.0,
+      "direction": 1,
+      "solid": false
+    }
+  ]
+}
