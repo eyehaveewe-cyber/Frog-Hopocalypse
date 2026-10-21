@@ -1,7 +1,9 @@
 # Cramerton — the completed Test1 Bonus map
 
 Play **Bonus → + → Play · Cramerton**. It is available immediately, including on
-profiles that have not unlocked the Tile Hop campaign. It is appended after
+profiles that have not unlocked the Tile Hop campaign.
+Published as [Hopán v44](https://hopan.fiiendward.chatgpt.site);
+[publication and v43 rollback record](CRAMERTON_PUBLICATION.json). It is appended after
 Shelby and Your Move Garden, preserving their existing completion indices.
 
 ## Author's layout and design
@@ -70,3 +72,13 @@ establish legal movement, resource sufficiency and survivable crossings.
 Build command: `bash tools/build.sh --with-browser-test` (Godot 4.7.2). Windows
 is exported but not executed here. Shared-site publication must preserve every
 current RiverSim file, the hosting adapter and unrelated assets byte-for-byte.
+
+The staged production build starts using the retained compressed engine. Actual
+release Bonus-menu clicks open Cramerton; screenshots were visually inspected.
+Its debug probe is absent and no browser runtime errors were recorded. All 14
+RiverSim 0.4.9 files and four unrelated hosted files match v43 byte-for-byte,
+including in the uploaded archive. Sites confirmed deployment succeeded. The
+executor cannot independently inspect the hosted origin through its proxy; no
+claim of a live-origin visual test is made. Rollback is saved Site v43; rolling
+back the whole Site also rolls back its shared content, so check for intervening
+RiverSim updates before using that rollback.

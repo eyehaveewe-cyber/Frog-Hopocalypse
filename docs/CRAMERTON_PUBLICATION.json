@@ -1,0 +1,32 @@
+{
+  "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "version": 44,
+  "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_ccb4c8cc6ae08191aef187abd4ba3bdd",
+  "deployment_id": "appgdep_6ad920d6b4888191a5c61122463f348d",
+  "status": "succeeded",
+  "published_at": "2026-10-21T20:30:24.941519+00:00",
+  "access": "public, unchanged",
+  "game_source_commit": "a8ae2fe19e807b4d89b918f52171d05691cbceda",
+  "site_source_commit": "d47a121a5de2fbc63f97a4da864e96ab4e5b497f",
+  "rollback_version": 43,
+  "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_02f8edf742188191a0119915a73044c5",
+  "source": "level-source/cramerton/Test1.json",
+  "checks": {
+    "native": 14,
+    "fresh_physics_route": "153 hops, 7 long hops, 21 fragments, active collisions and hazards",
+    "checkpoint_retry": "completes with snapshot and fresh hazard timing",
+    "browser": [
+      "desktop actual Bonus picker and exact exported map",
+      "phone landscape touch emulation actual Bonus picker and exact exported map"
+    ],
+    "staged_release": "compressed engine starts; real Bonus selection starts Cramerton; no console errors; debug probe absent",
+    "preservation": "all 14 RiverSim 0.4.9 files and four other unrelated files exact, including archived bytes"
+  },
+  "limitations": [
+    "Hosted-origin visual inspection unavailable: executor proxy previously returned CONNECT 403; native Sites success verifies publication.",
+    "Chromium emulation; physical phone, Safari and Edge not tested.",
+    "Windows exported, not executed. Human pacing/difficulty playtest remains."
+  ],
+  "preservation_record": "docs/previews/cramerton/preservation-site.json"
+}
