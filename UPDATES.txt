@@ -1,3 +1,15 @@
+2026-10-21 — Menu cycling fixes published as v33
+
+1. Skin and advanced animation/sound menu fixes are live at
+   https://hopan.fiiendward.chatgpt.site. Native Sites deployment succeeded:
+   appgdep_6ad8cc8345348191b3529a592cd943dd, source c61fdd10218651edc7e497fa9d39388a01189bcd.
+2. Rechecked latest shared source before publication; no intervening changes.
+   All 14 RiverSim files and three unrelated files match v32 exactly. Saves and
+   gameplay rules unchanged. Rollback remains v32; public access unchanged.
+3. Prior approval hold below is resolved by explicit user authorization; one
+   retry succeeded. Existing native/browser/staged checks retained; no new feature
+   pass or redundant retest. Direct Edge and physical iPhone remain unverified.
+
 2026-10-21 — Combined menu fix saved as v33; deployment denied/pending approval
 
 1. Complete skin, animation and Soft/Retro cycling fix saved as version 33:

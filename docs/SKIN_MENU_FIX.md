@@ -60,13 +60,14 @@ Windows was exported, not executed. Publication uses the existing Hopán Site
 and preserves all current RiverSim and unrelated files. Exact publication IDs,
 rollback and preservation evidence are recorded after deployment.
 
-## Saved version and deployment hold
+## Published version
 
-The complete tested fix is saved as Site version **33**, source
-`c61fdd10218651edc7e497fa9d39388a01189bcd`. Automatic approval review rejected
-public deployment because it recognized Cramerton publication permission only.
-The action was denied and did not execute. Explicit user approval was requested;
-no workaround or deployment retry was attempted. Current confirmed live version
-is 32. The final artifact preserves all 14 RiverSim 0.4.2 files plus three other
-unrelated files exactly, as well as the compressed engine and hosting manifest.
-[Saved-version and preservation record](MENU_CYCLING_PUBLICATION.json).
+Site version **33** was published successfully on October 21, 2026, from source
+`c61fdd10218651edc7e497fa9d39388a01189bcd`. The prior approval hold was resolved
+by explicit user authorization; the single retry succeeded. Before publication,
+the official workflow confirmed no intervening source changes and all 17 protected
+files matched live v32. RiverSim 0.4.2, the compressed engine and hosting manifest
+are preserved. Rollback target remains v32, which includes the current RiverSim.
+Native Sites confirmed successful production deployment; external runtime inspection
+remains limited by the executor's CONNECT proxy. Staged release startup and the
+cycling checks above passed. [Publication record](MENU_CYCLING_PUBLICATION.json).

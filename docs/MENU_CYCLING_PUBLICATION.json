@@ -7,9 +7,9 @@
   "saved_version_number": 33,
   "saved_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_132ae396412481919583e5fef575bbb8",
   "archive_sha256": "6329432521731f0afd901f19febccb664fb3182c5548a65aaaf219d3f8107c04",
-  "publication_status": "Denied by automatic approval review; deployment not executed. Explicit user approval requested and pending.",
-  "review_reason": "Review recognized publication permission for Cramerton, but not the public menu-fix update.",
-  "last_confirmed_live_version": 32,
+  "publication_status": "succeeded",
+  "review_reason": "Previous denial resolved by explicit user publication authorization; one retry succeeded.",
+  "last_confirmed_live_version": 33,
   "rollback_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_63d0cc3e6a4c819192678d00eb2ffb55",
   "preservation": {
     "baseline_version": 32,
@@ -75,5 +75,7 @@
       "scope": "Final combined fix, staged compressed release. Full cycling exercised in same-source native/debug checks."
     }
   },
-  "verification_limits": "No Microsoft Edge binary or physical iPhone/Safari. Chromium wide viewport and touch emulation pass; final staged compressed startup has no errors and no debug probe."
+  "verification_limits": "No Microsoft Edge binary or physical iPhone/Safari. Chromium wide viewport and touch emulation pass; final staged compressed startup has no errors and no debug probe.",
+  "deployment_id": "appgdep_6ad8cc8345348191b3529a592cd943dd",
+  "published_at": "2026-10-21T14:30:37.432977+00:00"
 }

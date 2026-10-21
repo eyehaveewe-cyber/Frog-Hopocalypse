@@ -1,8 +1,8 @@
-**Current public build: [Hopán version 32](https://hopan.fiiendward.chatgpt.site).**
-The complete skin and animation/sound menu fix is saved as v33 and awaits
-explicit deployment approval after automatic review blocked publication.
-The current Site includes RiverSim 0.4.2; its exact files are preserved in the
-saved v33 artifact. [Fix, checks, saved-version status and v32 rollback](docs/MENU_CYCLING_PUBLICATION.json).
+**Current public build: [Hopán version 33](https://hopan.fiiendward.chatgpt.site).**
+The skin and animation/sound menu cycling fixes are published. Native Sites
+publication succeeded on October 21, 2026. RiverSim 0.4.2 and all unrelated
+hosted files are preserved byte-for-byte from v32.
+[Publication, checks and v32 rollback](docs/MENU_CYCLING_PUBLICATION.json).
 Prior lane portals and theme kits remain included; [v31 publication history](docs/LANE_PORTALS_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
@@ -12,8 +12,7 @@ Changing skin now updates the frog and existing button label in place, preservin
 menu scroll and focus. It no longer destroys/rebuilds the menu from the Skin
 button's callback. Animation and Soft/Retro sound changes likewise update their
 existing controls instead of rebuilding the advanced panel. Unlocks, hats, volume
-and saved progress are retained. The complete fix is saved as v33; deployment is
-held by automatic approval review pending explicit permission. [Fix and
+and saved progress are retained. The complete fix is published as v33. [Fix and
 mouse/keyboard/touch checks](docs/SKIN_MENU_FIX.md).
 
 ## Lane entrances and exits — guide phase 07
