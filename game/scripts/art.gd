@@ -271,6 +271,8 @@ static func critter(theme_name: String, behavior: String) -> Node3D:
 static func scenery(kind: String, theme_name: String, variant: int = 0) -> Node3D:
 	if theme_name == "mexico" and kind in ["pillar", "tree", "decoration"]:
 		return courtyard_scenery(kind, variant)
+	if theme_name == "honduras" and kind in ["pillar", "tree", "decoration"]:
+		return jungle_scenery(kind, variant)
 	var root := Node3D.new()
 	var sand := Color("c9a66c") if theme_name == "egypt" else Color("736b94")
 	match kind:
@@ -305,6 +307,39 @@ static func scenery(kind: String, theme_name: String, variant: int = 0) -> Node3
 		"decoration":
 			cylinder(root, 0.3, 0.16, 0.5, Vector3(0, 0.25, 0), Color("6ca99b"))
 			cylinder(root, 0.18, 0.22, 0.1, Vector3(0, 0.52, 0), Color("ead391"))
+	return root
+
+static func jungle_scenery(kind: String, variant: int) -> Node3D:
+	# Broad static masses stay legible from the following camera. These are
+	# original stylized modules, not archaeological reconstructions or carvings.
+	var root := Node3D.new()
+	root.set_meta("jungle_kind",kind)
+	var v := posmod(variant,5)
+	if kind == "tree":
+		root.set_meta("tree_variant",v)
+		var height: float = [1.7,1.85,1.6,1.95,1.78][v]
+		textured(cylinder(root,0.23,0.13,height,Vector3(0,height/2,0),Color.WHITE,6),"jungle_bark")
+		for side in [-1,1]:
+			var root_flare := box(root,Vector3(0.12,0.38,0.18),Vector3(side*0.17,0.15,0),Color("6e7957"))
+			root_flare.rotation.z = side * 0.25
+		for i in range(3):
+			var angle := i * TAU/3 + v*0.7
+			var canopy := orb(root,Vector3(0.88,0.47,0.85),Vector3(sin(angle)*0.31,height-0.04+i*0.11,cos(angle)*0.31),Color.WHITE)
+			textured(canopy,"jungle_leaf@%d" % v)
+	elif kind == "pillar":
+		for i in range(3):
+			var width := 0.85-i*0.16
+			textured(box(root,Vector3(width,0.30,width),Vector3(0,0.15+i*0.30,0),Color.WHITE),"jungle_stone_wall")
+		textured(box(root,Vector3(0.58,0.18,0.58),Vector3(0,0.99,0),Color.WHITE),"jungle_stone_wall")
+	else:
+		textured(cylinder(root,0.24,0.30,0.39,Vector3(0,0.195,0),Color.WHITE,6),"jungle_stone_wall")
+		cylinder(root,0.25,0.25,0.03,Vector3(0,0.40,0),Color("4e5540"))
+		for i in range(5):
+			var frond := piece(root,palm_leaf_mesh(),Vector3(0,0.44,0),Color.WHITE)
+			frond.scale = Vector3(0.25,0.35,0.25)
+			frond.rotation.y = i*TAU/5
+			frond.rotation.x = -0.25
+			textured(frond,"jungle_leaf@%d" % v)
 	return root
 
 static func courtyard_scenery(kind: String, variant: int) -> Node3D:

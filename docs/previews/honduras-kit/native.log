@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: New Honduras creates a valid level
+PASS: New jungle maps retain recovery identity and correct theme selection
+PASS: The palette identifies the jungle objects
+PASS: Existing Mexico theme and palette remain available
+PASS: Undo restores the entire Honduras document and theme selection
+PASS: Redo restores Mexico without changing layout
+PASS: Jungle River validates with a structural log crossing
+PASS: Jungle River saves through the normal library
+PASS: Reload restores the full jungle map with a clean saved baseline
+PASS: Portable JSON retains the jungle theme and moving log settings
+PASS: Distinct jungle geometry exists for tree
+PASS: Jungle tree visuals leave collision to the established world rules
+PASS: Distinct jungle geometry exists for pillar
+PASS: Jungle pillar visuals leave collision to the established world rules
+PASS: Distinct jungle geometry exists for decoration
+PASS: Jungle decoration visuals leave collision to the established world rules
+PASS: Deterministic broadleaf variation 0 is available
+PASS: Deterministic broadleaf variation 1 is available
+PASS: Deterministic broadleaf variation 2 is available
+PASS: Deterministic broadleaf variation 3 is available
+PASS: Deterministic broadleaf variation 4 is available
+PASS: Vine-covered walls use the filtered mipmapped path
+PASS: Actual route rides the moving log with water and carrying active
+PASS: The real frog crosses the river and reaches the exit
+PASS: Returning from river playtest preserves the authored map
+PASS: Vine-covered perimeter walls physically block the frog
+HONDURAS KIT: 26 checks, 0 failures

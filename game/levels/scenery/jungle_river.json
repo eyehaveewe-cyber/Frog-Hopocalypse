@@ -1,0 +1,439 @@
+{
+  "version": 1,
+  "name": "Jungle River",
+  "theme": "honduras",
+  "width": 17,
+  "height": 13,
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "spawn": [
+    2,
+    10
+  ],
+  "exit": [
+    14,
+    2
+  ],
+  "objects": [
+    {
+      "id": "tree_3_3",
+      "type": "tree",
+      "pos": [
+        3,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_5_3",
+      "type": "tree",
+      "pos": [
+        5,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_11_3",
+      "type": "tree",
+      "pos": [
+        11,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_13_3",
+      "type": "tree",
+      "pos": [
+        13,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_3_9",
+      "type": "tree",
+      "pos": [
+        3,
+        9
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_5_9",
+      "type": "tree",
+      "pos": [
+        5,
+        9
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_11_9",
+      "type": "tree",
+      "pos": [
+        11,
+        9
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "tree_13_9",
+      "type": "tree",
+      "pos": [
+        13,
+        9
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "pillar_6_5",
+      "type": "pillar",
+      "pos": [
+        6,
+        5
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "pillar_10_5",
+      "type": "pillar",
+      "pos": [
+        10,
+        5
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "pillar_6_7",
+      "type": "pillar",
+      "pos": [
+        6,
+        7
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "pillar_10_7",
+      "type": "pillar",
+      "pos": [
+        10,
+        7
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "decoration_4_4",
+      "type": "decoration",
+      "pos": [
+        4,
+        4
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "decoration_12_4",
+      "type": "decoration",
+      "pos": [
+        12,
+        4
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "decoration_4_8",
+      "type": "decoration",
+      "pos": [
+        4,
+        8
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "decoration_12_8",
+      "type": "decoration",
+      "pos": [
+        12,
+        8
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "river_log",
+      "type": "log",
+      "pos": [
+        8,
+        6
+      ],
+      "rotation": 0,
+      "solid": false,
+      "length": 6,
+      "speed": 0.3,
+      "direction": 1
+    }
+  ]
+}

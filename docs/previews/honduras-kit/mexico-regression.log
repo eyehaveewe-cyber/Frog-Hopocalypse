@@ -1,0 +1,31 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: New Mexico creates a valid editable map
+PASS: New theme participates in the existing recovery checkpoint system
+PASS: Theme picker and palette identify the cactus kit
+PASS: Switching to Swamp restores its palette
+PASS: Undo restores Mexico and its picker
+PASS: Redo restores the previous theme change
+PASS: Courtyard Gardens validates and has a structural exit route
+PASS: Mexico showcase saves through the normal local library
+PASS: Local reload retains the entire Mexico map and a clean saved baseline
+PASS: Portable JSON round-trip retains theme, terrain and modular objects
+PASS: Existing egypt maps remain accepted
+PASS: Existing swamp maps remain accepted
+PASS: Unknown themes are still rejected
+PASS: Mexico tree builds its distinct modular model
+PASS: Theme visuals add no hidden physics for tree
+PASS: Mexico pillar builds its distinct modular model
+PASS: Theme visuals add no hidden physics for pillar
+PASS: Mexico decoration builds its distinct modular model
+PASS: Theme visuals add no hidden physics for decoration
+PASS: Cactus variation 0 is deterministic
+PASS: Cactus variation 1 is deterministic
+PASS: Cactus variation 2 is deterministic
+PASS: Cactus variation 3 is deterministic
+PASS: Cactus variation 4 is deterministic
+PASS: Stucco walls retain the filtered mipmapped material path
+PASS: Actual frog controller reaches the exit around the courtyard with collisions active
+PASS: Returning from the showcase playtest preserves every authored setting
+PASS: Courtyard perimeter walls physically stop the frog
+MEXICO KIT: 28 checks, 0 failures

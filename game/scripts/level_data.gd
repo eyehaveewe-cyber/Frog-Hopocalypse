@@ -2,9 +2,9 @@ extends RefCounted
 ## The editor, bundled maps and runtime all consume this versioned format.
 const VERSION = 1
 const MAX_SIDE = 64
-const THEMES = ["egypt", "swamp", "mexico"]
-const THEME_NAMES = ["Egyptian ruins", "Purple Swamp-Woods", "Mexico · Courtyard gardens"]
-const NEW_NAMES = ["New Egypt", "New Swamp", "New Mexico"]
+const THEMES = ["egypt", "swamp", "mexico", "honduras"]
+const THEME_NAMES = ["Egyptian ruins", "Purple Swamp-Woods", "Mexico · Courtyard gardens", "Honduras · Jungle river"]
+const NEW_NAMES = ["New Egypt", "New Swamp", "New Mexico", "New Honduras"]
 const TILES = ["floor", "wall", "cheese_wall", "water", "path", "road"]
 const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball", "landmark", "backdrop", "hop_fragment", "hop_seed"]
 
@@ -35,7 +35,7 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 	if not d.get("name") is String or d.name.strip_edges().is_empty() or d.name.length() > 80:
 		return "Give the level a name of 1–80 characters."
 	if d.get("theme") not in THEMES:
-		return "Choose Egyptian ruins, Purple Swamp-Woods or Mexico courtyard gardens."
+		return "Choose Egyptian ruins, Purple Swamp-Woods, Mexico courtyard gardens or Honduras jungle river."
 	if not finite_number(d.get("width")) or not finite_number(d.get("height")):
 		return "Map dimensions must be numbers."
 	if d.get("game_mode", "hopan") not in ["hopan", "tile"]:

@@ -4,6 +4,17 @@ fragments are now published. Existing maps, recordings, difficulty and RiverSim
 are preserved. [Publication and rollback](docs/BOING_EDITOR_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
+## Honduras jungle-river kit — repository preview
+
+The `feature/hopan-honduras-kit` branch continues the original theme roadmap with
+vine-covered stone, jungle terrain, five broadleaf tree variations, stepped
+columns and fern pots. Try **Level editor → New Honduras**, or **Scenery demos →
+Jungle River · Honduras → Playtest**. The actual frog crosses its moving-log
+river with normal collisions and water hazards. Save/load, JSON and theme Undo/
+Redo are supported. [Plan, previews, playable export and checks](docs/HONDURAS_KIT.md).
+This is a starter kit; physical-device and human-playtest limits remain. No
+deployment or merge occurred; the public website remains v28.
+
 ## Mexico courtyard kit — repository preview
 
 The isolated `feature/hopan-mexico-kit` branch advances the original theme-pack

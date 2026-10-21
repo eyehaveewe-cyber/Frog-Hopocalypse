@@ -39,7 +39,7 @@ var splash_menu = false
 const LevelRules = preload("res://scripts/level_rules.gd")
 const RULE_INK = preload("res://art/rules/hopan-rule-ink.ttf")
 const LandmarkModels = preload("res://scripts/landmark_models.gd")
-const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/scenery/heron_marsh.json", "res://levels/scenery/temple_horizon_1x.json", "res://levels/scenery/temple_horizon_80x.json", "res://levels/scenery/courtyard_gardens.json"]
+const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/scenery/heron_marsh.json", "res://levels/scenery/temple_horizon_1x.json", "res://levels/scenery/temple_horizon_80x.json", "res://levels/scenery/courtyard_gardens.json", "res://levels/scenery/jungle_river.json"]
 const CHARGE_DEMO = "res://levels/tile_hop/charge_trial.json"
 var rule_button: Button
 var hop_rule_picker: OptionButton
@@ -380,6 +380,7 @@ func build_ui() -> void:
 	button(new_row, "New Egypt", func(): new_level("egypt"))
 	button(new_row, "New Swamp", func(): new_level("swamp"))
 	button(tools, "New Mexico", func(): new_level("mexico"))
+	button(tools, "New Honduras", func(): new_level("honduras"))
 	var saves := row(tools)
 	button(saves, "Save", save_level, true)
 	button(saves, "Duplicate", duplicate_level)
@@ -748,7 +749,7 @@ func show_scenery_demos() -> void:
 	reset_overlay("Scenery demos", "Landmarks on the course and in the surrounding water. Loads into the editor; Undo restores your map.")
 	for i in range(SCENERY_DEMOS.size()):
 		var index := i
-		button(overlay_box, ["Temple Shore", "Heron Marsh", "Horizon · 1x", "Horizon · 80x", "Courtyard Gardens · Mexico"][i], func(): open_scenery_demo(index))
+		button(overlay_box, ["Temple Shore", "Heron Marsh", "Horizon · 1x", "Horizon · 80x", "Courtyard Gardens · Mexico", "Jungle River · Honduras"][i], func(): open_scenery_demo(index))
 	button(overlay_box, "Keep editing", func(): overlay.hide())
 
 func open_scenery_demo(index: int) -> void:
@@ -1253,7 +1254,10 @@ func sync_editor(refresh_selection: bool = true) -> void:
 	name_field.text = level.name
 	theme_picker.select(Data.THEMES.find(level.theme))
 	for key in themed_tool_buttons:
-		themed_tool_buttons[key].text = {"tree":"Cactus", "pillar":"Painted column", "decoration":"Flower pot"}[key] if level.theme == "mexico" else {"tree":"Tree", "pillar":"Pillar", "decoration":"Pot"}[key]
+		var names: Dictionary = {"tree":"Tree", "pillar":"Pillar", "decoration":"Pot"}
+		if level.theme == "mexico": names = {"tree":"Cactus", "pillar":"Painted column", "decoration":"Flower pot"}
+		elif level.theme == "honduras": names = {"tree":"Jungle tree", "pillar":"Stepped column", "decoration":"Fern pot"}
+		themed_tool_buttons[key].text = names[key]
 	undo_button.disabled = undo_stack.is_empty()
 	redo_button.disabled = redo_stack.is_empty()
 	ui_busy = false

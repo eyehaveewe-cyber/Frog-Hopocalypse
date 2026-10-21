@@ -12,11 +12,22 @@ static func get_texture(kind: String) -> Texture2D:
 	for y in range(32):
 		for x in range(32):
 			var n := random.randf()
-			if base_kind in ["leaf", "violet_leaf", "bark"]:
+			if base_kind in ["leaf", "violet_leaf", "bark", "jungle_leaf", "jungle_bark", "jungle_ground", "jungle_stone"]:
 				# Broad static clusters avoid one-pixel speckle while moving the camera.
 				n = float(posmod(hash([kind, x / 4, y / 4]), 1000)) / 1000.0
 			var color := Color.WHITE
 			match base_kind:
+				"jungle_ground":
+					color = Color("50624a").lerp(Color("78805c"),n*0.65)
+				"jungle_leaf":
+					color = Color("44694e").lerp(Color("819451"),n*0.7)
+				"jungle_bark":
+					color = Color("737556").lerp(Color("959371"),n*0.5)
+				"jungle_stone":
+					var seam := y % 16 < 2 or (x + (8 if y >= 16 else 0)) % 16 < 2
+					color = Color("777f70") if seam else Color("9fa78c").lerp(Color("b7b7a0"),n*0.35)
+					# Wide vine clusters, rather than high-frequency dark speckles.
+					if (x / 4 + y / 8) % 7 < 2: color = Color("667b56").lerp(Color("889263"),n*0.45)
 				"stucco":
 					# Broad, low-contrast patches; no fine dark mortar grid.
 					var patch := float(posmod(hash([x / 4,y / 4]),100)) / 100.0
@@ -81,7 +92,7 @@ static func get_texture(kind: String) -> Texture2D:
 					color = Color("87ae4c").lerp(Color("d1d772"), n * 0.5)
 					if n < 0.12:
 						color = Color("546e36")
-			if kind.ends_with("_wall") and base_kind not in ["stucco", "terracotta"]:
+			if kind.ends_with("_wall") and base_kind not in ["stucco", "terracotta", "jungle_stone"]:
 				color = color.lerp(Color("b6a080") if base_kind == "stone" else Color("95859b"),0.4)
 			image.set_pixel(x, y, color)
 	if base_kind == "brick" or kind.ends_with("_wall"):

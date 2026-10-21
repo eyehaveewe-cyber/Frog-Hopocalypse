@@ -9,6 +9,12 @@ rules. **Scenery demos → Courtyard Gardens · Mexico** loads an editable showc
 Theme changes support Undo/Redo. Mexico JSON requires this newer reader; earlier
 Egypt/Swamp documents retain their existing behavior. [Details](MEXICO_KIT.md).
 
+The next repository preview adds **New Honduras** and **Honduras · Jungle river**.
+Its **Jungle tree / Stepped column / Fern pot** tools use the same object and
+collision rules. **Scenery demos → Jungle River · Honduras** provides a playable
+moving-log crossing. Save/export and theme Undo/Redo work as normal; older
+readers reject this new theme ID. [Preview and checks](HONDURAS_KIT.md).
+
 1. Give your level a name. Choose its Egyptian ruins or Purple Swamp-Woods theme.
 2. Select **Floor**, **Path**, **Wall**, or **Water**, then click or drag on the board. Walls block movement; water kills the frog. Floor and path are walkable. Move the start/exit first if you want to paint hazards over their old cells.
 3. Place the **Frog start** and **Exit gate** on different cells. These tools clear the selected cell for safe placement.

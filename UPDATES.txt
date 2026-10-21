@@ -1,3 +1,24 @@
+2026-10-21 — Honduras jungle-river theme roadmap pass (repository only)
+
+1. One bounded pass advances the original user-authored Honduras theme roadmap:
+   jungle terrain, vine-covered stone, five broadleaf tree variants, stepped
+   columns and fern pots. New Honduras and contextual palette names support
+   reusable jungle maps; the editable Jungle River demo includes a moving log.
+2. Acceptance set before implementation: distinct game/editor visuals, preserved
+   save/JSON/Undo behavior and collider semantics, plus real frog traversal over
+   a moving log to the exit. Screenwright asset-production skill applied; no new
+   campaign/difficulty decisions or speculative editor-v0.2 requirements adopted.
+3. 26 focused native checks pass, including actual log support/carrying, water,
+   exit and wall collision. All 28 Mexico regression checks pass. Web/Windows
+   release and debug Web build. Retro/compatibility browser controls, save,
+   movement and rendered views pass without console/page errors.
+4. Starts from pushed 4f8162c on feature/hopan-honduras-kit. No deployment, merge
+   or ongoing update loop. Existing campaign layouts, sounds, saves, movement
+   rules, hosting adapters and RiverSim preserved. Earlier readers reject the
+   Honduras theme ID. Cramerton remains blocked by Test1's CONNECT 403; no retry
+   or invented layout. Physical phones and human visual/navigation tests remain.
+   Details, original assets, previews and acceptance: docs/HONDURAS_KIT.md.
+
 2026-10-21 — Mexico courtyard theme roadmap pass (repository only)
 
 1. Advanced the original user-authored theme-pack roadmap with an editable Mexico
