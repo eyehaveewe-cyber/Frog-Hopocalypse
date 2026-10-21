@@ -52,6 +52,10 @@ Validation completed:
 
 Shared Site baseline is v36, RiverSim **0.4.4-playable**, source
 `7d9423c0f62773d7a0c7fee3a59c4f3bdab70cca`. Its 14 RiverSim files, three unrelated
-files, hosting manifest and compressed engine must remain byte-for-byte intact.
-Only tested Hopán root output is overlaid. Publication outcome and rollback
-target are recorded in `HAT_SPLASH_PUBLICATION.json` after deployment.
+files, hosting manifest and compressed engine remain byte-for-byte intact in
+published **v37**. Both staged compressed release overrides reached their first
+frame without errors, with the debug probe absent. Native Sites confirmed a
+successful production deployment on October 21, 2026. Only tested Hopán root
+output was overlaid; no intervening Site version was observed before deployment.
+[Publication and v36 rollback record](HAT_SPLASH_PUBLICATION.json). Hosted runtime
+inspection remains limited by the executor proxy.

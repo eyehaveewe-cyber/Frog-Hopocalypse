@@ -1,10 +1,11 @@
-**Current public build: [Hopán version 34](https://hopan.fiiendward.chatgpt.site).**
-The 17 recorded voices now have conservative keyboard-click reduction, retaining
-exact durations and near-identical volume. Originals and before/after comparisons
-are preserved. [Processing and listening limits](docs/VOICE_CLEANUP.md).
-RiverSim 0.4.2 and all unrelated hosted files remain byte-for-byte unchanged.
-[Publication, checks and v33 rollback](docs/VOICE_CLEANUP_PUBLICATION.json).
-The v33 menu cycling fixes remain included.
+**Current public build: [Hopán version 37](https://hopan.fiiendward.chatgpt.site).**
+#6 Wrapped Gold is the normal title illustration; #4 Layered Cloth appears on
+15% of launches. Try [#6](https://hopan.fiiendward.chatgpt.site/?splash=6) or
+[#4](https://hopan.fiiendward.chatgpt.site/?splash=4) directly. Selection stays
+stable through menu returns and resizing. RiverSim 0.4.4 and all unrelated
+hosted files are preserved byte-for-byte from v36.
+[Publication, checks and v36 rollback](docs/HAT_SPLASH_PUBLICATION.json).
+The voice cleanup and v33 menu fixes remain included.
 Prior lane portals and theme kits remain included; [v31 publication history](docs/LANE_PORTALS_PUBLICATION.json).
 Earlier repository-only/publication notes below describe their historical state.
 
