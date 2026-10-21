@@ -44,6 +44,8 @@ or showcase maps still require a manual save, as in the current editor.
   controls, save, showcase loading, keyboard movement and overhead-map controls;
   no console/page errors were reported. [Results](previews/mexico-kit/results.json).
 - Pinned Godot 4.7.2 Web release, Windows release and Web debug exports build.
+  The standalone release reaches its first rendered frame without console/page
+  errors, and the debug probe is absent. [Release check](previews/mexico-kit/release-results.json).
   Windows was exported, not executed. Physical phones/Safari, performance on
   hardware and subjective comfort are unverified.
 
@@ -66,6 +68,9 @@ node tools/mexico_kit_smoke.cjs
 The standalone ZIP must be served as an entire folder over HTTP. It contains
 the frog game only, and must not replace the entire existing Site export because
 it does not contain RiverSim. See the ZIP's PLAY.txt and SOURCE.json.
+Its game source is `2d924eef4939607be3e31cbfb1d6d463040de679`. The 10,724,512-byte
+ZIP passed CRC checks and every archived export file matched the build exactly;
+[manifest and SHA-256](../artifacts/hopan-mexico-kit-web.json).
 
 No Site publication or main merge occurred. The existing public Site stays at
 v28. All bundled campaign layouts, sound/rules, Site adapters and RiverSim stay

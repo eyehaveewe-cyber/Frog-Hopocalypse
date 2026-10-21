@@ -16,6 +16,10 @@
    Proposed editor v0.2 was not treated as adopted. Cramerton remains blocked on
    Test1 attachment bytes (CONNECT 403); no transfer retry or invented layout.
    Screenshots, native evidence and playable Web preview: docs/MEXICO_KIT.md.
+5. Standalone Web ZIP: artifacts/hopan-mexico-kit-web.zip (10,724,512 bytes),
+   game source 2d924eef4939607be3e31cbfb1d6d463040de679. Exact export-byte and CRC
+   checks pass. Release reaches first rendered frame without browser errors;
+   debug probe absent. SHA-256 and screenshots are committed with the preview.
 
 2026-10-20 — Requested sound/editor update published as version 28
 

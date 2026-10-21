@@ -1,0 +1,8 @@
+{
+  "archive": "hopan-mexico-kit-web.zip",
+  "bytes": 10724512,
+  "sha256": "fd5df3244598e3f1af97b00a7ea883db2ce9fc47bce2060e4b0c6bb3275fc976",
+  "game_source_commit": "2d924eef4939607be3e31cbfb1d6d463040de679",
+  "export_files": 10,
+  "verification": "ZIP CRC passes; every archived export file exactly matches the built export"
+}
