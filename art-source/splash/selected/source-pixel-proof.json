@@ -1,0 +1,187 @@
+{
+  "source": "docs/previews/hat-variations/Hopan-hat-six-previews.png",
+  "sha256": "2ae5269526c16b606ae0c79e5c31f18b89793133d60c04ca8320e5777ed99d80",
+  "method": "Exact crops, native-resolution placement; no RGB edits or resampling",
+  "exports": [
+    {
+      "selection": 6,
+      "layout": "wide",
+      "source_panel_bounds": [
+        1032,
+        512,
+        1524,
+        968
+      ],
+      "source_hat_bounds_in_panel": [
+        50,
+        30,
+        425,
+        282
+      ],
+      "destination_hat_bounds": [
+        240,
+        388,
+        615,
+        640
+      ],
+      "source_offset": [
+        190,
+        358
+      ],
+      "hat_rgb_sha256": "56d3ea8111650d3014547d524ac065e58771fbd3ff284844bfa93b5c5824fc46",
+      "exported_hat_rgb_sha256": "56d3ea8111650d3014547d524ac065e58771fbd3ff284844bfa93b5c5824fc46",
+      "opaque_hat_sample_pixels": 57337,
+      "hat_pixels_identical": true
+    },
+    {
+      "selection": 6,
+      "layout": "compact",
+      "source_panel_bounds": [
+        1032,
+        512,
+        1524,
+        968
+      ],
+      "source_hat_bounds_in_panel": [
+        50,
+        30,
+        425,
+        282
+      ],
+      "destination_hat_bounds": [
+        52,
+        388,
+        427,
+        640
+      ],
+      "source_offset": [
+        2,
+        358
+      ],
+      "hat_rgb_sha256": "56d3ea8111650d3014547d524ac065e58771fbd3ff284844bfa93b5c5824fc46",
+      "exported_hat_rgb_sha256": "56d3ea8111650d3014547d524ac065e58771fbd3ff284844bfa93b5c5824fc46",
+      "opaque_hat_sample_pixels": 57337,
+      "hat_pixels_identical": true
+    },
+    {
+      "selection": 6,
+      "layout": "portrait",
+      "source_panel_bounds": [
+        1032,
+        512,
+        1524,
+        968
+      ],
+      "source_hat_bounds_in_panel": [
+        50,
+        30,
+        425,
+        282
+      ],
+      "destination_hat_bounds": [
+        200,
+        280,
+        575,
+        532
+      ],
+      "source_offset": [
+        150,
+        250
+      ],
+      "hat_rgb_sha256": "56d3ea8111650d3014547d524ac065e58771fbd3ff284844bfa93b5c5824fc46",
+      "exported_hat_rgb_sha256": "56d3ea8111650d3014547d524ac065e58771fbd3ff284844bfa93b5c5824fc46",
+      "opaque_hat_sample_pixels": 57337,
+      "hat_pixels_identical": true
+    },
+    {
+      "selection": 4,
+      "layout": "wide",
+      "source_panel_bounds": [
+        12,
+        512,
+        504,
+        968
+      ],
+      "source_hat_bounds_in_panel": [
+        50,
+        40,
+        425,
+        303
+      ],
+      "destination_hat_bounds": [
+        240,
+        398,
+        615,
+        661
+      ],
+      "source_offset": [
+        190,
+        358
+      ],
+      "hat_rgb_sha256": "9a8b3a5143a9534602ca55bab097aa73de84a61f3ce391b3a3d8da41b7966e46",
+      "exported_hat_rgb_sha256": "9a8b3a5143a9534602ca55bab097aa73de84a61f3ce391b3a3d8da41b7966e46",
+      "opaque_hat_sample_pixels": 60312,
+      "hat_pixels_identical": true
+    },
+    {
+      "selection": 4,
+      "layout": "compact",
+      "source_panel_bounds": [
+        12,
+        512,
+        504,
+        968
+      ],
+      "source_hat_bounds_in_panel": [
+        50,
+        40,
+        425,
+        303
+      ],
+      "destination_hat_bounds": [
+        52,
+        398,
+        427,
+        661
+      ],
+      "source_offset": [
+        2,
+        358
+      ],
+      "hat_rgb_sha256": "9a8b3a5143a9534602ca55bab097aa73de84a61f3ce391b3a3d8da41b7966e46",
+      "exported_hat_rgb_sha256": "9a8b3a5143a9534602ca55bab097aa73de84a61f3ce391b3a3d8da41b7966e46",
+      "opaque_hat_sample_pixels": 60312,
+      "hat_pixels_identical": true
+    },
+    {
+      "selection": 4,
+      "layout": "portrait",
+      "source_panel_bounds": [
+        12,
+        512,
+        504,
+        968
+      ],
+      "source_hat_bounds_in_panel": [
+        50,
+        40,
+        425,
+        303
+      ],
+      "destination_hat_bounds": [
+        200,
+        290,
+        575,
+        553
+      ],
+      "source_offset": [
+        150,
+        250
+      ],
+      "hat_rgb_sha256": "9a8b3a5143a9534602ca55bab097aa73de84a61f3ce391b3a3d8da41b7966e46",
+      "exported_hat_rgb_sha256": "9a8b3a5143a9534602ca55bab097aa73de84a61f3ce391b3a3d8da41b7966e46",
+      "opaque_hat_sample_pixels": 60312,
+      "hat_pixels_identical": true
+    }
+  ]
+}

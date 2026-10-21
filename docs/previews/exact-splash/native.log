@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Lower 15 percent selects #4
+PASS: Remaining 85 percent selects #6 including exact boundary
+PASS: Explicit preview overrides either random outcome
+PASS: Invalid preview choice falls back to normal selection
+PASS: wrapped keeps its selected hat through wide layout
+PASS: wrapped keeps its selected hat through compact layout
+PASS: wrapped keeps its selected hat through portrait layout
+PASS: wrapped does not reroll when returning to Menu
+PASS: wrapped title artwork leaves the playable route unobstructed
+PASS: wrapped remains selected after gameplay
+PASS: layered keeps its selected hat through wide layout
+PASS: layered keeps its selected hat through compact layout
+PASS: layered keeps its selected hat through portrait layout
+PASS: layered does not reroll when returning to Menu
+PASS: layered title artwork leaves the playable route unobstructed
+PASS: layered remains selected after gameplay
+PASS: Cosmetic title choices retain profile progress, equipment and sound
+SPLASH VARIANTS: 17 checks, 0 failures

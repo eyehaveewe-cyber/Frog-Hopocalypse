@@ -1,7 +1,7 @@
 // Same-source debug export: exercise both launch overrides and all title layouts.
 const {chromium,devices}=require('playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs');
-const output='docs/previews/hat-implementation';
+const output=process.env.HOPAN_SPLASH_EVIDENCE||'docs/previews/hat-implementation';
 (async()=>{
  const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox','--enable-unsafe-swiftshader','--use-angle=swiftshader']});
  const checks=[],errors=[];

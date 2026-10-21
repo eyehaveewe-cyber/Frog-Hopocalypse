@@ -1,0 +1,26 @@
+[
+  {
+    "selection": 6,
+    "screen_hat_bounds": [
+      90,
+      404,
+      480,
+      666
+    ],
+    "exact_expected_nearest_sampling_fraction": 0.9736151888823644,
+    "exact_source_asset_color_within_one_display_pixel_fraction": 1.0,
+    "interpretation": "All displayed hat colors match the exact asset at the expected texel or immediate neighbor; GPU/Pillow nearest sampling differs at some scaled boundaries."
+  },
+  {
+    "selection": 4,
+    "screen_hat_bounds": [
+      90,
+      414,
+      480,
+      688
+    ],
+    "exact_expected_nearest_sampling_fraction": 0.9701478570091708,
+    "exact_source_asset_color_within_one_display_pixel_fraction": 1.0,
+    "interpretation": "All displayed hat colors match the exact asset at the expected texel or immediate neighbor; GPU/Pillow nearest sampling differs at some scaled boundaries."
+  }
+]

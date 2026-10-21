@@ -14,9 +14,10 @@ Earlier repository-only/publication notes below describe their historical state.
 The selected #6 Wrapped Gold hat is the normal menu illustration; #4 Layered
 Cloth appears on 15% of launches. The choice stays stable while playing,
 returning to Menu or resizing. Preview either with `?splash=6` or `?splash=4`.
-Both hats are adapted to the original native pixel grid; all pixels outside the
-hat region match the previous artwork. Saves and the playable frog are unchanged.
-[Editable art, checks and screenshots](docs/HAT_SPLASH_VARIANTS.md).
+Both hats now use the actual selected image pixels, with their matching illustrated
+frogs cut directly from the original sheet. V37’s approximated drawing is superseded.
+Saves and the playable frog are unchanged.
+[Exact-source art, comparison and checks](docs/EXACT_SPLASH_CORRECTION.md).
 
 ## Skin and animation/sound menu cycling fix
 

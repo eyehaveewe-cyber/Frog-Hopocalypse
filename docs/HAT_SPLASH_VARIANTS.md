@@ -1,3 +1,7 @@
+> Historical v37 implementation: this native-grid redraw did not match the
+> selected image closely enough and is superseded by the
+> [exact-source correction](EXACT_SPLASH_CORRECTION.md).
+
 # #6 Wrapped Gold, with occasional #4 Layered Cloth
 
 User-approved direction: use #6 as the title-screen hat, and try a chance of
