@@ -1,11 +1,14 @@
 {
   "checks": [
-    "Desktop mouse retro: thirteen activations cycle both skins without losing menu position, hat or progress",
+    "Desktop mouse retro: 21 activations cycle both skins without losing menu position, hat or progress",
     "Desktop Enter repeatedly activates the focused selector without rebuilding or losing focus",
     "Desktop: purple selection, existing progress and baby hat survive browser reload",
-    "Touch portrait compatibility: thirteen activations cycle both skins without losing menu position, hat or progress",
-    "Touch: purple selection, existing progress and baby hat survive browser reload"
+    "Wide desktop: repeated animation/palette cycles keep the advanced panel populated and its height bounded; Back returns to Menu",
+    "Wide desktop editor-to-Menu context: 32 further setting changes retain panel contents and the entire editor document",
+    "Touch portrait compatibility: 21 activations cycle both skins without losing menu position, hat or progress",
+    "Touch: purple selection, existing progress and baby hat survive browser reload",
+    "Touch: repeated animation/palette cycles keep the advanced panel populated and its height bounded; Back returns to Menu"
   ],
   "errors": [],
-  "scope": "Actual Chromium mouse/Enter plus iPhone-size touch/UA compatibility emulation. This does not establish physical iPhone/Safari behavior. Full original crash was not reproduced; pre-fix repeated mouse cycling lost menu reachability after two activations."
+  "scope": "Actual Chromium mouse/Enter at the supplied 2465x1311 viewport plus iPhone-size touch/UA compatibility emulation; Microsoft Edge binary unavailable. This does not establish physical iPhone/Safari behavior. Full original crash was not reproduced; pre-fix repeated mouse cycling lost menu reachability after two activations."
 }

@@ -32,9 +32,9 @@ Extended browser validation covers the supplied 2465 × 1311 window size,
 repeated mouse and Enter activation, editor → Menu → Hop feel access, and
 portrait touch compatibility. It checks panel contents and bounded height on
 every advanced-setting change, as well as retained skin/hat/progress on reload.
-The exact completed checks are recorded in the browser result below. The extended
-advanced-panel browser run is still in progress; its result will be refreshed
-before publication. Microsoft
+Eight browser checks passed without console/page errors: 46 skin selections and
+96 advanced-setting changes across main-menu, editor-backed menu and touch
+contexts, plus return navigation and reload. The result record is linked below. Microsoft
 Edge itself is not installed here; Chromium tests are not a claim of direct Edge
 or physical iPhone/Safari acceptance. The original full engine crash was not
 independently reproduced; the known destructive menu callbacks were removed.
