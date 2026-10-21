@@ -1,0 +1,99 @@
+{
+  "actions": [
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    }
+  ],
+  "goals": [
+    [
+      16,
+      8
+    ],
+    [
+      16,
+      5
+    ],
+    [
+      17,
+      2
+    ]
+  ],
+  "level": "res://levels/your_move/shard_switchyard.json"
+}

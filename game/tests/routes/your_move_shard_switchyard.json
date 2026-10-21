@@ -1,0 +1,667 @@
+{
+  "actions": [
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": true,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": true,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    }
+  ],
+  "goals": [
+    [
+      4,
+      26
+    ],
+    [
+      8,
+      26
+    ],
+    [
+      8,
+      27
+    ],
+    [
+      8,
+      26
+    ],
+    [
+      13,
+      26
+    ],
+    [
+      6,
+      23
+    ],
+    [
+      6,
+      22
+    ],
+    [
+      6,
+      20
+    ],
+    [
+      15,
+      19
+    ],
+    [
+      7,
+      19
+    ],
+    [
+      11,
+      14
+    ],
+    [
+      15,
+      13
+    ],
+    [
+      15,
+      11
+    ],
+    [
+      15,
+      10
+    ],
+    [
+      16,
+      8
+    ],
+    [
+      16,
+      5
+    ],
+    [
+      17,
+      2
+    ]
+  ],
+  "level": "res://levels/your_move/shard_switchyard.json"
+}

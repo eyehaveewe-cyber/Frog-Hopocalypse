@@ -24,8 +24,9 @@ const HUMAN_LEVELS = ["res://levels/not_as_hard/Hardbutt.json", "res://levels/no
 const TILE_LEVELS = ["res://levels/tile_hop/big_hop_boulevard.json", "res://levels/tile_hop/your_move_crossing.json", "res://levels/tile_hop/shardwater_sanctuary.json", "res://levels/tile_hop/seed_vault.json", "res://levels/tile_hop/twenty_five_terraces.json"]
 const MOVE_DEMO = "res://levels/bonus/your_move_hopan.json"
 const BONUS_LEVELS = ["res://levels/bonus/Shelby.json", MOVE_DEMO, "res://levels/bonus/Cramerton.json"]
-const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus", "tile": "Tile Hop"}
-const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat"}
+const SYNC_LEVELS = ["res://levels/your_move/one_step_ahead.json", "res://levels/your_move/needle_clock.json", "res://levels/your_move/shard_switchyard.json", "res://levels/your_move/stillwater_circuit.json", "res://levels/your_move/rush_hourglass.json"]
+const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus", "tile": "Tile Hop", "sync": "Moves When You Move"}
+const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat", "hourglass": "Hourglass pyramid hat"}
 const INK = Color("f7f0d8")
 const MUTED = Color("b7c8b9")
 const LIME = Color("d5ec8d")
@@ -110,6 +111,7 @@ var completed_stages: Array = []
 var completed_human_stages: Array = []
 var completed_bonus_stages: Array = []
 var completed_tile_stages: Array = []
+var completed_sync_stages: Array = []
 var long_hop_button: Button
 var long_hop_indicator: Label
 var long_hop_help: Label
@@ -632,6 +634,7 @@ func show_menu() -> void:
 	if tile_mode_unlocked():
 		overlay_box.add_child(label("Tile-hop mode", 16, MUTED))
 		add_set_selector("tile", "Difficulty 2")
+		add_set_selector("sync", "Difficulty 3")
 	else:
 		paragraph(overlay_box, "Clear Not as Hard as It Looks to unlock Tile Hop.",12)
 	preview_toggle = CheckButton.new()
@@ -826,7 +829,7 @@ func play_builtin(index: int, set_key: String = "baby") -> void:
 
 func load_builtin(index: int, set_key: String = "baby") -> bool:
 	if set_key not in SET_TITLES: return false
-	if set_key == "tile" and not tile_mode_unlocked():
+	if set_key in ["tile", "sync"] and not tile_mode_unlocked():
 		status("Complete " + HUMAN_TITLE + " to unlock Tile Hop.")
 		return false
 	if set_key == "human" and not human_set_unlocked():
@@ -979,7 +982,7 @@ func on_finished(reason: String) -> void:
 		last_cleared_stages[campaign_set] = builtin_index
 		save_profile()
 	var set_complete := reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and progress.size() == campaign_paths().size()
-	var earned_hat := set_complete and campaign_set == "baby" and "baby" not in unlocked_hats
+	var earned_hat := set_complete and ((campaign_set == "baby" and "baby" not in unlocked_hats) or (campaign_set == "sync" and "hourglass" not in unlocked_hats))
 	if set_complete and campaign_set == "baby":
 		voice.say("baby_win")
 		if skin == "green" and earned_hat:
@@ -987,8 +990,11 @@ func on_finished(reason: String) -> void:
 			world.player.set_skin(skin)
 			save_profile()
 	if earned_hat:
-		unlock_baby_hat()
-		voice.say("baby_frog")
+		if campaign_set == "baby":
+			unlock_baby_hat()
+			voice.say("baby_frog")
+		else:
+			unlock_hourglass_hat()
 	pending_result = reason
 	pending_set_complete = set_complete
 	pending_earned_hat = earned_hat
@@ -1028,9 +1034,9 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 					paragraph(overlay_box, "Unlocked: Purple frog skin! Choose Skin on the main menu.")
 					button(overlay_box, "Start · " + HUMAN_TITLE, func(): play_builtin(0, "human"), true)
 				else:
-					paragraph(overlay_box, "Tile Hop demos cleared!" if campaign_set == "tile" else "Bonus set cleared!")
+					paragraph(overlay_box, "All five Moves When You Move stages cleared!" if campaign_set == "sync" else ("Tile Hop demos cleared!" if campaign_set == "tile" else "Bonus set cleared!"))
 				if earned_hat:
-					paragraph(overlay_box, "Unlocked: Baby frog hat! Equipped now. Press Hat to cycle your unlocked hats.")
+					paragraph(overlay_box, "Unlocked: " + ("Hourglass pyramid hat" if campaign_set == "sync" else "Baby frog hat") + "! Equipped now. Press Hat to cycle your unlocked hats.")
 		if mode == "play" and campaign_level and builtin_index < campaign_paths().size() - 1:
 			button(overlay_box, "Next level →", func(): play_builtin(builtin_index + 1, campaign_set), true)
 	var has_continuation := mode == "play" and campaign_level and (builtin_index < campaign_paths().size() - 1 or campaign_set in ["baby", "human"])
@@ -1177,6 +1183,16 @@ func unlock_baby_hat() -> void:
 			hat_button.tooltip_text = "Baby frog hat · Cycle unlocked hats"
 		save_profile()
 
+func unlock_hourglass_hat() -> void:
+	if completed_sync_stages.size() != SYNC_LEVELS.size() or "hourglass" in unlocked_hats:
+		return
+	unlocked_hats.append("hourglass")
+	hat = "hourglass"
+	world.player.set_hat(hat)
+	if is_instance_valid(hat_button):
+		hat_button.tooltip_text = "Hourglass pyramid hat · Cycle unlocked hats"
+	save_profile()
+
 func save_profile() -> void:
 	var profile := ConfigFile.new()
 	profile.set_value("rules", "seen", seen_rule_ids)
@@ -1189,13 +1205,14 @@ func save_profile() -> void:
 	profile.set_value("not_as_hard", "completed", completed_human_stages)
 	profile.set_value("bonus", "completed", completed_bonus_stages)
 	profile.set_value("tile_hop", "completed", completed_tile_stages)
+	profile.set_value("your_move", "completed", completed_sync_stages)
 	profile.set_value("sets", "last_cleared", last_cleared_stages)
 	var file_saved := profile.save("user://profile.cfg") == OK
 	var browser_saved := false
 	if OS.has_feature("web"):
 		# IndexedDB filesystem sync is asynchronous. Keep the small profile durable
 		# immediately as well, so a quick reload cannot restore an older hat/clear.
-		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "last_cleared": last_cleared_stages, "hat": hat, "skin": skin, "preview": exit_preview, "sound": sound_enabled, "seen_rules": seen_rule_ids})
+		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "sync": completed_sync_stages, "last_cleared": last_cleared_stages, "hat": hat, "skin": skin, "preview": exit_preview, "sound": sound_enabled, "seen_rules": seen_rule_ids})
 		browser_saved = bool(JavaScriptBridge.eval("(function(){try{localStorage.setItem('hopan.profile.v1', " + JSON.stringify(payload) + ");return true;}catch(e){return false;}})()", true))
 	if not file_saved and not browser_saved:
 		status("Could not save progress on this device.")
@@ -1206,6 +1223,7 @@ func load_profile() -> void:
 	completed_human_stages = []
 	completed_bonus_stages = []
 	completed_tile_stages = []
+	completed_sync_stages = []
 	last_cleared_stages = {}
 	seen_rule_ids = []
 	hat = "pharaoh"
@@ -1225,6 +1243,8 @@ func load_profile() -> void:
 					profile.set_value("bonus", "completed", backup.bonus)
 				if backup.get("tile") is Array:
 					profile.set_value("tile_hop", "completed", backup.tile)
+				if backup.get("sync") is Array:
+					profile.set_value("your_move", "completed", backup.sync)
 				if backup.get("last_cleared") is Dictionary:
 					profile.set_value("sets", "last_cleared", backup.last_cleared)
 				profile.set_value("hats", "equipped", backup.hat)
@@ -1258,6 +1278,11 @@ func load_profile() -> void:
 		for value in saved_tiles:
 			if value is int and value >= 0 and value < TILE_LEVELS.size() and value not in completed_tile_stages:
 				completed_tile_stages.append(value)
+	var saved_sync: Variant = profile.get_value("your_move", "completed", [])
+	if saved_sync is Array:
+		for value in saved_sync:
+			if value is int and value >= 0 and value < SYNC_LEVELS.size() and value not in completed_sync_stages:
+				completed_sync_stages.append(value)
 	var saved_last: Variant = profile.get_value("sets", "last_cleared", {})
 	if saved_last is Dictionary:
 		for set_key in SET_TITLES:
@@ -1268,6 +1293,8 @@ func load_profile() -> void:
 	# keep all legitimate stage progress and other equipped hats intact.
 	if completed_stages.size() == BUILTINS.size():
 		unlocked_hats.append("baby")
+	if completed_sync_stages.size() == SYNC_LEVELS.size():
+		unlocked_hats.append("hourglass")
 	var saved_hat: Variant = profile.get_value("hats", "equipped", "pharaoh")
 	hat = str(saved_hat) if saved_hat in unlocked_hats else "pharaoh"
 	var saved_skin: Variant = profile.get_value("skins", "equipped", "green")
@@ -2141,7 +2168,7 @@ func publish_browser_probe() -> void:
 		backdrop_points.append({"cell":point,"x":screen.x,"y":screen.y})
 	var state := {"mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
 		"menu_panel": {"children":overlay_box.get_child_count(),"height":overlay_panel.size.y,"width":overlay_panel.size.x,"scroll":overlay_layout.get_parent().scroll_vertical},
-		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
+		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "completed_sync_stages": completed_sync_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
 		"hat": hat, "skin": skin, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells, "lane_tunnels": world.lane_tunnel_plans,
 		"hop_audio": {"unlocked":hop_audio.unlocked,"history":hop_audio.history,"gain":hop_audio.gain,"palette":hop_audio.palette,"playing":hop_audio.takeoff.playing or hop_audio.landing.playing,"db":hop_audio.takeoff.volume_db}, "hop_pose":world.hop_pose_style,"pose_phase":world.player.pose_phase,
@@ -2324,6 +2351,7 @@ func paths_for_set(set_key: String) -> Array:
 	match set_key:
 		"baby": return BUILTINS
 		"human": return HUMAN_LEVELS
+		"sync": return SYNC_LEVELS
 		"tile": return TILE_LEVELS
 		"bonus": return BONUS_LEVELS
 	return []
@@ -2331,6 +2359,7 @@ func paths_for_set(set_key: String) -> Array:
 func progress_for_set(set_key: String = "") -> Array:
 	match campaign_set if set_key.is_empty() else set_key:
 		"human": return completed_human_stages
+		"sync": return completed_sync_stages
 		"tile": return completed_tile_stages
 		"bonus": return completed_bonus_stages
 	return completed_stages

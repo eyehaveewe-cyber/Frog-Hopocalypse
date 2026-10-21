@@ -1,0 +1,69 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: New set respects the established NAHAIL Tile Hop unlock
+PASS: Valid, structurally connected map: one_step_ahead
+PASS: Movement-linked rule and one checkpoint: one_step_ahead
+PASS: Idle freezes the actual hazard simulation: one_step_ahead
+PASS: Active hazards also freeze mid-route: one_step_ahead
+PASS: Fresh real-physics route completes: one_step_ahead
+PASS: One hazard beat per accepted hop: one_step_ahead
+PASS: Route uses its late checkpoint: one_step_ahead
+MOVE COMPLETE {"hops":42,"level":"one_step_ahead","long_hops":2,"pickups":0}
+PASS: Retry starts at its actual checkpoint: one_step_ahead
+PASS: Active hazards also freeze mid-route: one_step_ahead retry
+PASS: Checkpoint route survives reset hazard phases: one_step_ahead
+PASS: Partial set cannot unlock the reward: one_step_ahead
+PASS: Valid, structurally connected map: needle_clock
+PASS: Movement-linked rule and one checkpoint: needle_clock
+PASS: Idle freezes the actual hazard simulation: needle_clock
+PASS: Active hazards also freeze mid-route: needle_clock
+PASS: Fresh real-physics route completes: needle_clock
+PASS: One hazard beat per accepted hop: needle_clock
+PASS: Route uses its late checkpoint: needle_clock
+MOVE COMPLETE {"hops":44,"level":"needle_clock","long_hops":0,"pickups":0}
+PASS: Retry starts at its actual checkpoint: needle_clock
+PASS: Active hazards also freeze mid-route: needle_clock retry
+PASS: Checkpoint route survives reset hazard phases: needle_clock
+PASS: Partial set cannot unlock the reward: needle_clock
+PASS: Valid, structurally connected map: shard_switchyard
+PASS: Movement-linked rule and one checkpoint: shard_switchyard
+PASS: Idle freezes the actual hazard simulation: shard_switchyard
+PASS: Active hazards also freeze mid-route: shard_switchyard
+PASS: Fresh real-physics route completes: shard_switchyard
+PASS: One hazard beat per accepted hop: shard_switchyard
+PASS: Route uses its late checkpoint: shard_switchyard
+MOVE COMPLETE {"hops":74,"level":"shard_switchyard","long_hops":2,"pickups":6}
+PASS: Retry starts at its actual checkpoint: shard_switchyard
+PASS: Checkpoint route survives reset hazard phases: shard_switchyard
+PASS: Partial set cannot unlock the reward: shard_switchyard
+PASS: Valid, structurally connected map: stillwater_circuit
+PASS: Movement-linked rule and one checkpoint: stillwater_circuit
+PASS: Idle freezes the actual hazard simulation: stillwater_circuit
+PASS: Active hazards also freeze mid-route: stillwater_circuit
+PASS: Fresh real-physics route completes: stillwater_circuit
+PASS: One hazard beat per accepted hop: stillwater_circuit
+PASS: Route uses its late checkpoint: stillwater_circuit
+MOVE COMPLETE {"hops":62,"level":"stillwater_circuit","long_hops":2,"pickups":2}
+PASS: Retry starts at its actual checkpoint: stillwater_circuit
+PASS: Active hazards also freeze mid-route: stillwater_circuit retry
+PASS: Checkpoint route survives reset hazard phases: stillwater_circuit
+PASS: Partial set cannot unlock the reward: stillwater_circuit
+PASS: Valid, structurally connected map: rush_hourglass
+PASS: Movement-linked rule and one checkpoint: rush_hourglass
+PASS: Idle freezes the actual hazard simulation: rush_hourglass
+PASS: Active hazards also freeze mid-route: rush_hourglass
+PASS: Fresh real-physics route completes: rush_hourglass
+PASS: One hazard beat per accepted hop: rush_hourglass
+PASS: Route uses its late checkpoint: rush_hourglass
+MOVE COMPLETE {"hops":92,"level":"rush_hourglass","long_hops":0,"pickups":0}
+PASS: Retry starts at its actual checkpoint: rush_hourglass
+PASS: Checkpoint route survives reset hazard phases: rush_hourglass
+PASS: All five stages unlock and equip the hourglass pyramid hat
+PASS: Set progress, equipped reward and previous clears survive reload
+PASS: A completed set starts from stage one
+PASS: Final set screen has no retry button
+PASS: Only the selected reward hat is visible
+PASS: Hat button cycles all unlocked hats and returns to the reward
+PASS: The finale punishes an unplanned double-lane crossing
+PASS: Campaign play leaves editor saves unchanged
+YOUR MOVE: 61 checks, 0 failures

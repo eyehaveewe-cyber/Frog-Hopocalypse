@@ -1,0 +1,91 @@
+{
+  "actions": [
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    }
+  ],
+  "goals": [
+    [
+      18,
+      6
+    ],
+    [
+      18,
+      3
+    ],
+    [
+      20,
+      2
+    ]
+  ],
+  "level": "res://levels/your_move/rush_hourglass.json"
+}

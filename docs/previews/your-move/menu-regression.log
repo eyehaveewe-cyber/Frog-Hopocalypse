@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Fresh menu has a compact Baby Mode button and hides the locked set
+PASS: Fresh set button starts stage one
+PASS: Main set button replays the most recently completed stage
+PASS: Replaying a previously cleared stage updates the most recent clear
+PASS: Most recent replay survives profile reload
+PASS: Fully completed set restarts from stage one
+PASS: Expand exposes all four available Baby Mode stage choices
+PASS: Collapse restores the compact set row
+PASS: Unlocked human-made set has its own compact selector
+PASS: Human-made button resumes its own most recent clear
+PASS: Completed human-made set also restarts from stage one
+PASS: Bonus routing and progress remain separate from existing campaigns
+PASS: Existing campaign progress survives profile save/reload
+PASS: Bonus set is present immediately and starts collapsed
+PASS: Bonus expands to Shelby and the new regular-mode movement demo
+PASS: Shelby's exact original attachment bytes are bundled
+PASS: Original pre-cheese-wall Shelby launches from a fresh profile
+PASS: Bonus completion does not grant campaign progress or hat unlocks
+PASS: Bonus completion survives reload
+PASS: Final bonus clear offers Menu without Retry
+PASS: Final tile clear offers Menu without Retry
+PASS: Replayed earlier stage keeps Retry when a next stage exists
+PASS: Completed baby keeps Retry alongside its next-set continuation
+PASS: Completed human keeps Retry alongside its next-set continuation
+PASS: Death on the last stage still offers Retry
+SET MENU: 25 checks, 0 failures

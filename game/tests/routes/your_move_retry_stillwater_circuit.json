@@ -1,0 +1,259 @@
+{
+  "actions": [
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        -1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": true,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    }
+  ],
+  "goals": [
+    [
+      15,
+      10
+    ],
+    [
+      12,
+      9
+    ],
+    [
+      12,
+      8
+    ],
+    [
+      8,
+      7
+    ],
+    [
+      8,
+      6
+    ],
+    [
+      8,
+      4
+    ],
+    [
+      17,
+      2
+    ]
+  ],
+  "level": "res://levels/your_move/stillwater_circuit.json"
+}

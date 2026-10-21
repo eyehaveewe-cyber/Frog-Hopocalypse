@@ -1,0 +1,111 @@
+{
+  "actions": [
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        0,
+        -1
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    },
+    {
+      "direction": [
+        1,
+        0
+      ],
+      "big": false,
+      "wait": 0
+    }
+  ],
+  "goals": [
+    [
+      12,
+      6
+    ],
+    [
+      15,
+      2
+    ]
+  ],
+  "level": "res://levels/your_move/needle_clock.json"
+}

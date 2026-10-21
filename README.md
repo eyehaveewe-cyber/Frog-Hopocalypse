@@ -1,3 +1,11 @@
+## Moves When You Move
+
+Five new movement-linked Tile Hop challenges end in **Rush Hourglass**, a hard
+traffic finale. They use the existing NAHAIL unlock. Clear all five to earn the
+**hourglass pyramid hat**, then use Hat to cycle it with your other rewards.
+Each map has one late checkpoint. The original Tile Hop and Bonus maps remain.
+[Levels, controls, reward and checks](docs/YOUR_MOVE_SET.md).
+
 ## Cramerton — completed custom Bonus map
 
 **Bonus → + → Play · Cramerton** opens the expanded Test1 map immediately.

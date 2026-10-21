@@ -244,7 +244,53 @@ static func frog(hat: bool = true) -> Node3D:
 		var stitch := box(baby_hat, Vector3(0.045, 0.15, 0.035), Vector3(sin(angle) * 0.47, 0.16, 0.08 + cos(angle) * 0.40), green_hat.lightened(0.18))
 		stitch.rotation.y = angle
 	baby_hat.visible = false
+	hourglass_pyramid(socket)
 	return root
+
+static func hourglass_pyramid(socket: Node3D) -> void:
+	# Opaque edges keep the silhouette readable; four quiet glass faces reveal
+	# a gold hourglass inside. The base sits above the eyes, with no coplanar faces.
+	var hat := Node3D.new()
+	hat.name = "HourglassHat"
+	socket.add_child(hat)
+	var gold := Color("deb966")
+	var corners := [Vector3(-0.48,0.09,-0.30), Vector3(0.48,0.09,-0.30), Vector3(0.48,0.09,0.58), Vector3(-0.48,0.09,0.58)]
+	var apex := Vector3(0,0.98,0.14)
+	var glass := StandardMaterial3D.new()
+	glass.albedo_color = Color(0.55,0.86,0.88,0.16)
+	glass.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	glass.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	glass.cull_mode = BaseMaterial3D.CULL_DISABLED
+	glass.disable_receive_shadows = true
+	var panels := ImmediateMesh.new()
+	panels.surface_begin(Mesh.PRIMITIVE_TRIANGLES, glass)
+	for i in range(4):
+		var a: Vector3 = corners[i]
+		var b: Vector3 = corners[(i+1)%4]
+		panels.surface_add_vertex(a)
+		panels.surface_add_vertex(b)
+		panels.surface_add_vertex(apex)
+		for pair in [[a,b],[a,apex]]:
+			var edge := box(hat, Vector3(0.035,0.035,pair[0].distance_to(pair[1])), (pair[0]+pair[1])*0.5, gold)
+			edge.quaternion = Quaternion(Vector3.FORWARD, (pair[1]-pair[0]).normalized())
+	panels.surface_end()
+	var faces := MeshInstance3D.new()
+	faces.name = "GlassFaces"
+	faces.mesh = panels
+	faces.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	hat.add_child(faces)
+	var clock := Node3D.new()
+	clock.name = "Hourglass"
+	hat.add_child(clock)
+	for y in [0.21,0.71]:
+		cylinder(clock,0.18,0.18,0.04,Vector3(0,y,0.14),gold,8)
+	for side in [-1,1]:
+		box(clock,Vector3(0.025,0.46,0.025),Vector3(side*0.15,0.46,0.14),gold)
+	# Two tapered amber chambers and a thin falling-sand line read at game scale.
+	cylinder(clock,0.025,0.13,0.20,Vector3(0,0.59,0.14),Color("f3e1b0"),8)
+	cylinder(clock,0.13,0.025,0.20,Vector3(0,0.33,0.14),Color("b9914d"),8)
+	box(clock,Vector3(0.02,0.10,0.02),Vector3(0,0.46,0.14),Color("f3d387"))
+	hat.visible = false
 
 static func critter(theme_name: String, behavior: String) -> Node3D:
 	var root := Node3D.new()
