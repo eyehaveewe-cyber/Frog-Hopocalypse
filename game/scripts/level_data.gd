@@ -75,6 +75,8 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 			return "The %s must sit on a walkable grid cell." % key
 	if d.spawn == d.exit:
 		return "Place the exit away from the start."
+	if not editor_snapshot and d.tiles[int(d.spawn[1])][int(d.spawn[0])] == "road":
+		return "The frog start is on a road. Paint a safe floor or path there, or move the start off the road."
 	if d.has("checkpoint"):
 		var p: Variant = d.checkpoint
 		if not point_valid(p, w, h) or p[0] != int(p[0]) or p[1] != int(p[1]) or d.tiles[int(p[1])][int(p[0])] in ["wall", "cheese_wall", "water", "road"]:
