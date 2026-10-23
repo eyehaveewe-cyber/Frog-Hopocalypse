@@ -13,3 +13,20 @@ XDG_DATA_HOME=/tmp/hopan-phase69-profile bash tools/godot.sh --headless --fixed-
 ```
 
 Result: **PASS**. This is a native Godot profile test, not a Chromium, Safari, or physical-device test. It covers one v47 save shape and the current content order; it does not prove compatibility for every older save or asynchronous browser storage state. No source change was warranted by this result.
+
+## Browser backup follow-through
+
+`tools/browser_prior_profile.cjs` uses Playwright and real Chromium against the debug Web export. It seeds the v47 `hopan.profile.v1` localStorage payload once before the game starts, then checks completed Baby Mode, Not as Hard and Bonus stages, Tile Hop completion in the migrated backup, replay positions, the baby hat and purple skin. A real page reload runs without reseeding and repeats the checks. The new Moves When You Move set remains empty.
+
+With Chromium and Playwright available, reproduce from the checkout root:
+
+```sh
+bash tools/godot.sh --headless --editor --import --quit
+bash tools/godot.sh --headless --export-debug Web "$PWD/build/test-web/index.html"
+cp game/hopan-wasm.js build/test-web/hopan-wasm.js
+python3 -m http.server 8061 --directory build/test-web --bind 127.0.0.1
+# In another terminal:
+HOPAN_TEST_URL=http://127.0.0.1:8061 node tools/browser_prior_profile.cjs
+```
+
+Result: **PASS** on first load and reload. This exercises the browser `localStorage` backup path in Chromium, including the game's real loader and rewrite. It does not prove Safari or physical iPhone behavior, or every possible IndexedDB/localStorage race. No save-code change was warranted.
