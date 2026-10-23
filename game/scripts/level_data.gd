@@ -173,6 +173,8 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 					var anchor: Variant = obj.seam_anchor
 					if not point_valid(anchor, w, h) or anchor[0] != int(anchor[0]) or anchor[1] != int(anchor[1]):
 						return "Seam worm placement tiles must be whole cells inside the level."
+					if absf(float(obj.pos[0]) - float(anchor[0])) != 0.5 or absf(float(obj.pos[1]) - float(anchor[1])) != 0.5:
+						return "A seam worm's placement tile must touch its corner. Move the placement tile beside the worm or remove its seam_anchor field."
 				var route: Array = [obj.pos] + obj.get("waypoints", [])
 				if obj.get("patrol_loop", true) and obj.get("waypoints", []).size() > 1:
 					route.append(obj.waypoints[0])

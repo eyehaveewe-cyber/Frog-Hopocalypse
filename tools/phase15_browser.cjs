@@ -7,6 +7,7 @@ const base = process.env.HOPAN_TEST_URL || 'http://127.0.0.1:8060';
 const screenshot = path.resolve(__dirname, '../build/test-results/phase15-unsafe-start.png');
 const exitScreenshot = path.resolve(__dirname, '../build/test-results/phase15-missing-exit.png');
 const fragmentScreenshot = path.resolve(__dirname, '../build/test-results/phase15-impossible-fragments.png');
+const anchorScreenshot = path.resolve(__dirname, '../build/test-results/phase15-seam-anchor.png');
 
 async function clickButton(page, name) {
   let state = await page.evaluate(() => window.hopanState);
@@ -84,5 +85,22 @@ async function clickButton(page, name) {
     assert.deepEqual(resourceRejected.map, after.map);
     await page.screenshot({ path: fragmentScreenshot });
     console.log(`PASS: Chromium JSON import explains impossible fragments and preserves the editor map; screenshot: ${fragmentScreenshot}`);
+    await clickButton(page, 'Cancel');
+    await page.waitForFunction(() => !hopanState.overlay);
+    await clickButton(page, 'Import');
+    await page.waitForFunction(() => hopanState.overlay);
+    const seamMap = structuredClone(after.map);
+    seamMap.name = 'Misplaced seam anchor';
+    seamMap.tiles = Array.from({ length: seamMap.height }, (_, row) => Array.from({ length: seamMap.width }, (_, col) =>
+      col === 0 || row === 0 || col === seamMap.width - 1 || row === seamMap.height - 1 ? 'wall' : 'floor'));
+    seamMap.objects = [{ id: 'worm', type: 'critter', pos: [5.5, 5.5], behavior: 'seam_patrol', waypoints: [], seam_anchor: [10, 10], speed: 1.6 }];
+    const seamChooser = page.waitForEvent('filechooser');
+    await clickButton(page, 'Open JSON file');
+    await (await seamChooser).setFiles({ name: 'misplaced-seam.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(seamMap)) });
+    await page.waitForFunction(() => hopanState.status.includes('placement tile must touch its corner'));
+    const seamRejected = await page.evaluate(() => window.hopanState);
+    assert.deepEqual(seamRejected.map, after.map);
+    await page.screenshot({ path: anchorScreenshot });
+    console.log(`PASS: Chromium JSON import explains misplaced seam anchor and preserves the editor map; screenshot: ${anchorScreenshot}`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
