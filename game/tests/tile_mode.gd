@@ -163,8 +163,16 @@ func run() -> void:
  p=app.world.critters[0].position
  await tick(0.4)
  suite.check(app.world.elapsed==elapsed and app.world.critters[0].position==p,"Releasing regular movement freezes the world again")
+ var unsaved_before_demo: Dictionary = app.level.duplicate(true)
  app.open_movement_demo(0)
- suite.check(app.mode=="edit" and app.tile_mode_toggle.button_pressed and not app.movement_toggle.button_pressed,"Editor demo picker loads ordinary tile mode without changing the original maps")
+ suite.check(app.editor_leave_open and app.level==unsaved_before_demo,"Demo picker protects the unsaved playtest map before replacement")
+ var leave_button: Button = null
+ for control in app.overlay_box.find_children("*","Button",true,false):
+  if control.text=="No · Leave without saving": leave_button=control
+ suite.check(leave_button!=null,"Demo picker offers an explicit discard choice")
+ if leave_button==null: quit(1);return
+ leave_button.pressed.emit()
+ suite.check(app.mode=="edit" and app.tile_mode_toggle.button_pressed and not app.movement_toggle.button_pressed and app.level.name=="Big Hop Boulevard","Confirmed demo picker loads ordinary tile mode without changing the original maps")
  app.set_level_rule("move_with_me",true)
  var roundtrip: Dictionary=Data.normalize(JSON.parse_string(JSON.stringify(app.level)))
  suite.check(roundtrip.move_with_me and roundtrip.game_mode=="tile" and Data.validate(roundtrip).is_empty(),"Movement/editor settings round-trip in portable JSON")
