@@ -226,8 +226,16 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 		seen_checkpoints.append(p)
 	if not editor_snapshot and d.get("game_mode") == "tile" and rules.get("long_hop") == "fragments":
 		var fragment_count: int = d.objects.filter(func(obj): return obj.type == "hop_fragment").size()
-		if fragment_count < 3 and reachable(d) and not reachable(d, false):
-			return "This crossing needs a long hop, but the level has fewer than three fragments. Place at least three fragments or open a short-hop route."
+		if reachable(d) and not reachable(d, false):
+			if fragment_count < 3:
+				return "This crossing needs a long hop, but the level has fewer than three fragments. Place at least three fragments or open a short-hop route."
+			var accessible_fragments := 0
+			for obj in d.objects:
+				if obj.type == "hop_fragment" and reachable(d, false, obj.pos):
+					accessible_fragments += 1
+					if accessible_fragments == 3: break
+			if accessible_fragments < 3:
+				return "The first required long hop needs three fragments reachable by short hops before the gap. Move fragments onto the starting side or open a short-hop route."
 	return ""
 
 static func checkpoint_open(d: Dictionary, p: Array, allow_road: bool = false) -> bool:
@@ -272,9 +280,9 @@ static func save_json(path: String, level: Dictionary) -> Error:
 	file.close()
 	return OK
 
-static func reachable(d: Dictionary, allow_long_hop: bool = true) -> bool:
+static func reachable(d: Dictionary, allow_long_hop: bool = true, target: Array = []) -> bool:
 	var start := Vector2i(int(d.spawn[0]), int(d.spawn[1]))
-	var goal := Vector2i(int(d.exit[0]), int(d.exit[1]))
+	var goal := Vector2i(int(target[0]), int(target[1])) if target.size() == 2 else Vector2i(int(d.exit[0]), int(d.exit[1]))
 	var blocked: Dictionary = {}
 	for o in d.objects:
 		# Trees have narrow trunks; do not reject a structural exit route as a whole blocked tile.
