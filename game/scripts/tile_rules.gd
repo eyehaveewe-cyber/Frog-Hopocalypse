@@ -91,12 +91,15 @@ func request(direction: Vector2i, big: bool) -> bool:
   return false
  if big and not long_hop_ready():
   last_block = resource_label() + " · " + Rules.short_rule(world.level)
+  world.hint_changed.emit(last_block)
   return false
  var start: Vector2i = world.position_cell(world.player.position)
  var target = start + direction * (2 if big else 1)
  if not open_cell(target) or (big and not open_cell(start + direction, false)):
   last_block = "A wall or blocked landing stops that hop."
+  world.hint_changed.emit(last_block)
   return false
+ last_block = ""
  from = world.player.position
  to = world.cell_position([target.x,target.y])
  facing = direction
