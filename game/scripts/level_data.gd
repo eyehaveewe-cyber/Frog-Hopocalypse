@@ -68,6 +68,8 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 			if tile not in TILES:
 				return "Unknown terrain type."
 	for key in ["spawn", "exit"]:
+		if key == "exit" and not d.has("exit"):
+			return "Exit gate is missing. Add an exit coordinate [x, y] on a walkable tile to the level JSON, then import again."
 		if not point_valid(d.get(key), w, h):
 			return "The %s must be inside the level." % key
 		var p: Array = d[key]

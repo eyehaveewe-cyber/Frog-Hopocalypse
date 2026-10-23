@@ -5,6 +5,7 @@ const path = require('node:path');
 
 const base = process.env.HOPAN_TEST_URL || 'http://127.0.0.1:8060';
 const screenshot = path.resolve(__dirname, '../build/test-results/phase15-unsafe-start.png');
+const exitScreenshot = path.resolve(__dirname, '../build/test-results/phase15-missing-exit.png');
 
 async function clickButton(page, name) {
   let state = await page.evaluate(() => window.hopanState);
@@ -48,5 +49,17 @@ async function clickButton(page, name) {
     require('node:fs').mkdirSync(path.dirname(screenshot), { recursive: true });
     await page.screenshot({ path: screenshot });
     console.log(`PASS: Chromium editor shows unsafe-start correction, keeps the road edit, and creates no save; screenshot: ${screenshot}`);
+    await clickButton(page, 'Import');
+    await page.waitForFunction(() => hopanState.overlay);
+    const missingExit = structuredClone(after.map);
+    delete missingExit.exit;
+    const chooser = page.waitForEvent('filechooser');
+    await clickButton(page, 'Open JSON file');
+    await (await chooser).setFiles({ name: 'missing-exit.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(missingExit)) });
+    await page.waitForFunction(() => hopanState.status.includes('Exit gate is missing'));
+    const rejected = await page.evaluate(() => window.hopanState);
+    assert.deepEqual(rejected.map, after.map);
+    await page.screenshot({ path: exitScreenshot });
+    console.log(`PASS: Chromium JSON import explains the missing exit and preserves the editor map; screenshot: ${exitScreenshot}`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
