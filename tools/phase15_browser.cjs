@@ -6,6 +6,7 @@ const path = require('node:path');
 const base = process.env.HOPAN_TEST_URL || 'http://127.0.0.1:8060';
 const screenshot = path.resolve(__dirname, '../build/test-results/phase15-unsafe-start.png');
 const exitScreenshot = path.resolve(__dirname, '../build/test-results/phase15-missing-exit.png');
+const fragmentScreenshot = path.resolve(__dirname, '../build/test-results/phase15-impossible-fragments.png');
 
 async function clickButton(page, name) {
   let state = await page.evaluate(() => window.hopanState);
@@ -61,5 +62,27 @@ async function clickButton(page, name) {
     assert.deepEqual(rejected.map, after.map);
     await page.screenshot({ path: exitScreenshot });
     console.log(`PASS: Chromium JSON import explains the missing exit and preserves the editor map; screenshot: ${exitScreenshot}`);
+    await clickButton(page, 'Cancel');
+    await page.waitForFunction(() => !hopanState.overlay);
+    await clickButton(page, 'Import');
+    await page.waitForFunction(() => hopanState.overlay);
+    const fragmentMap = structuredClone(after.map);
+    fragmentMap.name = 'Fragment gap';
+    fragmentMap.width = 7;
+    fragmentMap.height = 7;
+    fragmentMap.tiles = Array.from({ length: 7 }, (_, row) => Array.from({ length: 7 }, (_, col) =>
+      col === 0 || row === 0 || col === 6 || row === 6 ? 'wall' : row === 3 ? 'water' : 'floor'));
+    fragmentMap.spawn = [3, 5];
+    fragmentMap.exit = [3, 1];
+    fragmentMap.game_mode = 'tile';
+    fragmentMap.rules = { long_hop: 'fragments' };
+    const fragmentChooser = page.waitForEvent('filechooser');
+    await clickButton(page, 'Open JSON file');
+    await (await fragmentChooser).setFiles({ name: 'fragment-gap.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(fragmentMap)) });
+    await page.waitForFunction(() => hopanState.status.includes('fewer than three fragments'));
+    const resourceRejected = await page.evaluate(() => window.hopanState);
+    assert.deepEqual(resourceRejected.map, after.map);
+    await page.screenshot({ path: fragmentScreenshot });
+    console.log(`PASS: Chromium JSON import explains impossible fragments and preserves the editor map; screenshot: ${fragmentScreenshot}`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

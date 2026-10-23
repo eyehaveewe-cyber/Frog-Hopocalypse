@@ -222,6 +222,10 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 		if p in seen_checkpoints or p == d.spawn or p == d.exit or p == d.get("checkpoint", []):
 			return "Checkpoints need distinct tiles away from the start and exit."
 		seen_checkpoints.append(p)
+	if not editor_snapshot and d.get("game_mode") == "tile" and rules.get("long_hop") == "fragments":
+		var fragment_count: int = d.objects.filter(func(obj): return obj.type == "hop_fragment").size()
+		if fragment_count < 3 and reachable(d) and not reachable(d, false):
+			return "This crossing needs a long hop, but the level has fewer than three fragments. Place at least three fragments or open a short-hop route."
 	return ""
 
 static func checkpoint_open(d: Dictionary, p: Array, allow_road: bool = false) -> bool:
@@ -266,7 +270,7 @@ static func save_json(path: String, level: Dictionary) -> Error:
 	file.close()
 	return OK
 
-static func reachable(d: Dictionary) -> bool:
+static func reachable(d: Dictionary, allow_long_hop: bool = true) -> bool:
 	var start := Vector2i(int(d.spawn[0]), int(d.spawn[1]))
 	var goal := Vector2i(int(d.exit[0]), int(d.exit[1]))
 	var blocked: Dictionary = {}
@@ -281,7 +285,7 @@ static func reachable(d: Dictionary) -> bool:
 		if p == goal:
 			return true
 		for offset in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
-			for distance in ([1,2] if d.get("game_mode") == "tile" else [1]):
+			for distance in ([1,2] if d.get("game_mode") == "tile" and allow_long_hop else [1]):
 				var n: Vector2i = p + offset * distance
 				if n.x < 0 or n.y < 0 or n.x >= d.width or n.y >= d.height or visited.has(n) or blocked.has(n): continue
 				if distance == 2:
