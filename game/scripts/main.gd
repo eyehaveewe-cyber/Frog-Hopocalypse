@@ -18,7 +18,7 @@ var announcement_time := 0.0
 var return_warning_armed := false
 var previous_voice_row := 19
 const MAZES = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtyard.json", "res://levels/violet_mire.json"]
-const BUILTINS = MAZES + ["res://levels/little_frog_crossing.json"]
+const BUILTINS = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtyard.json", "res://levels/violet_mire.json", "res://levels/little_frog_crossing.json"]
 const HUMAN_TITLE = "Not as Hard as It Looks"
 const HUMAN_LEVELS = ["res://levels/not_as_hard/Hardbutt.json", "res://levels/not_as_hard/Gloopbutt.json", "res://levels/not_as_hard/Treebutt.json", "res://levels/not_as_hard/Frogbutt.json"]
 const TILE_LEVELS = ["res://levels/tile_hop/big_hop_boulevard.json", "res://levels/tile_hop/your_move_crossing.json", "res://levels/tile_hop/shardwater_sanctuary.json", "res://levels/tile_hop/seed_vault.json", "res://levels/tile_hop/twenty_five_terraces.json"]
@@ -26,7 +26,7 @@ const MOVE_DEMO = "res://levels/bonus/your_move_hopan.json"
 const BONUS_LEVELS = ["res://levels/bonus/Shelby.json", MOVE_DEMO, "res://levels/bonus/Cramerton.json"]
 const SYNC_LEVELS = ["res://levels/your_move/one_step_ahead.json", "res://levels/your_move/needle_clock.json", "res://levels/your_move/shard_switchyard.json", "res://levels/your_move/stillwater_circuit.json", "res://levels/your_move/rush_hourglass.json"]
 const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus", "tile": "Tile Hop", "sync": "Moves When You Move"}
-const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat", "hourglass": "Hourglass pyramid hat"}
+const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat", "hourglass": "Hourglass pyramid hat", "morning": "Morning suit + top hat"}
 const INK = Color("f7f0d8")
 const MUTED = Color("b7c8b9")
 const LIME = Color("d5ec8d")
@@ -650,8 +650,8 @@ func show_menu() -> void:
 	overlay_box.add_child(menu_sound_toggle)
 	button(overlay_box, "Hop feel comparison", show_hop_comparison)
 	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
-	if completed_stages.size() == BUILTINS.size():
-		skin_button = button(overlay_box, "Skin: " + skin.capitalize(), toggle_skin)
+	skin_button = button(overlay_box, "Skin: " + skin.replace("_", " ").capitalize(), toggle_skin)
+	skin_button.tooltip_text="Clear 2/4/6/8/10 distinct levels for orange, yellow, spotted, white-bellied purple and gummy. Six also earns the morning suit."
 	if not library.is_empty():
 		var custom := OptionButton.new()
 		custom.add_item("Play a saved custom level…")
@@ -980,6 +980,7 @@ func on_finished(reason: String) -> void:
 		if builtin_index not in progress:
 			progress.append(builtin_index)
 		last_cleared_stages[campaign_set] = builtin_index
+		refresh_outfit_unlocks()
 		save_profile()
 	var set_complete := reason == "LEVEL COMPLETE!" and mode == "play" and campaign_level and progress.size() == campaign_paths().size()
 	var earned_hat := set_complete and ((campaign_set == "baby" and "baby" not in unlocked_hats) or (campaign_set == "sync" and "hourglass" not in unlocked_hats))
@@ -1151,18 +1152,31 @@ func set_exit_preview(enabled: bool) -> void:
 		world.cancel_exit_preview()
 	save_profile()
 
+func cleared_cosmetic_levels() -> int:
+	return completed_stages.size()+completed_human_stages.size()+completed_bonus_stages.size()+completed_tile_stages.size()+completed_sync_stages.size()
+
+func available_skins() -> Array[String]:
+	var choices:Array[String]=["green"]
+	for entry in [[2,"orange"],[4,"yellow"],[6,"spotted"],[8,"purple_white"],[10,"gummy"]]:
+		if cleared_cosmetic_levels()>=entry[0]:choices.append(entry[1])
+	if completed_stages.size()==BUILTINS.size():choices.append("purple")
+	return choices
+
+func refresh_outfit_unlocks() -> void:
+	if cleared_cosmetic_levels()>=6 and "morning" not in unlocked_hats:unlocked_hats.append("morning")
+
 func toggle_skin() -> void:
-	if completed_stages.size() != BUILTINS.size():
-		return
-	skin = "purple" if skin == "green" else "green"
+	var choices:=available_skins()
+	skin=choices[(choices.find(skin)+1)%choices.size()]
 	world.player.set_skin(skin)
 	save_profile()
 	# Keep the emitting control, scroll position and keyboard/touch focus alive.
 	# Rebuilding this menu from its own button callback can invalidate active UI.
 	if is_instance_valid(skin_button):
-		skin_button.text = "Skin: " + skin.capitalize()
+		skin_button.text = "Skin: " + skin.replace("_", " ").capitalize()
 
 func toggle_hat() -> void:
+	refresh_outfit_unlocks()
 	var index := unlocked_hats.find(hat)
 	hat = unlocked_hats[(index + 1) % unlocked_hats.size()]
 	world.player.set_hat(hat)
@@ -1295,10 +1309,11 @@ func load_profile() -> void:
 		unlocked_hats.append("baby")
 	if completed_sync_stages.size() == SYNC_LEVELS.size():
 		unlocked_hats.append("hourglass")
+	refresh_outfit_unlocks()
 	var saved_hat: Variant = profile.get_value("hats", "equipped", "pharaoh")
 	hat = str(saved_hat) if saved_hat in unlocked_hats else "pharaoh"
 	var saved_skin: Variant = profile.get_value("skins", "equipped", "green")
-	skin = "purple" if saved_skin == "purple" and completed_stages.size() == BUILTINS.size() else "green"
+	skin = str(saved_skin) if saved_skin in available_skins() else "green"
 	var saved_rules: Variant = profile.get_value("rules", "seen", [])
 	if saved_rules is Array:
 		for value in saved_rules.slice(0, 64):

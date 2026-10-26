@@ -1,3 +1,5 @@
+**Frog outfit review branch:** fitted stone-textured hourglass pyramid hat, morning suit with interruptible idle, and five earned frog palettes. [Previews, unlock rules and tests](docs/FROG_OUTFITS.md). Not yet published to the live site.
+
 ## Moves When You Move
 
 Five new movement-linked Tile Hop challenges end in **Rush Hourglass**, a hard

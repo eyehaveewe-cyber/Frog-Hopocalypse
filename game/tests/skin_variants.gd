@@ -32,7 +32,7 @@ func run() -> void:
  suite.check(app.skin=="green" and body.material_override==body.get_meta("frog_base_material"),"Green selector restores original materials")
  app.load_profile()
  suite.check(app.skin=="green","Choosing green remains saved")
- app.toggle_skin()
+ while app.skin!="purple":app.toggle_skin()
  app.play_builtin(0,"baby")
  suite.check(app.world.player.visual.get_child(0).material_override==Art.retro_mat("frog_purple"),"Purple remains equipped when loading another map")
  var hashes={}

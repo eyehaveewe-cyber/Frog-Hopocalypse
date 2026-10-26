@@ -1,0 +1,20 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PASS: Repeated activation cycles all earned colors and updates the visible label
+PASS: Cycling keeps the active menu control, keyboard focus and scroll position alive
+PASS: Chosen skin survives profile reload
+PASS: Skin selection preserves campaign progress and equipped hat
+PASS: Leaving the main menu clears its control reference
+PASS: Eighty animation/sound changes keep the populated panel, focus, scroll, height and slider alive
+PASS: Animation and sound cycling retain the selected volume
+PASS: Animation label follows the selected leg style
+PASS: Sound label follows the selected palette
+PASS: Changing palette cancels the previous audition generation
+PASS: Returning builds a fresh skin control and clears advanced references
+PASS: New menu control still cycles normally
+PASS: New profiles can see the skin unlock control
+PASS: Locked profiles cannot cycle the skin
+PASS: Comparison controls also stay usable from Pause without unpausing the game
+MENU SKIN CYCLE: 15 checks, 0 failures
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2663)

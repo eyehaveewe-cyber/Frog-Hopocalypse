@@ -188,9 +188,11 @@ static func frog(hat: bool = true) -> Node3D:
 		var shin := orb(root, Vector3(0.14, 0.13, 0.3), Vector3(side * 0.45, 0.12, 0.4), green)
 		shin.name = "HindShinL" if side == -1 else "HindShinR"
 		shin.hide()
-		orb(root, Vector3(0.14, 0.14, 0.42), Vector3(side * 0.35, 0.12, -0.32), green)
+		var arm:=orb(root, Vector3(0.14, 0.14, 0.42), Vector3(side * 0.35, 0.12, -0.32), green)
+		arm.name="ForeArmL" if side==-1 else "ForeArmR"
 		for toe in range(3):
 			var foot := box(root, Vector3(0.06, 0.045, 0.24), Vector3(side * (0.39 + toe * 0.065), 0.045, -0.52 + toe * 0.04), Color("c6b95a"))
+			foot.name=("ForeToeL" if side==-1 else "ForeToeR")+str(toe)
 			foot.rotation.y = side * (toe - 1) * 0.35
 			var back_foot := box(root, Vector3(0.07, 0.05, 0.28), Vector3(side * (0.38 + toe * 0.065), 0.045, 0.43 + toe * 0.02), green)
 			back_foot.rotation.y = side * (toe - 1) * 0.3
@@ -245,6 +247,9 @@ static func frog(hat: bool = true) -> Node3D:
 		stitch.rotation.y = angle
 	baby_hat.visible = false
 	hourglass_pyramid(socket)
+	var wardrobe=load("res://scripts/frog_wardrobe.gd")
+	wardrobe.fit_pyramid(socket.get_node("HourglassHat"))
+	wardrobe.suit(root)
 	return root
 
 static func hourglass_pyramid(socket: Node3D) -> void:

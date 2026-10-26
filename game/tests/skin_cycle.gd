@@ -25,18 +25,20 @@ func run() -> void:
  await process_frame
  var scroll: ScrollContainer=app.overlay_layout.get_parent()
  var before_scroll: int=scroll.scroll_vertical
+ var choices=app.available_skins()
  var stable := true
  var correct := true
  for i in range(32):
   control.pressed.emit()
   await process_frame
-  correct = correct and app.skin == ("purple" if i%2==0 else "green") and control.text == "Skin: " + app.skin.capitalize()
+  correct = correct and app.skin == choices[(i+1)%choices.size()] and control.text == "Skin: " + app.skin.capitalize()
   stable = stable and is_instance_valid(control) and app.skin_button==control and control.has_focus() and scroll.scroll_vertical==before_scroll and app.splash_menu and app.overlay.visible
- suite.check(correct,"Repeated activation cycles both colors and updates the visible label")
+ suite.check(correct,"Repeated activation cycles all earned colors and updates the visible label")
  suite.check(stable,"Cycling keeps the active menu control, keyboard focus and scroll position alive")
  control.pressed.emit()
+ var chosen=app.skin
  app.load_profile()
- suite.check(app.skin=="purple","Chosen skin survives profile reload")
+ suite.check(app.skin==chosen,"Chosen skin survives profile reload")
  suite.check(app.completed_stages==[0,1,2,3] and app.completed_human_stages==[0,2] and app.hat=="baby","Skin selection preserves campaign progress and equipped hat")
  app.show_hop_comparison()
  suite.check(app.skin_button==null,"Leaving the main menu clears its control reference")
@@ -75,11 +77,13 @@ func run() -> void:
  app.show_menu()
  await process_frame
  suite.check(is_instance_valid(app.skin_button) and app.skin_button!=control and app.hop_animation_button==null and app.hop_palette_button==null and app.hop_volume_slider==null,"Returning builds a fresh skin control and clears advanced references")
+ var next_skin=choices[(choices.find(app.skin)+1)%choices.size()]
  app.skin_button.pressed.emit()
- suite.check(app.skin=="green" and app.skin_button.text=="Skin: Green","New menu control still cycles normally")
- app.completed_stages=[0,1,2]
+ suite.check(app.skin==next_skin,"New menu control still cycles normally")
+ app.completed_stages=[]
+ app.completed_human_stages=[]
  app.show_menu()
- suite.check(app.skin_button==null,"Locked profiles have no skin selector")
+ suite.check(app.skin_button!=null,"New profiles can see the skin unlock control")
  app.toggle_skin()
  suite.check(app.skin=="green","Locked profiles cannot cycle the skin")
  app.completed_stages=[0,1,2,3]

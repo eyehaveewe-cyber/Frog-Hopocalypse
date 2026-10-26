@@ -17,6 +17,12 @@ var hop_pose_style := "smooth"
 var hop_parts: Array[Node3D] = []
 var hop_rest: Array[Transform3D] = []
 var pose_phase := 0.0
+var morning_suit := false
+var idle_time := 0.0
+var dance_active := false
+var salute_parts:Array[Node3D]=[]
+var salute_rest:Array[Transform3D]=[]
+const Wardrobe=preload("res://scripts/frog_wardrobe.gd")
 
 func setup(player: bool, theme_name: String, obj: Dictionary = {}, hat: bool = true) -> void:
 	is_player = player
@@ -40,6 +46,9 @@ func setup(player: bool, theme_name: String, obj: Dictionary = {}, hat: bool = t
 				var part := visual.get_node(part_name) as Node3D
 				hop_parts.append(part)
 				hop_rest.append(part.transform)
+	if player:
+		for part_name in ["ForeArmR","ForeToeR0","ForeToeR1","ForeToeR2"]:
+			var part:Node3D=visual.get_node(part_name);salute_parts.append(part);salute_rest.append(part.transform)
 	var shadow := Art.cylinder(self, 0.43 if player else 0.4, 0.43 if player else 0.4, 0.012, Vector3(0, 0.015, 0), Color(0.06, 0.09, 0.06, 0.4))
 	var shadow_material := Art.mat(Color(0.06, 0.09, 0.06, 0.4)).duplicate() as StandardMaterial3D
 	shadow_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -101,6 +110,10 @@ func set_hat(kind: Variant) -> void:
 		visual.get_node("HatSocket/PharaohHat").visible = selected == "pharaoh"
 		visual.get_node("HatSocket/BabyFrogHat").visible = selected == "baby"
 		visual.get_node("HatSocket/HourglassHat").visible = selected == "hourglass"
+		morning_suit=selected=="morning"
+		visual.get_node("MorningSuit").visible=morning_suit
+		visual.get_node("HatSocket/MorningHat").visible=morning_suit
+		idle_dance(0,false)
 
 func set_skin(kind: String) -> void:
 	if not is_player:
@@ -110,6 +123,13 @@ func set_skin(kind: String) -> void:
 			continue
 		var original: Material = part.get_meta("frog_base_material")
 		part.material_override = original
+		if kind in ["orange","yellow","spotted","purple_white","gummy"]:
+			if original is ShaderMaterial or (original is StandardMaterial3D and original.albedo_texture != null):
+				part.material_override=Wardrobe.skin(kind)
+			elif original is StandardMaterial3D:
+				if original.albedo_color in [Color("9bc952"),Color("c6b95a")]:part.material_override=Wardrobe.skin(kind)
+				elif original.albedo_color==Color("d4d98c"):part.material_override=Wardrobe.material(Color.WHITE if kind=="purple_white" else Wardrobe.skin(kind).albedo_color.lightened(.35))
+			continue
 		if kind != "purple":
 			continue
 		if original is ShaderMaterial or (original is StandardMaterial3D and original.albedo_texture != null):
@@ -166,3 +186,36 @@ func pose_tile_hop(phase: float, big: bool) -> void:
 			var foot := hop_parts[base + 2 + toe]
 			foot.position = hop_rest[base + 2 + toe].origin + Vector3(side * 0.32 * e, 0.10 * e, 0.64 * e)
 			foot.rotation = Vector3(-0.22 * e, side * ((toe - 1) * 0.30 + 0.25 * e), 0)
+
+func idle_dance(delta:float,eligible:bool)->void:
+	if not is_player:return
+	if not morning_suit or not eligible:
+		idle_time=0
+		if dance_active:
+			reset_tile_pose();visual.rotation.x=0;visual.rotation.z=0
+			for i in range(salute_parts.size()):salute_parts[i].transform=salute_rest[i]
+			visual.get_node("HatSocket/MorningHat").position=Vector3(0,0,.03)
+			visual.get_node("HatSocket/MorningHat").rotation=Vector3.ZERO
+		dance_active=false;return
+	idle_time+=delta
+	if idle_time<2.5:return
+	dance_active=true
+	var t:=fmod(idle_time-2.5,4.0)
+	var envelope:=smoothstep(0.0,.25,t)*(1.0-smoothstep(3.6,4.0,t))
+	var beat:=sin(t*TAU*2)
+	visual.rotation.z=beat*.10*envelope
+	visual.rotation.x=-sin(t*PI*.5)*.09*envelope
+	for i in range(hop_parts.size()):
+		hop_parts[i].transform=hop_rest[i]
+		if i%5>=2:
+			var side:float=-1.0 if i<5 else 1.0
+			hop_parts[i].position.y+=maxf(0,side*beat)*.07*envelope
+			hop_parts[i].rotation.x=-maxf(0,side*beat)*.35*envelope
+	var tip:=sin(clampf((t-.5)/1.0,0,1)*PI)*envelope
+	var top:Node3D=visual.get_node("HatSocket/MorningHat")
+	top.position=Vector3(.10*tip,.08*tip,.03-.06*tip);top.rotation.z=-.32*tip
+
+	for i in range(salute_parts.size()):
+		salute_parts[i].transform=salute_rest[i]
+		salute_parts[i].position+=Vector3(-.08,.52 if i>0 else .25,.22 if i>0 else .08)*tip
+		salute_parts[i].rotation.x+=(-1.0 if i==0 else -.4)*tip
