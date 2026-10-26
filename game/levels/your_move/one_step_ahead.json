@@ -117,12 +117,12 @@
       "floor",
       "floor",
       "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
       "wall",
       "wall"
     ],
@@ -284,6 +284,7 @@
       "floor",
       "floor",
       "floor",
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -292,8 +293,7 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
+      "wall",
       "wall",
       "wall"
     ],
@@ -357,19 +357,19 @@
     [
       "wall",
       "wall",
+      "wall",
+      "floor",
+      "wall",
       "floor",
       "floor",
       "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
       "wall",
       "wall"
     ],
@@ -591,21 +591,22 @@
         3,
         22
       ],
-      "text": "ONE STEP AHEAD\nNo move, no traffic. Sidestep on the bank to change the next crossing."
+      "text": "ONE STEP AHEAD: CHOOSE THE BEAT\nStop to study the traffic. Every accepted hop advances it once. A shorter route can arrive on a different beat."
     },
     {
       "pos": [
         6,
         17
       ],
-      "text": "The car takes one tile when you hop.\nWaiting here changes nothing. Watch its next tile."
+      "text": "Stop to inspect. Waiting does not advance this world.\nCompare the landing with the hazards' next positions."
     },
     {
       "pos": [
         12,
         7
       ],
-      "text": "Only checkpoint. Turn west, then north.\nA long hop also spends exactly one traffic beat."
+      "text": "CHECKPOINT\nThe route is yours to choose. Recheck moving hazards after a retry."
     }
-  ]
+  ],
+  "design_revision": "choice-screens-20261026"
 }

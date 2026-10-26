@@ -144,18 +144,18 @@
       "floor",
       "floor",
       "floor",
+      "wall",
+      "wall",
+      "wall",
       "floor",
       "floor",
       "floor",
       "floor",
       "floor",
+      "wall",
+      "wall",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
       "wall",
       "wall"
     ],
@@ -330,21 +330,21 @@
     [
       "wall",
       "wall",
+      "wall",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "floor",
       "floor",
       "floor",
+      "wall",
+      "wall",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
       "wall",
       "wall"
     ],
@@ -477,21 +477,21 @@
     [
       "wall",
       "wall",
+      "wall",
       "floor",
       "floor",
       "floor",
       "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
       "wall",
       "wall"
     ],
@@ -727,21 +727,22 @@
         3,
         26
       ],
-      "text": "NEEDLE CLOCK\nEvery hop advances the darts. Stop to read the next step."
+      "text": "NEEDLE CLOCK: READ BOTH LANES\nDarts and rails advance together. Plan a crossing and a place to recover before taking the first step."
     },
     {
       "pos": [
         7,
         21
       ],
-      "text": "Cheese blocks frogs, not darts.\nUse the lower pocket, then cross the firing row."
+      "text": "Stop to inspect. Waiting does not advance this world.\nCompare the landing with the hazards' next positions."
     },
     {
       "pos": [
         9,
         8
       ],
-      "text": "Only checkpoint. The north dart lane\nturns the last corner into a counting problem."
+      "text": "CHECKPOINT\nThe route is yours to choose. Recheck moving hazards after a retry."
     }
-  ]
+  ],
+  "design_revision": "choice-screens-20261026"
 }

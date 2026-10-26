@@ -1,3 +1,5 @@
+**Moves When You Move redesign:** five revised choice-screen layouts and less prescriptive teaching signs. [Intent, map previews and verification](docs/YOUR_MOVE_REDESIGN.md). Review branch; not yet live.
+
 **Frog outfit review branch:** fitted stone-textured hourglass pyramid hat, morning suit with interruptible idle, and five earned frog palettes. [Previews, unlock rules and tests](docs/FROG_OUTFITS.md). Not yet published to the live site.
 
 ## Moves When You Move
