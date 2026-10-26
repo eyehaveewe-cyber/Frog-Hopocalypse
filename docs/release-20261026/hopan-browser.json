@@ -1,0 +1,5 @@
+{
+  "startup": true,
+  "errors": [],
+  "scope": "Release export startup and ordinary keyboard interaction; inspect screenshots. Raw WASM, not hosting-adapted yet."
+}

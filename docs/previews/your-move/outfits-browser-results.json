@@ -1,0 +1,19 @@
+{
+  "colors": [
+    "gummy",
+    "purple",
+    "green",
+    "orange",
+    "yellow",
+    "spotted",
+    "purple_white"
+  ],
+  "hat": "morning",
+  "errors": [],
+  "checks": [
+    "all seven earned skins cycle through real menu",
+    "selected white-bellied skin and morning suit restore on reload",
+    "morning-suit game scene rendered after idle and movement input"
+  ],
+  "limits": "Pose/contact quality requires screenshot review; no physical mobile."
+}

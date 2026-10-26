@@ -1,0 +1,7 @@
+# Hopán browser release verification · 26 October 2026
+
+Game source 97ba5eb9ad40bcef4ad7f5598a076a650ff4ad32, official Godot 4.7.2 with matching pinned-checksum templates. The initial raw export omitted hopan-wasm.js and therefore kept its failure overlay after a 404. Applying the repository's existing build.sh adapter-copy step fixed startup. The engine is gzip-compressed for the existing static host, with the original streaming decoder.
+
+Production startup and ordinary menu input passed without captured errors. Debug export of identical game source passed actual desktop and landscape-touch UI checks: campaign migration, five revised maps, freeze/beat behavior, earned hourglass and reload. Additional real-menu clicks cycle all seven earned palettes, restore the white-bellied purple/morning outfit on reload and render the suit during idle and movement. See docs/previews/your-move/browser-results.json and outfits-browser-results.json plus their screenshots. Native route tests from the feature checkpoint remain the complete-route evidence; browser QA does not claim a human difficulty verdict or physical Safari/mobile acceptance.
+
+The UI test harness needed two updates: normalize scroll coordinates through actual canvas bounds like clicks already did, and cycle the current earned-hat count instead of assuming four. The outfit test waits for actual state changes rather than sleeping 100 ms. These are test-only changes; no gameplay fix was needed. Public Site deployment is tracked separately by its saved version and Site-source commit.
