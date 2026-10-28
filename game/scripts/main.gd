@@ -1,5 +1,6 @@
 extends Control
 const Data = preload("res://scripts/level_data.gd")
+const LibrarySafety = preload("res://scripts/library_safety.gd")
 const World = preload("res://scripts/world.gd")
 const Voice = preload("res://scripts/voice.gd")
 const HopAudio = preload("res://scripts/hop_audio.gd")
@@ -40,6 +41,7 @@ var overlay_layout: MarginContainer
 var overlay_shade: ColorRect
 var splash_art: TextureRect
 var splash_menu = false
+var linked_collection := ""
 const LevelRules = preload("res://scripts/level_rules.gd")
 const RULE_INK = preload("res://art/rules/hopan-rule-ink.ttf")
 const LandmarkModels = preload("res://scripts/landmark_models.gd")
@@ -86,6 +88,7 @@ var undo_button: Button
 var redo_button: Button
 var level: Dictionary = {}
 var library: Array = []
+var library_safety_error := ""
 var slot_id := ""
 var editor_saved_snapshot: Dictionary = {}
 var pending_editor_navigation: Callable
@@ -160,10 +163,17 @@ func _ready() -> void:
 	hop_audio = HopAudio.new()
 	add_child(hop_audio)
 	hop_audio.set_enabled(sound_enabled)
+	library_safety_error = LibrarySafety.protect("user://library.json", "user://nyc-library.json")
 	load_library()
 	build_ui()
 	load_builtin(0)
+	if OS.has_feature("web"):
+		var requested := str(JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('set') || ''",true))
+		if requested in SET_TITLES: linked_collection = requested
 	show_menu()
+	if not library_safety_error.is_empty():
+		status(library_safety_error)
+		paragraph(overlay_box, library_safety_error)
 	if OS.has_feature("web"):
 		JavaScriptBridge.eval("window.hopanEditorUnsaved=false;window.addEventListener('beforeunload',function(e){if(window.hopanEditorUnsaved){e.preventDefault();e.returnValue='';}});",true)
 		RenderingServer.frame_post_draw.connect(notify_web_ready, CONNECT_ONE_SHOT)
@@ -606,6 +616,9 @@ func reset_overlay(title: String, subtitle: String = "") -> void:
 
 func show_menu() -> void:
 	if request_editor_navigation(show_menu): return
+	if not linked_collection.is_empty():
+		show_linked_collection()
+		return
 	editor_session_active = false
 	hop_audio.clear()
 	begin_pending = false
@@ -625,6 +638,7 @@ func show_menu() -> void:
 	title.add_theme_color_override("font_shadow_color", Color("142f34"))
 	title.add_theme_constant_override("shadow_offset_y", 3)
 	overlay_box.add_child(title)
+	if OS.has_feature("web"): button(overlay_box, "Back to level collections", return_to_level_collections)
 	overlay_box.add_child(label("Level sets", 16, MUTED))
 	add_set_selector("baby", "Difficulty 1")
 	if human_set_unlocked():
@@ -679,6 +693,32 @@ func show_menu() -> void:
 		controls[i].focus_previous = controls[i].get_path_to(controls[(i - 1 + controls.size()) % controls.size()])
 	if not controls.is_empty():
 		call_deferred("focus_splash_action")
+	joystick.hide()
+
+func return_to_level_collections() -> void:
+	if not OS.has_feature("web"): return
+	# Parent and framed game share the Site origin. The parent validates both
+	# origin and source before changing its collection screen.
+	JavaScriptBridge.eval("(function(){if(window.parent!==window){window.parent.postMessage({type:'hopan-return-levels'},window.location.origin)}else{window.location.assign('/?levels=1')}})()",true)
+
+func show_linked_collection() -> void:
+	editor_session_active = false
+	hop_audio.clear();begin_pending = false;voice.clear();world.halted = true
+	edit_button.hide()
+	reset_overlay(str(SET_TITLES[linked_collection]), "Choose a level. Your earned progress and outfits are retained.")
+	button(overlay_box, "Back to level collections", return_to_level_collections)
+	if linked_collection == "human" and not human_set_unlocked():
+		paragraph(overlay_box, "Complete Baby Mode to unlock " + HUMAN_TITLE + ".")
+	elif linked_collection in ["tile", "sync"] and not tile_mode_unlocked():
+		paragraph(overlay_box, "Complete " + HUMAN_TITLE + " to unlock Tile Hop and Moves When You Move.")
+	else:
+		var paths := paths_for_set(linked_collection)
+		for i in range(paths.size()):
+			var index := i
+			var stage := Data.load_json(paths[i])
+			if not stage.is_empty():
+				button(overlay_box, "Play · " + str(stage.name), func(): play_builtin(index, linked_collection))
+	button(overlay_box, "Frog outfits and saved levels", func(): linked_collection = ""; show_menu())
 	joystick.hide()
 
 func focus_splash_action() -> void:
@@ -1809,7 +1849,10 @@ func rotate_seam_worm(obj: Dictionary, degrees: float, refresh_controls: bool = 
 	rebuild(refresh_controls)
 
 func load_library() -> void:
-	var stored: Variant = JSON.parse_string(FileAccess.get_file_as_string("user://library.json")) if FileAccess.file_exists("user://library.json") else []
+	var stored: Variant = []
+	if FileAccess.file_exists("user://library.json"):
+		var parsed := JSON.new()
+		if parsed.parse(FileAccess.get_file_as_string("user://library.json")) == OK: stored = parsed.data
 	if stored is Array:
 		for item in stored:
 			if item is Dictionary and item.get("id") is String and Data.validate(item.get("level"), item.get("autosave",false) == true) == "":
@@ -1870,6 +1913,9 @@ func cancel_editor_navigation() -> void:
 		world.halted = false
 
 func save_level() -> bool:
+	if not library_safety_error.is_empty():
+		status(library_safety_error)
+		return false
 	commit_name()
 	var error := Data.validate(level)
 	if not error.is_empty():
@@ -2013,6 +2059,9 @@ func editor_change_finished(previous: Dictionary) -> void:
 		editor_autosave_due = true
 
 func save_editor_checkpoint() -> bool:
+	if not library_safety_error.is_empty():
+		status(library_safety_error)
+		return false
 	if not level.has("editor_autosave_id"):
 		return false
 	var error := Data.validate(level,true)
