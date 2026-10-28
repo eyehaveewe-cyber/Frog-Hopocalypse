@@ -1,6 +1,8 @@
 extends Control
 const Data = preload("res://scripts/level_data.gd")
 const LibrarySafety = preload("res://scripts/library_safety.gd")
+const LibraryCompat = preload("res://scripts/library_compat.gd")
+const LibraryMerge = preload("res://scripts/library_merge.gd")
 const LibraryMirror = preload("res://scripts/library_mirror.gd")
 const World = preload("res://scripts/world.gd")
 const Voice = preload("res://scripts/voice.gd")
@@ -27,7 +29,10 @@ const TILE_LEVELS = ["res://levels/tile_hop/big_hop_boulevard.json", "res://leve
 const MOVE_DEMO = "res://levels/bonus/your_move_hopan.json"
 const BONUS_LEVELS = ["res://levels/bonus/Shelby.json", MOVE_DEMO, "res://levels/bonus/Cramerton.json"]
 const SYNC_LEVELS = ["res://levels/your_move/one_step_ahead.json", "res://levels/your_move/needle_clock.json", "res://levels/your_move/shard_switchyard.json", "res://levels/your_move/stillwater_circuit.json", "res://levels/your_move/rush_hourglass.json"]
-const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus", "tile": "Tile Hop", "sync": "Moves When You Move"}
+const NYC_LEVELS = ["res://levels/nyc_01_central_park.json", "res://levels/nyc_02_brownstone_blocks.json", "res://levels/nyc_03_east_river_piers.json", "res://levels/nyc_04_broadway.json", "res://levels/nyc_05_midtown_rush_hour.json", "res://levels/nyc_06_brooklyn_skate_circle.json"]
+const STREETLIFE_LEVELS = ["res://levels/streetlife_01_stoop_patrol.json", "res://levels/streetlife_02_newsstand_weave.json", "res://levels/streetlife_03_ferry_railwalk.json", "res://levels/streetlife_04_banked_boulevard.json", "res://levels/streetlife_05_sanitation_courts.json", "res://levels/streetlife_06_block_party.json"]
+var city_progress := {"nyc": [], "streetlife": []}
+const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus", "tile": "Tile Hop", "sync": "Moves When You Move", "nyc": "New York City", "streetlife": "NYC Streetlife"}
 const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat", "hourglass": "Hourglass pyramid hat", "morning": "Morning suit + top hat"}
 const INK = Color("f7f0d8")
 const MUTED = Color("b7c8b9")
@@ -42,7 +47,6 @@ var overlay_layout: MarginContainer
 var overlay_shade: ColorRect
 var splash_art: TextureRect
 var splash_menu = false
-var linked_collection := ""
 const LevelRules = preload("res://scripts/level_rules.gd")
 const RULE_INK = preload("res://art/rules/hopan-rule-ink.ttf")
 const LandmarkModels = preload("res://scripts/landmark_models.gd")
@@ -172,11 +176,9 @@ func _ready() -> void:
 	if OS.has_feature("web") and library_safety_error.is_empty():
 		library_safety_error = LibraryMirror.protect_nyc("user://nyc-library.json")
 	load_library()
+	import_city_library()
 	build_ui()
 	load_builtin(0)
-	if OS.has_feature("web"):
-		var requested := str(JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('set') || ''",true))
-		if requested in SET_TITLES: linked_collection = requested
 	show_menu()
 	if not library_safety_error.is_empty():
 		status(library_safety_error)
@@ -409,6 +411,7 @@ func build_ui() -> void:
 	button(new_row, "New Swamp", func(): new_level("swamp"))
 	button(tools, "New Mexico", func(): new_level("mexico"))
 	button(tools, "New Honduras", func(): new_level("honduras"))
+	button(tools, "New NYC", func(): new_level("nyc"))
 	var saves := row(tools)
 	button(saves, "Save", save_level, true)
 	button(saves, "Duplicate", duplicate_level)
@@ -429,7 +432,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["hop_fragment", "Hop fragment"], ["hop_seed", "Hop seed"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["backdrop", "Distant backdrop"], ["critter", "Critter"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["hop_fragment", "Hop fragment"], ["hop_seed", "Hop seed"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["backdrop", "Distant backdrop"], ["critter", "Critter"], ["roach", "Roach"], ["skater", "Skater"], ["city_prop", "Street prop"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		if key in ["tree", "pillar", "decoration"]: themed_tool_buttons[key] = b
@@ -623,9 +626,6 @@ func reset_overlay(title: String, subtitle: String = "") -> void:
 
 func show_menu() -> void:
 	if request_editor_navigation(show_menu): return
-	if not linked_collection.is_empty():
-		show_linked_collection()
-		return
 	editor_session_active = false
 	hop_audio.clear()
 	begin_pending = false
@@ -645,19 +645,8 @@ func show_menu() -> void:
 	title.add_theme_color_override("font_shadow_color", Color("142f34"))
 	title.add_theme_constant_override("shadow_offset_y", 3)
 	overlay_box.add_child(title)
-	if OS.has_feature("web"): button(overlay_box, "Back to level collections", return_to_level_collections)
-	overlay_box.add_child(label("Level sets", 16, MUTED))
-	add_set_selector("baby", "Difficulty 1")
-	if human_set_unlocked():
-		add_set_selector("human", "Difficulty 2")
-	if BONUS_LEVELS.any(func(path: String): return FileAccess.file_exists(path)):
-		add_set_selector("bonus", "Difficulty: Unrated")
-	if tile_mode_unlocked():
-		overlay_box.add_child(label("Tile-hop mode", 16, MUTED))
-		add_set_selector("tile", "Difficulty 2")
-		add_set_selector("sync", "Difficulty 3")
-	else:
-		paragraph(overlay_box, "Clear Not as Hard as It Looks to unlock Tile Hop.",12)
+	button(overlay_box, "Play Baby Mode", func(): play_builtin(set_start_index("baby"),"baby"), true)
+	button(overlay_box, "Levels", show_levels)
 	preview_toggle = CheckButton.new()
 	preview_toggle.text = "Exit Preview"
 	preview_toggle.tooltip_text = "At stage start, sweep to the exit and back. Hazards and the timer wait."
@@ -702,41 +691,16 @@ func show_menu() -> void:
 		call_deferred("focus_splash_action")
 	joystick.hide()
 
-func return_to_level_collections() -> void:
-	if not OS.has_feature("web"): return
-	# Parent and framed game share the Site origin. The parent validates both
-	# origin and source before changing its collection screen.
-	JavaScriptBridge.eval("(function(){if(window.parent!==window){window.parent.postMessage({type:'hopan-return-levels'},window.location.origin)}else{window.location.assign('/?levels=1')}})()",true)
-
-func show_linked_collection() -> void:
-	editor_session_active = false
-	hop_audio.clear();begin_pending = false;voice.clear();world.halted = true
-	edit_button.hide()
-	reset_overlay(str(SET_TITLES[linked_collection]), "Choose a level. Your earned progress and outfits are retained.")
-	button(overlay_box, "Back to level collections", return_to_level_collections)
-	if linked_collection == "human" and not human_set_unlocked():
-		paragraph(overlay_box, "Complete Baby Mode to unlock " + HUMAN_TITLE + ".")
-	elif linked_collection in ["tile", "sync"] and not tile_mode_unlocked():
-		paragraph(overlay_box, "Complete " + HUMAN_TITLE + " to unlock Tile Hop and Moves When You Move.")
-	else:
-		var paths := paths_for_set(linked_collection)
-		for i in range(paths.size()):
-			var index := i
-			var stage := Data.load_json(paths[i])
-			if not stage.is_empty():
-				button(overlay_box, "Play · " + str(stage.name), func(): play_builtin(index, linked_collection))
-	button(overlay_box, "Frog outfits and saved levels", func(): linked_collection = ""; show_menu())
-	var controls := overlay_box.find_children("*", "BaseButton", true, false)
-	for i in range(controls.size()):
-		controls[i].focus_next = controls[i].get_path_to(controls[(i + 1) % controls.size()])
-		controls[i].focus_previous = controls[i].get_path_to(controls[(i - 1 + controls.size()) % controls.size()])
-	if not controls.is_empty(): call_deferred("focus_linked_collection")
+func show_levels() -> void:
+	reset_overlay("Levels", "Start with Baby Mode, or choose a level set below.")
+	button(overlay_box,"Back",show_menu)
+	for key in SET_TITLES:
+		var locked: bool = (key == "human" and not human_set_unlocked()) or (key in ["tile","sync"] and not tile_mode_unlocked())
+		if locked:
+			paragraph(overlay_box,str(SET_TITLES[key])+" · Complete "+("Baby Mode" if key == "human" else HUMAN_TITLE)+" to unlock.")
+		else:
+			add_set_selector(key,"%d levels · %d cleared" % [paths_for_set(key).size(),progress_for_set(key).size()])
 	joystick.hide()
-
-func focus_linked_collection() -> void:
-	if linked_collection.is_empty() or not overlay.visible or not is_inside_tree(): return
-	var controls := overlay_box.find_children("*", "BaseButton", true, false)
-	if not controls.is_empty() and controls[0].is_visible_in_tree(): controls[0].grab_focus()
 
 func focus_splash_action() -> void:
 	# A menu can be replaced before the deferred layout pass completes.
@@ -949,6 +913,7 @@ func start_play(from_editor: bool = true) -> void:
 	long_hop_button.set_pressed_no_signal(false)
 	status(level.name + (" · Reach checkpoints to save your place for retries." if level.has("checkpoint") or not level.get("checkpoints", []).is_empty() else " · WASD / arrows to move. M: map. R: retry."))
 	reset_touch()
+	if level.has("hint"): status(level.name+" · "+str(level.hint))
 	if level.get("game_mode") == "tile":
 		status("Tile Hop · arrows / WASD: one tile · Space / Long hop, then a direction: two · Walls block both." + (" Move with me: stop to freeze hazards." if level.get("move_with_me",false) else ""))
 	start_announcements()
@@ -1092,7 +1057,7 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 					paragraph(overlay_box, "Unlocked: Purple frog skin! Choose Skin on the main menu.")
 					button(overlay_box, "Start · " + HUMAN_TITLE, func(): play_builtin(0, "human"), true)
 				else:
-					paragraph(overlay_box, "All five Moves When You Move stages cleared!" if campaign_set == "sync" else ("Tile Hop demos cleared!" if campaign_set == "tile" else "Bonus set cleared!"))
+					paragraph(overlay_box, "All five Moves When You Move stages cleared!" if campaign_set == "sync" else ("Tile Hop demos cleared!" if campaign_set == "tile" else str(SET_TITLES[campaign_set])+" cleared!"))
 				if earned_hat:
 					paragraph(overlay_box, "Unlocked: " + ("Hourglass pyramid hat" if campaign_set == "sync" else "Baby frog hat") + "! Equipped now. Press Hat to cycle your unlocked hats.")
 		if mode == "play" and campaign_level and builtin_index < campaign_paths().size() - 1:
@@ -1210,7 +1175,7 @@ func set_exit_preview(enabled: bool) -> void:
 	save_profile()
 
 func cleared_cosmetic_levels() -> int:
-	return completed_stages.size()+completed_human_stages.size()+completed_bonus_stages.size()+completed_tile_stages.size()+completed_sync_stages.size()
+	return completed_stages.size()+completed_human_stages.size()+completed_bonus_stages.size()+completed_tile_stages.size()+completed_sync_stages.size()+city_progress.nyc.size()+city_progress.streetlife.size()
 
 func available_skins() -> Array[String]:
 	var choices:Array[String]=["green"]
@@ -1266,6 +1231,7 @@ func unlock_hourglass_hat() -> void:
 
 func save_profile() -> void:
 	var profile := ConfigFile.new()
+	profile.set_value("city", "progress", city_progress)
 	profile.set_value("rules", "seen", seen_rule_ids)
 	profile.set_value("settings", "exit_preview", exit_preview)
 	profile.set_value("settings", "recorded_voices", sound_enabled)
@@ -1283,7 +1249,7 @@ func save_profile() -> void:
 	if OS.has_feature("web"):
 		# IndexedDB filesystem sync is asynchronous. Keep the small profile durable
 		# immediately as well, so a quick reload cannot restore an older hat/clear.
-		var payload := JSON.stringify({"version": 1, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "sync": completed_sync_stages, "last_cleared": last_cleared_stages, "hat": hat, "skin": skin, "preview": exit_preview, "sound": sound_enabled, "seen_rules": seen_rule_ids})
+		var payload := JSON.stringify({"version": 1, "city": city_progress, "baby": completed_stages, "human": completed_human_stages, "bonus": completed_bonus_stages, "tile": completed_tile_stages, "sync": completed_sync_stages, "last_cleared": last_cleared_stages, "hat": hat, "skin": skin, "preview": exit_preview, "sound": sound_enabled, "seen_rules": seen_rule_ids})
 		browser_saved = bool(JavaScriptBridge.eval("(function(){try{localStorage.setItem('hopan.profile.v1', " + JSON.stringify(payload) + ");return true;}catch(e){return false;}})()", true))
 	if not file_saved and not browser_saved:
 		status("Could not save progress on this device.")
@@ -1308,6 +1274,7 @@ func load_profile() -> void:
 			var parsed := JSON.new()
 			var backup: Variant = Data.normalize(parsed.data) if parsed.parse(stored) == OK else null
 			if backup is Dictionary and backup.get("version") == 1 and backup.get("baby") is Array and backup.get("human") is Array and backup.get("hat") in HAT_NAMES and backup.get("preview") is bool:
+				profile.set_value("city", "progress", backup.get("city",{}))
 				profile.set_value("baby_mode", "completed", backup.baby)
 				profile.set_value("not_as_hard", "completed", backup.human)
 				if backup.get("bonus") is Array:
@@ -1327,6 +1294,11 @@ func load_profile() -> void:
 				browser_loaded = true
 	if not file_loaded and not browser_loaded:
 		return
+	var saved_city: Variant = profile.get_value("city","progress",{})
+	if saved_city is Dictionary:
+		for key in city_progress:
+			if saved_city.get(key) is Array:
+				city_progress[key] = saved_city[key].filter(func(i): return i is int and i >= 0 and i < paths_for_set(key).size())
 	exit_preview = profile.get_value("settings", "exit_preview", false) == true
 	sound_enabled = profile.get_value("settings", "recorded_voices", true) == true
 	var saved_stages: Variant = profile.get_value("baby_mode", "completed", [])
@@ -1620,10 +1592,20 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 				status("Place a seam worm at a corner surrounded by four open, dry tiles.")
 				return
 		var obj := {"id": "object_%d_%d" % [Time.get_ticks_usec(), level.objects.size()], "type": "critter" if tool == "seam_worm" else tool, "pos": point, "rotation": 0, "solid": tool in ["pillar", "tree", "emitter"]}
-		if tool in ["critter", "seam_worm"]:
+		if tool in ["critter", "roach", "seam_worm"]:
 			obj.merge({"behavior": "seam_patrol" if tool == "seam_worm" else "wander", "speed": 1.6, "waypoints": []})
 		if tool == "seam_worm":
 			obj.seam_anchor = [cell.x, cell.y]
+		if tool == "city_prop":
+			obj.variant = "bench"
+			obj.solid = true
+		if tool == "skater":
+			obj.variant = 0
+			obj.speed = 3.2
+			obj.route = default_skate_route(point)
+			if obj.route.is_empty():
+				status("A skater needs a dry two-by-two-cell loop. Choose a more open spot.")
+				return
 		if tool == "spike_ball":
 			obj.merge({"behavior":"free_shift","pause":2,"range":3,"directions":[0,90,180,270],"waypoints":[],"patrol_loop":true})
 		if tool == "emitter":
@@ -1635,6 +1617,18 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		level.objects.append(obj)
 		selection = obj.id
 	rebuild()
+
+func default_skate_route(point: Array) -> Array:
+	for dx in [-2, 2]:
+		for dy in [-2, 2]:
+			var route: Array = []
+			for p in [point, [point[0] + dx, point[1]], [point[0] + dx, point[1] + dy], [point[0], point[1] + dy]]:
+				route.append({"pos": p, "height": 0.0, "trick": "push"})
+			var candidate: Dictionary = level.duplicate(true)
+			candidate.objects.append({"id": "skate_route_preview", "type": "skater", "variant": 0, "speed": 3.2, "pos": point, "route": route})
+			if Data.validate(candidate).is_empty():
+				return route
+	return []
 
 func refresh_inspector() -> void:
 	for child in inspector.get_children():
@@ -1687,7 +1681,7 @@ func refresh_inspector() -> void:
 		size.value_changed.connect(func(value: float): change_property("landmark_scale",value,false))
 		inspector.add_child(size)
 		paragraph(inspector,"Visual scenery · Does not block movement or darts. Select its gold ground pin. Background view lets you place it outside the course.",12)
-	if obj.type == "critter":
+	if obj.type in ["critter","roach"]:
 		var behavior := OptionButton.new()
 		behavior.add_item("Wander")
 		behavior.add_item("Patrol")
@@ -1773,6 +1767,29 @@ func refresh_inspector() -> void:
 			route_controls.add_child(loop)
 			button(inspector,"Clear route",func(): change_property("waypoints",[]))
 		paragraph(inspector,"Copper track marks the next slam. Hold, then move fast. Walls, cheese and scenery stop it.",12)
+	if obj.type == "city_prop":
+		var prop_picker := OptionButton.new()
+		for kind in Data.CITY_PROPS:
+			prop_picker.add_item(str(kind).replace("_", " ").capitalize())
+		prop_picker.select(Data.CITY_PROPS.find(obj.variant))
+		prop_picker.item_selected.connect(func(i: int): change_property("variant", Data.CITY_PROPS[i], false))
+		inspector.add_child(prop_picker)
+	if obj.type == "skater":
+		var rider := OptionButton.new()
+		for title in ["Cap / rust shirt", "Hoodie / teal", "Punk / violet"]:
+			rider.add_item(title)
+		rider.select(int(obj.get("variant", 0)))
+		rider.item_selected.connect(func(i: int): change_property("variant", i, false))
+		inspector.add_child(rider)
+		var skate_speed := SpinBox.new()
+		skate_speed.min_value = 2
+		skate_speed.max_value = 5.5
+		skate_speed.step = 0.1
+		skate_speed.value = obj.get("speed", 3.2)
+		skate_speed.suffix = "speed"
+		skate_speed.value_changed.connect(func(v: float): change_property("speed", v, false))
+		inspector.add_child(skate_speed)
+		paragraph(inspector, "Loop points and trick heights are preserved in JSON. The lines show this rider's route.", 11)
 	if obj.type == "emitter":
 		var interval := SpinBox.new()
 		interval.min_value = 1.0 if level.get("game_mode") == "tile" else 0.5
@@ -1811,7 +1828,7 @@ func refresh_inspector() -> void:
 			button(inspector, "Draw car patrol", func(): set_tool("route"))
 			button(inspector, "Clear car route (%d points)" % obj.get("waypoints", []).size(),func(): change_property("waypoints", []))
 
-	if obj.type in ["mushroom", "decoration"]:
+	if obj.type in ["mushroom", "decoration", "city_prop"]:
 		var solid := CheckBox.new()
 		solid.text = "Blocks movement"
 		solid.button_pressed = obj.get("solid", false)
@@ -1895,6 +1912,16 @@ func load_library() -> void:
 						library = library.filter(func(item: Dictionary): return item.id != entry.id)
 						library.append(Data.normalize(entry))
 
+
+func import_city_library() -> void:
+	if not library_safety_error.is_empty(): return
+	var state := LibraryCompat.load_library(Data.validate,Data.normalize)
+	if not state.writable:
+		library_safety_error = state.error
+		return
+	var merged := LibraryMerge.merge(library,state.items)
+	if merged != library:
+		if commit_library_candidate(merged): library = merged
 
 func refresh_library_picker() -> void:
 	saved_picker.clear()
@@ -2269,7 +2296,7 @@ func publish_browser_probe() -> void:
 		backdrop_points.append({"cell":point,"x":screen.x,"y":screen.y})
 	var state := {"mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
 		"menu_panel": {"children":overlay_box.get_child_count(),"height":overlay_panel.size.y,"width":overlay_panel.size.x,"scroll":overlay_layout.get_parent().scroll_vertical},
-		"campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "completed_sync_stages": completed_sync_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
+		"city_progress": city_progress, "city_traffic": world.traffic.vehicles.size(), "city_skaters": world.skaters.size(), "campaign_set": campaign_set, "completed_bonus_stages": completed_bonus_stages, "completed_sync_stages": completed_sync_stages, "human_set_unlocked": human_set_unlocked(), "completed_human_stages": completed_human_stages,
 		"hat": hat, "skin": skin, "unlocked_hats": unlocked_hats, "completed_stages": completed_stages, "checkpoint": checkpoint_spawn, "stage": builtin_index,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells, "lane_tunnels": world.lane_tunnel_plans,
 		"hop_audio": {"unlocked":hop_audio.unlocked,"history":hop_audio.history,"gain":hop_audio.gain,"palette":hop_audio.palette,"playing":hop_audio.takeoff.playing or hop_audio.landing.playing,"db":hop_audio.takeoff.volume_db}, "hop_pose":world.hop_pose_style,"pose_phase":world.player.pose_phase,
@@ -2455,6 +2482,8 @@ func paths_for_set(set_key: String) -> Array:
 		"sync": return SYNC_LEVELS
 		"tile": return TILE_LEVELS
 		"bonus": return BONUS_LEVELS
+		"nyc": return NYC_LEVELS
+		"streetlife": return STREETLIFE_LEVELS
 	return []
 
 func progress_for_set(set_key: String = "") -> Array:
@@ -2463,6 +2492,8 @@ func progress_for_set(set_key: String = "") -> Array:
 		"sync": return completed_sync_stages
 		"tile": return completed_tile_stages
 		"bonus": return completed_bonus_stages
+		"nyc": return city_progress.nyc
+		"streetlife": return city_progress.streetlife
 	return completed_stages
 
 func set_start_index(set_key: String) -> int:

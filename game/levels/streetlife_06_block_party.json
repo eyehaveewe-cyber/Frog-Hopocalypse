@@ -1,0 +1,1361 @@
+{
+  "version": 1,
+  "name": "STREETLIFE 06 · Block Party",
+  "theme": "nyc",
+  "width": 25,
+  "height": 25,
+  "spawn": [
+    12,
+    23
+  ],
+  "exit": [
+    12,
+    1
+  ],
+  "district": "BLOCK PARTY",
+  "level_set": "nyc_streetlife",
+  "set_index": 6,
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "objects": [
+    {
+      "id": "set6-skate_rail-0",
+      "type": "city_prop",
+      "variant": "skate_rail",
+      "pos": [
+        7,
+        12
+      ],
+      "rotation": 0,
+      "solid": true,
+      "length": 3.6
+    },
+    {
+      "id": "set6-skate_ramp-1",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        7.0,
+        13.5
+      ],
+      "rotation": 0,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "set6-skate_ramp-2",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        7.0,
+        10.5
+      ],
+      "rotation": 180,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "set6-skater-3",
+      "type": "skater",
+      "variant": 0,
+      "pos": [
+        5,
+        16
+      ],
+      "rotation": 0,
+      "solid": false,
+      "speed": 3.3,
+      "route": [
+        {
+          "pos": [
+            5,
+            16
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            7.0,
+            14.0
+          ],
+          "height": 0,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            7.0,
+            13.0
+          ],
+          "height": 0.605,
+          "trick": "grind"
+        },
+        {
+          "pos": [
+            7.0,
+            11.0
+          ],
+          "height": 0.605,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            7.0,
+            10.0
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            6,
+            9
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            4,
+            10
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            4,
+            14
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            5,
+            15
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "set6-skate_ramp-4",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        12.888889,
+        12.0
+      ],
+      "rotation": 270,
+      "solid": true,
+      "rise": 0.7,
+      "length": 4.0
+    },
+    {
+      "id": "set6-skate_ramp-5",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        15.111111,
+        12.0
+      ],
+      "rotation": 90,
+      "solid": true,
+      "rise": 0.7,
+      "length": 4.0
+    },
+    {
+      "id": "set6-skater-6",
+      "type": "skater",
+      "variant": 1,
+      "pos": [
+        9,
+        12
+      ],
+      "rotation": 0,
+      "solid": false,
+      "speed": 3.2,
+      "route": [
+        {
+          "pos": [
+            9,
+            12
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            11.777778,
+            12.0
+          ],
+          "height": 0,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            14,
+            12
+          ],
+          "height": 0.7,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            16.222222,
+            12.0
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            18,
+            12
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            18,
+            16
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            10,
+            16
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            9,
+            14
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "set6-skate_rail-7",
+      "type": "city_prop",
+      "variant": "skate_rail",
+      "pos": [
+        13,
+        9
+      ],
+      "rotation": 270,
+      "solid": true,
+      "length": 3.6
+    },
+    {
+      "id": "set6-skate_ramp-8",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        11.5,
+        9.0
+      ],
+      "rotation": 270,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "set6-skate_ramp-9",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        14.5,
+        9.0
+      ],
+      "rotation": 90,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "set6-skater-10",
+      "type": "skater",
+      "variant": 2,
+      "pos": [
+        8,
+        9
+      ],
+      "rotation": 0,
+      "solid": false,
+      "speed": 3.7,
+      "route": [
+        {
+          "pos": [
+            8,
+            9
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            11.0,
+            9.0
+          ],
+          "height": 0,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            12.0,
+            9.0
+          ],
+          "height": 0.605,
+          "trick": "grind"
+        },
+        {
+          "pos": [
+            14.0,
+            9.0
+          ],
+          "height": 0.605,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            15.0,
+            9.0
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            20,
+            10
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            20,
+            15
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            17,
+            17
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            12,
+            17
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            10,
+            15
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            9,
+            11
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "set6-pizza_cart-11",
+      "type": "city_prop",
+      "variant": "pizza_cart",
+      "pos": [
+        21,
+        16
+      ],
+      "rotation": 270,
+      "solid": true
+    },
+    {
+      "id": "set6-newsstand-12",
+      "type": "city_prop",
+      "variant": "newsstand",
+      "pos": [
+        3,
+        8
+      ],
+      "rotation": 90,
+      "solid": true
+    },
+    {
+      "id": "set6-dumpster-13",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        23,
+        8
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set6-trash_can-14",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        22,
+        9
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set6-bench-15",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        5,
+        8
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set6-bench-16",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        15,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set6-mailbox-17",
+      "type": "city_prop",
+      "variant": "mailbox",
+      "pos": [
+        8,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set6-traffic_cone-18",
+      "type": "city_prop",
+      "variant": "traffic_cone",
+      "pos": [
+        10,
+        22
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set6-traffic_cone-19",
+      "type": "city_prop",
+      "variant": "traffic_cone",
+      "pos": [
+        15,
+        22
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set6-manhole-20",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        12,
+        21
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "set6-manhole-21",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        17,
+        13
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "set6-roach-22",
+      "type": "roach",
+      "pos": [
+        20,
+        8
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.25,
+      "waypoints": [
+        [
+          20,
+          8
+        ],
+        [
+          22,
+          8
+        ],
+        [
+          22,
+          10
+        ],
+        [
+          20,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "set6-roach-23",
+      "type": "roach",
+      "pos": [
+        19,
+        16
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          19,
+          16
+        ],
+        [
+          20,
+          16
+        ],
+        [
+          20,
+          17
+        ],
+        [
+          19,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "set6-roach-24",
+      "type": "roach",
+      "pos": [
+        5,
+        3
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.4,
+      "waypoints": [
+        [
+          5,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          5,
+          4
+        ]
+      ]
+    }
+  ],
+  "traffic": [
+    {
+      "row": 20,
+      "direction": 1,
+      "speed": 3.8,
+      "spacing": 12.5,
+      "offset": 2.0,
+      "vehicles": [
+        "taxi",
+        "sedan",
+        "truck"
+      ]
+    },
+    {
+      "row": 19,
+      "direction": -1,
+      "speed": 3.2,
+      "spacing": 14.0,
+      "offset": 7.0,
+      "vehicles": [
+        "bus",
+        "taxi"
+      ]
+    },
+    {
+      "row": 6,
+      "direction": 1,
+      "speed": 4.4,
+      "spacing": 12.0,
+      "offset": 4.0,
+      "vehicles": [
+        "taxi",
+        "sedan"
+      ]
+    },
+    {
+      "row": 5,
+      "direction": -1,
+      "speed": 3.6,
+      "spacing": 14.0,
+      "offset": 1.0,
+      "vehicles": [
+        "truck",
+        "bus",
+        "taxi"
+      ]
+    }
+  ],
+  "crossings": [
+    6,
+    12,
+    18
+  ],
+  "hint": "Cross the street, read the three skate loops, rest at the fountain, then cross home.",
+  "description": "Traffic bookends a neighborhood block party. A narrow arrival gate puts the first board crossing in view; a bank, two grind lines and a fountain then offer distinct ways through before the final avenue.",
+  "design_purpose": "Combine road timing, a mandatory rider arrival crossing and a route choice around a fountain.",
+  "required_gates": [
+    {
+      "name": "south avenue",
+      "rect": [
+        1,
+        19,
+        23,
+        20
+      ]
+    },
+    {
+      "name": "party arrival gate",
+      "rect": [
+        1,
+        18,
+        23,
+        18
+      ]
+    },
+    {
+      "name": "north avenue",
+      "rect": [
+        1,
+        5,
+        23,
+        6
+      ]
+    }
+  ]
+}
