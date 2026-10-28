@@ -1,0 +1,13 @@
+{
+  "viewport": [
+    1280,
+    800
+  ],
+  "images": 6,
+  "vehicles": [
+    "roach",
+    "props"
+  ],
+  "errors": [],
+  "renderer": "Godot Web debug export / Chromium SwiftShader"
+}

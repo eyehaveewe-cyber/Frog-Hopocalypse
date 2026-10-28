@@ -1,0 +1,9 @@
+{
+  "viewport": [
+    1280,
+    800
+  ],
+  "images": 12,
+  "errors": [],
+  "renderer": "Godot Web debug export / Chromium SwiftShader"
+}

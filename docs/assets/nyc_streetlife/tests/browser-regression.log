@@ -1,0 +1,17 @@
+PASS: Default gameplay uses a low-resolution perspective render
+PASS: Browser keyboard moves the 3D frog continuously
+PASS: M opens the clear overhead map and pauses simulation
+PASS: The 3D view button restores the frog camera and retro rendering
+PASS: Pause stops the world clock
+PASS: Desktop editor preserves its sharp overhead view
+PASS: Mouse painting changes the actual 3D level
+PASS: Browser editor undo and redo restore terrain
+PASS: Browser downloads portable authored JSON
+PASS: Browser playtest preserves the editor document
+PASS: Local level save survives a browser reload
+PASS: Browser file import restores the exported terrain
+PASS: Mobile interface uses phone CSS dimensions
+PASS: Landscape mobile touch joystick moves the frog
+PASS: Mobile pause opens a touch-sized resume screen
+PASS: No browser JavaScript or Godot runtime errors
+BROWSER: 16 checks, 0 failures

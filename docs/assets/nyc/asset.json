@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "asset_id": "nyc_street_kit",
+  "name": "New York City street kit",
+  "kind": "procedural environment and vehicle kit",
+  "quality_tier": "production",
+  "units": "game units, cell=1.8",
+  "style_profile": "Hopan PS1, low-poly, muted masonry and yellow cabs, night billboard accents",
+  "requirements": [
+    {
+      "id": "NYC-VEHICLES",
+      "text": "Distinct taxi, sedan, city bus and delivery truck silhouettes, +X forward.",
+      "proof": "checkpoints/05_details_materials.gd.txt"
+    },
+    {
+      "id": "NYC-MOTION",
+      "text": "Four named wheel pivots on each vehicle and bounded traffic collision contract.",
+      "proof": "tests/native-instantiation.txt"
+    },
+    {
+      "id": "NYC-SKYLINE",
+      "text": "Perimeter skyline with stepped silhouette, water towers, fire escapes and original billboards.",
+      "proof": "../../../game/scripts/nyc_art.gd"
+    }
+  ],
+  "stages": [
+    {
+      "id": "01",
+      "title": "Brief and style",
+      "status": "approved",
+      "criteria": [
+        "Declare game scale, forward axis, recognizable vehicle assemblies and camera constraints."
+      ],
+      "evidence": [
+        "brief/requirements.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "02",
+      "title": "Primary proportions",
+      "status": "approved",
+      "criteria": [
+        "Four distinct silhouettes with 2.6/4.4/3.5-unit bodies; front, side and three-quarter rendered evidence."
+      ],
+      "evidence": [
+        "checkpoints/02_blockout.gd.txt",
+        "previews/taxi_front.png",
+        "previews/taxi_side.png",
+        "previews/taxi_threequarter.png",
+        "previews/sedan_front.png",
+        "previews/sedan_side.png",
+        "previews/sedan_threequarter.png",
+        "previews/bus_front.png",
+        "previews/bus_side.png",
+        "previews/bus_threequarter.png",
+        "previews/truck_front.png",
+        "previews/truck_side.png",
+        "previews/truck_threequarter.png",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "03",
+      "title": "Secondary assemblies",
+      "status": "approved",
+      "criteria": [
+        "Vehicle cabins, side glazing, door frames, named wheel pivots; skyline windows and water towers."
+      ],
+      "evidence": [
+        "checkpoints/03_components.gd.txt",
+        "previews/truck_side.png",
+        "review.md",
+        "checkpoints/07_truck_coplanar_rework.gd.txt",
+        "previews/truck_threequarter.png"
+      ],
+      "issues": []
+    },
+    {
+      "id": "04",
+      "title": "Mechanical wheel hierarchy",
+      "status": "approved",
+      "criteria": [
+        "Four Wheel_* pivots per vehicle, wheels rotate about local Z; collision supplied by traffic runtime."
+      ],
+      "evidence": [
+        "tests/native-instantiation.txt",
+        "../../../game/scripts/nyc_art.gd",
+        "tests/native-integration.log",
+        "previews/taxi_side.png"
+      ],
+      "issues": []
+    },
+    {
+      "id": "05",
+      "title": "Distinguishing details",
+      "status": "approved",
+      "criteria": [
+        "Taxi checker stripe and roof sign, bus route display, truck roll-up slats, mirrors and fire escapes."
+      ],
+      "evidence": [
+        "checkpoints/05_details_materials.gd.txt",
+        "previews/taxi_threequarter.png",
+        "previews/bus_threequarter.png",
+        "previews/truck_threequarter.png",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "06",
+      "title": "Materials and optimization",
+      "status": "approved",
+      "criteria": [
+        "Restrained PS1 low-poly palette, luminous lamps and merged stationary bodies; no repeated body meshes per primitive."
+      ],
+      "evidence": [
+        "checkpoints/05_details_materials.gd.txt",
+        "tests/native-instantiation.txt",
+        "checkpoints/06_wheel_spokes_light_pools.gd.txt",
+        "previews/taxi_side.png",
+        "previews/bus_side.png",
+        "previews/truck_side.png",
+        "review.md",
+        "checkpoints/07_truck_coplanar_rework.gd.txt",
+        "tests/nyc-midtown-gameplay.png"
+      ],
+      "issues": []
+    },
+    {
+      "id": "07",
+      "title": "Independent visual critique",
+      "status": "approved",
+      "criteria": [
+        "Inspect front, side, three-quarter and gameplay views. Record defects and rework. "
+      ],
+      "evidence": [
+        "review.md",
+        "previews/capture.json",
+        "previews/truck_side.png",
+        "tests/nyc-midtown-overview.png",
+        "tests/nyc-midtown-mobile.png"
+      ],
+      "issues": []
+    },
+    {
+      "id": "08",
+      "title": "Godot integration",
+      "status": "approved",
+      "criteria": [
+        "Native procedural source is runtime export. Instantiate all models without engine errors; test in traffic."
+      ],
+      "evidence": [
+        "tests/native-instantiation.txt",
+        "../../../game/scripts/nyc_art.gd",
+        "tests/native-integration.log",
+        "tests/browser-integration.log",
+        "tests/export-build.log",
+        "tests/nyc-midtown-gameplay.png"
+      ],
+      "issues": []
+    },
+    {
+      "id": "09",
+      "title": "Animation handoff",
+      "status": "approved",
+      "criteria": [
+        "Wheel names and +X forward documented. Traffic runtime owns speed, orientation and wheel rotation."
+      ],
+      "evidence": [
+        "brief/requirements.md",
+        "tests/native-integration.log",
+        "../../../game/scripts/traffic.gd"
+      ],
+      "issues": []
+    }
+  ],
+  "source_files": [
+    "../../../game/scripts/nyc_art.gd",
+    "../../../game/tests/nyc_gallery.gd",
+    "../../../tools/capture_nyc_gallery.cjs"
+  ],
+  "exports": [
+    "../../../game/scripts/nyc_art.gd"
+  ],
+  "renders": [
+    "previews/taxi_front.png",
+    "previews/taxi_side.png",
+    "previews/taxi_threequarter.png",
+    "previews/sedan_front.png",
+    "previews/sedan_side.png",
+    "previews/sedan_threequarter.png",
+    "previews/bus_front.png",
+    "previews/bus_side.png",
+    "previews/bus_threequarter.png",
+    "previews/truck_front.png",
+    "previews/truck_side.png",
+    "previews/truck_threequarter.png"
+  ],
+  "revision_log": [
+    {
+      "date": "2026-10-27",
+      "stage": "02",
+      "operation": "Saved proportion blockout as an independent construction checkpoint.",
+      "impact": "Established vehicle and skyline scale."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "03",
+      "operation": "Built windows, cabins, doors, named wheel pivots, masonry facades and rooftop towers.",
+      "impact": "Added distinct assemblies beyond base boxes."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "05",
+      "operation": "Added checkers, mirrors, route pixels, cargo seams, roll-up slats, railings, fire escapes and signs.",
+      "impact": "Strengthened NYC identities and merged stationary vehicle bodies."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "08",
+      "operation": "Instantiated all four vehicle types, all scenery mappings and district in Godot 4.7.2 headless.",
+      "impact": "Source loads and wheel hierarchy validated. No rendering claim."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "06",
+      "operation": "Added explicit wheel spokes, subtle one-material headlight pools and an executable debug gallery/capture harness.",
+      "impact": "Wheel rotation becomes visible and twelve canonical vehicle views can be captured reproducibly."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "07",
+      "operation": "Independent reviewer inspected all twelve canonical model renders plus desktop/mobile game views.",
+      "impact": "Approved proportions and distinguishing details; rejected truck cargo coplanar faces and requested credible road approaches."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "07",
+      "operation": "Reinspected corrected truck canonical views and revised desktop/overview/mobile city views.",
+      "impact": "Cargo depth-fighting and off-map road approach defects resolved. Production-tier visual gates approved."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "08",
+      "operation": "Retained actual native, browser and export logs plus in-game images; checked wheel-angle measurement and live-map traversal results.",
+      "impact": "105 native checks and 11 NYC browser checks pass; procedural runtime export and mechanical wheel animation integrated."
+    }
+  ],
+  "current_stage": "complete"
+}

@@ -1,0 +1,116 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Bundled JSON validates: res://levels/moonlit_oasis.json
+PASS: Exit has a dry, unblocked route: Moonlit Oasis
+PASS: Bundled JSON validates: res://levels/pharaohs_courtyard.json
+PASS: Exit has a dry, unblocked route: Pharaoh's Courtyard
+PASS: Bundled JSON validates: res://levels/violet_mire.json
+PASS: Exit has a dry, unblocked route: Violet Mire
+PASS: Bundled JSON validates: res://levels/nyc_01_central_park.json
+PASS: Exit has a dry, unblocked route: NYC 01 · Central Park
+PASS: Bundled JSON validates: res://levels/nyc_02_brownstone_blocks.json
+PASS: Exit has a dry, unblocked route: NYC 02 · Brownstone Blocks
+PASS: Bundled JSON validates: res://levels/nyc_03_east_river_piers.json
+PASS: Exit has a dry, unblocked route: NYC 03 · East River Piers
+PASS: Bundled JSON validates: res://levels/nyc_04_broadway.json
+PASS: Exit has a dry, unblocked route: NYC 04 · Broadway After Dark
+PASS: Bundled JSON validates: res://levels/nyc_05_midtown_rush_hour.json
+PASS: Exit has a dry, unblocked route: NYC 05 · Midtown Rush Hour
+PASS: Editor paints a wall
+PASS: Undo restores terrain
+PASS: Redo restores wall
+PASS: Editor records patrol waypoints
+PASS: Authored map validates
+PASS: Map JSON writes successfully
+PASS: JSON round trip preserves terrain, objects and properties
+PASS: Duplicate creates an independent local save
+PASS: Local save library reloads from disk
+PASS: Playtest instantiates authored AI and trap
+PASS: Gameplay uses the perspective frog camera
+PASS: Map inspection uses the preserved overhead camera
+PASS: Map inspection pauses simulation without moving the frog
+PASS: Leaving the map restores perspective gameplay
+PASS: The editor retains its overhead construction view
+PASS: Returning from playtest preserves all edits
+PASS: Frog cannot move through a solid wall
+PASS: Water triggers splash death
+PASS: Retry resets death and projectiles
+PASS: Exit triggers victory
+PASS: Critter contact causes immediate death
+PASS: Projectile contact causes hit death
+PASS: Dart is destroyed by world geometry
+PASS: Unsupported map versions are rejected
+PASS: Malformed version types are rejected safely
+PASS: Rejected import leaves current map intact
+PASS: Twenty critters simulate in the shared runtime
+PASS: Wandering critters actually move independently
+PASS: Full dry route physically traversable with hazards paused: Moonlit Oasis
+PASS: Full dry route physically traversable with hazards paused: Pharaoh's Courtyard
+PASS: Full dry route physically traversable with hazards paused: Violet Mire
+PASS: Full dry route physically traversable with hazards paused: NYC 01 · Central Park
+PASS: Full dry route physically traversable with hazards paused: NYC 02 · Brownstone Blocks
+PASS: Full dry route physically traversable with hazards paused: NYC 03 · East River Piers
+PASS: Full dry route physically traversable with hazards paused: NYC 04 · Broadway After Dark
+PASS: Full dry route physically traversable with hazards paused: NYC 05 · Midtown Rush Hour
+PASS: Campaign keeps the original three maps and adds five NYC maps
+PASS: NYC campaign entry loads: 1
+PASS: NYC traffic and road data survive JSON round trip: NYC 01 · Central Park
+PASS: NYC campaign entry loads: 2
+PASS: NYC traffic and road data survive JSON round trip: NYC 02 · Brownstone Blocks
+PASS: NYC campaign entry loads: 3
+PASS: NYC traffic and road data survive JSON round trip: NYC 03 · East River Piers
+PASS: NYC campaign entry loads: 4
+PASS: NYC traffic and road data survive JSON round trip: NYC 04 · Broadway After Dark
+PASS: NYC campaign entry loads: 5
+PASS: NYC traffic and road data survive JSON round trip: NYC 05 · Midtown Rush Hour
+PASS: All five new maps are registered as regular campaign levels
+PASS: NYC road and traffic fixture passes the map boundary validator
+PASS: Traffic importer rejects an invalid lane direction
+PASS: Traffic importer rejects a negative lane speed
+PASS: Traffic importer rejects overlapping lane definitions
+PASS: Traffic importer rejects a broken road lane
+PASS: Traffic importer rejects unknown vehicle models
+PASS: Traffic importer rejects spacing with no safe vehicle gaps
+PASS: Traffic importer rejects off-map crosswalks
+PASS: Midtown finale simulates a substantial traffic ensemble
+PASS: Midtown traffic includes taxis, sedans, buses and delivery trucks
+PASS: Every traffic vehicle has four named mechanical wheel pivots
+PASS: Traffic travel actually rotates mechanical wheel pivots
+NYC WHEEL: first vehicle taxi, delta=0.100s, z angle 0.000000 -> -1.310345 radians
+PASS: Opposing traffic lanes actually move in both directions
+PASS: Overhead map freezes traffic simulation and vehicle poses
+PASS: World pause freezes traffic simulation
+PASS: Retry restores deterministic initial traffic phase
+PASS: Physical contact with moving traffic causes a traffic death
+PASS: Traffic death can retry into a fresh playable world
+PASS: Swept frog collision catches a crossing through a vehicle between frames
+PASS: Traffic collision leaves adjacent safe sidewalk space clear
+PASS: Fast vehicle sweep catches impact between endpoint poses
+PASS: Looping traffic does not create a phantom collision across the road
+PASS: Wrapped vehicle collision remains active at lane re-entry
+PASS: Editor preview keeps traffic stationary
+PASS: Traffic fixture exposes a readable crossing gap
+PASS: Frog crosses a live road lane through its timing gap
+NYC INTEGRATION: 38 checks, 0 failures
+PASS: Live traversal has a safe-sidewalk route: NYC 01 · Central Park
+PASS: Full route reaches the exit with traffic and AI active: NYC 01 · Central Park
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 01 · Central Park
+NYC ROUTE: NYC 01 · Central Park, 1 bands, 0.00s waiting, 8.43s simulated, result=LEVEL COMPLETE!
+PASS: Live traversal has a safe-sidewalk route: NYC 02 · Brownstone Blocks
+PASS: Full route reaches the exit with traffic and AI active: NYC 02 · Brownstone Blocks
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 02 · Brownstone Blocks
+NYC ROUTE: NYC 02 · Brownstone Blocks, 1 bands, 2.28s waiting, 15.00s simulated, result=LEVEL COMPLETE!
+PASS: Live traversal has a safe-sidewalk route: NYC 03 · East River Piers
+PASS: Full route reaches the exit with traffic and AI active: NYC 03 · East River Piers
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 03 · East River Piers
+NYC ROUTE: NYC 03 · East River Piers, 2 bands, 2.92s waiting, 17.33s simulated, result=LEVEL COMPLETE!
+PASS: Live traversal has a safe-sidewalk route: NYC 04 · Broadway After Dark
+PASS: Full route reaches the exit with traffic and AI active: NYC 04 · Broadway After Dark
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 04 · Broadway After Dark
+NYC ROUTE: NYC 04 · Broadway After Dark, 3 bands, 3.03s waiting, 15.75s simulated, result=LEVEL COMPLETE!
+PASS: Live traversal has a safe-sidewalk route: NYC 05 · Midtown Rush Hour
+PASS: Full route reaches the exit with traffic and AI active: NYC 05 · Midtown Rush Hour
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 05 · Midtown Rush Hour
+NYC ROUTE: NYC 05 · Midtown Rush Hour, 4 bands, 2.52s waiting, 22.05s simulated, result=LEVEL COMPLETE!
+NYC ROUTES: 15 checks, 0 failures
+INTEGRATION: 105 checks, 0 failures

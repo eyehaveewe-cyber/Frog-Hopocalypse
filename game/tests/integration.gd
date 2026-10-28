@@ -155,33 +155,25 @@ func run(app: Control) -> void:
 				traversed = false
 				break
 		check(traversed and app.world.player.position.distance_to(app.world.cell_position(demo.exit)) < 0.15, "Full dry route physically traversable with hazards paused: " + demo.name)
+	var nyc_tests := preload("res://tests/nyc_integration.gd").new()
+	await nyc_tests.run(app)
+	checks += nyc_tests.checks
+	failures.append_array(nyc_tests.failures)
+	var routes := preload("res://tests/nyc_routes.gd").new()
+	await routes.run(app)
+	checks += routes.checks
+	failures.append_array(routes.failures)
+	var streetlife := preload("res://tests/streetlife_integration.gd").new()
+	await streetlife.run(app)
+	checks += streetlife.checks
+	failures.append_array(streetlife.failures)
+	var level_set := preload("res://tests/streetlife_set_integration.gd").new()
+	await level_set.run(app)
+	checks += level_set.checks
+	failures.append_array(level_set.failures)
 	app.set_process(true)
 	print("INTEGRATION: %d checks, %d failures" % [checks, failures.size()])
 	app.get_tree().quit(0 if failures.is_empty() else 1)
 
 func physical_route(demo: Dictionary) -> Array[Vector2i]:
-	var start := Vector2i(demo.spawn[0], demo.spawn[1])
-	var goal := Vector2i(demo.exit[0], demo.exit[1])
-	var blocked: Dictionary = {}
-	for obj in demo.objects:
-		if obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false):
-			blocked[Vector2i(obj.pos[0], obj.pos[1])] = true
-	var queue: Array[Vector2i] = [start]
-	var previous: Dictionary = {start: start}
-	while not queue.is_empty():
-		var p: Vector2i = queue.pop_front()
-		if p == goal:
-			var route: Array[Vector2i] = []
-			while p != start:
-				route.push_front(p)
-				p = previous[p]
-			return route
-		for offset in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
-			var n: Vector2i = p + offset
-			if n.x < 0 or n.y < 0 or n.x >= demo.width or n.y >= demo.height or previous.has(n) or blocked.has(n):
-				continue
-			if demo.tiles[n.y][n.x] in ["wall", "water"]:
-				continue
-			previous[n] = p
-			queue.append(n)
-	return []
+	return preload("res://scripts/level_data.gd").find_route(demo)

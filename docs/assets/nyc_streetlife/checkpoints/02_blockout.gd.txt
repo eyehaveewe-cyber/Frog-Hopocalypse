@@ -1,0 +1,123 @@
+extends RefCounted
+## Original NYC street-life kit. Actors and skate fixtures face local -Z.
+## Rail contact: top=.65, board truck underside=.08, actor offset=.57.
+const Kit = preload("res://scripts/nyc_art.gd")
+static var meshes: Dictionary = {}
+const PROP_KINDS = ["bench", "trash_can", "dumpster", "pizza_cart", "mailbox", "traffic_cone", "manhole", "newsstand", "skate_rail", "skate_ramp"]
+
+static func pivot(parent: Node3D, title: String, pos: Vector3) -> Node3D:
+	var root := Node3D.new()
+	root.name = title
+	root.position = pos
+	parent.add_child(root)
+	return root
+
+static func orb(parent: Node3D, title: String, size: Vector3, pos: Vector3, color: Color) -> MeshInstance3D:
+	if not meshes.has("orb"):
+		var mesh := SphereMesh.new()
+		mesh.radius = 0.5
+		mesh.height = 1.0
+		mesh.radial_segments = 10
+		mesh.rings = 5
+		meshes.orb = mesh
+	var node := MeshInstance3D.new()
+	node.name = title
+	node.mesh = meshes.orb
+	node.material_override = Kit.material(color)
+	node.position = pos
+	node.scale = size
+	parent.add_child(node)
+	return node
+
+static func prop_size(kind: String) -> Vector3:
+	match kind:
+		"bench": return Vector3(1.45, 0.9, 0.65)
+		"dumpster": return Vector3(1.35, 1.0, 1.15)
+		"pizza_cart": return Vector3(1.25, 1.9, 1.10)
+		"newsstand": return Vector3(1.4, 1.65, 1.2)
+		"skate_rail", "skate_ramp": return Vector3(1.4, 0.7, 4.0)
+		"manhole": return Vector3(0.85, 0.025, 0.85)
+		"traffic_cone": return Vector3(0.48, 0.7, 0.48)
+	return Vector3(0.7, 0.9, 0.7)
+
+static func prop(kind: String) -> Node3D:
+	var root := Node3D.new()
+	root.name = "NYC_" + kind
+	match kind:
+		"bench":
+			Kit.box(root, "Seat", Vector3(1.45, 0.10, 0.56), Vector3(0, 0.45, 0), Color("92744e"))
+			Kit.box(root, "Back", Vector3(1.45, 0.40, 0.08), Vector3(0, 0.76, 0.25), Color("92744e"))
+		"trash_can":
+			Kit.cylinder(root, "CanBody", 0.33, 0.76, Vector3(0, 0.38, 0), Color("426754"))
+		"dumpster":
+			Kit.box(root, "Bin", Vector3(1.35, 0.82, 1.05), Vector3(0, 0.50, 0), Color("496e61"))
+			Kit.box(root, "Lid", Vector3(1.42, 0.10, 1.12), Vector3(0, 0.96, 0), Color("2c4848"))
+		"pizza_cart":
+			Kit.box(root, "CartBody", Vector3(1.16, 0.68, 0.92), Vector3(0, 0.61, 0), Color("bfc7bb"))
+			Kit.box(root, "Awning", Vector3(1.40, 0.10, 1.17), Vector3(0, 1.70, 0), Color("b95943"))
+		"mailbox":
+			Kit.box(root, "MailboxBody", Vector3(0.64, 0.69, 0.64), Vector3(0, 0.59, 0), Color("39688a"))
+		"traffic_cone":
+			Kit.box(root, "RubberBase", Vector3(0.48, 0.065, 0.48), Vector3(0, 0.0325, 0), Color("39434b"))
+			Kit.cylinder(root, "Cone", 0.20, 0.64, Vector3(0, 0.37, 0), Color("db7846"), 0.025)
+		"manhole":
+			Kit.cylinder(root, "Cover", 0.42, 0.025, Vector3(0, 0.014, 0), Color("485763"))
+		"newsstand":
+			Kit.box(root, "Kiosk", Vector3(1.4, 1.40, 1.1), Vector3(0, 0.7, 0), Color("476c62"))
+			Kit.box(root, "Canopy", Vector3(1.55, 0.15, 1.3), Vector3(0, 1.48, 0), Color("56766a"))
+		"skate_rail":
+			Kit.box(root, "GrindRail", Vector3(0.10, 0.10, 4.0), Vector3(0, 0.60, 0), Color("a4b4bd"))
+			for z in [-1.45, 1.45]:
+				Kit.cylinder(root, "Support", 0.065, 0.55, Vector3(0, 0.275, z), Color("687d84"))
+		"skate_ramp":
+			wedge(root)
+	return root
+
+static func wedge(root: Node3D) -> void:
+	if not meshes.has("ramp"):
+		var tool := SurfaceTool.new()
+		tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+		var vertices := [Vector3(-0.7, 0, 2), Vector3(0.7, 0, 2), Vector3(-0.7, 0, -2), Vector3(0.7, 0, -2), Vector3(-0.7, 0.7, -2), Vector3(0.7, 0.7, -2)]
+		for index in [0, 4, 1, 1, 4, 5, 2, 3, 4, 3, 5, 4, 0, 2, 4, 1, 5, 3, 0, 1, 2, 1, 3, 2]:
+			tool.add_vertex(vertices[index])
+		tool.generate_normals()
+		meshes.ramp = tool.commit()
+	var node := MeshInstance3D.new()
+	node.name = "RampWedge"
+	node.mesh = meshes.ramp
+	node.material_override = Kit.material(Color("8c9e9b"))
+	root.add_child(node)
+
+static func roach() -> Node3D:
+	var root := Node3D.new()
+	root.name = "RoachVisual"
+	orb(root, "Abdomen", Vector3(0.48, 0.22, 0.66), Vector3(0, 0.20, 0.12), Color("7b4c3c"))
+	orb(root, "Thorax", Vector3(0.41, 0.20, 0.29), Vector3(0, 0.20, -0.24), Color("a2734b"))
+	orb(root, "Head", Vector3(0.29, 0.18, 0.24), Vector3(0, 0.18, -0.42), Color("483a35"))
+	for side in [-1, 1]:
+		for index in range(3):
+			var leg := pivot(root, "Leg_%s%d" % ["L" if side == -1 else "R", index], Vector3(side * 0.17, 0.17, -0.22 + index * 0.21))
+			Kit.box(leg, "UpperLeg", Vector3(0.29, 0.045, 0.05), Vector3(side * 0.13, -0.015, 0), Color("5f4635"))
+			Kit.box(leg, "Foot", Vector3(0.06, 0.10, 0.14), Vector3(side * 0.27, -0.07, 0.06), Color("5f4635"))
+		var antenna := pivot(root, "AntennaL" if side == -1 else "AntennaR", Vector3(side * 0.09, 0.23, -0.50))
+		Kit.box(antenna, "Antenna", Vector3(0.026, 0.025, 0.39), Vector3(side * 0.10, 0.02, -0.17), Color("ba9b67")).rotation.y = -side * 0.50
+	return root
+
+static func skater(variant: int = 0) -> Node3D:
+	var root := Node3D.new()
+	root.name = "SkaterVisual"
+	var board := pivot(root, "Board", Vector3.ZERO)
+	Kit.box(board, "Deck", Vector3(0.33, 0.07, 1.0), Vector3(0, 0.15, 0), Color("d8b568"))
+	var rider := pivot(root, "RiderRoot", Vector3.ZERO)
+	var shirt: Color = [Color("bb664d"), Color("488d89"), Color("86659c")][posmod(variant, 3)]
+	Kit.box(rider, "Body", Vector3(0.46, 0.47, 0.28), Vector3(0, 0.96, 0), shirt)
+	var head := pivot(rider, "Head", Vector3(0, 1.36, -0.01))
+	orb(head, "Face", Vector3(0.30, 0.34, 0.29), Vector3.ZERO, Color("c99166"))
+	for side in [-1, 1]:
+		var arm := pivot(rider, "ArmL" if side == -1 else "ArmR", Vector3(side * 0.27, 1.14, 0))
+		Kit.box(arm, "Sleeve", Vector3(0.15, 0.24, 0.17), Vector3(0, -0.10, 0), shirt)
+		Kit.box(arm, "Forearm", Vector3(0.12, 0.23, 0.13), Vector3(0, -0.29, 0), Color("c99166"))
+		var leg := pivot(rider, "LegL" if side == -1 else "LegR", Vector3(side * 0.12, 0.73, side * 0.19))
+		Kit.box(leg, "Trousers", Vector3(0.18, 0.48, 0.19), Vector3(0, -0.24, 0), Color("344858"))
+		Kit.box(leg, "Shoe", Vector3(0.20, 0.09, 0.29), Vector3(0, -0.505, -0.035), Color("e1dbbe"))
+	return root

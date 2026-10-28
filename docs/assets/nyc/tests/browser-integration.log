@@ -1,0 +1,12 @@
+PASS: Five NYC maps are selectable in the regular campaign menu
+PASS: Midtown finale runs its full traffic ensemble in WebGL
+PASS: Browser renders taxis, sedans, buses and delivery trucks
+PASS: Opposing traffic streams move in both directions in the browser
+PASS: Overhead inspection freezes traffic and keeps vehicle poses visible
+PASS: Pause freezes city traffic in the browser
+PASS: Retry restarts the traffic encounter without a stale death state
+PASS: Editor preserves the NYC map and holds its traffic preview still
+PASS: Browser JSON export retains NYC roads and traffic definitions
+PASS: Landscape phone viewport starts the regular Midtown traffic level
+PASS: NYC browser sequence produces no JavaScript or Godot runtime errors
+NYC BROWSER: 11 checks, 0 failures

@@ -1,12 +1,20 @@
 extends Node3D
 signal finished(reason: String)
 const Art = preload("res://scripts/art.gd")
+const City = preload("res://scripts/nyc_art.gd")
+const Streets = preload("res://scripts/city_streets.gd")
+const Traffic = preload("res://scripts/traffic.gd")
+const Props = preload("res://scripts/streetlife_specs.gd")
+const Streetlife = preload("res://scripts/nyc_streetlife_art.gd")
+const Roach = preload("res://scripts/roach.gd")
+const Skater = preload("res://scripts/skater.gd")
 const Actor = preload("res://scripts/actor.gd")
 const CELL = 1.8
 var level: Dictionary = {}
 var geometry: Node3D
 var player: CharacterBody3D
 var critters: Array = []
+var skaters: Array = []
 var emitters: Array = []
 var projectiles: Array = []
 var effects: Array = []
@@ -23,6 +31,7 @@ var result_time := 0.0
 var touch_mode := false
 var camera_target := Vector3.ZERO
 var map_view := false
+var traffic: Node3D
 var ocean_material: ShaderMaterial
 
 func _ready() -> void:
@@ -79,17 +88,22 @@ func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
 	elapsed = 0
 	input_vector = Vector2.ZERO
 	critters.clear()
+	skaters.clear()
 	emitters.clear()
 	projectiles.clear()
 	effects.clear()
+	var city: bool = level.theme == "nyc"
 	var swamp: bool = level.theme == "swamp"
 	Art.set_retro(not edit, swamp)
-	var floor_color := Color("63744a") if swamp else Color("d7bc7f")
-	var wall_color := Color("716582") if swamp else Color("ba9662")
+	var floor_color := Color("c4c9c9") if city else (Color("63744a") if swamp else Color("d7bc7f"))
+	var wall_color := Color("785651") if city else (Color("716582") if swamp else Color("ba9662"))
 	var underlay := Art.box(geometry, Vector3(level.width * CELL + 70, 0.12, level.height * CELL + 70), Vector3(0, -0.48, 0), Color.WHITE)
 	ocean_material = Art.retro_mat("swamp_water" if swamp else "water").duplicate() as ShaderMaterial
 	ocean_material.set_shader_parameter("uv_tiling", Vector2(40, 40))
 	underlay.material_override = ocean_material
+	var road_rows: Array = []
+	for lane in level.get("traffic", []):
+		road_rows.append(int(lane.row))
 	for z in range(int(level.height)):
 		for x in range(int(level.width)):
 			var p := cell_position([x, z])
@@ -101,16 +115,37 @@ func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
 					Art.cylinder(geometry, 0.18, 0.18, 0.025, p + Vector3(0.2, -0.10, 0.2), Color("7eab80"))
 			else:
 				var color := floor_color.lightened(tint)
-				if tile == "path":
+				if city:
+					color = Color.WHITE
+				elif tile == "path":
 					color = Color("b4ad8c") if swamp else Color("ead69b")
 				var texture_kind := ("swamp_stone" if swamp else "stone") if tile == "path" else ("moss" if swamp else "grass")
+				if tile == "road":
+					texture_kind = "asphalt"
+				elif city:
+					texture_kind = "asphalt" if tile == "road" else ("city_pavers" if tile == "path" else "concrete")
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
+			if city or tile == "road":
+				var crossing: bool = x in level.get("crossings", [])
+				if tile == "road":
+					Streets.road(geometry, p, x, crossing)
+				elif tile != "wall" and tile != "water":
+					for side in [-1, 1]:
+						if z + side >= 0 and z + side < level.height and level.tiles[z + side][x] == "road":
+							Streets.sidewalk_edge(geometry, p, side, crossing)
 			if tile == "wall":
+				var street_portal: bool = z in road_rows and (x == 0 or x == level.width - 1)
 				var perimeter: bool = x == 0 or z == 0 or x == level.width - 1
 				var height := 1.45 if perimeter else (0.3 if z == level.height - 1 else 0.55)
-				Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), "swamp_stone" if swamp else "brick")
-				Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), "swamp_stone" if swamp else "stone")
+				if street_portal:
+					height = 0.025
+				Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), "asphalt" if street_portal else ("swamp_stone" if swamp else "brick"))
+				Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), "asphalt" if street_portal else ("swamp_stone" if swamp else "stone"))
 				Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
+	if city:
+		City.district(geometry, int(level.width), int(level.height), CELL)
+	if city or not road_rows.is_empty():
+		Streets.signs(geometry, level)
 	# Invisible boundary colliders prevent a painted-out perimeter from escaping the map.
 	var w: float = level.width * CELL
 	var h: float = level.height * CELL
@@ -119,25 +154,42 @@ func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
 		Art.solid(geometry, Vector3(0.2, 2, h + 2), Vector3(side * (w / 2 + 0.1), 0.5, 0))
 	for obj in level.objects:
 		var p := cell_position(obj.pos)
-		if obj.type == "critter":
-			var actor := Actor.new()
+		if obj.type in ["critter", "roach"]:
+			var actor = Roach.new() if obj.type == "roach" else Actor.new()
 			actor.setup(false, level.theme, obj)
 			actor.position = p
 			geometry.add_child(actor)
 			for point in obj.get("waypoints", []):
 				actor.waypoints.append(cell_position(point))
 			critters.append(actor)
+		elif obj.type == "skater":
+			var skater := Skater.new()
+			geometry.add_child(skater)
+			skater.setup(obj, self)
+			skaters.append(skater)
 		else:
-			var model := Art.scenery(obj.type, level.theme)
+			var model := Streetlife.prop(obj.variant) if obj.type == "city_prop" else (City.scenery(obj.type) if city else Art.scenery(obj.type, level.theme))
+			if obj.type == "city_prop" and obj.variant in ["skate_ramp", "skate_rail"]:
+				model.scale.z = float(obj.get("length", 4.0)) / 4.0
+				if obj.variant == "skate_ramp":
+					model.scale.y = float(obj.get("rise", 0.7)) / 0.7
 			model.position = p
 			model.rotation.y = deg_to_rad(float(obj.get("rotation", 0)))
 			geometry.add_child(model)
 			if obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false):
 				var width := 0.55 if obj.type == "tree" else 0.85
-				Art.solid(geometry, Vector3(width, 1.2, width), p + Vector3(0, 0.5, 0))
+				if obj.type == "city_prop":
+					var size: Vector2 = Props.footprint(obj)
+					var proxy := Art.solid(geometry, Vector3(size.x, 1.2, size.y), p + Vector3(0, 0.5, 0))
+					proxy.rotation.y = model.rotation.y
+				else:
+					Art.solid(geometry, Vector3(width, 1.2, width), p + Vector3(0, 0.5, 0))
 			if obj.type == "emitter":
 				var dir := Vector3(0, 0, -1).rotated(Vector3.UP, model.rotation.y)
 				emitters.append({"pos": p + Vector3(0, 0.42, 0) + dir * 0.72, "dir": dir, "clock": 0.5, "interval": float(obj.get("interval", 2.5)), "model": model})
+	traffic = Traffic.new()
+	geometry.add_child(traffic)
+	traffic.setup(level)
 	player = Actor.new()
 	player.setup(true, level.theme, {}, hat)
 	player.position = cell_position(level.spawn)
@@ -155,7 +207,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: bool = true) -> void:
 	cursor.visible = false
 	route_root = Node3D.new()
 	geometry.add_child(route_root)
-	var excluded: Array = [player, cursor, gate, route_root] + critters
+	var excluded: Array = [player, cursor, gate, route_root, traffic] + critters + skaters
 	for emitter in emitters:
 		excluded.append(emitter.model)
 	Art.batch_static(geometry, excluded)
@@ -211,6 +263,11 @@ func show_route(obj: Dictionary) -> void:
 	if obj.is_empty():
 		return
 	var points: Array = [obj.pos] + obj.get("waypoints", [])
+	if obj.type == "skater":
+		points = []
+		for node in obj.route:
+			points.append(node.pos)
+		points.append(obj.route[0].pos)
 	for i in range(points.size()):
 		var p := cell_position(points[i]) + Vector3(0, 0.12, 0)
 		Art.cylinder(route_root, 0.14, 0.14, 0.04, p, Color("f4df8d"))
@@ -245,7 +302,17 @@ func _physics_process(delta: float) -> void:
 	if not active or editing:
 		return
 	elapsed += delta
+	var previous_player := player.position
 	player.step(delta, input_vector)
+	traffic.step(delta)
+	if traffic.hits_player(previous_player, player.position):
+		finish("FLATTENED!")
+		return
+	for skater in skaters:
+		skater.step(delta)
+		if skater.hits_player(previous_player, player.position):
+			finish("SKATED!")
+			return
 	update_camera(minf(1, delta * 8))
 	var tile := position_cell(player.position)
 	if not inside(tile) or level.tiles[tile.y][tile.x] == "water":

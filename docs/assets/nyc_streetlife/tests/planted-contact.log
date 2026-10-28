@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS skater 30fps: max planted sole/deck gap 0.016500, all route states
+PASS skater 60fps: max planted sole/deck gap 0.016500, all route states
+PASS skater 120fps: max planted sole/deck gap 0.016500, all route states
+PASS skater: 30/60/120fps reach same 10second pose position within .00001units

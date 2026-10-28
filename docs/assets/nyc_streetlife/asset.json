@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "asset_id": "nyc_streetlife",
+  "name": "NYC street furniture, roaches and skateboard riders",
+  "kind": "procedural props and articulated enemies",
+  "quality_tier": "production",
+  "units": "world units; 1 tile = 1.8",
+  "style_profile": "Hopan original PS1 low-poly NYC at gameplay camera distance",
+  "requirements": [
+    {
+      "id": "street-kit",
+      "text": "Ten distinct street furniture and skate feature models.",
+      "proof": "tests/native-instantiation.txt"
+    },
+    {
+      "id": "enemy-kit",
+      "text": "Segmented six-leg roach and three visually distinct riders.",
+      "proof": "../../../game/scripts/nyc_streetlife_art.gd"
+    },
+    {
+      "id": "contacts",
+      "text": "Four-unit local -Z ramp and rail with .7/.65 heights; actual board truck underside .045 and rail actor elevation .605.",
+      "proof": "brief/requirements.md"
+    }
+  ],
+  "stages": [
+    {
+      "id": "01",
+      "title": "Brief and contact contract",
+      "status": "approved",
+      "criteria": [
+        "Declare 1.8-unit tile scale, local -Z forward and rail/board contacts."
+      ],
+      "evidence": [
+        "brief/requirements.md",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "02",
+      "title": "Primary silhouettes",
+      "status": "approved",
+      "criteria": [
+        "Distinct 10 props, segmented roach and 3 rider profiles."
+      ],
+      "evidence": [
+        "checkpoints/02_blockout.gd.txt",
+        "previews/props_front.png",
+        "previews/props_side.png",
+        "previews/props_threequarter.png",
+        "previews/roach_front.png",
+        "previews/roach_side.png",
+        "previews/roach_threequarter.png",
+        "previews/skater0_front.png",
+        "previews/skater0_side.png",
+        "previews/skater0_threequarter.png",
+        "previews/skater1_front.png",
+        "previews/skater1_side.png",
+        "previews/skater1_threequarter.png",
+        "previews/skater2_front.png",
+        "previews/skater2_side.png",
+        "previews/skater2_threequarter.png",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "03",
+      "title": "Secondary assemblies",
+      "status": "approved",
+      "criteria": [
+        "Slatted bench, open trash can, cart oven, wheel pivots, roach legs and rider joints."
+      ],
+      "evidence": [
+        "checkpoints/03_components.gd.txt",
+        "checkpoints/07_contact_seam_rework.gd.txt",
+        "previews/roach_side.png",
+        "previews/props_threequarter.png",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "04",
+      "title": "Mechanical hierarchy",
+      "status": "approved",
+      "criteria": [
+        "Stable skate wheel, arm/leg and six roach leg pivots, ramp top normals."
+      ],
+      "evidence": [
+        "tests/native-instantiation.txt",
+        "../../../game/scripts/nyc_streetlife_art.gd",
+        "tests/rail-contact-proof.log",
+        "tests/native-integration.log",
+        "../../../game/tests/skater_contacts.gd",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "05",
+      "title": "Distinctive detail",
+      "status": "approved",
+      "criteria": [
+        "Pizza, papers, hood/hat/mohawk, street furniture and grind arrows."
+      ],
+      "evidence": [
+        "checkpoints/05_details.gd.txt",
+        "previews/props_threequarter.png",
+        "previews/roach_threequarter.png",
+        "previews/skater0_front.png",
+        "previews/skater1_front.png",
+        "previews/skater2_front.png",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "06",
+      "title": "Palette and batching compatibility",
+      "status": "approved",
+      "criteria": [
+        "Muted original PS1 colors, cached meshes/materials and independent moving nodes."
+      ],
+      "evidence": [
+        "../../../game/scripts/nyc_streetlife_art.gd",
+        "previews/props_threequarter.png",
+        "previews/skater0_front.png",
+        "previews/skater1_front.png",
+        "previews/skater2_front.png",
+        "tests/nyc-skate-plaza-gameplay.png",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "07",
+      "title": "Independent visual review",
+      "status": "approved",
+      "criteria": [
+        "Inspect actual front/side/threequarter views and in-game readability."
+      ],
+      "evidence": [
+        "review.md",
+        "previews/capture.json",
+        "previews/roach_side.png",
+        "previews/props_threequarter.png",
+        "tests/nyc-skate-plaza-gameplay.png",
+        "tests/nyc-skate-plaza-overview.png",
+        "tests/nyc-skate-plaza-mobile.png",
+        "tests/rail-contact-proof.log"
+      ],
+      "issues": []
+    },
+    {
+      "id": "08",
+      "title": "Runtime integration",
+      "status": "approved",
+      "criteria": [
+        "Verify models in plaza and existing streets with collisions and enemies."
+      ],
+      "evidence": [
+        "tests/native-instantiation.txt",
+        "tests/native-integration.log",
+        "tests/browser-integration.log",
+        "tests/export-build.log",
+        "tests/nyc-skate-plaza-editor.png",
+        "review.md"
+      ],
+      "issues": []
+    },
+    {
+      "id": "09",
+      "title": "Motion handoff",
+      "status": "approved",
+      "criteria": [
+        "Actor simulation owns movement, named pivots receive animation."
+      ],
+      "evidence": [
+        "brief/requirements.md",
+        "../../../game/scripts/skater.gd",
+        "../../../game/scripts/roach.gd",
+        "tests/rail-contact-proof.log",
+        "tests/native-integration.log",
+        "tests/browser-integration.log",
+        "review.md"
+      ],
+      "issues": []
+    }
+  ],
+  "source_files": [
+    "../../../game/scripts/nyc_streetlife_art.gd",
+    "../../../game/scripts/skater.gd",
+    "../../../game/scripts/roach.gd"
+  ],
+  "exports": [
+    "../../../game/scripts/nyc_streetlife_art.gd"
+  ],
+  "renders": [
+    "previews/props_front.png",
+    "previews/props_side.png",
+    "previews/props_threequarter.png",
+    "previews/roach_front.png",
+    "previews/roach_side.png",
+    "previews/roach_threequarter.png",
+    "previews/skater0_front.png",
+    "previews/skater0_side.png",
+    "previews/skater0_threequarter.png",
+    "previews/skater1_front.png",
+    "previews/skater1_side.png",
+    "previews/skater1_threequarter.png",
+    "previews/skater2_front.png",
+    "previews/skater2_side.png",
+    "previews/skater2_threequarter.png"
+  ],
+  "revision_log": [
+    {
+      "date": "2026-10-27",
+      "stage": "02",
+      "operation": "Saved initial proportion source as independent blockout checkpoint.",
+      "impact": "Established silhouettes, axes and mechanical pivot names."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "03",
+      "operation": "Built functional-looking subassemblies and hard-edged wedge mesh.",
+      "impact": "Slatted/open structures, wheel axles, roach antennae and rider joints."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "05",
+      "operation": "Added original pizza/news/civicdetails, varied clothing and grip and wheel parts.",
+      "impact": "Distinct streetlife identities from original geometry."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "08",
+      "operation": "Godot instantiated 10 props, roach and 3 riders; 4 wheels per rider; actual ramp normal Y=.985.",
+      "impact": "Executable source and hierarchy validated, visual approval still pending."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "07",
+      "operation": "Independent inspection of fifteen canonical renders and desktop/editor/mobile plaza screenshots.",
+      "impact": "Silhouettes and distinguishing detail approved; requested rail-contact, wing-seam and player-guidance revisions."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "07",
+      "operation": "Reinspected corrected roach and front-facing prop-sheet renders after independent critique.",
+      "impact": "Wing seam attached to shells; antenna segments joined at actual shared endpoints; all ten prop faces inspectable."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "04",
+      "operation": "Replaced assumed rail offset with measured .045 truck underside and .605 actor elevation; verified actual model/rail contacts at 30, 60 and 120 updates per second.",
+      "impact": "25 contact checks pass; zero rail-contact error and .0165 maximum planted sole/deck error."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "07",
+      "operation": "Accepted refreshed roach/prop views and corrected plaza guidance after actual independent image inspection.",
+      "impact": "Wing seam and antenna assemblies are attached; three riders and ten street props remain distinct; all production visual gates approved."
+    },
+    {
+      "date": "2026-10-27",
+      "stage": "08",
+      "operation": "Retained final native, browser, contact and export logs and actual desktop/editor/mobile images.",
+      "impact": "147 native checks, 12 streetlife browser checks and full live plaza traversal pass. Procedural source is the integrated runtime asset."
+    }
+  ],
+  "current_stage": "complete"
+}

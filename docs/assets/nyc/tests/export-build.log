@@ -1,0 +1,203 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started Registering global classes... (2 steps)
+[   0% ] update_scripts_classes |
+[  33% ] update_scripts_classes |
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started Loading editor (5 steps)
+[   0% ] loading_editor_layout | Loading editor layout...
+[  16% ] loading_editor_layout | Loading docks...
+[ DONE ] loading_editor_layout
+
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] savepack | Started Packing (102 steps)
+[   1% ] savepack | Storing File: res://levels/moonlit_oasis.json
+[   4% ] savepack | Storing File: res://levels/nyc_01_central_park.json
+[   8% ] savepack | Storing File: res://levels/nyc_02_brownstone_blocks.json
+[  12% ] savepack | Storing File: res://levels/nyc_03_east_river_piers.json
+[  15% ] savepack | Storing File: res://levels/nyc_04_broadway.json
+[  19% ] savepack | Storing File: res://levels/nyc_05_midtown_rush_hour.json
+[  23% ] savepack | Storing File: res://levels/pharaohs_courtyard.json
+[  26% ] savepack | Storing File: res://levels/violet_mire.json
+[  30% ] savepack | Storing File: res://scripts/actor.gdc
+[  33% ] savepack | Storing File: res://scripts/art.gdc
+[  37% ] savepack | Storing File: res://scripts/city_streets.gdc
+[  40% ] savepack | Storing File: res://scripts/level_data.gdc
+[  44% ] savepack | Storing File: res://scripts/main.gdc
+[  48% ] savepack | Storing File: res://scripts/nyc_art.gdc
+[  51% ] savepack | Storing File: res://scripts/pixel_textures.gdc
+[  55% ] savepack | Storing File: res://scripts/traffic.gdc
+[  59% ] savepack | Storing File: res://scripts/world.gdc
+[  62% ] savepack | Storing File: res://shaders/night_sky.gdshader
+[  66% ] savepack | Storing File: res://shaders/retro_screen.gdshader
+[  69% ] savepack | Storing File: res://shaders/retro_surface.gdshader
+[  73% ] savepack | Storing File: res://tests/author_demos.gdc
+[  76% ] savepack | Storing File: res://tests/integration.gdc
+[  80% ] savepack | Storing File: res://tests/nyc_gallery.gdc
+[  84% ] savepack | Storing File: res://tests/nyc_integration.gdc
+[  87% ] savepack | Storing File: res://tests/nyc_routes.gdc
+[  91% ] savepack | Storing File: res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex
+[  91% ] savepack | Storing File: res://icon.svg.import
+[  95% ] savepack | Storing File: res://.godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn
+[  95% ] savepack | Storing File: res://scripts/actor.gd.remap
+[  95% ] savepack | Storing File: res://scripts/art.gd.remap
+[  95% ] savepack | Storing File: res://scripts/city_streets.gd.remap
+[  95% ] savepack | Storing File: res://scripts/level_data.gd.remap
+[  95% ] savepack | Storing File: res://scripts/main.gd.remap
+[  95% ] savepack | Storing File: res://scripts/nyc_art.gd.remap
+[  95% ] savepack | Storing File: res://scripts/pixel_textures.gd.remap
+[  95% ] savepack | Storing File: res://scripts/traffic.gd.remap
+[  95% ] savepack | Storing File: res://scripts/world.gd.remap
+[  95% ] savepack | Storing File: res://tests/author_demos.gd.remap
+[  95% ] savepack | Storing File: res://tests/integration.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_gallery.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_integration.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_routes.gd.remap
+[  95% ] savepack | Storing File: res://main.tscn.remap
+[  95% ] savepack | Storing File: res://.godot/global_script_class_cache.cfg
+[  95% ] savepack | Storing File: res://icon.svg
+[  95% ] savepack | Storing File: res://.godot/uid_cache.bin
+[  95% ] savepack | Storing File: res://project.binary
+[ DONE ] savepack
+
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] savepack | Started Packing (102 steps)
+[   1% ] savepack | Storing File: res://levels/moonlit_oasis.json
+[   4% ] savepack | Storing File: res://levels/nyc_01_central_park.json
+[   8% ] savepack | Storing File: res://levels/nyc_02_brownstone_blocks.json
+[  12% ] savepack | Storing File: res://levels/nyc_03_east_river_piers.json
+[  15% ] savepack | Storing File: res://levels/nyc_04_broadway.json
+[  19% ] savepack | Storing File: res://levels/nyc_05_midtown_rush_hour.json
+[  23% ] savepack | Storing File: res://levels/pharaohs_courtyard.json
+[  26% ] savepack | Storing File: res://levels/violet_mire.json
+[  30% ] savepack | Storing File: res://scripts/actor.gdc
+[  33% ] savepack | Storing File: res://scripts/art.gdc
+[  37% ] savepack | Storing File: res://scripts/city_streets.gdc
+[  40% ] savepack | Storing File: res://scripts/level_data.gdc
+[  44% ] savepack | Storing File: res://scripts/main.gdc
+[  48% ] savepack | Storing File: res://scripts/nyc_art.gdc
+[  51% ] savepack | Storing File: res://scripts/pixel_textures.gdc
+[  55% ] savepack | Storing File: res://scripts/traffic.gdc
+[  59% ] savepack | Storing File: res://scripts/world.gdc
+[  62% ] savepack | Storing File: res://shaders/night_sky.gdshader
+[  66% ] savepack | Storing File: res://shaders/retro_screen.gdshader
+[  69% ] savepack | Storing File: res://shaders/retro_surface.gdshader
+[  73% ] savepack | Storing File: res://tests/author_demos.gdc
+[  76% ] savepack | Storing File: res://tests/integration.gdc
+[  80% ] savepack | Storing File: res://tests/nyc_gallery.gdc
+[  84% ] savepack | Storing File: res://tests/nyc_integration.gdc
+[  87% ] savepack | Storing File: res://tests/nyc_routes.gdc
+[  91% ] savepack | Storing File: res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex
+[  91% ] savepack | Storing File: res://icon.svg.import
+[  95% ] savepack | Storing File: res://.godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn
+[  95% ] savepack | Storing File: res://scripts/actor.gd.remap
+[  95% ] savepack | Storing File: res://scripts/art.gd.remap
+[  95% ] savepack | Storing File: res://scripts/city_streets.gd.remap
+[  95% ] savepack | Storing File: res://scripts/level_data.gd.remap
+[  95% ] savepack | Storing File: res://scripts/main.gd.remap
+[  95% ] savepack | Storing File: res://scripts/nyc_art.gd.remap
+[  95% ] savepack | Storing File: res://scripts/pixel_textures.gd.remap
+[  95% ] savepack | Storing File: res://scripts/traffic.gd.remap
+[  95% ] savepack | Storing File: res://scripts/world.gd.remap
+[  95% ] savepack | Storing File: res://tests/author_demos.gd.remap
+[  95% ] savepack | Storing File: res://tests/integration.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_gallery.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_integration.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_routes.gd.remap
+[  95% ] savepack | Storing File: res://main.tscn.remap
+[  95% ] savepack | Storing File: res://.godot/global_script_class_cache.cfg
+[  95% ] savepack | Storing File: res://icon.svg
+[  95% ] savepack | Storing File: res://.godot/uid_cache.bin
+[  95% ] savepack | Storing File: res://project.binary
+[ DONE ] savepack
+
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started Project initialization (5 steps)
+[   0% ] first_scan_filesystem | Scanning file structure...
+[  16% ] first_scan_filesystem | Loading global class names...
+[  33% ] first_scan_filesystem | Verifying GDExtensions...
+[  50% ] first_scan_filesystem | Creating autoload scripts...
+[  66% ] first_scan_filesystem | Initializing plugins...
+[  83% ] first_scan_filesystem | Starting file scan...
+[ DONE ] first_scan_filesystem
+
+[   0% ] savepack | Started Packing (102 steps)
+[   1% ] savepack | Storing File: res://levels/moonlit_oasis.json
+[   4% ] savepack | Storing File: res://levels/nyc_01_central_park.json
+[   8% ] savepack | Storing File: res://levels/nyc_02_brownstone_blocks.json
+[  12% ] savepack | Storing File: res://levels/nyc_03_east_river_piers.json
+[  15% ] savepack | Storing File: res://levels/nyc_04_broadway.json
+[  19% ] savepack | Storing File: res://levels/nyc_05_midtown_rush_hour.json
+[  23% ] savepack | Storing File: res://levels/pharaohs_courtyard.json
+[  26% ] savepack | Storing File: res://levels/violet_mire.json
+[  30% ] savepack | Storing File: res://scripts/actor.gdc
+[  33% ] savepack | Storing File: res://scripts/art.gdc
+[  37% ] savepack | Storing File: res://scripts/city_streets.gdc
+[  40% ] savepack | Storing File: res://scripts/level_data.gdc
+[  44% ] savepack | Storing File: res://scripts/main.gdc
+[  48% ] savepack | Storing File: res://scripts/nyc_art.gdc
+[  51% ] savepack | Storing File: res://scripts/pixel_textures.gdc
+[  55% ] savepack | Storing File: res://scripts/traffic.gdc
+[  59% ] savepack | Storing File: res://scripts/world.gdc
+[  62% ] savepack | Storing File: res://shaders/night_sky.gdshader
+[  66% ] savepack | Storing File: res://shaders/retro_screen.gdshader
+[  69% ] savepack | Storing File: res://shaders/retro_surface.gdshader
+[  73% ] savepack | Storing File: res://tests/author_demos.gdc
+[  76% ] savepack | Storing File: res://tests/integration.gdc
+[  80% ] savepack | Storing File: res://tests/nyc_gallery.gdc
+[  84% ] savepack | Storing File: res://tests/nyc_integration.gdc
+[  87% ] savepack | Storing File: res://tests/nyc_routes.gdc
+[  91% ] savepack | Storing File: res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex
+[  91% ] savepack | Storing File: res://icon.svg.import
+[  95% ] savepack | Storing File: res://.godot/exported/133200997/export-3070c538c03ee49b7677ff960a3f5195-main.scn
+[  95% ] savepack | Storing File: res://scripts/actor.gd.remap
+[  95% ] savepack | Storing File: res://scripts/art.gd.remap
+[  95% ] savepack | Storing File: res://scripts/city_streets.gd.remap
+[  95% ] savepack | Storing File: res://scripts/level_data.gd.remap
+[  95% ] savepack | Storing File: res://scripts/main.gd.remap
+[  95% ] savepack | Storing File: res://scripts/nyc_art.gd.remap
+[  95% ] savepack | Storing File: res://scripts/pixel_textures.gd.remap
+[  95% ] savepack | Storing File: res://scripts/traffic.gd.remap
+[  95% ] savepack | Storing File: res://scripts/world.gd.remap
+[  95% ] savepack | Storing File: res://tests/author_demos.gd.remap
+[  95% ] savepack | Storing File: res://tests/integration.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_gallery.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_integration.gd.remap
+[  95% ] savepack | Storing File: res://tests/nyc_routes.gd.remap
+[  95% ] savepack | Storing File: res://main.tscn.remap
+[  95% ] savepack | Storing File: res://.godot/global_script_class_cache.cfg
+[  95% ] savepack | Storing File: res://icon.svg
+[  95% ] savepack | Storing File: res://.godot/uid_cache.bin
+[  95% ] savepack | Storing File: res://project.binary
+[ DONE ] savepack

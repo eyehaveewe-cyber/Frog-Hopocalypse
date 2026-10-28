@@ -1,0 +1,827 @@
+{
+  "version": 1,
+  "name": "STREETLIFE 03 · Ferry Railwalk",
+  "theme": "nyc",
+  "width": 23,
+  "height": 21,
+  "spawn": [
+    3,
+    18
+  ],
+  "exit": [
+    19,
+    2
+  ],
+  "district": "FERRY RAILWALK",
+  "level_set": "nyc_streetlife",
+  "set_index": 3,
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "objects": [
+    {
+      "id": "set3-skate_rail-0",
+      "type": "city_prop",
+      "variant": "skate_rail",
+      "pos": [
+        16.5,
+        10
+      ],
+      "rotation": 270,
+      "solid": true,
+      "length": 3.6
+    },
+    {
+      "id": "set3-skate_ramp-1",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        15.0,
+        10.0
+      ],
+      "rotation": 270,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "set3-skate_ramp-2",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        18.0,
+        10.0
+      ],
+      "rotation": 90,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "set3-skater-3",
+      "type": "skater",
+      "variant": 2,
+      "pos": [
+        14.5,
+        10.0
+      ],
+      "rotation": 0,
+      "solid": false,
+      "speed": 3.0,
+      "route": [
+        {
+          "pos": [
+            14.5,
+            10.0
+          ],
+          "height": 0,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            15.5,
+            10.0
+          ],
+          "height": 0.605,
+          "trick": "grind"
+        },
+        {
+          "pos": [
+            17.5,
+            10.0
+          ],
+          "height": 0.605,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            18.5,
+            10.0
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            19,
+            7
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            14,
+            7
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            14,
+            13
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            14.5,
+            13
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "set3-bench-4",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        7,
+        17
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set3-pizza_cart-5",
+      "type": "city_prop",
+      "variant": "pizza_cart",
+      "pos": [
+        9,
+        17
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set3-trash_can-6",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        5,
+        15
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set3-dumpster-7",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        3,
+        14
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set3-mailbox-8",
+      "type": "city_prop",
+      "variant": "mailbox",
+      "pos": [
+        18,
+        16
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set3-newsstand-9",
+      "type": "city_prop",
+      "variant": "newsstand",
+      "pos": [
+        20,
+        4
+      ],
+      "rotation": 270,
+      "solid": true
+    },
+    {
+      "id": "set3-traffic_cone-10",
+      "type": "city_prop",
+      "variant": "traffic_cone",
+      "pos": [
+        13,
+        6
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set3-manhole-11",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        17,
+        6
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "set3-roach-12",
+      "type": "roach",
+      "pos": [
+        6,
+        16
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.25,
+      "waypoints": [
+        [
+          6,
+          16
+        ],
+        [
+          6,
+          14
+        ],
+        [
+          8,
+          14
+        ],
+        [
+          8,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "set3-roach-13",
+      "type": "roach",
+      "pos": [
+        20,
+        16
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          20,
+          16
+        ],
+        [
+          20,
+          18
+        ],
+        [
+          18,
+          18
+        ],
+        [
+          18,
+          16
+        ]
+      ]
+    }
+  ],
+  "traffic": [],
+  "crossings": [],
+  "description": "A river divides the ferry forecourt from the departure gate. The broad east pier carries a supported rail line. Walk around the bank ends, then time the returning rider rather than trying to climb its fixtures.",
+  "hint": "Use the east pier. Walk around bank ends and cross after the rail rider passes.",
+  "design_intent": "A water-separated pier turns matching rail supports into a route obstacle and a timing landmark.",
+  "required_gates": [
+    {
+      "name": "east ferry pier",
+      "rect": [
+        14,
+        10,
+        19,
+        10
+      ]
+    }
+  ]
+}

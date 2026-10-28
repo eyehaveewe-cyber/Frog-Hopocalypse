@@ -1,7 +1,15 @@
 extends Control
 const Data = preload("res://scripts/level_data.gd")
 const World = preload("res://scripts/world.gd")
-const BUILTINS = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtyard.json", "res://levels/violet_mire.json"]
+const BUILTINS = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_courtyard.json", "res://levels/violet_mire.json",
+	"res://levels/nyc_01_central_park.json", "res://levels/nyc_02_brownstone_blocks.json",
+	"res://levels/nyc_03_east_river_piers.json", "res://levels/nyc_04_broadway.json",
+	"res://levels/nyc_05_midtown_rush_hour.json", "res://levels/nyc_06_brooklyn_skate_circle.json",
+	"res://levels/streetlife_01_stoop_patrol.json", "res://levels/streetlife_02_newsstand_weave.json",
+	"res://levels/streetlife_03_ferry_railwalk.json", "res://levels/streetlife_04_banked_boulevard.json",
+	"res://levels/streetlife_05_sanitation_courts.json", "res://levels/streetlife_06_block_party.json"]
+const STREETLIFE_START = 9
+const STREETLIFE_END = 14
 const INK = Color("f7f0d8")
 const MUTED = Color("b7c8b9")
 const LIME = Color("d5ec8d")
@@ -66,6 +74,14 @@ func _ready() -> void:
 	load_library()
 	build_ui()
 	load_builtin(0)
+	if OS.is_debug_build() and "--streetlife-gallery" in (OS.get_cmdline_user_args() + OS.get_cmdline_args()):
+		test_runner = preload("res://tests/streetlife_gallery.gd").new()
+		test_runner.configure(self)
+		return
+	if OS.is_debug_build() and "--nyc-gallery" in (OS.get_cmdline_user_args() + OS.get_cmdline_args()):
+		test_runner = preload("res://tests/nyc_gallery.gd").new()
+		test_runner.configure(self)
+		return
 	show_menu()
 	if test_mode:
 		test_runner = preload("res://tests/integration.gd").new()
@@ -203,6 +219,7 @@ func build_ui() -> void:
 	theme_picker = OptionButton.new()
 	theme_picker.add_item("Egyptian ruins")
 	theme_picker.add_item("Purple Swamp-Woods")
+	theme_picker.add_item("New York City")
 	theme_picker.item_selected.connect(change_theme)
 	tools.add_child(theme_picker)
 	var new_row := row(tools)
@@ -228,7 +245,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["water", "Water"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["road", "Road"], ["wall", "Wall"], ["water", "Water"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["critter", "Critter"], ["roach", "Roach"], ["skater", "Skater"], ["city_prop", "NYC prop"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -340,12 +357,18 @@ func reset_overlay(title: String, subtitle: String = "") -> void:
 
 func show_menu() -> void:
 	world.halted = true
-	reset_overlay("Pharaoh Frog Hopán", "Small frog. Ancient trouble.\nReach the glowing gate. Avoid critters, water and darts.")
+	reset_overlay("Pharaoh Frog Hopán", "Ancient ruins to New York nights.\nReach the glowing gate. Dodge critters, darts and traffic.")
+	button(overlay_box, "Start NYC Streetlife · 6 levels", start_streetlife_set, true)
+	paragraph(overlay_box, "A six-stop city route: roach alleys, rider crossings, grind rails, banks and a block party.", 12)
+	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
 	for i in range(BUILTINS.size()):
+		if i == STREETLIFE_START:
+			overlay_box.add_child(label("NYC STREETLIFE · LEVEL SELECT", 13, LIME))
+		if i == 3:
+			overlay_box.add_child(label("NEW YORK CITY", 13, LIME))
 		var index := i
 		var d := Data.load_json(BUILTINS[i])
 		button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): load_builtin(index); start_play(false), i == 0)
-	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
 	if not library.is_empty():
 		var custom := OptionButton.new()
 		custom.add_item("Play a saved custom level…")
@@ -365,6 +388,23 @@ func show_menu() -> void:
 	paragraph(overlay_box, "WASD / arrows · touch joystick on mobile\nM: overhead map   R: retry   Esc: pause", 12)
 	paragraph(overlay_box, "PS1-style 3D · Original pixel textures\nDesktop level editor / landscape mobile play", 11)
 	joystick.hide()
+
+func start_streetlife_set() -> void:
+	load_builtin(STREETLIFE_START)
+	start_play(false)
+
+func next_builtin_index() -> int:
+	var last := STREETLIFE_END if builtin_index >= STREETLIFE_START else STREETLIFE_START - 1
+	return builtin_index + 1 if builtin_index < last else -1
+
+func play_hint() -> String:
+	if level.get("level_set", "") == "nyc_streetlife":
+		return level.name + " · " + str(level.get("hint", "Watch the moving routes before crossing.")) + " M: map. R: retry."
+	if not level.get("skate_area", {}).is_empty():
+		return level.name + " · Watch rider loops. Cross behind the board. M: map. R: retry."
+	if not level.get("traffic", []).is_empty():
+		return level.name + " · Wait on sidewalks. Watch both lanes. Cars do not stop. M: map."
+	return level.name + " · WASD / arrows to move. M: map. R: retry."
 
 func load_builtin(index: int) -> void:
 	var loaded := Data.load_json(BUILTINS[index])
@@ -404,7 +444,9 @@ func start_play(from_editor: bool = true) -> void:
 	pause_button.text = "Pause"
 	pause_button.show()
 	joystick.visible = DisplayServer.is_touchscreen_available()
-	status(level.name + " · WASD / arrows to move. M: map. R: retry.")
+	if not from_editor and level.get("level_set", "") == "nyc_streetlife":
+		mode_label.text = "NYC STREETLIFE %d / 6" % level.set_index
+	status(play_hint())
 	reset_touch()
 
 func enter_editor() -> void:
@@ -434,17 +476,22 @@ func retry() -> void:
 	configure_view()
 	reset_touch()
 	joystick.visible = DisplayServer.is_touchscreen_available()
-	status(level.name + " · A fresh hop. R to retry.")
+	status(play_hint())
 
 func on_finished(reason: String) -> void:
 	reset_overlay(reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths + (0 if reason == "LEVEL COMPLETE!" else 1)])
 	if reason != "LEVEL COMPLETE!":
 		deaths += 1
-		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "A frog with a very particular swimming policy.", "HIT!": "Ancient security systems still work."}.get(reason, ""))
+		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "A frog with a very particular swimming policy.", "HIT!": "Ancient security systems still work.", "SKATED!": "Watch the rider loop. Cross behind the board when the path clears.", "FLATTENED!": "Watch the gaps. Crosswalks mark your route; cars have right of way."}.get(reason, ""))
 	else:
 		paragraph(overlay_box, "One small frog. One magnificent escape.")
-		if mode == "play" and slot_id.is_empty() and builtin_index < BUILTINS.size() - 1:
-			button(overlay_box, "Next level →", func(): load_builtin(builtin_index + 1); start_play(false), true)
+		if mode == "play" and slot_id.is_empty():
+			var next := next_builtin_index()
+			if next >= 0:
+				button(overlay_box, "Next level →", func(): load_builtin(next); start_play(false), true)
+			elif builtin_index == STREETLIFE_END:
+				paragraph(overlay_box, "NYC Streetlife complete. Six neighborhoods, one magnificent escape.")
+				button(overlay_box, "Replay NYC Streetlife", start_streetlife_set, true)
 	button(overlay_box, "Retry · R", retry, true)
 	if mode == "test":
 		button(overlay_box, "Return to editor", enter_editor)
@@ -476,7 +523,7 @@ func toggle_map() -> void:
 	map_button.text = "3D view" if world.map_view else "Map"
 	joystick.visible = mobile_ui and not world.map_view
 	configure_view()
-	status("Overhead map · World paused. M or 3D view returns to the frog." if world.map_view else level.name + " · M: map. R: retry.")
+	status("Overhead map · World paused. M or 3D view returns to the frog." if world.map_view else play_hint())
 
 func configure_view() -> void:
 	var retro: bool = not world.editing and not world.map_view
@@ -505,7 +552,7 @@ func sync_editor() -> void:
 		return
 	ui_busy = true
 	name_field.text = level.name
-	theme_picker.select(0 if level.theme == "egypt" else 1)
+	theme_picker.select(["egypt", "swamp", "nyc"].find(level.theme))
 	undo_button.disabled = undo_stack.is_empty()
 	redo_button.disabled = redo_stack.is_empty()
 	ui_busy = false
@@ -525,7 +572,7 @@ func change_theme(index: int) -> void:
 	if ui_busy:
 		return
 	record_undo()
-	level.theme = "egypt" if index == 0 else "swamp"
+	level.theme = ["egypt", "swamp", "nyc"][index]
 	rebuild()
 
 func record_undo() -> void:
@@ -591,7 +638,7 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		return
 	if tool == "route" and not erase:
 		var obj := selected_object()
-		if obj.is_empty() or obj.type != "critter":
+		if obj.is_empty() or obj.type not in ["critter", "roach"]:
 			status("Choose Select, click a critter, then choose Patrol route.")
 			return
 		if level.tiles[cell.y][cell.x] in ["wall", "water"]:
@@ -637,13 +684,35 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		if index >= 0 or level.objects.size() >= 180:
 			return
 		var obj := {"id": "object_%d_%d" % [Time.get_ticks_usec(), level.objects.size()], "type": tool, "pos": point, "rotation": 0, "solid": tool in ["pillar", "tree", "emitter"]}
-		if tool == "critter":
+		if tool in ["critter", "roach"]:
 			obj.merge({"behavior": "wander", "speed": 1.6, "waypoints": []})
+		if tool == "city_prop":
+			obj.variant = "bench"
+			obj.solid = true
+		if tool == "skater":
+			obj.variant = 0
+			obj.speed = 3.2
+			obj.route = default_skate_route(point)
+			if obj.route.is_empty():
+				status("A skater needs a dry two-by-two-cell loop. Choose a more open spot.")
+				return
 		if tool == "emitter":
 			obj.interval = 2.5
 		level.objects.append(obj)
 		selection = obj.id
 	rebuild()
+
+func default_skate_route(point: Array) -> Array:
+	for dx in [-2, 2]:
+		for dy in [-2, 2]:
+			var route: Array = []
+			for p in [point, [point[0] + dx, point[1]], [point[0] + dx, point[1] + dy], [point[0], point[1] + dy]]:
+				route.append({"pos": p, "height": 0.0, "trick": "push"})
+			var candidate: Dictionary = level.duplicate(true)
+			candidate.objects.append({"id": "skate_route_preview", "type": "skater", "variant": 0, "speed": 3.2, "pos": point, "route": route})
+			if Data.validate(candidate).is_empty():
+				return route
+	return []
 
 func refresh_inspector() -> void:
 	for child in inspector.get_children():
@@ -661,7 +730,7 @@ func refresh_inspector() -> void:
 	rot.value = fposmod(float(obj.get("rotation", 0)), 360)
 	rot.value_changed.connect(func(v: float): change_property("rotation", v))
 	inspector.add_child(rot)
-	if obj.type == "critter":
+	if obj.type in ["critter", "roach"]:
 		var behavior := OptionButton.new()
 		behavior.add_item("Wander")
 		behavior.add_item("Patrol")
@@ -678,6 +747,29 @@ func refresh_inspector() -> void:
 		inspector.add_child(speed)
 		button(inspector, "Draw patrol waypoints", func(): set_tool("route"))
 		button(inspector, "Clear route (%d points)" % obj.get("waypoints", []).size(), func(): change_property("waypoints", []))
+	if obj.type == "city_prop":
+		var prop_picker := OptionButton.new()
+		for kind in Data.CITY_PROPS:
+			prop_picker.add_item(str(kind).replace("_", " ").capitalize())
+		prop_picker.select(Data.CITY_PROPS.find(obj.variant))
+		prop_picker.item_selected.connect(func(i: int): change_property("variant", Data.CITY_PROPS[i]))
+		inspector.add_child(prop_picker)
+	if obj.type == "skater":
+		var rider := OptionButton.new()
+		for title in ["Cap / rust shirt", "Hoodie / teal", "Punk / violet"]:
+			rider.add_item(title)
+		rider.select(int(obj.get("variant", 0)))
+		rider.item_selected.connect(func(i: int): change_property("variant", i))
+		inspector.add_child(rider)
+		var skate_speed := SpinBox.new()
+		skate_speed.min_value = 2
+		skate_speed.max_value = 5.5
+		skate_speed.step = 0.1
+		skate_speed.value = obj.get("speed", 3.2)
+		skate_speed.suffix = "speed"
+		skate_speed.value_changed.connect(func(v: float): change_property("speed", v))
+		inspector.add_child(skate_speed)
+		paragraph(inspector, "Loop points and trick heights are preserved in JSON. The lines show this rider's route.", 11)
 	if obj.type == "emitter":
 		var interval := SpinBox.new()
 		interval.min_value = 0.5
@@ -688,7 +780,7 @@ func refresh_inspector() -> void:
 		interval.value_changed.connect(func(v: float): change_property("interval", v))
 		inspector.add_child(interval)
 		paragraph(inspector, "0° fires north · 90° west\n180° south · 270° east", 11)
-	if obj.type in ["mushroom", "decoration"]:
+	if obj.type in ["mushroom", "decoration", "city_prop"]:
 		var solid := CheckBox.new()
 		solid.text = "Blocks movement"
 		solid.button_pressed = obj.get("solid", false)
@@ -914,7 +1006,21 @@ func publish_browser_probe() -> void:
 			var p: Vector2 = world.camera.unproject_position(world.cell_position([x, z])) * view_container.size / Vector2(view.size) + view_container.global_position
 			cell_row.append([p.x, p.y])
 		cells.append(cell_row)
-	var state := {"mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
+	var traffic_state: Array = []
+	for vehicle in world.traffic.vehicles:
+		traffic_state.append({"x": vehicle.node.position.x, "z": vehicle.node.position.z, "kind": vehicle.kind, "lane": vehicle.lane})
+	var rider_state: Array = []
+	for rider in world.skaters:
+		rider_state.append({"x": rider.position.x, "z": rider.position.z, "height": rider.height, "state": rider.state, "variant": rider.variant, "clock": rider.clock})
+	var roach_state: Array = []
+	for critter in world.critters:
+		if critter.species == "roach":
+			roach_state.append({"x": critter.position.x, "z": critter.position.z})
+	var prop_count := 0
+	for obj in level.objects:
+		if obj.type == "city_prop":
+			prop_count += 1
+	var state := {"streetlife": {"skaters": rider_state, "roaches": roach_state, "prop_count": prop_count}, "theme": level.theme, "traffic": {"clock": world.traffic.clock, "count": traffic_state.size(), "vehicles": traffic_state}, "mode": mode, "overlay": overlay.visible, "paused": paused, "result": world.result, "elapsed": world.elapsed, "deaths": deaths,
 		"player": [world.player.position.x, world.player.position.z], "map": level, "buttons": buttons, "cells": cells,
 		"ui_size": [size.x, size.y], "saved": library.size(), "tool": tool, "selection": selection, "fps": Engine.get_frames_per_second(),
 		"map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}

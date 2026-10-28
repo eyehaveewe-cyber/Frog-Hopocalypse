@@ -1,0 +1,13 @@
+PASS: The new skate circle appears in the regular NYC campaign
+PASS: Playable plaza declares its eighteen-tile circular skating area
+PASS: Three visually distinct skateboard enemies run in the WebGL world
+PASS: Roach enemies and the expanded street-prop kit appear in the playable scene
+PASS: Skateboard enemies follow their routes while the frog waits in its safe arrival space
+PASS: At least one rider reaches an elevated ramp or grind contact in the browser
+PASS: Overhead inspection freezes skaters, roaches and their action timing
+PASS: Pause preserves the complete streetlife simulation pose
+PASS: The editor holds every moving enemy at its authoring preview pose
+PASS: Portable editor export retains the new enemies, skating routes and city assets
+PASS: Landscape phone view starts the complete three-rider encounter
+PASS: Streetlife browser sequence reports no JavaScript or Godot runtime errors
+STREETLIFE BROWSER: 12 checks, 0 failures

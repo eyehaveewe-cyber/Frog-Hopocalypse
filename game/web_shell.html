@@ -26,7 +26,10 @@ const progress=document.getElementById('progress');
 const missing=Engine.getMissingFeatures({threads:false});
 if(missing.length){message.textContent='This browser is missing: '+missing.join(', ')+'. Try a current Safari, Chrome, Firefox, or Edge.';progress.hidden=true;}
 else{
-  if(new URLSearchParams(location.search).has('browser-test')) config.args=['--browser-test'];
+  const params=new URLSearchParams(location.search);
+  if(params.has('browser-test')) config.args=['--browser-test'];
+  if(params.has('streetlife-gallery')) config.args=['--streetlife-gallery','--gallery-view-'+params.get('streetlife-gallery'),'--gallery-kind-'+(params.get('asset')||'roach')];
+  if(params.has('nyc-gallery')) config.args=['--nyc-gallery','--gallery-view-'+params.get('nyc-gallery'),'--gallery-kind-'+(params.get('vehicle')||'taxi')];
   engine.startGame({canvas:document.getElementById('canvas'),args:config.args||[],onProgress:(current,total)=>{if(total){progress.max=total;progress.value=current;}}}).then(()=>{document.getElementById('loading').remove();document.getElementById('canvas').focus();}).catch(error=>{message.textContent='The frog could not start: '+error.message;progress.hidden=true;});
 }
 document.addEventListener('contextmenu',e=>e.preventDefault());

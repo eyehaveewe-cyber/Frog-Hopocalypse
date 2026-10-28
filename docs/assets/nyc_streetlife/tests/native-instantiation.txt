@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PROP bench 22 assemblies
+PROP trash_can 18 assemblies
+PROP dumpster 18 assemblies
+PROP pizza_cart 28 assemblies
+PROP mailbox 10 assemblies
+PROP traffic_cone 5 assemblies
+PROP manhole 11 assemblies
+PROP newsstand 19 assemblies
+PROP skate_rail 14 assemblies
+PROP skate_ramp 9 assemblies
+ROACH 21 assemblies
+SKATER 0 4 wheels
+SKATER 1 4 wheels
+SKATER 2 4 wheels

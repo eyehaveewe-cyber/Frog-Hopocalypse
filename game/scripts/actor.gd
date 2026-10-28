@@ -2,6 +2,7 @@ extends CharacterBody3D
 const Art = preload("res://scripts/art.gd")
 var visual: Node3D
 var is_player := false
+var species := "critter"
 var behavior := "wander"
 var speed := 1.6
 var waypoints: Array[Vector3] = []

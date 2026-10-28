@@ -1,0 +1,687 @@
+{
+  "version": 1,
+  "name": "NYC 02 · Brownstone Blocks",
+  "theme": "nyc",
+  "width": 21,
+  "height": 19,
+  "spawn": [
+    3,
+    17
+  ],
+  "exit": [
+    17,
+    1
+  ],
+  "description": "Choose an alley around the stoops, cross opposing taxi lanes, and zigzag through the north block.",
+  "district": "BROWNSTONE BLOCKS",
+  "crossings": [
+    3,
+    10,
+    17
+  ],
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "objects": [
+    {
+      "id": "nyc-pillar-2-15",
+      "type": "pillar",
+      "pos": [
+        2,
+        15
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-pillar-11-15",
+      "type": "pillar",
+      "pos": [
+        11,
+        15
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-pillar-18-15",
+      "type": "pillar",
+      "pos": [
+        18,
+        15
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-pillar-6-6",
+      "type": "pillar",
+      "pos": [
+        6,
+        6
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-pillar-13-3",
+      "type": "pillar",
+      "pos": [
+        13,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-decoration-8-15",
+      "type": "decoration",
+      "pos": [
+        8,
+        15
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "nyc-decoration-12-15",
+      "type": "decoration",
+      "pos": [
+        12,
+        15
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "nyc-decoration-2-9",
+      "type": "decoration",
+      "pos": [
+        2,
+        9
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "nyc-decoration-18-6",
+      "type": "decoration",
+      "pos": [
+        18,
+        6
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "nyc-decoration-3-3",
+      "type": "decoration",
+      "pos": [
+        3,
+        3
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "nyc-critter-9-7",
+      "type": "roach",
+      "pos": [
+        9,
+        7
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.25,
+      "waypoints": [
+        [
+          6,
+          7
+        ],
+        [
+          14,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "nyc-dumpster-18-17",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        18,
+        17
+      ],
+      "rotation": 90,
+      "solid": true
+    },
+    {
+      "id": "nyc-trash_can-17-17",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        17,
+        17
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-newsstand-2-2",
+      "type": "city_prop",
+      "variant": "newsstand",
+      "pos": [
+        2,
+        2
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-bench-10-2",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        10,
+        2
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-mailbox-15-3",
+      "type": "city_prop",
+      "variant": "mailbox",
+      "pos": [
+        15,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "nyc-traffic_cone-19-10",
+      "type": "city_prop",
+      "variant": "traffic_cone",
+      "pos": [
+        19,
+        10
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "nyc-manhole-10-13",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        10,
+        13
+      ],
+      "rotation": 0,
+      "solid": false
+    }
+  ],
+  "traffic": [
+    {
+      "row": 12,
+      "direction": 1,
+      "speed": 3.1,
+      "spacing": 12.5,
+      "offset": 0.0,
+      "vehicles": [
+        "taxi",
+        "sedan"
+      ]
+    },
+    {
+      "row": 11,
+      "direction": -1,
+      "speed": 3.0,
+      "spacing": 13.5,
+      "offset": 5.0,
+      "vehicles": [
+        "sedan",
+        "taxi",
+        "truck"
+      ]
+    }
+  ]
+}

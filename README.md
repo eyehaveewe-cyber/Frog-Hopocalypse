@@ -23,11 +23,25 @@ The browser entry point is `build/web/index.html`. Serve the **whole directory**
 
 `tools/bootstrap.py` downloads the pinned Linux editor and export templates from the official Godot release and verifies pinned SHA-512 hashes. Tools and caches live outside the checkout under `/workspace`. Set `HOPAN_TOOL_DIR` and `XDG_DATA_HOME` to relocate them. Desktop developers can install the official editor/templates normally instead.
 
+## NYC Streetlife six-level set
+
+Choose **Start NYC Streetlife · 6 levels** on the main menu. The new set is a
+separate six-stop campaign: Stoop Patrol, Newsstand Weave, Ferry Railwalk,
+Banked Boulevard, Sanitation Courts and Block Party. Each level uses a different
+route decision, progressing from slow roach gates to supported grind lines,
+banks and combined street crossings. Next level stays within the set; finishing
+Block Party offers a complete-set replay. All earlier maps remain selectable.
+
+See [level design and progression](docs/STREETLIFE_SET.md) and
+[validation](docs/STREETLIFE_SET_VALIDATION.md).
+
 ## Implemented
 
 - Continuous WASD/arrow movement, animated hopping, physical collisions and an interchangeable pharaoh hat.
 - Wandering critters, waypoint patrols, and projectile traps with configurable direction and interval.
 - Critter, water and projectile deaths; immediate retry; victory with completion time, death count and next-level transition.
+- Brooklyn Skate Circle adds an 18-tile-diameter plaza, three articulated skateboard enemies riding ramps and rails, and six-legged roaches. Ten new street/skate assets also dress the NYC districts. See [the skate plaza](docs/NYC_SKATE_PLAZA.md).
+- Five additional regular New York City maps progress from Central Park to Midtown Rush Hour. The fifth NYC map has eight opposing lanes of animated taxis, sedans, buses and delivery trucks, separated by safe medians. See [NYC maps and traffic](docs/NYC_LEVELS.md).
 - Moonlit Oasis, Pharaoh's Courtyard and Violet Mire, reconstructed and saved through the editor's own operations. The oasis adds grassy canal paths and palms inspired by the supplied Frog Frenzy reference.
 - Terrain painting, scenery, spawn/exit placement, object properties, rotation, patrol drawing, undo/redo, save/load/duplicate, JSON import/export, and playtesting without losing edits.
 - A fixed-angle perspective camera following the frog on desktop and mobile, with a low-resolution, nearest-scaled 3D render and sharp interface text.
@@ -45,6 +59,9 @@ bash tools/build.sh --with-browser-test
 python3 -m http.server 8060 --directory build/test-web --bind 127.0.0.1
 # In another terminal, with Playwright and Chromium available:
 node tools/browser_smoke.cjs
+node tools/nyc_browser_smoke.cjs
+node tools/streetlife_browser_smoke.cjs
+node tools/streetlife_set_browser.cjs
 ```
 
 The browser runner uses Playwright 1.62.1 and `/usr/bin/chromium` in this cloud environment. Set `HOPAN_CHROMIUM` or `HOPAN_TEST_URL` for another browser binary/server. Screenshots and exported test maps go into ignored `build/test-results/`. Native tests use an isolated temporary save library.
