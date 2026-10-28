@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "Existing profile and earned hat load in old level runtime",
+    "Original editor writes a saved level",
+    "NYC first load copies the complete original library",
+    "NYC save writes a synchronous durable backup",
+    "Immediate reload retains the NYC level",
+    "NYC save leaves original level library untouched",
+    "Returning retains the original level, skin and earned hat"
+  ],
+  "errors": [],
+  "scope": "Actual same-origin debug WebGL, sequential old→NYC→old navigation, real editor saves and IndexedDB contents. Separate libraries intentionally do not continuously synchronize edits."
+}

@@ -1,3 +1,5 @@
+**Frog menu and level collections:** The illustrated frog is back. Explore levels groups the NYC and earlier level sets in one menu, with their existing progression gates. Earlier outfits and saved levels remain accessible. [Versions, save safeguards and verification](docs/HOPAN_UNIFIED_LEVELS.md).
+
 # Hopocalypse: Pharaoh Frog Hopán
 
 A playable Godot **4.7.2** 3D arcade maze game with an integrated desktop level editor, following the [original design brief](docs/game-design-brief.md). The presentation now follows the user's PS1-style direction and Frog Frenzy references: a receding perspective camera, original pixel textures, low-poly models, vertex snapping, limited-color dithering and a low-resolution 3D scene. See [art direction](docs/ART_DIRECTION.md).

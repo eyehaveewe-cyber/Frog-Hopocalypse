@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "desktop: primary menu actions",
+    "desktop: keyboard remains in game",
+    "Ancient ruins · 3 levels routes are reachable",
+    "New York City · 6 levels routes are reachable",
+    "NYC Streetlife · 6 levels routes are reachable",
+    "Unified collection: Baby Mode · 4 levels",
+    "Unified collection: Not As Hard As It Looks · 4 levels",
+    "Unified collection: Bonus · 3 levels",
+    "Unified collection: Tile Hop · 5 levels",
+    "Unified collection: Moves When You Move · 5 levels",
+    "Baby Mode opens four original stages",
+    "Original stage starts through collection",
+    "Back returns to level collections",
+    "NYC campaign starts from home",
+    "NYC editor saves with protected library",
+    "landscape: primary menu actions",
+    "landscape: keyboard remains in game",
+    "portrait: primary menu actions",
+    "portrait: keyboard remains in game"
+  ],
+  "errors": [],
+  "scope": "Actual debug Chromium WebGL; keyboard and mouse, desktop plus landscape/portrait touch emulation; no physical mobile claim."
+}

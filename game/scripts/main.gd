@@ -8,6 +8,13 @@ const BUILTINS = ["res://levels/moonlit_oasis.json", "res://levels/pharaohs_cour
 	"res://levels/streetlife_01_stoop_patrol.json", "res://levels/streetlife_02_newsstand_weave.json",
 	"res://levels/streetlife_03_ferry_railwalk.json", "res://levels/streetlife_04_banked_boulevard.json",
 	"res://levels/streetlife_05_sanitation_courts.json", "res://levels/streetlife_06_block_party.json"]
+const LibraryCompat = preload("res://scripts/library_compat.gd")
+const SPLASH_WIDE = preload("res://art/splash/hopan-wide.png")
+const SPLASH_COMPACT = preload("res://art/splash/hopan-compact.png")
+const SPLASH_PORTRAIT = preload("res://art/splash/hopan-portrait.png")
+const SPLASH_LAYERED_WIDE = preload("res://art/splash/hopan-layered-wide.png")
+const SPLASH_LAYERED_COMPACT = preload("res://art/splash/hopan-layered-compact.png")
+const SPLASH_LAYERED_PORTRAIT = preload("res://art/splash/hopan-layered-portrait.png")
 const STREETLIFE_START = 9
 const STREETLIFE_END = 14
 const INK = Color("f7f0d8")
@@ -20,6 +27,12 @@ var sidebar: PanelContainer
 var overlay: Control
 var overlay_panel: PanelContainer
 var overlay_box: VBoxContainer
+var overlay_layout: MarginContainer
+var overlay_scroll: ScrollContainer
+var overlay_shade: ColorRect
+var splash_art: TextureRect
+var splash_menu := false
+var splash_variant := "wrapped"
 var status_label: Label
 var time_label: Label
 var mode_label: Label
@@ -61,6 +74,7 @@ var joystick: Control
 var poll_timer := 0.0
 var test_mode := false
 var test_runner: RefCounted
+var library_warning := ""
 var browser_test := false
 var probe_timer := 0.0
 var mobile_ui := false
@@ -71,6 +85,7 @@ func _ready() -> void:
 	test_mode = "--integration-test" in OS.get_cmdline_user_args()
 	browser_test = OS.is_debug_build() and ("--browser-test" in OS.get_cmdline_user_args() or "--browser-test" in OS.get_cmdline_args())
 	make_theme()
+	choose_splash_variant()
 	load_library()
 	build_ui()
 	load_builtin(0)
@@ -83,6 +98,10 @@ func _ready() -> void:
 		test_runner.configure(self)
 		return
 	show_menu()
+	if OS.has_feature("web") and JavaScriptBridge.eval("new URLSearchParams(location.search).get('levels') === '1'", true): show_level_categories()
+	if not library_warning.is_empty():
+		status(library_warning)
+		paragraph(overlay_box, library_warning)
 	if test_mode:
 		test_runner = preload("res://tests/integration.gd").new()
 		test_runner.call_deferred("run", self)
@@ -296,22 +315,35 @@ func build_ui() -> void:
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(overlay)
+	splash_art = TextureRect.new()
+	splash_art.texture = SPLASH_WIDE
+	splash_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	splash_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	splash_art.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	splash_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	splash_art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	splash_art.hide()
+	overlay.add_child(splash_art)
 	var shade := ColorRect.new()
+	overlay_shade = shade
 	shade.color = Color(0.025, 0.07, 0.055, 0.82)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	overlay.add_child(shade)
-	var overlay_scroll := ScrollContainer.new()
+	overlay_scroll = ScrollContainer.new()
 	overlay_scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	overlay.add_child(overlay_scroll)
-	var align := CenterContainer.new()
+	var align := MarginContainer.new()
+	overlay_layout = align
 	align.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	align.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	overlay_scroll.add_child(align)
 	overlay_panel = PanelContainer.new()
 	overlay_panel.custom_minimum_size.x = minf(560, get_window().content_scale_size.x - 24) if mobile_ui else 560
 	overlay_panel.add_theme_stylebox_override("panel", panel_style(Color("193a2e"), 16))
+	overlay_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	overlay_panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	align.add_child(overlay_panel)
 	overlay_box = VBoxContainer.new()
 	overlay_box.add_theme_constant_override("separation", 8 if mobile_ui else 14)
@@ -342,52 +374,133 @@ func build_joystick() -> void:
 	hint.position = Vector2(50, 145)
 	joystick.add_child(hint)
 
+static func splash_variant_for(roll: float, forced: String = "") -> String:
+	if forced == "4": return "layered"
+	if forced == "6": return "wrapped"
+	return "layered" if roll < 0.15 else "wrapped"
+
+func choose_splash_variant() -> void:
+	var forced := ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--splash="): forced = argument.trim_prefix("--splash=")
+	if OS.has_feature("web"):
+		forced = str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('splash') || ''", true))
+	var cosmetic_rng := RandomNumberGenerator.new()
+	cosmetic_rng.randomize()
+	splash_variant = splash_variant_for(cosmetic_rng.randf(), forced)
+
+func configure_splash_layout() -> void:
+	if not is_instance_valid(splash_art): return
+	var viewport_size := get_window().content_scale_size
+	var portrait := viewport_size.y > viewport_size.x
+	if splash_variant == "layered":
+		splash_art.texture = SPLASH_LAYERED_PORTRAIT if portrait else (SPLASH_LAYERED_COMPACT if mobile_ui else SPLASH_LAYERED_WIDE)
+	else:
+		splash_art.texture = SPLASH_PORTRAIT if portrait else (SPLASH_COMPACT if mobile_ui else SPLASH_WIDE)
+	var edge := 12 if mobile_ui else 32
+	for side in ["left", "right", "bottom"]:
+		overlay_layout.add_theme_constant_override("margin_" + side, edge if splash_menu else 0)
+	overlay_layout.add_theme_constant_override("margin_top", int(viewport_size.y * 0.47) if splash_menu and portrait else (edge if splash_menu else 0))
+	overlay_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER if not splash_menu or portrait else Control.SIZE_SHRINK_END
+	overlay_panel.custom_minimum_size.x = minf(500 if not mobile_ui else viewport_size.x * .5, viewport_size.x - edge * 2) if splash_menu and not portrait else minf(560, viewport_size.x - edge * 2)
+
 func reset_overlay(title: String, subtitle: String = "") -> void:
+	splash_menu = false
+	splash_art.hide()
+	overlay_shade.color = Color(0.025, 0.07, 0.055, 0.82)
+	overlay_panel.add_theme_stylebox_override("panel", panel_style(Color("193a2e"), 16))
+	configure_splash_layout()
+	overlay_scroll.set_deferred("scroll_vertical", 0)
 	for child in overlay_box.get_children():
 		overlay_box.remove_child(child)
 		child.queue_free()
-	overlay_box.add_child(label("H O P O C A L Y P S E", 12, LIME))
-	var heading := label(title, 26 if mobile_ui else 36)
-	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	overlay_box.add_child(heading)
+	if not title.is_empty():
+		overlay_box.add_child(label("H O P O C A L Y P S E", 12, LIME))
+		var heading := label(title, 26 if mobile_ui else 36)
+		heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		overlay_box.add_child(heading)
 	if not subtitle.is_empty():
 		paragraph(overlay_box, subtitle)
 	overlay.show()
 	reset_touch()
 
+func prepare_frog_menu(title: String, subtitle: String = "") -> void:
+	reset_overlay("", "")
+	splash_menu = true
+	splash_art.show()
+	overlay_shade.color = Color(0, 0, 0, 0)
+	var menu_style := panel_style(Color(0.035, 0.10, 0.12, 0.94), 12)
+	menu_style.border_color = Color(0.72, 0.70, 0.43, 0.35)
+	overlay_panel.add_theme_stylebox_override("panel", menu_style)
+	configure_splash_layout()
+	overlay_box.add_child(label("P H A R A O H   F R O G", 12, Color("e1c786")))
+	var heading := label(title, 28 if mobile_ui else 40, Color("f2dc9b"))
+	heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	overlay_box.add_child(heading)
+	if not subtitle.is_empty(): paragraph(overlay_box, subtitle, 12)
+
 func show_menu() -> void:
 	world.halted = true
-	reset_overlay("Pharaoh Frog Hopán", "Ancient ruins to New York nights.\nReach the glowing gate. Dodge critters, darts and traffic.")
-	button(overlay_box, "Start NYC Streetlife · 6 levels", start_streetlife_set, true)
-	paragraph(overlay_box, "A six-stop city route: roach alleys, rider crossings, grind rails, banks and a block party.", 12)
-	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
-	for i in range(BUILTINS.size()):
-		if i == STREETLIFE_START:
-			overlay_box.add_child(label("NYC STREETLIFE · LEVEL SELECT", 13, LIME))
-		if i == 3:
-			overlay_box.add_child(label("NEW YORK CITY", 13, LIME))
-		var index := i
-		var d := Data.load_json(BUILTINS[i])
-		button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): load_builtin(index); start_play(false), i == 0)
-	if not library.is_empty():
-		var custom := OptionButton.new()
-		custom.add_item("Play a saved custom level…")
-		for item in library:
-			custom.add_item(item.level.name)
-		custom.item_selected.connect(func(i: int):
-			if i > 0:
-				load_library_entry(i - 1)
-				start_play(false))
-		overlay_box.add_child(custom)
+	prepare_frog_menu("Hopán", "Choose a route or build a maze.")
 	if mode != "menu":
 		button(overlay_box, "Continue " + ("editing" if mode == "edit" else "playing"), func():
 			overlay.hide()
 			world.halted = false
 			paused = false
-			joystick.visible = mobile_ui and mode in ["play", "test"])
-	paragraph(overlay_box, "WASD / arrows · touch joystick on mobile\nM: overhead map   R: retry   Esc: pause", 12)
-	paragraph(overlay_box, "PS1-style 3D · Original pixel textures\nDesktop level editor / landscape mobile play", 11)
+			joystick.visible = mobile_ui and mode in ["play", "test"], true)
+	button(overlay_box, "Start NYC Streetlife · 6 levels", start_streetlife_set, mode == "menu")
+	button(overlay_box, "Explore levels", show_level_categories)
+	if OS.has_feature("web"):
+		button(overlay_box, "Frog outfits & other saved levels", func(): open_older_collection(""))
+	button(overlay_box, "Level editor · Create a maze", func(): enter_editor())
+	if not library.is_empty():
+		var custom := OptionButton.new()
+		custom.add_item("Play a saved custom level…")
+		for item in library: custom.add_item(item.level.name)
+		custom.item_selected.connect(func(i: int):
+			if i > 0:
+				load_library_entry(i - 1)
+				start_play(false))
+		overlay_box.add_child(custom)
+	paragraph(overlay_box, "WASD / arrows · touch joystick\nM: map   R: retry   Esc: pause", 12)
+	call_deferred("focus_frog_actions")
 	joystick.hide()
+
+func show_level_categories() -> void:
+	prepare_frog_menu("Explore levels", "Choose a collection.")
+	button(overlay_box, "Ancient ruins · 3 levels", func(): show_level_collection(0, 3, "Ancient ruins"))
+	button(overlay_box, "New York City · 6 levels", func(): show_level_collection(3, STREETLIFE_START, "New York City"))
+	button(overlay_box, "NYC Streetlife · 6 levels", func(): show_level_collection(STREETLIFE_START, STREETLIFE_END + 1, "NYC Streetlife"))
+	for collection in [["Baby Mode · 4 levels", "baby"], ["Not As Hard As It Looks · 4 levels", "human"], ["Bonus · 3 levels", "bonus"], ["Tile Hop · 5 levels", "tile"], ["Moves When You Move · 5 levels", "sync"]]:
+		var set_key: String = collection[1]
+		var action := button(overlay_box, collection[0], func(): open_older_collection(set_key))
+		if not OS.has_feature("web"):
+			action.disabled = true
+			action.tooltip_text = "This collection is available in the web edition."
+	button(overlay_box, "← Back to main menu", show_menu)
+	call_deferred("focus_frog_actions")
+
+func open_older_collection(set_key: String) -> void:
+	if not OS.has_feature("web"): return
+	var url := "/classic/" + ("?set=" + set_key if not set_key.is_empty() else "")
+	JavaScriptBridge.eval("window.location.href=" + JSON.stringify(url), true)
+
+func show_level_collection(first: int, end: int, title: String) -> void:
+	prepare_frog_menu(title, "Choose a starting level.")
+	button(overlay_box, "← All collections", show_level_categories)
+	for i in range(first, end):
+		var index := i
+		var d := Data.load_json(BUILTINS[i])
+		button(overlay_box, "Play · " + str(d.get("name", "Level")), func(): load_builtin(index); start_play(false))
+	call_deferred("focus_frog_actions")
+
+func focus_frog_actions() -> void:
+	if not splash_menu or not overlay.visible or not is_inside_tree(): return
+	var controls: Array = overlay_box.find_children("*", "BaseButton", true, false).filter(func(c): return not c.disabled and c.is_visible_in_tree())
+	for i in controls.size():
+		controls[i].focus_next = controls[i].get_path_to(controls[(i + 1) % controls.size()])
+		controls[i].focus_previous = controls[i].get_path_to(controls[(i - 1 + controls.size()) % controls.size()])
+	if not controls.is_empty(): controls[0].grab_focus()
 
 func start_streetlife_set() -> void:
 	load_builtin(STREETLIFE_START)
@@ -801,11 +914,9 @@ func change_property(key: String, value: Variant) -> void:
 	rebuild()
 
 func load_library() -> void:
-	var stored: Variant = JSON.parse_string(FileAccess.get_file_as_string("user://library.json")) if FileAccess.file_exists("user://library.json") else []
-	if stored is Array:
-		for item in stored:
-			if item is Dictionary and item.get("id") is String and Data.validate(item.get("level")) == "":
-				library.append(Data.normalize(item))
+	var loaded := LibraryCompat.load_library(Data.validate, Data.normalize)
+	library.assign(loaded.items)
+	if not loaded.writable: library_warning = loaded.error
 
 func refresh_library_picker() -> void:
 	saved_picker.clear()
@@ -828,14 +939,9 @@ func save_level() -> void:
 			found = true
 	if not found:
 		library.append({"id": slot_id, "level": level.duplicate(true)})
-	var f := FileAccess.open("user://library.pending.json", FileAccess.WRITE)
-	if f == null:
-		status("Local save failed. Export JSON to keep a portable copy.")
-		return
-	f.store_string(JSON.stringify(library, "\t"))
-	f.close()
-	if DirAccess.rename_absolute("user://library.pending.json", "user://library.json") != OK:
-		status("Could not finish the local save. Export JSON to keep a backup.")
+	var saved := LibraryCompat.save_library(library, Data.validate, Data.normalize)
+	if not saved.ok:
+		status(saved.error)
 		return
 	refresh_library_picker()
 	status("Saved locally: " + level.name + ". Export JSON for a backup outside this browser.")
@@ -989,7 +1095,7 @@ func resize_mobile_ui() -> void:
 	if desired.x > 0 and desired.y > 0 and get_window().content_scale_size != desired:
 		get_window().content_scale_size = desired
 		if is_instance_valid(overlay_panel):
-			overlay_panel.custom_minimum_size.x = minf(560, desired.x - 24)
+			configure_splash_layout()
 
 func publish_browser_probe() -> void:
 	# Read-only diagnostics in explicitly requested debug exports. Browser tests
