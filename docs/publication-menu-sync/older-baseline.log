@@ -1,0 +1,102 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Bundled JSON validates: res://levels/moonlit_oasis.json
+PASS: Exit has a dry, unblocked route: Moonlit Oasis
+PASS: Bundled JSON validates: res://levels/pharaohs_courtyard.json
+PASS: Exit has a dry, unblocked route: Pharaoh's Courtyard
+PASS: Bundled JSON validates: res://levels/violet_mire.json
+PASS: Exit has a dry, unblocked route: Violet Mire
+PASS: Editor paints a wall
+PASS: Undo restores terrain
+PASS: Redo restores wall
+PASS: Editor records patrol waypoints
+PASS: Authored map validates
+PASS: Map JSON writes successfully
+PASS: JSON round trip preserves terrain, objects and properties
+PASS: Duplicate creates an independent local save
+PASS: Local save library reloads from disk
+PASS: Playtest instantiates authored AI and trap
+PASS: Gameplay uses the perspective frog camera
+PASS: Map inspection uses the preserved overhead camera
+PASS: Map inspection pauses simulation without moving the frog
+PASS: Leaving the map restores perspective gameplay
+PASS: The editor retains its overhead construction view
+PASS: Returning from playtest preserves all edits
+PASS: Frog cannot move through a solid wall
+PASS: Water triggers splash death
+PASS: Retry resets death and projectiles
+PASS: Exit triggers victory
+PASS: Critter contact causes immediate death
+PASS: Projectile contact causes hit death
+PASS: Dart is destroyed by world geometry
+PASS: Unsupported map versions are rejected
+PASS: Malformed version types are rejected safely
+PASS: Rejected import leaves current map intact
+PASS: Twenty critters simulate in the shared runtime
+PASS: Wandering critters actually move independently
+PASS: Full dry route physically traversable with hazards paused: Moonlit Oasis
+PASS: Full dry route physically traversable with hazards paused: Pharaoh's Courtyard
+PASS: Full dry route physically traversable with hazards paused: Violet Mire
+PASS: Crossing JSON validates and log lanes connect the route
+PASS: Malformed lane properties are rejected
+PASS: Entering Baby Mode keeps the reward hat locked
+PASS: Hat skips the locked baby frog hat
+PASS: Repeating one stage cannot earn the four-stage reward
+PASS: Three distinct clears leave the baby frog hat locked
+PASS: An early legacy unlock is corrected while preserving stage progress
+PASS: A stationary frog rides a moving log without splashing
+PASS: Overhead map pauses cars and logs
+PASS: Open water between logs remains a hazard
+PASS: Moving traffic hits the frog
+PASS: After the log bank, retry restarts at the safe checkpoint
+PASS: Finale physically crossed with active traffic/logs at arrival phase 0
+PASS: Finale physically crossed with active traffic/logs at arrival phase 100
+PASS: Finale physically crossed with active traffic/logs at arrival phase 220
+PASS: Fourth distinct clear unlocks and equips the baby frog-head hat
+PASS: Earned frog hat joins the unlocked headwear cycle
+PASS: Earned hat, selection and four distinct clears survive reload
+PASS: Large editor maze has 52% more area and a playable route
+PASS: Large maze far-edge painting supports undo
+PASS: Large maze far-edge painting supports redo
+ERROR: FAIL: Standard editor size remains available
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/integration.gd:10)
+       [1] run (res://tests/presentation.gd:20)
+       [2] run (res://tests/integration.gd:159)
+       [3] run (res://tests/baby_mode.gd:111)
+       [4] walk (res://tests/baby_mode.gd:145)
+       [5] frame (res://tests/baby_mode.gd:6)
+ERROR: FAIL: Large maze survives export/import through the shared serializer
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/integration.gd:10)
+       [1] run (res://tests/presentation.gd:21)
+       [2] run (res://tests/integration.gd:159)
+       [3] run (res://tests/baby_mode.gd:111)
+       [4] walk (res://tests/baby_mode.gd:145)
+       [5] frame (res://tests/baby_mode.gd:6)
+PASS: Exit Preview preference survives profile reload
+PASS: Exit Preview reaches the exit while holding frog and game clock
+PASS: Pausing freezes the exit sweep
+ERROR: FAIL: Exit sweep returns to the frog before releasing play
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/integration.gd:10)
+       [1] run (res://tests/presentation.gd:41)
+       [2] run (res://tests/integration.gd:159)
+       [3] run (res://tests/baby_mode.gd:111)
+       [4] walk (res://tests/baby_mode.gd:145)
+       [5] frame (res://tests/baby_mode.gd:6)
+PASS: Opening the overhead map safely skips the preview
+PASS: Turning Exit Preview off cancels an active sweep
+PASS: Preview timing and frozen player at 30 Hz
+PASS: Preview timing and frozen player at 120 Hz
+PASS: Result animation stays visible before the screen: SPLASHED!
+PASS: Result screen appears after the animation hold: SPLASHED!
+PASS: Result animation stays visible before the screen: SQUISHED!
+PASS: Result screen appears after the animation hold: SQUISHED!
+PASS: Result animation stays visible before the screen: LEVEL COMPLETE!
+PASS: Result screen appears after the animation hold: LEVEL COMPLETE!
+PASS: Early retry cancels the pending result screen
+INTEGRATION: 75 checks, 3 failures

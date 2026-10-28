@@ -1,0 +1,37 @@
+{
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "site_version": 86,
+  "site_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_67a6a96344dc8191bcfda9713a22d89c",
+  "deployment_id": "appgdep_6ae238079f488191948f3698727d8992",
+  "deployment_status": "succeeded",
+  "site_source_commit": "b00ce8fa2bdad2ccc96d96d83ea3cf6a763d2331",
+  "modern_source_commit": "87f262253906863dcc79467bf8dc7de34e3af792",
+  "older_source_commit": "cf1a152e440b1adf27be7e4b60b47fa4647dfca7",
+  "older_source_tree": "9b7c35b8e008db9498124f89ee23b065cb9f48b2",
+  "audience": "public",
+  "native_checks": {
+    "nyc": 217,
+    "nyc_library": 25,
+    "older_safety": 22,
+    "older_mirror": 14,
+    "older_collections": 18,
+    "older_baseline": "75 checks, 3 pre-existing stale assertions; direct scene diagnosis recorded"
+  },
+  "browser_checks": {
+    "menu": 19,
+    "save_roundtrip": 7,
+    "modern_release": 4,
+    "older_release": 3,
+    "older_immediate_reload": 2,
+    "older_keyboard": 1
+  },
+  "preservation": "15 unrelated static files and hosting manifest byte-identical; RiverSim 0.4.51 retained",
+  "save_limit": "Separate editors copy preexisting data once and preserve independently; later edits do not automatically synchronize.",
+  "archive": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_00000000e62881f5b969e971dc93fb35",
+    "content_hash": "sha256:5c0673991e1fe60f3df79b15bef178db76b7e87c5ab38d4cef690ce59c8f5c0f",
+    "size_bytes": 66181120,
+    "file_count": 38
+  }
+}

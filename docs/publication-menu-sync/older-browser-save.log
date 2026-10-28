@@ -1,0 +1,3 @@
+PASS: manual save synchronously records the complete Classic mirror
+PASS: immediate reload retains the newly saved Classic level
+{"checks":2,"errors":[],"scope":"actual patched debug WebGL, real pointer editor save and immediate reload in fresh isolated browser"}

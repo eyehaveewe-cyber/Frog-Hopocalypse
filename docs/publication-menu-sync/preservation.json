@@ -1,0 +1,50 @@
+{
+  "modern_commit": "87f262253906863dcc79467bf8dc7de34e3af792",
+  "older_commit": "cf1a152e440b1adf27be7e4b60b47fa4647dfca7",
+  "preserved_riversim": {
+    "version": "0.4.51-playable",
+    "source_commit": "1e053ead02a9e60d0d3c19378720796685c9ea52"
+  },
+  "preserved_files": {
+    "wasm-hosting-adapter.js": "aa0b977dd0f4b7cc7c61c357906aaea2ee6b15d1dcfd7a14153cf4bfde796c2a",
+    "hop-sound-attribution.txt": "4c9751d13b9716ebd139c97abccef05107606aecdb6d87beaf1d59f54b9debfe",
+    "_headers": "76700ff6421b20818c3c5d87f1602851e7c68002b36cb99b3e82d240737903bf",
+    "riversim/chart-ohio-224-1999.pdf": "8bd5e61b739e51b41024d61f1da8e64a19b20dad394c03ce8e962f53b54cd589",
+    "riversim/index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+    "riversim/index.html": "97865380c66d9d8cddf744b361ceb085a2ee174c306a974a7128b192946beb98",
+    "riversim/index.icon.png": "ad3c35ad0facf487c618204bd98db543034fc95224eadc7f08c7a9ff38d5b3b5",
+    "riversim/index.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "riversim/build.json": "c7808b8af94f36cd09bce27496ed26e49f26f4f3794cc3b81fbd6d191d052d6d",
+    "riversim/index.apple-touch-icon.png": "01d4f63e525941e06ce74f5187dad030d20a8d52a07ce365ae4e94af97a3b1f5",
+    "riversim/index.wasm": "2862a06f11ad1579c4ceb764f724013c1e62f8916d5d8d237fe5ee209c76f56e",
+    "riversim/index.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "riversim/index.pck.part1": "69d5cec5784b76520b15fbf4e335d4fdbe5e68a7b181079e7b05ac9ce73e39d1",
+    "riversim/index.pck.part0": "1fffb81cc41078260d4569fedfabfc0e7e327ae47150cef1909400dd9e463a12",
+    "riversim/index.png": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+  },
+  "hosting_manifest": "byte-identical",
+  "updated_files": {
+    "build.json": "09994d77250d0da4a6609f4d415659350ae472a438beb70a524a4b8f9ad58da3",
+    "classic/game/hopan-wasm.js": "3810742ff3809a9c2f419a8357ddd6377ff656f849c36d8772d909529ec088f7",
+    "classic/game/index.apple-touch-icon.png": "c797f2a2684a5ce0718d2457fc8ecaede25720c30fc5469554ae2bea8e5b7b50",
+    "classic/game/index.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "classic/game/index.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "classic/game/index.html": "b6848cf806cd2a78ee716b6ba38a35440e17913c99bb617cd1d66eea608b984a",
+    "classic/game/index.icon.png": "7c3ba8949659536b5b4f35dba7257acee478ad0e63605e6f2c52e15995d4cde7",
+    "classic/game/index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+    "classic/game/index.pck": "d8bd0cec82d154f12fea611cc03bf32194daca9e8c91c6e7806bbc21a5319b5f",
+    "classic/game/index.png": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+    "classic/game/index.wasm": "8032306d52d52497129dce5b767baacb660d504bdde28668b1c1337b717eacd8",
+    "classic/index.html": "0ef05ed06d188db768933373b786a7bf2a350def35f31c716bc8b7e89df7fe6c",
+    "hopan-wasm.js": "3810742ff3809a9c2f419a8357ddd6377ff656f849c36d8772d909529ec088f7",
+    "index.apple-touch-icon.png": "c797f2a2684a5ce0718d2457fc8ecaede25720c30fc5469554ae2bea8e5b7b50",
+    "index.audio.position.worklet.js": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+    "index.audio.worklet.js": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+    "index.html": "7e5310283000003a6cd26d16503f0bf70c1c681ca58f7fdbc57bd21ef47f3355",
+    "index.icon.png": "7c3ba8949659536b5b4f35dba7257acee478ad0e63605e6f2c52e15995d4cde7",
+    "index.js": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba",
+    "index.pck": "74270f95f38dd1c163916b277ae740d759761c833a0cbbf9154e1dbdf90965a6",
+    "index.png": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+    "index.wasm": "8032306d52d52497129dce5b767baacb660d504bdde28668b1c1337b717eacd8"
+  }
+}

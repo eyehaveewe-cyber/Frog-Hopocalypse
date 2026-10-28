@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "Production older level list loads with no debug probe",
+    "Actual level input and gameplay capture",
+    "Return link loads the shared collections"
+  ],
+  "errors": [],
+  "scope": "Production WebGL older level list and pointer action, then real return to shared collections; screenshot inspection establishes selected scene."
+}
