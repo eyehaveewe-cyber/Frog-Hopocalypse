@@ -11,6 +11,15 @@ const Actor = preload("res://scripts/actor.gd")
 const SpikeBalls = preload("res://scripts/spike_balls.gd")
 const Crossing = preload("res://scripts/crossing.gd")
 const LaneTunnels = preload("res://scripts/lane_tunnels.gd")
+const City = preload("res://scripts/nyc_art.gd")
+const Streets = preload("res://scripts/city_streets.gd")
+const Traffic = preload("res://scripts/traffic.gd")
+const Props = preload("res://scripts/streetlife_specs.gd")
+const Streetlife = preload("res://scripts/nyc_streetlife_art.gd")
+const Roach = preload("res://scripts/roach.gd")
+const Skater = preload("res://scripts/skater.gd")
+var traffic: Node3D
+var skaters: Array = []
 const CELL = 1.8
 var level: Dictionary = {}
 var geometry: Node3D
@@ -121,9 +130,13 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	claimed_checkpoints.clear()
 	checkpoint_flags.clear()
 	critters.clear()
+	skaters.clear()
 	emitters.clear()
 	projectiles.clear()
 	effects.clear()
+	var city: bool = level.theme == "nyc"
+	var road_rows: Array = []
+	for lane in level.get("traffic", []): road_rows.append(int(lane.row))
 	var swamp: bool = level.theme == "swamp"
 	var courtyard: bool = level.theme == "mexico"
 	var jungle: bool = level.theme == "honduras"
@@ -149,6 +162,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	elif ocean_material is StandardMaterial3D:
 		ocean_material.uv1_scale = Vector3(40, 40, 1)
 	underlay.material_override = ocean_material
+	if city:
+		floor_color = Color.WHITE
+		wall_color = Color("785651")
 	for z in range(int(level.height)):
 		for x in range(int(level.width)):
 			var p := cell_position([x, z])
@@ -170,10 +186,19 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 				elif jungle and tile != "road":
 					texture_kind = "jungle_stone" if tile == "path" else "jungle_ground"
 					color = Color.WHITE
+				if city:
+					texture_kind = "asphalt" if tile == "road" else ("city_pavers" if tile == "path" else "concrete")
+					color = Color.WHITE
 				if tunnel_terrain == "road":
 					texture_kind = "road"
 					color = Color.WHITE
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
+			if city:
+				var crosswalk: bool = x in level.get("crossings", [])
+				if tile == "road": Streets.road(geometry,p,x,crosswalk)
+				elif tile not in ["wall","water"]:
+					for side in [-1,1]:
+						if z+side >= 0 and z+side < level.height and level.tiles[z+side][x] == "road": Streets.sidewalk_edge(geometry,p,side,crosswalk)
 			if tile == "cheese_wall":
 				Art.textured(Art.box(geometry, Vector3(CELL, 0.65, CELL), p + Vector3(0, 0.325, 0), Color.WHITE), "cheese")
 				var cheese_body := Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
@@ -181,10 +206,14 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 			if tile == "wall":
 				var perimeter: bool = x == 0 or z == 0 or x == level.width - 1
 				var height := 1.45 if perimeter else (0.3 if z == level.height - 1 else 0.55)
+				if city and z in road_rows and x in [0,level.width-1]: height = 0.025
 				if tunnel_terrain.is_empty():
 					Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), wall_texture)
 					Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), cap_texture)
 				Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
+	if city:
+		City.district(geometry,int(level.width),int(level.height),CELL)
+		Streets.signs(geometry,level)
 	LaneTunnels.build(geometry,lane_tunnel_plans,level.theme)
 	# Invisible boundary colliders prevent a painted-out perimeter from escaping the map.
 	var w: float = level.width * CELL
@@ -219,8 +248,14 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 			continue
 		if obj.type in ["car", "patrol_car", "log", "spike_ball", "landmark", "backdrop"]:
 			continue
-		if obj.type == "critter":
-			var actor := Actor.new()
+		if obj.type == "skater":
+			var rider := Skater.new()
+			geometry.add_child(rider)
+			rider.setup(obj,self)
+			skaters.append(rider)
+			continue
+		if obj.type in ["critter","roach"]:
+			var actor = Roach.new() if obj.type == "roach" else Actor.new()
 			actor.setup(false, level.theme, obj)
 			actor.position = p
 			if level.get("game_mode", "hopan") == "tile": actor.visual.scale = Vector3.ONE * 1.25
@@ -231,13 +266,20 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 				actor.waypoints.append(cell_position(point))
 			critters.append(actor)
 		else:
-			var model := Art.scenery(obj.type, level.theme, posmod(hash(obj.pos),5))
+			var model := Streetlife.prop(obj.variant) if obj.type == "city_prop" else (City.scenery(obj.type) if city else Art.scenery(obj.type, level.theme, posmod(hash(obj.pos),5)))
+			if obj.type == "city_prop" and obj.variant in ["skate_ramp","skate_rail"]:
+				model.scale.z = float(obj.get("length",4.0))/4.0
+				if obj.variant == "skate_ramp": model.scale.y = float(obj.get("rise",0.7))/0.7
 			model.position = p
 			model.rotation.y = deg_to_rad(float(obj.get("rotation", 0)))
 			geometry.add_child(model)
 			if obj.type in ["pillar", "tree", "emitter"] or obj.get("solid", false):
 				var width := 0.55 if obj.type == "tree" else 0.85
-				Art.solid(geometry, Vector3(width, 1.2, width), p + Vector3(0, 0.5, 0))
+				if obj.type == "city_prop":
+					var size: Vector2 = Props.footprint(obj)
+					var proxy := Art.solid(geometry,Vector3(size.x,1.2,size.y),p+Vector3(0,0.5,0))
+					proxy.rotation.y = model.rotation.y
+				else: Art.solid(geometry, Vector3(width, 1.2, width), p + Vector3(0, 0.5, 0))
 			if obj.type == "emitter":
 				var dir := Vector3(0, 0, -1).rotated(Vector3.UP, model.rotation.y)
 				emitters.append({"pos": p + Vector3(0, 0.42, 0) + dir * 0.72, "dir": dir, "clock": 0.5, "interval": float(obj.get("interval", 2.5)), "model": model})
@@ -253,6 +295,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 		Art.box(marker, Vector3(0.06,0.9,0.06), Vector3(0,0.45,0), Color("eee4c1"))
 		var flag := Art.box(marker, Vector3(0.48,0.3,0.06), Vector3(0.24,0.75,0), Color("64c9e8"))
 		checkpoint_flags.append({"point":point.duplicate(), "flag":flag})
+	traffic = Traffic.new()
+	geometry.add_child(traffic)
+	traffic.setup(level)
 	crossing = Crossing.new()
 	geometry.add_child(crossing)
 	crossing.setup(level, self)
@@ -286,7 +331,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	route_root = Node3D.new()
 	geometry.add_child(route_root)
 	underlay.name = "HorizonOcean"
-	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, landmarks, backdrops, underlay] + critters
+	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, landmarks, backdrops, underlay, traffic] + critters + skaters
 	for pickup in hop_pickups: excluded.append(pickup.node)
 	for emitter in emitters:
 		excluded.append(emitter.model)
@@ -472,6 +517,15 @@ func _physics_process(delta: float) -> void:
 		crossing.advance(delta, player)
 		player.step(delta, input_vector)
 		update_camera(minf(1, delta * 8))
+	traffic.step(delta)
+	if traffic.hits_player(previous_player,player.position):
+		finish("SQUISHED!")
+		return
+	for rider in skaters:
+		rider.step(delta)
+		if rider.hits_player(previous_player,player.position):
+			finish("SKATED OVER!")
+			return
 	spikes.advance(delta,previous_player,player.position,false)
 	if not result.is_empty(): return
 	elapsed += delta

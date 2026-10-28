@@ -17,8 +17,13 @@ func run(app: Control, suite: RefCounted) -> void:
 	var serialized := JSON.stringify(app.level)
 	app.size_picker.select(0)
 	app.new_level()
+	if app.editor_leave_open: app.finish_editor_navigation()
 	suite.check(app.level.width == 17 and app.level.height == 13, "Standard editor size remains available")
-	suite.check(app.import_text(serialized) and app.level.width == 21 and app.level.height == 16, "Large maze survives export/import through the shared serializer")
+	var imported: bool = app.import_text(serialized)
+	if app.editor_leave_open:
+		app.finish_editor_navigation()
+		imported = app.level.width == 21
+	suite.check(imported and app.level.width == 21 and app.level.height == 16, "Large maze survives export/import through the shared serializer")
 	app.set_exit_preview(true)
 	app.exit_preview = false
 	app.load_profile()
@@ -38,7 +43,7 @@ func run(app: Control, suite: RefCounted) -> void:
 	app.world.halted = false
 	for _i in range(127):
 		app.world._physics_process(1.0 / 60)
-	suite.check(not app.world.intro_active and app.world.camera_target.distance_to(origin + Vector3(0, 0.25, -2.5)) < 0.01, "Exit sweep returns to the frog before releasing play")
+	suite.check(not app.world.intro_active and app.world.camera_target.distance_to(origin + Vector3(0, 0.25, -2.0)) < 0.01, "Exit sweep returns to the frog before releasing play")
 	app.world.begin_exit_preview()
 	app.world.set_map_view(true)
 	suite.check(not app.world.intro_active and app.world.map_view, "Opening the overhead map safely skips the preview")

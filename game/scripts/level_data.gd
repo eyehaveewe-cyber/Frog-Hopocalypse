@@ -1,12 +1,15 @@
 extends RefCounted
 ## The editor, bundled maps and runtime all consume this versioned format.
+const Props = preload("res://scripts/streetlife_specs.gd")
+const CITY_PROPS = ["bench", "trash_can", "dumpster", "pizza_cart", "mailbox", "traffic_cone", "manhole", "newsstand", "skate_rail", "skate_ramp"]
+const SKATE_TRICKS = ["cruise", "push", "grind", "ramp"]
 const VERSION = 1
 const MAX_SIDE = 64
-const THEMES = ["egypt", "swamp", "mexico", "honduras"]
-const THEME_NAMES = ["Egyptian ruins", "Purple Swamp-Woods", "Mexico · Courtyard gardens", "Honduras · Jungle river"]
-const NEW_NAMES = ["New Egypt", "New Swamp", "New Mexico", "New Honduras"]
+const THEMES = ["egypt", "swamp", "mexico", "honduras", "nyc"]
+const THEME_NAMES = ["Egyptian ruins", "Purple Swamp-Woods", "Mexico · Courtyard gardens", "Honduras · Jungle river", "New York City"]
+const NEW_NAMES = ["New Egypt", "New Swamp", "New Mexico", "New Honduras", "New NYC"]
 const TILES = ["floor", "wall", "cheese_wall", "water", "path", "road"]
-const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball", "landmark", "backdrop", "hop_fragment", "hop_seed"]
+const OBJECTS = ["pillar", "tree", "mushroom", "decoration", "critter", "emitter", "car", "patrol_car", "log", "spike_ball", "landmark", "backdrop", "hop_fragment", "hop_seed", "roach", "skater", "city_prop"]
 
 static func blank(title: String = "My magnificent maze", theme_name: String = "egypt", w: int = 17, h: int = 13) -> Dictionary:
 	var tiles: Array = []
@@ -153,10 +156,10 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 					return "Car patrol waypoints need open road tiles."
 				if not editor_snapshot and i > 0 and not road_segment_open(d, route[i-1],route[i]):
 					return "Car patrol routes must follow connected road tiles with square turns."
-		if obj.type in ["pillar", "tree", "critter", "emitter"] or obj.get("solid", false):
+		if obj.type in ["pillar", "tree", "critter", "roach", "skater", "emitter", "city_prop"] or obj.get("solid", false):
 			if not editor_snapshot and d.tiles[int(obj.pos[1])][int(obj.pos[0])] in ["wall", "cheese_wall", "water"]:
 				return "Place solid objects, critters and traps on dry terrain."
-		if obj.type == "critter":
+		if obj.type in ["critter", "roach"]:
 			if obj.has("patrol_loop") and not obj.patrol_loop is bool:
 				return "Loop route must be true or false."
 			if obj.get("behavior", "wander") not in ["wander", "patrol", "seam_patrol"]:
@@ -236,7 +239,8 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 					if accessible_fragments == 3: break
 			if accessible_fragments < 3:
 				return "The first required long hop needs three fragments reachable by short hops before the gap. Move fragments onto the starting side or open a short-hop route."
-	return ""
+	var streetlife_error := validate_streetlife(d)
+	return validate_traffic(d) if streetlife_error.is_empty() else streetlife_error
 
 static func checkpoint_open(d: Dictionary, p: Array, allow_road: bool = false) -> bool:
 	if not point_valid(p, int(d.width), int(d.height)) or d.tiles[int(p[1])][int(p[0])] in (["wall", "cheese_wall", "water"] if allow_road else ["wall", "cheese_wall", "water", "road"]):
@@ -285,6 +289,11 @@ static func reachable(d: Dictionary, allow_long_hop: bool = true, target: Array 
 	var goal := Vector2i(int(target[0]), int(target[1])) if target.size() == 2 else Vector2i(int(d.exit[0]), int(d.exit[1]))
 	var blocked: Dictionary = {}
 	for o in d.objects:
+		if o.type == "city_prop" and o.get("solid", false):
+			for y in range(int(d.height)):
+				for x in range(int(d.width)):
+					if Props.covers(o,Vector2(x,y)): blocked[Vector2i(x,y)] = true
+			continue
 		# Trees have narrow trunks; do not reject a structural exit route as a whole blocked tile.
 		if o.type in ["pillar", "emitter"] or (o.type != "tree" and o.get("solid", false)):
 			blocked[Vector2i(int(o.pos[0]), int(o.pos[1]))] = true
@@ -376,3 +385,103 @@ static func spike_segment_open(d: Dictionary, from: Array, to: Array) -> bool:
 	for i in range(maxi(absi(difference.x),absi(difference.y))+1):
 		if not spike_cell_open(d,start+direction*i): return false
 	return true
+
+static func validate_streetlife(d: Dictionary) -> String:
+	var area: Variant = d.get("skate_area", {})
+	if not area is Dictionary:
+		return "Skate area must be an object."
+	if not area.is_empty():
+		if not point_valid(area.get("center"), d.width, d.height) or not finite_number(area.get("diameter")) or area.diameter < 5 or area.diameter > 18:
+			return "Skate areas need an interior center and a diameter between 5 and 18 tiles."
+		var radius := float(area.diameter) * 0.5
+		if area.center[0] - radius < 0 or area.center[0] + radius >= d.width or area.center[1] - radius < 0 or area.center[1] + radius >= d.height:
+			return "The circular skate area must fit inside the map."
+	for obj in d.objects:
+		if obj.type == "city_prop":
+			if obj.get("variant") not in CITY_PROPS:
+				return "Unknown NYC street prop."
+			if obj.variant in ["skate_ramp", "skate_rail"]:
+				if not finite_number(obj.get("length", 4.0)) or obj.get("length", 4.0) < 1 or obj.get("length", 4.0) > 5:
+					return "Skate feature length must be between 1 and 5 world units."
+			if obj.variant == "skate_ramp":
+				if not finite_number(obj.get("rise", 0.7)) or obj.get("rise", 0.7) < 0.2 or obj.get("rise", 0.7) > 1.2:
+					return "Ramp rise must be between 0.2 and 1.2 world units."
+		if obj.type != "skater":
+			continue
+		if not finite_number(obj.get("variant", 0)) or obj.get("variant", 0) != int(obj.get("variant", 0)) or obj.get("variant", 0) < 0 or obj.get("variant", 0) > 2:
+			return "Choose one of the three skater variants."
+		if not finite_number(obj.get("speed", 3.2)) or obj.get("speed", 3.2) < 2 or obj.get("speed", 3.2) > 5.5:
+			return "Skater speed must be between 2 and 5.5 world units per second."
+		var route: Variant = obj.get("route")
+		if not route is Array or route.size() < 4 or route.size() > 32:
+			return "A skater needs a closed loop of 4 to 32 route points."
+		for node in route:
+			if not node is Dictionary or not point_valid(node.get("pos"), d.width, d.height):
+				return "Skater route points must be inside the map."
+			if not finite_number(node.get("height", 0.0)) or node.get("height", 0.0) < 0 or node.get("height", 0.0) > 1.2:
+				return "Skater route heights must be between 0 and 1.2."
+			if node.get("trick", "cruise") not in SKATE_TRICKS:
+				return "Unknown skateboard action."
+			if not area.is_empty() and Vector2(node.pos[0] - area.center[0], node.pos[1] - area.center[1]).length() > float(area.diameter) * 0.5:
+				return "Keep skater routes inside the circular skate area."
+		if Vector2(obj.pos[0], obj.pos[1]).distance_to(Vector2(route[0].pos[0], route[0].pos[1])) > 0.01:
+			return "Place the skater at the first route point."
+		for i in range(route.size()):
+			var a := Vector2(route[i].pos[0], route[i].pos[1])
+			var b := Vector2(route[(i + 1) % route.size()].pos[0], route[(i + 1) % route.size()].pos[1])
+			var length := a.distance_to(b)
+			if length < 0.1:
+				return "Consecutive skate route points must be distinct."
+			# Sample every quarter tile so straight segments cannot cut through a wall,
+			# pond or ordinary solid prop between valid endpoints.
+			for sample_index in range(ceili(length * 4) + 1):
+				var point := a.lerp(b, float(sample_index) / maxf(1, ceili(length * 4)))
+				var x := roundi(point.x)
+				var y := roundi(point.y)
+				for obstacle in d.objects:
+					if obstacle.type == "city_prop" and obstacle.get("solid", false) and obstacle.get("variant") in CITY_PROPS and obstacle.variant not in ["skate_rail", "skate_ramp"] and Props.covers(obstacle, point, 0.42):
+						return "Skater loops must avoid solid street props."
+				if x < 0 or y < 0 or x >= d.width or y >= d.height or d.tiles[y][x] in ["wall", "water"]:
+					return "Skate loops need dry, open ground along every segment."
+	return ""
+
+static func validate_traffic(d: Dictionary) -> String:
+	var lanes: Variant = d.get("traffic", [])
+	if not lanes is Array or lanes.size() > 12:
+		return "Traffic supports up to 12 lanes."
+	var rows: Dictionary = {}
+	for lane in lanes:
+		if not lane is Dictionary:
+			return "Each traffic lane must be an object."
+		var row: Variant = lane.get("row")
+		if not finite_number(row) or row != int(row) or row < 1 or row >= d.height - 1 or rows.has(row):
+			return "Traffic needs unique interior whole-number rows."
+		rows[row] = true
+		if not finite_number(lane.get("direction")) or absf(float(lane.direction)) != 1.0:
+			return "Traffic direction must be -1 or 1."
+		if not finite_number(lane.get("speed")) or lane.speed < 2 or lane.speed > 8:
+			return "Traffic speed must be between 2 and 8."
+		if not finite_number(lane.get("spacing")) or lane.spacing < 7 or lane.spacing > 20:
+			return "Vehicle spacing must be between 7 and 20."
+		if not finite_number(lane.get("offset", 0)) or lane.get("offset", 0) < 0 or lane.get("offset", 0) >= lane.spacing:
+			return "Traffic offset must be within its spacing."
+		if not lane.get("vehicles") is Array or lane.vehicles.is_empty() or lane.vehicles.size() > 8:
+			return "Choose one to eight vehicle types per lane."
+		for kind in lane.vehicles:
+			if kind not in ["taxi", "sedan", "bus", "truck"]:
+				return "Unknown traffic vehicle."
+		for x in range(1, int(d.width) - 1):
+			if d.tiles[int(row)][x] != "road":
+				return "A traffic lane needs a complete interior road row."
+		for obj in d.objects:
+			if absf(float(obj.pos[1]) - float(row)) < 0.85:
+				return "Keep traffic lanes clear of scenery and critters."
+		if int(d.spawn[1]) == int(row) or int(d.exit[1]) == int(row):
+			return "Place the start and exit on a safe sidewalk."
+	var crossings: Variant = d.get("crossings", [])
+	if not crossings is Array or crossings.size() > 8:
+		return "Crossings must be a list of up to eight columns."
+	for x in crossings:
+		if not finite_number(x) or x != int(x) or x < 1 or x >= d.width - 1:
+			return "Crosswalk columns must be interior whole numbers."
+	return ""

@@ -1,3 +1,7 @@
+One game, Baby Mode first: the frog screen now starts Baby Mode, and all 33 campaign levels share one executable, editor, outfits and progression. NYC and Streetlife no longer open a separate game. [Implementation and checks](docs/HOPAN_ONE_GAME.md).
+
+Earlier release notes below are historical.
+
 **Moves When You Move redesign:** five revised choice-screen layouts and less prescriptive teaching signs. [Intent, map previews and verification](docs/YOUR_MOVE_REDESIGN.md). Review branch; not yet live.
 
 **Frog outfit review branch:** fitted stone-textured hourglass pyramid hat, morning suit with interruptible idle, and five earned frog palettes. [Previews, unlock rules and tests](docs/FROG_OUTFITS.md). Not yet published to the live site.

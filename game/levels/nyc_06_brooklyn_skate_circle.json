@@ -1,0 +1,1293 @@
+{
+  "version": 1,
+  "name": "NYC 06 · Brooklyn Skate Circle",
+  "theme": "nyc",
+  "width": 25,
+  "height": 25,
+  "spawn": [
+    12,
+    22
+  ],
+  "exit": [
+    12,
+    2
+  ],
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "district": "BROOKLYN SKATE CIRCLE",
+  "objects": [
+    {
+      "id": "plaza-skate_rail-0",
+      "type": "city_prop",
+      "variant": "skate_rail",
+      "pos": [
+        18,
+        12
+      ],
+      "rotation": 0,
+      "solid": true,
+      "length": 4.0
+    },
+    {
+      "id": "plaza-skate_ramp-1",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        18.0,
+        13.611111
+      ],
+      "rotation": 0,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "plaza-skate_ramp-2",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        18.0,
+        10.388889
+      ],
+      "rotation": 180,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "plaza-skater-0",
+      "type": "skater",
+      "pos": [
+        12,
+        19
+      ],
+      "variant": 0,
+      "rotation": 0,
+      "solid": false,
+      "speed": 3.4,
+      "route": [
+        {
+          "pos": [
+            12,
+            19
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            16.5,
+            17
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            18.0,
+            14.111111
+          ],
+          "height": 0,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            18.0,
+            13.111111
+          ],
+          "height": 0.605,
+          "trick": "grind"
+        },
+        {
+          "pos": [
+            18.0,
+            10.888889
+          ],
+          "height": 0.605,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            18.0,
+            9.888889
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            16.5,
+            7
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            12,
+            5
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            7.5,
+            7
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            5.5,
+            12
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            7.5,
+            17
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "plaza-skate_ramp-4",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        10.888889,
+        12
+      ],
+      "rotation": 270,
+      "solid": true,
+      "rise": 0.7,
+      "length": 4.0
+    },
+    {
+      "id": "plaza-skate_ramp-5",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        13.111111,
+        12
+      ],
+      "rotation": 90,
+      "solid": true,
+      "rise": 0.7,
+      "length": 4.0
+    },
+    {
+      "id": "plaza-skater-1",
+      "type": "skater",
+      "pos": [
+        6,
+        12
+      ],
+      "variant": 1,
+      "rotation": 0,
+      "solid": false,
+      "speed": 3.0,
+      "route": [
+        {
+          "pos": [
+            6,
+            12
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            9.777778,
+            12
+          ],
+          "height": 0,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            12,
+            12
+          ],
+          "height": 0.7,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            14.222222,
+            12
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            17,
+            12
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            17,
+            15
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            15,
+            16
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            12,
+            16
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            9,
+            16
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            7,
+            15
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "plaza-skate_rail-7",
+      "type": "city_prop",
+      "variant": "skate_rail",
+      "pos": [
+        10.5,
+        8
+      ],
+      "rotation": 270,
+      "solid": true,
+      "length": 3.6
+    },
+    {
+      "id": "plaza-skate_ramp-8",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        9.0,
+        8.0
+      ],
+      "rotation": 270,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "plaza-skate_ramp-9",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        12.0,
+        8.0
+      ],
+      "rotation": 90,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "plaza-skater-2",
+      "type": "skater",
+      "pos": [
+        7,
+        9
+      ],
+      "variant": 2,
+      "rotation": 0,
+      "solid": false,
+      "speed": 3.7,
+      "route": [
+        {
+          "pos": [
+            7,
+            9
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            8.5,
+            8.0
+          ],
+          "height": 0,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            9.5,
+            8.0
+          ],
+          "height": 0.605,
+          "trick": "grind"
+        },
+        {
+          "pos": [
+            11.5,
+            8.0
+          ],
+          "height": 0.605,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            12.5,
+            8.0
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            16,
+            9
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            17,
+            13
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            14,
+            15
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            10,
+            15
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            8,
+            13
+          ],
+          "height": 0,
+          "trick": "push"
+        }
+      ]
+    },
+    {
+      "id": "plaza-bench-11",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        6,
+        8
+      ],
+      "rotation": 90,
+      "solid": true
+    },
+    {
+      "id": "plaza-trash_can-12",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        8,
+        18
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "plaza-dumpster-13",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        5,
+        15
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "plaza-pizza_cart-14",
+      "type": "city_prop",
+      "variant": "pizza_cart",
+      "pos": [
+        17,
+        18
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "plaza-mailbox-15",
+      "type": "city_prop",
+      "variant": "mailbox",
+      "pos": [
+        9,
+        5
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "plaza-traffic_cone-16",
+      "type": "city_prop",
+      "variant": "traffic_cone",
+      "pos": [
+        15,
+        5
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "plaza-manhole-17",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        14,
+        10
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "plaza-newsstand-18",
+      "type": "city_prop",
+      "variant": "newsstand",
+      "pos": [
+        18,
+        17
+      ],
+      "rotation": 270,
+      "solid": true
+    },
+    {
+      "id": "plaza-roach-0",
+      "type": "roach",
+      "pos": [
+        5,
+        14
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.15,
+      "waypoints": [
+        [
+          5,
+          14
+        ],
+        [
+          6,
+          14
+        ],
+        [
+          6,
+          16
+        ],
+        [
+          5,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "plaza-roach-1",
+      "type": "roach",
+      "pos": [
+        7,
+        18
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.35,
+      "waypoints": [
+        [
+          7,
+          18
+        ],
+        [
+          9,
+          18
+        ],
+        [
+          9,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "plaza-roach-2",
+      "type": "roach",
+      "pos": [
+        16,
+        18
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.1,
+      "waypoints": [
+        [
+          16,
+          18
+        ],
+        [
+          16,
+          19
+        ],
+        [
+          18,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "plaza-roach-3",
+      "type": "roach",
+      "pos": [
+        8,
+        6
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.25,
+      "waypoints": [
+        [
+          8,
+          6
+        ],
+        [
+          10,
+          6
+        ],
+        [
+          10,
+          7
+        ]
+      ]
+    }
+  ],
+  "traffic": [],
+  "crossings": [],
+  "skate_area": {
+    "center": [
+      12,
+      12
+    ],
+    "diameter": 18
+  },
+  "description": "Three riders loop through an eighteen-tile skate plaza. Read the rails and ramps, avoid the roaches near the bins, and slip through the moving gaps."
+}

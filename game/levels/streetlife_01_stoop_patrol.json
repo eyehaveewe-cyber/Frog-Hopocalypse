@@ -1,0 +1,513 @@
+{
+  "version": 1,
+  "name": "STREETLIFE 01 · Stoop Patrol",
+  "theme": "nyc",
+  "width": 17,
+  "height": 17,
+  "spawn": [
+    3,
+    15
+  ],
+  "exit": [
+    13,
+    1
+  ],
+  "district": "STOOP PATROL",
+  "level_set": "nyc_streetlife",
+  "set_index": 1,
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "objects": [
+    {
+      "id": "set1-roach-0",
+      "type": "roach",
+      "pos": [
+        3,
+        11
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.1,
+      "waypoints": [
+        [
+          3,
+          11
+        ],
+        [
+          5,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "set1-roach-1",
+      "type": "roach",
+      "pos": [
+        13,
+        6
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          13,
+          6
+        ],
+        [
+          11,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "set1-dumpster-2",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        2,
+        12
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set1-trash_can-3",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        6,
+        12
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set1-mailbox-4",
+      "type": "city_prop",
+      "variant": "mailbox",
+      "pos": [
+        2,
+        14
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set1-bench-5",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        8,
+        8
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set1-newsstand-6",
+      "type": "city_prop",
+      "variant": "newsstand",
+      "pos": [
+        9,
+        6
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set1-trash_can-7",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        14,
+        7
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set1-pizza_cart-8",
+      "type": "city_prop",
+      "variant": "pizza_cart",
+      "pos": [
+        5,
+        2
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set1-traffic_cone-9",
+      "type": "city_prop",
+      "variant": "traffic_cone",
+      "pos": [
+        10,
+        3
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set1-manhole-10",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        9,
+        12
+      ],
+      "rotation": 0,
+      "solid": false
+    }
+  ],
+  "traffic": [],
+  "crossings": [],
+  "description": "Two refuse-lined stoop gates introduce roach patrols. Observe from each open landing, cross behind the insect, and move laterally toward the opposite alley.",
+  "hint": "Watch the roach cross each alley. Follow behind it to the next landing.",
+  "design_intent": "Read a slow lateral patrol before committing to an offset alley gate.",
+  "required_gates": [
+    {
+      "name": "south stoop alley",
+      "rect": [
+        3,
+        10,
+        5,
+        10
+      ]
+    },
+    {
+      "name": "north refuse alley",
+      "rect": [
+        11,
+        5,
+        13,
+        5
+      ]
+    }
+  ]
+}

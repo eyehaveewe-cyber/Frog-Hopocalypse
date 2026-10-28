@@ -1,0 +1,31 @@
+{
+  "checks": [
+    "desktop: Baby Mode is the first main action",
+    "desktop: no separate game or collection links",
+    "desktop: starts Baby Mode in place",
+    "desktop: one page, no frame or game transition",
+    "landscape: Baby Mode is the first main action",
+    "landscape: no separate game or collection links",
+    "landscape: starts Baby Mode in place",
+    "landscape: one page, no frame or game transition",
+    "portrait: Baby Mode is the first main action",
+    "portrait: no separate game or collection links",
+    "portrait: starts Baby Mode in place",
+    "portrait: one page, no frame or game transition",
+    "Both former editor libraries recover in the one app, including conflicting IDs",
+    "Earned outfit and skin survive consolidation",
+    "All seven sets share one level menu",
+    "Baby Mode is first in the level list",
+    "Same equipped frog in New York City",
+    "NYC traffic exists in integrated browser world",
+    "Same equipped frog in NYC Streetlife",
+    "Same equipped frog in Tile Hop",
+    "Tile rules retained alongside city levels",
+    "Shared editor saves through common library",
+    "Immediate reload retains combined library and outfit",
+    "No hidden second application",
+    "Release has no debug probe"
+  ],
+  "errors": [],
+  "scope": "Chromium WebGL with software rendering. Mouse/keyboard and touch emulation; not physical hardware validation."
+}

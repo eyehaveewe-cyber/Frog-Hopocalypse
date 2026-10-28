@@ -1,0 +1,1148 @@
+{
+  "version": 1,
+  "name": "STREETLIFE 05 · Sanitation Courts",
+  "theme": "nyc",
+  "width": 25,
+  "height": 25,
+  "spawn": [
+    12,
+    23
+  ],
+  "exit": [
+    12,
+    1
+  ],
+  "district": "SANITATION COURTS",
+  "level_set": "nyc_streetlife",
+  "set_index": 5,
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "objects": [
+    {
+      "id": "set5-dumpster-0",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        4,
+        20
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-dumpster-1",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        8,
+        19
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-dumpster-2",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        15,
+        16
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-dumpster-3",
+      "type": "city_prop",
+      "variant": "dumpster",
+      "pos": [
+        20,
+        14
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-trash_can-4",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        4,
+        19
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-trash_can-5",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        9,
+        17
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-trash_can-6",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        21,
+        13
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-newsstand-7",
+      "type": "city_prop",
+      "variant": "newsstand",
+      "pos": [
+        3,
+        9
+      ],
+      "rotation": 90,
+      "solid": true
+    },
+    {
+      "id": "set5-pizza_cart-8",
+      "type": "city_prop",
+      "variant": "pizza_cart",
+      "pos": [
+        21,
+        9
+      ],
+      "rotation": 270,
+      "solid": true
+    },
+    {
+      "id": "set5-bench-9",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        21,
+        17
+      ],
+      "rotation": 90,
+      "solid": true
+    },
+    {
+      "id": "set5-bench-10",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        14,
+        4
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-mailbox-11",
+      "type": "city_prop",
+      "variant": "mailbox",
+      "pos": [
+        4,
+        4
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-traffic_cone-12",
+      "type": "city_prop",
+      "variant": "traffic_cone",
+      "pos": [
+        15,
+        19
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set5-manhole-13",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        14,
+        16
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "set5-manhole-14",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        15,
+        9
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "set5-roach-15",
+      "type": "roach",
+      "pos": [
+        6,
+        20
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.15,
+      "waypoints": [
+        [
+          6,
+          20
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          8,
+          22
+        ],
+        [
+          6,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "set5-roach-16",
+      "type": "roach",
+      "pos": [
+        13,
+        16
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.35,
+      "waypoints": [
+        [
+          13,
+          16
+        ],
+        [
+          14,
+          16
+        ],
+        [
+          14,
+          17
+        ],
+        [
+          13,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "set5-roach-17",
+      "type": "roach",
+      "pos": [
+        18,
+        10
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          18,
+          10
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          20,
+          11
+        ],
+        [
+          18,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "set5-roach-18",
+      "type": "roach",
+      "pos": [
+        8,
+        4
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.3,
+      "waypoints": [
+        [
+          8,
+          4
+        ],
+        [
+          10,
+          4
+        ],
+        [
+          10,
+          5
+        ],
+        [
+          8,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "set5-skate_rail-19",
+      "type": "city_prop",
+      "variant": "skate_rail",
+      "pos": [
+        12,
+        9
+      ],
+      "rotation": 270,
+      "solid": true,
+      "length": 3.6
+    },
+    {
+      "id": "set5-skate_ramp-20",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        10.5,
+        9.0
+      ],
+      "rotation": 270,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "set5-skate_ramp-21",
+      "type": "city_prop",
+      "variant": "skate_ramp",
+      "pos": [
+        13.5,
+        9.0
+      ],
+      "rotation": 90,
+      "solid": true,
+      "rise": 0.605,
+      "length": 1.8
+    },
+    {
+      "id": "set5-skater-22",
+      "type": "skater",
+      "variant": 2,
+      "pos": [
+        8,
+        10
+      ],
+      "rotation": 0,
+      "solid": false,
+      "speed": 3.5,
+      "route": [
+        {
+          "pos": [
+            8,
+            10
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            10.0,
+            9.0
+          ],
+          "height": 0,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            11.0,
+            9.0
+          ],
+          "height": 0.605,
+          "trick": "grind"
+        },
+        {
+          "pos": [
+            13.0,
+            9.0
+          ],
+          "height": 0.605,
+          "trick": "ramp"
+        },
+        {
+          "pos": [
+            14.0,
+            9.0
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            18,
+            9
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            18,
+            7
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            6,
+            7
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            6,
+            10
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            8,
+            11
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    }
+  ],
+  "traffic": [],
+  "crossings": [],
+  "hint": "Change alleys at each refuse court. Cross the grind line behind the returning board.",
+  "description": "Three offset court gates make the frog weave from a refuse alley into a delivery court and a north grind line. Slow roaches mark the direct routes; benches and mailboxes identify wider waiting pockets.",
+  "design_purpose": "Switch crossing lines through refuse courts, then time one rail return.",
+  "required_gates": [
+    {
+      "name": "south refuse gate",
+      "rect": [
+        1,
+        18,
+        23,
+        18
+      ]
+    },
+    {
+      "name": "delivery court gate",
+      "rect": [
+        1,
+        12,
+        23,
+        12
+      ]
+    },
+    {
+      "name": "north grind gate",
+      "rect": [
+        1,
+        6,
+        23,
+        6
+      ]
+    }
+  ]
+}

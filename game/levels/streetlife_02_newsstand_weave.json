@@ -1,0 +1,716 @@
+{
+  "version": 1,
+  "name": "STREETLIFE 02 · Newsstand Weave",
+  "theme": "nyc",
+  "width": 21,
+  "height": 19,
+  "spawn": [
+    10,
+    17
+  ],
+  "exit": [
+    10,
+    1
+  ],
+  "district": "NEWSSTAND WEAVE",
+  "level_set": "nyc_streetlife",
+  "set_index": 2,
+  "tiles": [
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ]
+  ],
+  "objects": [
+    {
+      "id": "set2-skater-0",
+      "type": "skater",
+      "variant": 0,
+      "pos": [
+        5,
+        14
+      ],
+      "rotation": 0,
+      "solid": false,
+      "speed": 2.5,
+      "route": [
+        {
+          "pos": [
+            5,
+            14
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            15,
+            14
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            15,
+            4
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            5,
+            4
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "set2-skater-1",
+      "type": "skater",
+      "variant": 1,
+      "pos": [
+        17,
+        6
+      ],
+      "rotation": 0,
+      "solid": false,
+      "speed": 2.8,
+      "route": [
+        {
+          "pos": [
+            17,
+            6
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            17,
+            12
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            13,
+            12
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            13,
+            6
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "set2-newsstand-2",
+      "type": "city_prop",
+      "variant": "newsstand",
+      "pos": [
+        10,
+        6
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set2-newsstand-3",
+      "type": "city_prop",
+      "variant": "newsstand",
+      "pos": [
+        10,
+        12
+      ],
+      "rotation": 180,
+      "solid": true
+    },
+    {
+      "id": "set2-mailbox-4",
+      "type": "city_prop",
+      "variant": "mailbox",
+      "pos": [
+        7,
+        16
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set2-pizza_cart-5",
+      "type": "city_prop",
+      "variant": "pizza_cart",
+      "pos": [
+        15,
+        16
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set2-bench-6",
+      "type": "city_prop",
+      "variant": "bench",
+      "pos": [
+        3,
+        9
+      ],
+      "rotation": 90,
+      "solid": true
+    },
+    {
+      "id": "set2-traffic_cone-7",
+      "type": "city_prop",
+      "variant": "traffic_cone",
+      "pos": [
+        18,
+        9
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set2-trash_can-8",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        8,
+        16
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set2-trash_can-9",
+      "type": "city_prop",
+      "variant": "trash_can",
+      "pos": [
+        18,
+        5
+      ],
+      "rotation": 0,
+      "solid": true
+    },
+    {
+      "id": "set2-manhole-10",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        6,
+        9
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "set2-manhole-11",
+      "type": "city_prop",
+      "variant": "manhole",
+      "pos": [
+        14,
+        9
+      ],
+      "rotation": 0,
+      "solid": false
+    },
+    {
+      "id": "set2-roach-12",
+      "type": "roach",
+      "pos": [
+        2,
+        7
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.2,
+      "waypoints": [
+        [
+          2,
+          7
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          2,
+          11
+        ]
+      ]
+    }
+  ],
+  "traffic": [],
+  "crossings": [],
+  "description": "Enter the riding circuit around a newsstand island, choose the longer west walk or the shorter east line, then cross the outer board again to leave. The east line adds a second counter-flow rider.",
+  "hint": "Enter behind the outer rider. Go west for room, or east past the second loop.",
+  "design_intent": "A central island creates a real route choice inside one mandatory moving perimeter.",
+  "required_gates": [
+    {
+      "name": "south circuit entry",
+      "rect": [
+        8,
+        15,
+        12,
+        15
+      ]
+    },
+    {
+      "name": "north circuit exit",
+      "rect": [
+        8,
+        3,
+        12,
+        3
+      ]
+    }
+  ]
+}

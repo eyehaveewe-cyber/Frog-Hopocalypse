@@ -17,6 +17,15 @@ static func get_texture(kind: String) -> Texture2D:
 				n = float(posmod(hash([kind, x / 4, y / 4]), 1000)) / 1000.0
 			var color := Color.WHITE
 			match base_kind:
+				"asphalt":
+					color = Color("263344").lerp(Color("455366"), n * 0.6)
+					if n > 0.96:
+						color = Color("65727d")
+				"concrete", "city_pavers":
+					var seam := x % 16 == 0 or y % 16 == 0
+					color = Color("637885") if seam else Color("a4b4bd").lerp(Color("d4d5c6"), n * 0.5)
+					if kind == "city_pavers":
+						color = Color("647971") if x % 8 == 0 or y % 8 == 0 else Color("a3b7a2").lerp(Color("c7c8b3"), n * 0.5)
 				"jungle_ground":
 					color = Color("50624a").lerp(Color("78805c"),n*0.65)
 				"jungle_leaf":
