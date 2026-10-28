@@ -21,6 +21,13 @@ func run()->void:
 	app.linked_collection="baby";app.show_menu()
 	check(buttons("Play · ").size()==app.BUILTINS.size(),"Baby collection lists every original stage")
 	check(buttons("Back to level").size()==1 and buttons("Frog outfits").size()==1,"Collection offers return and original home")
+	await process_frame
+	var focused:=root.gui_get_focus_owner()
+	check(focused!=null and focused.text=="Back to level collections","Keyboard focus starts on the visible return action")
+	var key:=InputEventKey.new();key.keycode=KEY_TAB;key.pressed=true;Input.parse_input_event(key)
+	await process_frame
+	focused=root.gui_get_focus_owner()
+	check(focused!=null and focused.text.begins_with("Play · "),"Tab moves to the first visible stage")
 	var prior:Dictionary=app.level.duplicate(true);app.linked_collection="human";app.show_menu()
 	check(buttons("Play · ").is_empty() and labels().contains("Complete Baby Mode"),"Locked human collection explains the Baby Mode requirement")
 	app.play_builtin(0,"human");check(app.level==prior,"Direct human play cannot bypass unlock")
