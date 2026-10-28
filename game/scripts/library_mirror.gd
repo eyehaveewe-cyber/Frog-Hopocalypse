@@ -15,8 +15,8 @@ static func read_web(key:String)->Dictionary:
 static func put_web(key:String,payload:String,expected:Variant)->bool:
 	# Compare and set in one synchronous browser call. A changed key indicates
 	# another tab wrote a different library since this instance loaded.
-	var expression:="(function(){try{const k="+JSON.stringify(key)+",expected="+JSON.stringify(expected)+";if(localStorage.getItem(k)!==expected)return false;localStorage.setItem(k,"+JSON.stringify(payload)+");return true}catch(e){return false}})()"
-	return JavaScriptBridge.eval(expression,true)==true
+	var expression:="(function(){try{const k="+JSON.stringify(key)+",expected="+JSON.stringify(expected)+";if(localStorage.getItem(k)!==expected)return 'conflict';localStorage.setItem(k,"+JSON.stringify(payload)+");return 'ok'}catch(e){return 'unavailable'}})()"
+	return str(JavaScriptBridge.eval(expression,true))=="ok"
 static func valid_generation(value:Variant,min_value:int=0)->bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value)>=min_value and float(value)==floorf(float(value)) and float(value)<1000000000.0
 static func nyc_decode(text:String)->Dictionary:

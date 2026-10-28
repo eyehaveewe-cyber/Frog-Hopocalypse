@@ -726,7 +726,17 @@ func show_linked_collection() -> void:
 			if not stage.is_empty():
 				button(overlay_box, "Play · " + str(stage.name), func(): play_builtin(index, linked_collection))
 	button(overlay_box, "Frog outfits and saved levels", func(): linked_collection = ""; show_menu())
+	var controls := overlay_box.find_children("*", "BaseButton", true, false)
+	for i in range(controls.size()):
+		controls[i].focus_next = controls[i].get_path_to(controls[(i + 1) % controls.size()])
+		controls[i].focus_previous = controls[i].get_path_to(controls[(i - 1 + controls.size()) % controls.size()])
+	if not controls.is_empty(): call_deferred("focus_linked_collection")
 	joystick.hide()
+
+func focus_linked_collection() -> void:
+	if linked_collection.is_empty() or not overlay.visible or not is_inside_tree(): return
+	var controls := overlay_box.find_children("*", "BaseButton", true, false)
+	if not controls.is_empty() and controls[0].is_visible_in_tree(): controls[0].grab_focus()
 
 func focus_splash_action() -> void:
 	# A menu can be replaced before the deferred layout pass completes.
