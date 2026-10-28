@@ -1,6 +1,7 @@
 extends Control
 const Data = preload("res://scripts/level_data.gd")
 const LibrarySafety = preload("res://scripts/library_safety.gd")
+const LibraryMirror = preload("res://scripts/library_mirror.gd")
 const World = preload("res://scripts/world.gd")
 const Voice = preload("res://scripts/voice.gd")
 const HopAudio = preload("res://scripts/hop_audio.gd")
@@ -89,6 +90,10 @@ var redo_button: Button
 var level: Dictionary = {}
 var library: Array = []
 var library_safety_error := ""
+var library_opaque: Array = []
+var library_mirror_seen: Variant = null
+var library_mirror_state: Variant = null
+var library_mirror_used := false
 var slot_id := ""
 var editor_saved_snapshot: Dictionary = {}
 var pending_editor_navigation: Callable
@@ -164,6 +169,8 @@ func _ready() -> void:
 	add_child(hop_audio)
 	hop_audio.set_enabled(sound_enabled)
 	library_safety_error = LibrarySafety.protect("user://library.json", "user://nyc-library.json")
+	if OS.has_feature("web") and library_safety_error.is_empty():
+		library_safety_error = LibraryMirror.protect_nyc("user://nyc-library.json")
 	load_library()
 	build_ui()
 	load_builtin(0)
@@ -1849,14 +1856,24 @@ func rotate_seam_worm(obj: Dictionary, degrees: float, refresh_controls: bool = 
 	rebuild(refresh_controls)
 
 func load_library() -> void:
-	var stored: Variant = []
-	if FileAccess.file_exists("user://library.json"):
-		var parsed := JSON.new()
-		if parsed.parse(FileAccess.get_file_as_string("user://library.json")) == OK: stored = parsed.data
+	var disk_exists:=FileAccess.file_exists("user://library.json")
+	var disk_text:=FileAccess.get_file_as_string("user://library.json") if disk_exists else ""
+	var stored:Variant=LibraryMirror.parse_json(disk_text) if disk_exists else []
+	if OS.has_feature("web"):
+		var lookup:=LibraryMirror.read_web(LibraryMirror.KEY)
+		if not lookup.get("ok",false):
+			library_safety_error=LibraryMirror.ERROR_TEXT
+		else:
+			library_mirror_seen=lookup.get("value")
+			var resolved:=LibraryMirror.resolve(disk_exists,disk_text,library_mirror_seen!=null,str(library_mirror_seen))
+			if not resolved.get("ok",false):library_safety_error=LibraryMirror.ERROR_TEXT
+			else:
+				stored=resolved.entries;library_mirror_state=resolved.mirror;library_mirror_used=resolved.used
 	if stored is Array:
 		for item in stored:
 			if item is Dictionary and item.get("id") is String and Data.validate(item.get("level"), item.get("autosave",false) == true) == "":
 				library.append(Data.normalize(item))
+			else:library_opaque.append(item)
 	if OS.has_feature("web"):
 		var backup: Variant = JavaScriptBridge.eval("(function(){try{return localStorage.getItem('hopan.editor.autosaves.v1');}catch(e){return null;}})()",true)
 		if backup is String and backup.length() < 8000000:
@@ -1864,8 +1881,10 @@ func load_library() -> void:
 			if entries is Array:
 				for entry in entries:
 					if entry is Dictionary and entry.get("id") is String and entry.get("autosave") == true and Data.validate(entry.get("level"), true) == "":
+						if library_mirror_used and library.any(func(item): return item.id == entry.id): continue
 						library = library.filter(func(item: Dictionary): return item.id != entry.id)
 						library.append(Data.normalize(entry))
+
 
 func refresh_library_picker() -> void:
 	saved_picker.clear()
@@ -1912,6 +1931,31 @@ func cancel_editor_navigation() -> void:
 		overlay.hide()
 		world.halted = false
 
+func commit_library_candidate(candidate:Array) -> bool:
+	var all_entries:Array=library_opaque.duplicate(true)+candidate.duplicate(true)
+	if not LibraryMirror.unique_ids(all_entries):
+		library_safety_error=LibraryMirror.ERROR_TEXT
+		status(library_safety_error);return false
+	var path:="user://library.json"
+	if OS.has_feature("web"):
+		var exists:=FileAccess.file_exists(path)
+		var old_text:=FileAccess.get_file_as_string(path) if exists else ""
+		var payload:=LibraryMirror.next_payload(all_entries,exists,old_text,library_mirror_state)
+		if payload.is_empty() or not LibraryMirror.put_web(LibraryMirror.KEY,payload,library_mirror_seen):
+			library_safety_error=LibraryMirror.ERROR_TEXT
+			status(library_safety_error)
+			return false
+		library_mirror_seen=payload;library_mirror_state=LibraryMirror.parse_json(payload);library_mirror_used=true
+	var f:=FileAccess.open("user://library.pending.json",FileAccess.WRITE)
+	if f==null:
+		library_safety_error="Saved levels need recovery. Reload or export a backup before saving."
+		status(library_safety_error);return false
+	f.store_string(JSON.stringify(all_entries,"\t"));var write_error:=f.get_error();f.close()
+	if write_error!=OK or DirAccess.rename_absolute("user://library.pending.json",path)!=OK:
+		library_safety_error="Saved levels need recovery. Reload or export a backup before saving."
+		status(library_safety_error);return false
+	return true
+
 func save_level() -> bool:
 	if not library_safety_error.is_empty():
 		status(library_safety_error)
@@ -1929,16 +1973,7 @@ func save_level() -> bool:
 			item.level = level.duplicate(true)
 			found = true
 	if not found: candidate.append({"id": saved_id, "level": level.duplicate(true)})
-	var f := FileAccess.open("user://library.pending.json", FileAccess.WRITE)
-	if f == null:
-		status("Local save failed. Continue editing or export JSON to keep a portable copy.")
-		return false
-	f.store_string(JSON.stringify(candidate, "\t"))
-	var write_error := f.get_error()
-	f.close()
-	if write_error != OK or DirAccess.rename_absolute("user://library.pending.json", "user://library.json") != OK:
-		status("Could not finish the local save. Continue editing or export JSON for a backup.")
-		return false
+	if not commit_library_candidate(candidate):return false
 	library = candidate
 	slot_id = saved_id
 	editor_saved_snapshot = level.duplicate(true)
@@ -2077,15 +2112,7 @@ func save_editor_checkpoint() -> bool:
 		if next_library[i].id == identity: existing = i
 	if existing >= 0: next_library[existing] = checkpoint
 	else: next_library.append(checkpoint)
-	var file := FileAccess.open("user://library.pending.json",FileAccess.WRITE)
-	if file == null:
-		status("Autosave failed. Use Export to keep a copy.")
-		return false
-	file.store_string(JSON.stringify(next_library,"\t"))
-	file.close()
-	if DirAccess.rename_absolute("user://library.pending.json","user://library.json") != OK:
-		status("Autosave failed. Use Export to keep a copy.")
-		return false
+	if not commit_library_candidate(next_library):return false
 	library = next_library
 	refresh_library_picker()
 	if OS.has_feature("web"):

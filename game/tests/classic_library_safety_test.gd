@@ -43,4 +43,21 @@ func run()->void:
 	check(not h.save_level() and not h.save_editor_checkpoint(),"Malformed source blocks both write paths")
 	check(FileAccess.get_file_as_string(old)=="{bad json" and FileAccess.get_file_as_string(nyc)==source,"Malformed source and existing NYC copy stay byte-identical")
 	h.queue_free();await process_frame;clear(nyc);clear(old)
+	put(old,source)
+	var safe=load("res://main.tscn").instantiate();root.add_child(safe);current_scene=safe
+	await process_frame
+	check(safe.library_opaque.size()==2,"Classic retains both unsupported legacy records in memory")
+	check(safe.save_level(),"Actual manual save succeeds with unsupported records present")
+	var after:Variant=JSON.parse_string(FileAccess.get_file_as_string(old))
+	check(after is Array and after.size()==3 and after[0].id=="old" and after[1].id=="nyc","Manual save retains all unsupported records")
+	var duplicate_candidate:Array=safe.library.duplicate(true);duplicate_candidate.append({"id":"nyc","level":{"name":"duplicate"}})
+	var before_duplicate:=FileAccess.get_file_as_string(old)
+	check(not safe.commit_library_candidate(duplicate_candidate) and FileAccess.get_file_as_string(old)==before_duplicate,"Actual save refuses duplicate opaque/supported IDs without changing disk")
+	safe.library_safety_error=""
+	check(safe.save_editor_checkpoint()==false,"Autosave without an editor identity is rejected safely")
+	safe.level.editor_autosave_id="test_preservation"
+	check(safe.save_editor_checkpoint(),"Actual Classic editor autosave succeeds")
+	var after_auto:Variant=JSON.parse_string(FileAccess.get_file_as_string(old))
+	check(after_auto is Array and after_auto.size()==4 and after_auto[1].id=="nyc","Autosave retains unsupported NYC record")
+	safe.queue_free();await process_frame;clear(nyc);clear(old)
 	print(JSON.stringify({"checks":checks,"failures":failures,"scope":"Actual on-disk migration, malformed input, destination failure and game manual/autosave guards; isolated test profile."}));quit(0 if failures.is_empty() else 1)
