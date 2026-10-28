@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "desktop: production startup with debug probe inactive",
+    "desktop: actual pointer start and movement, screenshots require inspection",
+    "landscape: production startup with debug probe inactive",
+    "landscape: actual pointer start and movement, screenshots require inspection"
+  ],
+  "errors": [],
+  "source": "6b1e4b049cf63d2578e82951dcd6b94c71785950",
+  "scope": "Actual release WebGL startup and input, compressed WASM without Content-Encoding header. Desktop/landscape touch emulation, not physical mobile. Debug build separately proves six-level content."
+}

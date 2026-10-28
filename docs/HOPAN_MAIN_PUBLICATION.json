@@ -1,0 +1,25 @@
+{
+  "source_branch": "main",
+  "game_source_commit": "6b1e4b049cf63d2578e82951dcd6b94c71785950",
+  "site_source_commit": "fd22a3bbaf37bb70de9660652de1b54836ef5175",
+  "site_version": 85,
+  "site_version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_4b321383fd808191aa512ba904f68407",
+  "deployment_id": "appgdep_6ae22e5317c48191bb43a7c6304f199d",
+  "deployment_status": "succeeded",
+  "url": "https://hopan.fiiendward.chatgpt.site",
+  "audience": "public",
+  "native_checks": 217,
+  "browser_campaign_checks": 20,
+  "production_browser_checks": 4,
+  "errors": [],
+  "preserved_riversim": "0.4.51-playable",
+  "preservation": "15 unrelated static files and hosting manifest retained byte-for-byte",
+  "verification": "Actual local Chromium WebGL desktop and landscape touch emulation; native Sites deployment succeeded. Not physical mobile verification.",
+  "archive": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_00000000d91881f5ba49b2bbc54e24fe",
+    "content_hash": "sha256:c83deb3cb0c212dbfeae94450c0e68745ac18eb154b2c9986421f7fb03f8558c",
+    "size_bytes": 53104640,
+    "file_count": 27
+  }
+}

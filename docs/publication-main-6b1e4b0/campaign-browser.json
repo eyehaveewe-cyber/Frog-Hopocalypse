@@ -1,0 +1,55 @@
+{
+  "checks": 20,
+  "failures": 0,
+  "maps": [
+    {
+      "index": 1,
+      "name": "STREETLIFE 01 · Stoop Patrol",
+      "riders": 0,
+      "roaches": 2,
+      "props": 9,
+      "traffic": 0
+    },
+    {
+      "index": 2,
+      "name": "STREETLIFE 02 · Newsstand Weave",
+      "riders": 2,
+      "roaches": 1,
+      "props": 10,
+      "traffic": 0
+    },
+    {
+      "index": 3,
+      "name": "STREETLIFE 03 · Ferry Railwalk",
+      "riders": 1,
+      "roaches": 2,
+      "props": 11,
+      "traffic": 0
+    },
+    {
+      "index": 4,
+      "name": "STREETLIFE 04 · Banked Boulevard",
+      "riders": 1,
+      "roaches": 1,
+      "props": 12,
+      "traffic": 7
+    },
+    {
+      "index": 5,
+      "name": "STREETLIFE 05 · Sanitation Courts",
+      "riders": 1,
+      "roaches": 4,
+      "props": 18,
+      "traffic": 0
+    },
+    {
+      "index": 6,
+      "name": "STREETLIFE 06 · Block Party",
+      "riders": 3,
+      "roaches": 3,
+      "props": 19,
+      "traffic": 14
+    }
+  ],
+  "errors": []
+}

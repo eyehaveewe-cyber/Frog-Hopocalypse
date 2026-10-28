@@ -1,0 +1,21 @@
+PASS: The menu offers all six maps in the new Streetlife set
+PASS: The set has a direct start entry separate from the earlier campaign
+PASS: Starting the set launches level one with the ordinary game controls
+PASS: Pause freezes the complete set encounter
+PASS: Retry resets the encounter clock while preserving the selected set level
+PASS: Set map 1 starts without a stale encounter result
+PASS: Map inspection freezes level 1 while keeping its authored assets visible
+PASS: Set map 2 starts without a stale encounter result
+PASS: Map inspection freezes level 2 while keeping its authored assets visible
+PASS: Set map 3 starts without a stale encounter result
+PASS: Map inspection freezes level 3 while keeping its authored assets visible
+PASS: Set map 4 starts without a stale encounter result
+PASS: Map inspection freezes level 4 while keeping its authored assets visible
+PASS: Set map 5 starts without a stale encounter result
+PASS: Map inspection freezes level 5 while keeping its authored assets visible
+PASS: Set map 6 starts without a stale encounter result
+PASS: Map inspection freezes level 6 while keeping its authored assets visible
+PASS: The editor exports the finale with set identity, enemies and city assets
+PASS: The final set map loads with its enemies in a landscape phone viewport
+PASS: The complete six-map browser sequence has no JavaScript or Godot runtime errors
+STREETLIFE SET BROWSER: 20 checks, 0 failures
