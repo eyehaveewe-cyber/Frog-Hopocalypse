@@ -1,3 +1,7 @@
+2026-10-29 — City Journey anti-aliasing
+
+Higher-resolution City Journey gameplay with 2× MSAA and linear filtering; earlier campaign presentation preserved. Browser comparisons and the unmeasured hardware cost are recorded in docs/CITY_JOURNEY_ANTIALIAS.md.
+
 2026-10-29 — Frozen Blocks mandatory traffic overhaul
 
 Replaced perimeter bypass with four sealed traffic rooms:32 ice skaters on overlapping square circuits and12 strategically placed roaches. Verified no bypass at any gate, sampled windows through all16 traffic lines, and actual browser rush collision. Full completion and human difficulty remain open. See docs/FROZEN_TRAFFIC_OVERHAUL.md.

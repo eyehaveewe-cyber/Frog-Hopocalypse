@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Load City Journey stage 0
+PASS: Native resolution and 2x MSAA in City Journey stage 0
+PASS: Overhead City Journey map retains smoothing
+PASS: Load City Journey stage 2
+PASS: Native resolution and 2x MSAA in City Journey stage 2
+PASS: Overhead City Journey map retains smoothing
+PASS: Load City Journey stage 1
+PASS: Native resolution and 2x MSAA in City Journey stage 1
+PASS: Overhead City Journey map retains smoothing
+PASS: Compatibility mode retains city smoothing
+PASS: Very large viewports use the bounded render size
+PASS: Load Baby Mode after city
+PASS: Earlier game retains nearest-neighbor retro view
+CITY JOURNEY ANTI-ALIAS: 0 failures
