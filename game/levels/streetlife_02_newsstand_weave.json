@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "STREETLIFE 02 · Newsstand Weave",
+  "name": "STREETLIFE 02 \u00b7 Newsstand Weave",
   "theme": "nyc",
   "width": 21,
   "height": 19,
@@ -94,11 +94,11 @@
       "wall",
       "wall",
       "wall",
+      "wall",
+      "wall",
       "path",
       "path",
-      "path",
-      "path",
-      "path",
+      "wall",
       "wall",
       "wall",
       "wall",
@@ -110,9 +110,9 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -127,35 +127,43 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
       "wall"
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
+      "wall",
+      "wall",
+      "wall",
       "floor",
       "path",
       "path",
-      "path",
+      "floor",
       "path",
       "path",
       "path",
       "path",
+      "path",
+      "path",
+      "path",
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
       "wall"
     ],
     [
       "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "path",
+      "path",
+      "floor",
+      "floor",
       "floor",
       "floor",
       "floor",
@@ -165,23 +173,15 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
       "wall"
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
       "floor",
       "path",
       "path",
@@ -196,15 +196,15 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
       "wall"
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
       "floor",
       "path",
       "path",
@@ -219,146 +219,8 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
       "wall",
       "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
       "wall"
     ],
     [
@@ -367,6 +229,11 @@
       "wall",
       "wall",
       "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
       "wall",
       "wall",
       "wall",
@@ -375,6 +242,139 @@
       "path",
       "path",
       "path",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
       "wall",
       "wall",
       "wall",
@@ -465,7 +465,7 @@
       ],
       "rotation": 0,
       "solid": false,
-      "speed": 2.5,
+      "speed": 3.5,
       "route": [
         {
           "pos": [
@@ -511,7 +511,7 @@
       ],
       "rotation": 0,
       "solid": false,
-      "speed": 2.8,
+      "speed": 3.8,
       "route": [
         {
           "pos": [
@@ -596,8 +596,8 @@
       "type": "city_prop",
       "variant": "bench",
       "pos": [
-        3,
-        9
+        4,
+        10
       ],
       "rotation": 90,
       "solid": true
@@ -607,7 +607,7 @@
       "type": "city_prop",
       "variant": "traffic_cone",
       "pos": [
-        18,
+        16,
         9
       ],
       "rotation": 0,
@@ -629,7 +629,7 @@
       "type": "city_prop",
       "variant": "trash_can",
       "pos": [
-        18,
+        16,
         5
       ],
       "rotation": 0,
@@ -661,37 +661,83 @@
       "id": "set2-roach-12",
       "type": "roach",
       "pos": [
-        2,
+        4,
         7
       ],
       "rotation": 0,
       "solid": false,
       "behavior": "patrol",
-      "speed": 1.2,
+      "speed": 1.85,
       "waypoints": [
         [
-          2,
+          4,
           7
         ],
         [
-          3,
+          6,
           7
         ],
         [
-          3,
-          11
+          6,
+          8
         ],
         [
-          2,
-          11
+          4,
+          8
         ]
+      ]
+    },
+    {
+      "id": "hard2-west-return",
+      "type": "skater",
+      "solid": false,
+      "rotation": 0,
+      "variant": 2,
+      "pos": [
+        5,
+        12
+      ],
+      "speed": 3.6,
+      "route": [
+        {
+          "pos": [
+            5,
+            12
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            6,
+            12
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            6,
+            5
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            5,
+            5
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
       ]
     }
   ],
   "traffic": [],
   "crossings": [],
-  "description": "Enter the riding circuit around a newsstand island, choose the longer west walk or the shorter east line, then cross the outer board again to leave. The east line adds a second counter-flow rider.",
-  "hint": "Enter behind the outer rider. Go west for room, or east past the second loop.",
+  "description": "A closed newsstand island splits two skate routes. The west alley is shorter and narrow; the east route gives more room but crosses a second circuit. Entry and exit require reading the outer rider.",
+  "hint": "Choose a side of the newsstands. The shorter west alley has a returning rider; the wider east path has crossed loops.",
   "design_intent": "A central island creates a real route choice inside one mandatory moving perimeter.",
   "required_gates": [
     {
@@ -711,6 +757,23 @@
         12,
         3
       ]
+    }
+  ],
+  "difficulty_target": "Hard: timing and route planning. Human attempt count not calibrated.",
+  "signs": [
+    {
+      "pos": [
+        10,
+        17
+      ],
+      "text": "Watch the outer circuit before entering."
+    },
+    {
+      "pos": [
+        10,
+        14
+      ],
+      "text": "West is narrow. East has another circuit. Choose a route before the board returns."
     }
   ]
 }

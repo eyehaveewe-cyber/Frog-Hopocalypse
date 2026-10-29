@@ -12,7 +12,7 @@
     17,
     1
   ],
-  "description": "Choose an alley around the stoops, cross opposing taxi lanes, and zigzag through the north block.",
+  "description": "Cross the delivery avenue, take the west stoop opening, and read the roach patrol before crossing the northern traffic pair. The final gate lies on the opposite side of the block.",
   "district": "BROWNSTONE BLOCKS",
   "crossings": [
     3,
@@ -68,25 +68,117 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
       "wall"
     ],
     [
@@ -114,102 +206,10 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
       "wall",
       "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "floor",
-      "floor",
-      "wall",
-      "wall",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "wall",
-      "wall",
-      "floor",
-      "floor",
+      "path",
+      "path",
       "wall",
       "wall",
       "wall",
@@ -560,28 +560,6 @@
       "solid": false
     },
     {
-      "id": "nyc-critter-9-7",
-      "type": "roach",
-      "pos": [
-        9,
-        7
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.25,
-      "waypoints": [
-        [
-          6,
-          7
-        ],
-        [
-          14,
-          7
-        ]
-      ]
-    },
-    {
       "id": "nyc-dumpster-18-17",
       "type": "city_prop",
       "variant": "dumpster",
@@ -599,28 +577,6 @@
       "pos": [
         17,
         17
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
-      "id": "nyc-newsstand-2-2",
-      "type": "city_prop",
-      "variant": "newsstand",
-      "pos": [
-        2,
-        2
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
-      "id": "nyc-bench-10-2",
-      "type": "city_prop",
-      "variant": "bench",
-      "pos": [
-        10,
-        2
       ],
       "rotation": 0,
       "solid": true
@@ -657,15 +613,37 @@
       ],
       "rotation": 0,
       "solid": false
+    },
+    {
+      "id": "difficulty-brownstone-crosswalk",
+      "type": "roach",
+      "pos": [
+        6,
+        7
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 2.0,
+      "waypoints": [
+        [
+          6,
+          7
+        ],
+        [
+          14,
+          7
+        ]
+      ]
     }
   ],
   "traffic": [
     {
       "row": 12,
       "direction": 1,
-      "speed": 3.1,
-      "spacing": 12.5,
-      "offset": 0.0,
+      "speed": 3.8,
+      "spacing": 8.8,
+      "offset": 0,
       "vehicles": [
         "taxi",
         "sedan"
@@ -674,13 +652,34 @@
     {
       "row": 11,
       "direction": -1,
-      "speed": 3.0,
-      "spacing": 13.5,
-      "offset": 5.0,
+      "speed": 3.4,
+      "spacing": 10.0,
+      "offset": 4,
+      "vehicles": [
+        "truck",
+        "taxi"
+      ]
+    },
+    {
+      "row": 5,
+      "direction": 1,
+      "speed": 4.2,
+      "spacing": 8.6,
+      "offset": 1,
       "vehicles": [
         "sedan",
-        "taxi",
-        "truck"
+        "taxi"
+      ]
+    },
+    {
+      "row": 4,
+      "direction": -1,
+      "speed": 3.7,
+      "spacing": 10.4,
+      "offset": 5,
+      "vehicles": [
+        "bus",
+        "taxi"
       ]
     }
   ]

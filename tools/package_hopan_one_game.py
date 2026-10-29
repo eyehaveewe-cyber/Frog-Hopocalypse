@@ -6,6 +6,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('site', type=Path)
 parser.add_argument('build', type=Path)
 parser.add_argument('source_commit')
+parser.add_argument('--release-label', default='One Hopán game, Baby Mode first')
+parser.add_argument('--evidence', default='docs/one-game-evidence/')
 args = parser.parse_args()
 if len(args.source_commit) != 40 or any(c not in '0123456789abcdef' for c in args.source_commit):
     parser.error('source_commit must be a full Git commit SHA')
@@ -36,11 +38,11 @@ for path in [old/'index.html',old/'game/index.html']:
     path.write_text(redirect)
 (dist/'build.json').write_text(json.dumps({
     'game_source_commit':args.source_commit,
-    'release_label':'One Hopán game, Baby Mode first',
+    'release_label':args.release_label,
     'campaign_levels':33,
     'preserved_riversim':previous['preserved_riversim'],
     'save_libraries':'One editor imports both previous libraries; existing backups retained.',
-    'evidence':'docs/one-game-evidence/'
+    'evidence':args.evidence
 },indent=2)+'\n')
 assert unrelated() == before
 print(json.dumps({'preserved_files':len(before),'preserved_hashes':before,'source_commit':args.source_commit},indent=2))

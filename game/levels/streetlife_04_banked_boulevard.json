@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "STREETLIFE 04 · Banked Boulevard",
+  "name": "STREETLIFE 04 \u00b7 Banked Boulevard",
   "theme": "nyc",
   "width": 25,
   "height": 23,
@@ -72,29 +72,29 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -126,56 +126,29 @@
     ],
     [
       "wall",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "wall"
-    ],
-    [
       "wall",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -262,6 +235,33 @@
     [
       "wall",
       "floor",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
       "floor",
       "floor",
       "floor",
@@ -311,60 +311,6 @@
       "wall",
       "wall",
       "wall",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
       "wall"
     ],
     [
@@ -423,29 +369,56 @@
     ],
     [
       "wall",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
-      "road",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -477,29 +450,29 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
       "wall"
     ],
     [
@@ -527,6 +500,33 @@
       "floor",
       "floor",
       "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -774,36 +774,6 @@
       "solid": true
     },
     {
-      "id": "set4-roach-5",
-      "type": "roach",
-      "pos": [
-        20,
-        11
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.25,
-      "waypoints": [
-        [
-          20,
-          11
-        ],
-        [
-          22,
-          11
-        ],
-        [
-          22,
-          13
-        ],
-        [
-          20,
-          13
-        ]
-      ]
-    },
-    {
       "id": "set4-bench-6",
       "type": "city_prop",
       "variant": "bench",
@@ -820,7 +790,7 @@
       "variant": "mailbox",
       "pos": [
         4,
-        2
+        3
       ],
       "rotation": 0,
       "solid": true
@@ -853,7 +823,7 @@
       "variant": "traffic_cone",
       "pos": [
         3,
-        18
+        19
       ],
       "rotation": 0,
       "solid": true
@@ -864,7 +834,7 @@
       "variant": "traffic_cone",
       "pos": [
         21,
-        18
+        19
       ],
       "rotation": 0,
       "solid": true
@@ -875,7 +845,7 @@
       "variant": "manhole",
       "pos": [
         12,
-        18
+        19
       ],
       "rotation": 0,
       "solid": false
@@ -890,15 +860,81 @@
       ],
       "rotation": 0,
       "solid": false
+    },
+    {
+      "id": "set4-roach-5",
+      "type": "roach",
+      "pos": [
+        17,
+        11
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.85,
+      "waypoints": [
+        [
+          17,
+          11
+        ],
+        [
+          19,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "hard4-west-gate",
+      "type": "roach",
+      "solid": false,
+      "rotation": 0,
+      "pos": [
+        5.5,
+        11
+      ],
+      "waypoints": [
+        [
+          5.5,
+          11
+        ],
+        [
+          8,
+          11
+        ]
+      ],
+      "behavior": "patrol",
+      "speed": 2.0
+    },
+    {
+      "id": "hard4-north",
+      "type": "roach",
+      "solid": false,
+      "rotation": 0,
+      "pos": [
+        10,
+        5
+      ],
+      "waypoints": [
+        [
+          10,
+          5
+        ],
+        [
+          13,
+          5
+        ]
+      ],
+      "behavior": "patrol",
+      "speed": 2.1
     }
   ],
   "traffic": [
     {
       "row": 16,
       "direction": 1,
-      "speed": 3.3,
-      "spacing": 13.0,
-      "offset": 1.0,
+      "speed": 4.2,
+      "spacing": 8.6,
+      "offset": 1.4,
       "vehicles": [
         "taxi",
         "sedan"
@@ -907,9 +943,9 @@
     {
       "row": 15,
       "direction": -1,
-      "speed": 3.5,
-      "spacing": 14.0,
-      "offset": 6.0,
+      "speed": 3.8,
+      "spacing": 10.2,
+      "offset": 5.2,
       "vehicles": [
         "bus",
         "taxi"
@@ -921,8 +957,8 @@
     12,
     18
   ],
-  "hint": "Cross the traffic. Choose the roach-free west or busy east gate, then cross behind the board.",
-  "description": "A taxi avenue opens into a banked court. The rider returns through both side gates; watch a complete circuit, choose either gate, and clear the central bank on its quiet side.",
+  "hint": "Read both lanes from the curb. At the bank, choose a gate and watch for the returning rider.",
+  "description": "A fixed crossing feeds a choice of two bank gates. Both are patrolled, and the rider loops behind the landing. A second north-side change of line prevents a straight sprint to the exit.",
   "design_purpose": "Choose the roach-free west gate or busy east gate, both timed against the bank return.",
   "required_gates": [
     {
@@ -942,6 +978,23 @@
         23,
         10
       ]
+    }
+  ],
+  "difficulty_target": "Hard: timing and route planning. Human attempt count not calibrated.",
+  "signs": [
+    {
+      "pos": [
+        6,
+        19
+      ],
+      "text": "Wait at the curb for a gap through both lanes."
+    },
+    {
+      "pos": [
+        6,
+        13
+      ],
+      "text": "Choose a bank gate. A roach guards each landing; the board returns behind them."
     }
   ]
 }

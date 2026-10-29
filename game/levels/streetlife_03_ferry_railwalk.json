@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "STREETLIFE 03 · Ferry Railwalk",
+  "name": "STREETLIFE 03 \u00b7 Ferry Railwalk",
   "theme": "nyc",
   "width": 23,
   "height": 21,
@@ -93,6 +93,31 @@
     ],
     [
       "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -114,6 +139,31 @@
       "floor",
       "floor",
       "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -156,56 +206,6 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
       "path",
       "path",
       "path",
@@ -214,31 +214,6 @@
       "path",
       "floor",
       "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "water",
-      "water",
       "wall"
     ],
     [
@@ -343,6 +318,31 @@
     ],
     [
       "wall",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -364,6 +364,31 @@
       "path",
       "floor",
       "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -393,52 +418,27 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -687,7 +687,7 @@
       "variant": "trash_can",
       "pos": [
         5,
-        15
+        17
       ],
       "rotation": 0,
       "solid": true
@@ -698,7 +698,7 @@
       "variant": "dumpster",
       "pos": [
         3,
-        14
+        17
       ],
       "rotation": 0,
       "solid": true
@@ -709,7 +709,7 @@
       "variant": "mailbox",
       "pos": [
         18,
-        16
+        17
       ],
       "rotation": 0,
       "solid": true
@@ -751,29 +751,21 @@
       "id": "set3-roach-12",
       "type": "roach",
       "pos": [
-        6,
-        16
+        13,
+        15
       ],
       "rotation": 0,
       "solid": false,
       "behavior": "patrol",
-      "speed": 1.25,
+      "speed": 1.8,
       "waypoints": [
         [
-          6,
-          16
+          13,
+          15
         ],
         [
-          6,
-          14
-        ],
-        [
-          8,
-          14
-        ],
-        [
-          8,
-          16
+          16,
+          15
         ]
       ]
     },
@@ -781,37 +773,97 @@
       "id": "set3-roach-13",
       "type": "roach",
       "pos": [
-        20,
-        16
+        17,
+        13
       ],
       "rotation": 0,
       "solid": false,
       "behavior": "patrol",
-      "speed": 1.2,
+      "speed": 2.0,
       "waypoints": [
         [
-          20,
-          16
+          17,
+          13
         ],
         [
-          20,
-          18
-        ],
-        [
-          18,
-          18
-        ],
-        [
-          18,
-          16
+          19,
+          13
         ]
       ]
+    },
+    {
+      "id": "hard3-pier-return",
+      "type": "skater",
+      "solid": false,
+      "rotation": 0,
+      "variant": 0,
+      "pos": [
+        14,
+        12
+      ],
+      "speed": 3.7,
+      "route": [
+        {
+          "pos": [
+            14,
+            12
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            19,
+            12
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            19,
+            8
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            14,
+            8
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
+    },
+    {
+      "id": "hard3-gangway",
+      "type": "roach",
+      "solid": false,
+      "rotation": 0,
+      "pos": [
+        9,
+        6
+      ],
+      "waypoints": [
+        [
+          9,
+          6
+        ],
+        [
+          12,
+          6
+        ]
+      ],
+      "behavior": "patrol",
+      "speed": 1.9
     }
   ],
   "traffic": [],
   "crossings": [],
-  "description": "A river divides the ferry forecourt from the departure gate. The broad east pier carries a supported rail line. Walk around the bank ends, then time the returning rider rather than trying to climb its fixtures.",
-  "hint": "Use the east pier. Walk around bank ends and cross after the rail rider passes.",
+  "description": "The ferry approach folds through two loading gates before a pier shared by a grind rider and a returning board. The north forecourt requires another change of line before the departure gate.",
+  "hint": "Change sides on the forecourt, then watch both pier circuits. The rail ends leave room to pass.",
   "design_intent": "A water-separated pier turns matching rail supports into a route obstacle and a timing landmark.",
   "required_gates": [
     {
@@ -822,6 +874,30 @@
         19,
         10
       ]
+    }
+  ],
+  "difficulty_target": "Hard: timing and route planning. Human attempt count not calibrated.",
+  "signs": [
+    {
+      "pos": [
+        3,
+        18
+      ],
+      "text": "The loading gates change sides. Read the patrol before crossing."
+    },
+    {
+      "pos": [
+        19,
+        14
+      ],
+      "text": "Two boards share the pier. Wait below the water edge until a gap opens."
+    },
+    {
+      "pos": [
+        17,
+        7
+      ],
+      "text": "The gate is west, then east. Watch the last patrol."
     }
   ]
 }

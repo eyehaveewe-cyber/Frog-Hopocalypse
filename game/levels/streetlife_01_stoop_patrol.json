@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "STREETLIFE 01 · Stoop Patrol",
+  "name": "STREETLIFE 01 \u00b7 Stoop Patrol",
   "theme": "nyc",
   "width": 17,
   "height": 17,
@@ -75,6 +75,25 @@
     ],
     [
       "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -90,6 +109,25 @@
       "path",
       "floor",
       "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -125,47 +163,9 @@
       "wall",
       "path",
       "path",
-      "path",
       "wall",
       "wall",
-      "wall"
-    ],
-    [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
       "wall"
     ],
     [
@@ -210,9 +210,8 @@
       "wall",
       "wall",
       "wall",
+      "wall",
       "path",
-      "path",
-      "path",
       "wall",
       "wall",
       "wall",
@@ -223,25 +222,7 @@
       "wall",
       "wall",
       "wall",
-      "wall"
-    ],
-    [
       "wall",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
       "wall"
     ],
     [
@@ -280,6 +261,25 @@
       "floor",
       "floor",
       "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -342,50 +342,6 @@
   ],
   "objects": [
     {
-      "id": "set1-roach-0",
-      "type": "roach",
-      "pos": [
-        3,
-        11
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.1,
-      "waypoints": [
-        [
-          3,
-          11
-        ],
-        [
-          5,
-          11
-        ]
-      ]
-    },
-    {
-      "id": "set1-roach-1",
-      "type": "roach",
-      "pos": [
-        13,
-        6
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.2,
-      "waypoints": [
-        [
-          13,
-          6
-        ],
-        [
-          11,
-          6
-        ]
-      ]
-    },
-    {
       "id": "set1-dumpster-2",
       "type": "city_prop",
       "variant": "dumpster",
@@ -423,7 +379,7 @@
       "type": "city_prop",
       "variant": "bench",
       "pos": [
-        8,
+        7,
         8
       ],
       "rotation": 0,
@@ -446,7 +402,7 @@
       "variant": "trash_can",
       "pos": [
         14,
-        7
+        9
       ],
       "rotation": 0,
       "solid": true
@@ -468,7 +424,7 @@
       "variant": "traffic_cone",
       "pos": [
         10,
-        3
+        2
       ],
       "rotation": 0,
       "solid": true
@@ -483,12 +439,122 @@
       ],
       "rotation": 0,
       "solid": false
+    },
+    {
+      "id": "set1-roach-0",
+      "type": "roach",
+      "pos": [
+        3,
+        11
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.65,
+      "waypoints": [
+        [
+          3,
+          11
+        ],
+        [
+          6,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "set1-roach-1",
+      "type": "roach",
+      "pos": [
+        13,
+        6
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.8,
+      "waypoints": [
+        [
+          13,
+          6
+        ],
+        [
+          10,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "hard1-approach",
+      "type": "roach",
+      "solid": false,
+      "rotation": 0,
+      "pos": [
+        7,
+        14
+      ],
+      "waypoints": [
+        [
+          7,
+          14
+        ],
+        [
+          10,
+          14
+        ]
+      ],
+      "behavior": "patrol",
+      "speed": 1.9
+    },
+    {
+      "id": "hard1-center",
+      "type": "roach",
+      "solid": false,
+      "rotation": 0,
+      "pos": [
+        9,
+        8
+      ],
+      "waypoints": [
+        [
+          9,
+          8
+        ],
+        [
+          13,
+          8
+        ]
+      ],
+      "behavior": "patrol",
+      "speed": 2.0
+    },
+    {
+      "id": "hard1-exit",
+      "type": "roach",
+      "solid": false,
+      "rotation": 0,
+      "pos": [
+        5,
+        4
+      ],
+      "waypoints": [
+        [
+          5,
+          4
+        ],
+        [
+          9,
+          4
+        ]
+      ],
+      "behavior": "patrol",
+      "speed": 1.75
     }
   ],
   "traffic": [],
   "crossings": [],
-  "description": "Two refuse-lined stoop gates introduce roach patrols. Observe from each open landing, cross behind the insect, and move laterally toward the opposite alley.",
-  "hint": "Watch the roach cross each alley. Follow behind it to the next landing.",
+  "description": "Offset stoop passages lead through five readable roach crossings. Broad landings let you observe the next patrol before committing to a narrow alley.",
+  "hint": "Watch the alley mouths. Each landing changes the next crossing line.",
   "design_intent": "Read a slow lateral patrol before committing to an offset alley gate.",
   "required_gates": [
     {
@@ -508,6 +574,23 @@
         13,
         5
       ]
+    }
+  ],
+  "difficulty_target": "Hard: timing and route planning. Human attempt count not calibrated.",
+  "signs": [
+    {
+      "pos": [
+        3,
+        15
+      ],
+      "text": "Watch each patrol turn before entering its alley."
+    },
+    {
+      "pos": [
+        7,
+        9
+      ],
+      "text": "The next opening is across the court. Stop on the landing to read both patrols."
     }
   ]
 }

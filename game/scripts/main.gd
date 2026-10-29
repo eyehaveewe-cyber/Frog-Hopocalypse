@@ -699,7 +699,10 @@ func show_levels() -> void:
 		if locked:
 			paragraph(overlay_box,str(SET_TITLES[key])+" · Complete "+("Baby Mode" if key == "human" else HUMAN_TITLE)+" to unlock.")
 		else:
-			add_set_selector(key,"%d levels · %d cleared" % [paths_for_set(key).size(),progress_for_set(key).size()])
+			var description := "%d levels · %d cleared" % [paths_for_set(key).size(),progress_for_set(key).size()]
+			if key in ["nyc", "streetlife"]:
+				description += " · Hard · timing & route planning"
+			add_set_selector(key, description)
 	joystick.hide()
 
 func focus_splash_action() -> void:

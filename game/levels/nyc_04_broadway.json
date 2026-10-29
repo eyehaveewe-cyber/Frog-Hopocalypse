@@ -12,7 +12,7 @@
     12,
     1
   ],
-  "description": "Read three different traffic rhythms from wide theater plazas, choosing where to cross each avenue.",
+  "description": "The theater arcades alternate west, east and center openings. Choose a useful exit from each avenue pair, then watch the patrol crossing the next sidewalk.",
   "district": "BROADWAY AFTER DARK",
   "crossings": [
     3,
@@ -76,29 +76,29 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -265,8 +265,6 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
       "wall",
       "wall",
       "wall",
@@ -275,9 +273,6 @@
       "wall",
       "wall",
       "wall",
-      "floor",
-      "floor",
-      "floor",
       "wall",
       "wall",
       "wall",
@@ -286,8 +281,13 @@
       "wall",
       "wall",
       "wall",
-      "floor",
-      "floor",
+      "wall",
+      "path",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -427,15 +427,12 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
       "wall",
       "wall",
-      "floor",
       "wall",
-      "wall",
+      "path",
+      "path",
+      "path",
       "wall",
       "wall",
       "wall",
@@ -443,13 +440,16 @@
       "wall",
       "wall",
       "wall",
-      "floor",
       "wall",
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
@@ -704,26 +704,6 @@
       "solid": true
     },
     {
-      "id": "nyc-pillar-4-2",
-      "type": "pillar",
-      "pos": [
-        4,
-        2
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
-      "id": "nyc-pillar-20-2",
-      "type": "pillar",
-      "pos": [
-        20,
-        2
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
       "id": "nyc-mushroom-8-14",
       "type": "mushroom",
       "pos": [
@@ -782,28 +762,6 @@
       ],
       "rotation": 0,
       "solid": false
-    },
-    {
-      "id": "nyc-newsstand-2-2",
-      "type": "city_prop",
-      "variant": "newsstand",
-      "pos": [
-        2,
-        2
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
-      "id": "nyc-pizza_cart-22-2",
-      "type": "city_prop",
-      "variant": "pizza_cart",
-      "pos": [
-        22,
-        2
-      ],
-      "rotation": 0,
-      "solid": true
     },
     {
       "id": "nyc-bench-2-21",
@@ -870,14 +828,58 @@
       ],
       "rotation": 0,
       "solid": false
+    },
+    {
+      "id": "difficulty-broadway-low",
+      "type": "roach",
+      "pos": [
+        8,
+        14
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 2.1,
+      "waypoints": [
+        [
+          8,
+          14
+        ],
+        [
+          18,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "difficulty-broadway-high",
+      "type": "roach",
+      "pos": [
+        7,
+        8
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 2.3,
+      "waypoints": [
+        [
+          7,
+          8
+        ],
+        [
+          16,
+          8
+        ]
+      ]
     }
   ],
   "traffic": [
     {
       "row": 18,
       "direction": 1,
-      "speed": 3.7,
-      "spacing": 12.0,
+      "speed": 4.3,
+      "spacing": 8.5,
       "offset": 0.5,
       "vehicles": [
         "taxi",
@@ -888,9 +890,9 @@
     {
       "row": 17,
       "direction": -1,
-      "speed": 3.3,
-      "spacing": 13.0,
-      "offset": 6.5,
+      "speed": 3.7,
+      "spacing": 10.2,
+      "offset": 6,
       "vehicles": [
         "bus",
         "taxi"
@@ -899,11 +901,10 @@
     {
       "row": 12,
       "direction": 1,
-      "speed": 4.0,
-      "spacing": 11.5,
-      "offset": 4.0,
+      "speed": 4.7,
+      "spacing": 8.3,
+      "offset": 4,
       "vehicles": [
-        "taxi",
         "taxi",
         "sedan"
       ]
@@ -911,8 +912,8 @@
     {
       "row": 11,
       "direction": -1,
-      "speed": 3.8,
-      "spacing": 13.0,
+      "speed": 4.0,
+      "spacing": 10.0,
       "offset": 0.5,
       "vehicles": [
         "truck",
@@ -923,9 +924,9 @@
     {
       "row": 6,
       "direction": 1,
-      "speed": 4.4,
-      "spacing": 11.5,
-      "offset": 2.0,
+      "speed": 5.0,
+      "spacing": 8.7,
+      "offset": 2,
       "vehicles": [
         "sedan",
         "taxi"
@@ -934,9 +935,9 @@
     {
       "row": 5,
       "direction": -1,
-      "speed": 3.6,
-      "spacing": 13.0,
-      "offset": 8.0,
+      "speed": 4.0,
+      "spacing": 10.2,
+      "offset": 7,
       "vehicles": [
         "bus",
         "taxi",

@@ -1,0 +1,70 @@
+{
+  "kind": "Deterministic no-wait controller, NOT human difficulty or attempts",
+  "phases_seconds": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0,
+    4.5
+  ],
+  "baseline_remote_commit": "5806a698e989ce7e06e9ef226452917e58c3fc86",
+  "results": {
+    "before": {
+      "STREETLIFE 01 \u00b7 Stoop Patrol": {
+        "completed": 7,
+        "runs": 10
+      },
+      "STREETLIFE 02 \u00b7 Newsstand Weave": {
+        "completed": 9,
+        "runs": 10
+      },
+      "STREETLIFE 03 \u00b7 Ferry Railwalk": {
+        "completed": 10,
+        "runs": 10
+      },
+      "STREETLIFE 04 \u00b7 Banked Boulevard": {
+        "completed": 2,
+        "runs": 10
+      },
+      "STREETLIFE 05 \u00b7 Sanitation Courts": {
+        "completed": 9,
+        "runs": 10
+      },
+      "STREETLIFE 06 \u00b7 Block Party": {
+        "completed": 1,
+        "runs": 10
+      }
+    },
+    "after": {
+      "STREETLIFE 01 \u00b7 Stoop Patrol": {
+        "completed": 1,
+        "runs": 10
+      },
+      "STREETLIFE 02 \u00b7 Newsstand Weave": {
+        "completed": 6,
+        "runs": 10
+      },
+      "STREETLIFE 03 \u00b7 Ferry Railwalk": {
+        "completed": 0,
+        "runs": 10
+      },
+      "STREETLIFE 04 \u00b7 Banked Boulevard": {
+        "completed": 0,
+        "runs": 10
+      },
+      "STREETLIFE 05 \u00b7 Sanitation Courts": {
+        "completed": 1,
+        "runs": 10
+      },
+      "STREETLIFE 06 \u00b7 Block Party": {
+        "completed": 0,
+        "runs": 10
+      }
+    }
+  }
+}

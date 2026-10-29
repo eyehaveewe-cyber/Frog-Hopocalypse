@@ -1,3 +1,5 @@
+NYC difficulty pass: all six New York City and all six NYC Streetlife stages now target hard play through tighter crossing choices, alternating approaches and patrol commitments. The requested 7/10, roughly 15 attempts per level, remains a human-playtest target. [Design, verification and calibration](docs/NYC_DIFFICULTY_PASS.md).
+
 One game, Baby Mode first: the frog screen now starts Baby Mode, and all 33 campaign levels share one executable, editor, outfits and progression. NYC and Streetlife no longer open a separate game. [Implementation and checks](docs/HOPAN_ONE_GAME.md).
 
 Earlier release notes below are historical.

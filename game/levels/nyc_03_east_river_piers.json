@@ -12,7 +12,7 @@
     19,
     1
   ],
-  "description": "Cross the service road, choose either bank of the river basin, and thread the crosstown bus lanes.",
+  "description": "Choose one of two patrolled boardwalks between the service roads. The western arcade leads to a third avenue pair; arrive on the final sidewalk before turning toward the gate.",
   "district": "EAST RIVER PIERS",
   "crossings": [
     3,
@@ -72,131 +72,6 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "floor",
-      "floor",
-      "wall",
-      "wall",
-      "wall",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
-      "wall"
-    ],
-    [
-      "wall",
       "road",
       "road",
       "road",
@@ -272,102 +147,227 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "water",
+      "wall",
+      "wall",
+      "wall",
       "path",
       "path",
-      "path",
-      "path",
-      "path",
-      "water",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
       "wall"
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
       "wall"
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
       "wall"
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "wall"
+    ],
+    [
+      "wall",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
       "floor",
       "floor",
       "floor",
       "water",
       "water",
-      "path",
-      "path",
-      "path",
-      "path",
-      "path",
       "water",
       "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
       "floor",
       "floor",
       "floor",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
       "floor",
       "floor",
       "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "wall"
+    ],
+    [
+      "wall",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "water",
+      "water",
+      "water",
       "wall"
     ],
     [
@@ -548,36 +548,6 @@
   ],
   "objects": [
     {
-      "id": "nyc-pillar-2-11",
-      "type": "pillar",
-      "pos": [
-        2,
-        11
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
-      "id": "nyc-pillar-20-11",
-      "type": "pillar",
-      "pos": [
-        20,
-        11
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
-      "id": "nyc-pillar-7-3",
-      "type": "pillar",
-      "pos": [
-        7,
-        3
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
       "id": "nyc-pillar-4-18",
       "type": "pillar",
       "pos": [
@@ -618,92 +588,6 @@
       "solid": false
     },
     {
-      "id": "nyc-decoration-5-3",
-      "type": "decoration",
-      "pos": [
-        5,
-        3
-      ],
-      "rotation": 0,
-      "solid": false
-    },
-    {
-      "id": "nyc-decoration-18-3",
-      "type": "decoration",
-      "pos": [
-        18,
-        3
-      ],
-      "rotation": 0,
-      "solid": false
-    },
-    {
-      "id": "nyc-critter-17-11",
-      "type": "roach",
-      "pos": [
-        17,
-        11
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.3,
-      "waypoints": [
-        [
-          17,
-          10
-        ],
-        [
-          17,
-          13
-        ]
-      ]
-    },
-    {
-      "id": "nyc-bench-3-12",
-      "type": "city_prop",
-      "variant": "bench",
-      "pos": [
-        3,
-        12
-      ],
-      "rotation": 90,
-      "solid": true
-    },
-    {
-      "id": "nyc-bench-19-12",
-      "type": "city_prop",
-      "variant": "bench",
-      "pos": [
-        19,
-        12
-      ],
-      "rotation": 270,
-      "solid": true
-    },
-    {
-      "id": "nyc-pizza_cart-2-2",
-      "type": "city_prop",
-      "variant": "pizza_cart",
-      "pos": [
-        2,
-        2
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
-      "id": "nyc-trash_can-3-2",
-      "type": "city_prop",
-      "variant": "trash_can",
-      "pos": [
-        3,
-        2
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
       "id": "nyc-dumpster-21-18",
       "type": "city_prop",
       "variant": "dumpster",
@@ -726,17 +610,6 @@
       "solid": false
     },
     {
-      "id": "nyc-mailbox-20-2",
-      "type": "city_prop",
-      "variant": "mailbox",
-      "pos": [
-        20,
-        2
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
       "id": "nyc-manhole-11-6",
       "type": "city_prop",
       "variant": "manhole",
@@ -746,14 +619,58 @@
       ],
       "rotation": 0,
       "solid": false
+    },
+    {
+      "id": "difficulty-pier-west",
+      "type": "roach",
+      "pos": [
+        5,
+        10
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.8,
+      "waypoints": [
+        [
+          5,
+          10
+        ],
+        [
+          5,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "difficulty-pier-east",
+      "type": "roach",
+      "pos": [
+        17,
+        13
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 2.0,
+      "waypoints": [
+        [
+          17,
+          13
+        ],
+        [
+          17,
+          10
+        ]
+      ]
     }
   ],
   "traffic": [
     {
       "row": 16,
       "direction": 1,
-      "speed": 3.3,
-      "spacing": 12.5,
+      "speed": 4.0,
+      "spacing": 8.8,
       "offset": 1.5,
       "vehicles": [
         "truck",
@@ -763,9 +680,9 @@
     {
       "row": 15,
       "direction": -1,
-      "speed": 3.6,
-      "spacing": 13.5,
-      "offset": 6.0,
+      "speed": 3.8,
+      "spacing": 9.2,
+      "offset": 5,
       "vehicles": [
         "sedan",
         "taxi"
@@ -774,24 +691,45 @@
     {
       "row": 8,
       "direction": 1,
-      "speed": 3.2,
-      "spacing": 14.0,
-      "offset": 0.0,
+      "speed": 3.6,
+      "spacing": 10.4,
+      "offset": 0,
       "vehicles": [
         "bus",
-        "taxi",
-        "sedan"
+        "taxi"
       ]
     },
     {
       "row": 7,
       "direction": -1,
-      "speed": 3.8,
-      "spacing": 13.5,
-      "offset": 7.0,
+      "speed": 4.4,
+      "spacing": 8.6,
+      "offset": 5,
       "vehicles": [
         "taxi",
         "truck"
+      ]
+    },
+    {
+      "row": 3,
+      "direction": 1,
+      "speed": 4.3,
+      "spacing": 9.0,
+      "offset": 1,
+      "vehicles": [
+        "sedan",
+        "taxi"
+      ]
+    },
+    {
+      "row": 2,
+      "direction": -1,
+      "speed": 3.7,
+      "spacing": 10.3,
+      "offset": 6,
+      "vehicles": [
+        "truck",
+        "taxi"
       ]
     }
   ]

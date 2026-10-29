@@ -12,12 +12,12 @@
     10,
     1
   ],
-  "description": "Wind around the park pond, watch the taxis, then cross one lane into the north gardens.",
+  "description": "Two avenue pairs split the park. Go around the pond, read both traffic directions, then change crossing line through the middle garden gate. Cars do not stop at crosswalks.",
   "district": "CENTRAL PARK",
   "crossings": [
-    3,
+    4,
     10,
-    17
+    16
   ],
   "tiles": [
     [
@@ -68,117 +68,71 @@
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
       "path",
       "path",
       "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path",
       "wall"
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
       "wall"
     ],
     [
       "wall",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "water",
-      "water",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "path",
-      "path",
-      "path",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
       "wall"
     ],
     [
@@ -202,6 +156,52 @@
       "path",
       "path",
       "path",
+      "wall"
+    ],
+    [
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
+      "road",
       "wall"
     ],
     [
@@ -444,16 +444,6 @@
       "solid": true
     },
     {
-      "id": "nyc-tree-16-3",
-      "type": "tree",
-      "pos": [
-        16,
-        3
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
       "id": "nyc-tree-17-5",
       "type": "tree",
       "pos": [
@@ -504,48 +494,6 @@
       "solid": false
     },
     {
-      "id": "nyc-decoration-4-6",
-      "type": "decoration",
-      "pos": [
-        4,
-        6
-      ],
-      "rotation": 0,
-      "solid": false
-    },
-    {
-      "id": "nyc-decoration-16-6",
-      "type": "decoration",
-      "pos": [
-        16,
-        6
-      ],
-      "rotation": 0,
-      "solid": false
-    },
-    {
-      "id": "nyc-critter-15-3",
-      "type": "roach",
-      "pos": [
-        15,
-        3
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.1,
-      "waypoints": [
-        [
-          14,
-          3
-        ],
-        [
-          14,
-          5
-        ]
-      ]
-    },
-    {
       "id": "nyc-bench-3-14",
       "type": "city_prop",
       "variant": "bench",
@@ -579,17 +527,6 @@
       "solid": true
     },
     {
-      "id": "nyc-trash_can-2-3",
-      "type": "city_prop",
-      "variant": "trash_can",
-      "pos": [
-        2,
-        3
-      ],
-      "rotation": 0,
-      "solid": true
-    },
-    {
       "id": "nyc-mailbox-18-2",
       "type": "city_prop",
       "variant": "mailbox",
@@ -601,17 +538,6 @@
       "solid": true
     },
     {
-      "id": "nyc-manhole-15-7",
-      "type": "city_prop",
-      "variant": "manhole",
-      "pos": [
-        15,
-        7
-      ],
-      "rotation": 0,
-      "solid": false
-    },
-    {
       "id": "nyc-traffic_cone-2-9",
       "type": "city_prop",
       "variant": "traffic_cone",
@@ -621,18 +547,72 @@
       ],
       "rotation": 0,
       "solid": false
+    },
+    {
+      "id": "difficulty-park-garden",
+      "type": "roach",
+      "pos": [
+        14,
+        5
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.7,
+      "waypoints": [
+        [
+          14,
+          5
+        ],
+        [
+          18,
+          5
+        ]
+      ]
     }
   ],
   "traffic": [
     {
       "row": 8,
       "direction": 1,
-      "speed": 2.6,
-      "spacing": 13.5,
-      "offset": 2.0,
+      "speed": 3.6,
+      "spacing": 9.0,
+      "offset": 1,
       "vehicles": [
         "taxi",
-        "sedan",
+        "sedan"
+      ]
+    },
+    {
+      "row": 7,
+      "direction": -1,
+      "speed": 3.4,
+      "spacing": 10.2,
+      "offset": 5,
+      "vehicles": [
+        "truck",
+        "taxi"
+      ]
+    },
+    {
+      "row": 4,
+      "direction": 1,
+      "speed": 4.1,
+      "spacing": 8.6,
+      "offset": 2,
+      "vehicles": [
+        "taxi",
+        "sedan"
+      ]
+    },
+    {
+      "row": 3,
+      "direction": -1,
+      "speed": 3.6,
+      "spacing": 10.6,
+      "offset": 6,
+      "vehicles": [
+        "bus",
         "taxi"
       ]
     }

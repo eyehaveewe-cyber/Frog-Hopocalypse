@@ -315,7 +315,7 @@
       "water",
       "water",
       "water",
-      "path",
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -331,7 +331,7 @@
       "floor",
       "floor",
       "floor",
-      "path",
+      "wall",
       "water",
       "water",
       "water",
@@ -341,8 +341,8 @@
       "wall",
       "water",
       "water",
-      "path",
-      "path",
+      "wall",
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -357,9 +357,9 @@
       "floor",
       "floor",
       "floor",
-      "floor",
-      "path",
-      "path",
+      "wall",
+      "wall",
+      "wall",
       "water",
       "water",
       "wall"
@@ -369,7 +369,7 @@
       "water",
       "water",
       "water",
-      "path",
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -385,7 +385,7 @@
       "floor",
       "floor",
       "floor",
-      "path",
+      "wall",
       "water",
       "water",
       "water",
@@ -739,7 +739,7 @@
       "variant": 0,
       "rotation": 0,
       "solid": false,
-      "speed": 3.4,
+      "speed": 4.2,
       "route": [
         {
           "pos": [
@@ -867,7 +867,7 @@
       "variant": 1,
       "rotation": 0,
       "solid": false,
-      "speed": 3.0,
+      "speed": 3.9,
       "route": [
         {
           "pos": [
@@ -999,7 +999,7 @@
       "variant": 2,
       "rotation": 0,
       "solid": false,
-      "speed": 3.7,
+      "speed": 4.5,
       "route": [
         {
           "pos": [
@@ -1278,6 +1278,28 @@
           7
         ]
       ]
+    },
+    {
+      "id": "difficulty-skate-north-approach",
+      "type": "roach",
+      "pos": [
+        8,
+        4
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.8,
+      "waypoints": [
+        [
+          8,
+          4
+        ],
+        [
+          16,
+          4
+        ]
+      ]
     }
   ],
   "traffic": [],
@@ -1289,5 +1311,5 @@
     ],
     "diameter": 18
   },
-  "description": "Three riders loop through an eighteen-tile skate plaza. Read the rails and ramps, avoid the roaches near the bins, and slip through the moving gaps."
+  "description": "The central waist closes the outer promenade. Enter the rider circuits, choose the west pocket or east rail crossing, then read the northern return loop before the gate."
 }
