@@ -31,9 +31,9 @@ func setup(config:Dictionary,spawn:Array=[12,22],wall_row:int=-1)->void:
 	await physics_frame
 	await physics_frame
 
-func tick(input:Vector2,frames:int,jump:bool=false,brake:bool=false,delta:float=1.0/60.0)->void:
+func tick(input:Vector2,frames:int,jump:bool=false,brake:bool=false,delta:float=1.0/60.0,grind:bool=false)->void:
 	for frame in range(frames):
-		world.journey.step(delta,input,jump,brake)
+		world.journey.step(delta,input,jump,brake,grind)
 		world.elapsed+=delta
 		await physics_frame
 
@@ -78,7 +78,7 @@ func run()->void:
 	await setup({"movement":"skate","rails":[{"from":[12,20],"to":[12,15],"height":0.65}]},[12,22])
 	var saw_grind:=false
 	for frame in range(200):
-		await tick(Vector2(0,-1),1)
+		await tick(Vector2(0,-1),1,false,false,1.0/60.0,true)
 		saw_grind=saw_grind or world.journey.grind_index>=0
 	check(saw_grind and world.journey.rails_used==1,"Aligned approach mounts and grinds the authored rail")
 	check(world.position_cell(world.player.position).y<15,"Grind exits rail forward into normal riding")

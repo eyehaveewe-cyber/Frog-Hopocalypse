@@ -1,6 +1,7 @@
 extends Node3D
 ## Authoritative authored-loop movement; the pose only animates child pivots.
 ## Routes are validated at the level boundary, including their closing segment.
+const Stunts = preload("res://scripts/bridge_stunts.gd")
 const Kit = preload("res://scripts/nyc_streetlife_art.gd")
 const CONTACT_RADIUS := 0.74
 const FROG_CLEARANCE := 0.78
@@ -32,6 +33,10 @@ var head: Node3D
 var wheels: Array[Node] = []
 var rest: Dictionary = {}
 var facing := 0.0
+var stunt_spec: Dictionary = {}
+var stunt_bridge: Dictionary = {}
+var stunt_world: Node3D
+var stunt_lap := 0
 
 func setup(obj: Dictionary, world: Node3D) -> void:
 	name = str(obj.id)
@@ -44,7 +49,11 @@ func setup(obj: Dictionary, world: Node3D) -> void:
 	loop_length = 0.0
 	clock = 0.0
 	distance = 0.0
-	for node in obj.route:
+	stunt_world = world
+	stunt_spec = obj.get("bridge_stunts",{}).duplicate(true)
+	if not stunt_spec.is_empty(): stunt_bridge = world.level.city_journey.bridges[int(stunt_spec.bridge)]
+	var source: Array = obj.route if stunt_spec.is_empty() else Stunts.route(stunt_spec,stunt_bridge,0)
+	for node in source:
 		route.append(node.duplicate(true))
 		var point: Vector3 = world.cell_position(node.pos)
 		point.y = float(node.get("height", 0.0))
@@ -84,6 +93,23 @@ func sample_at_distance(along: float) -> Dictionary:
 			return {"position": point, "segment": i, "progress": progress, "height": point.y, "state": str(route[i].get("trick", "cruise"))}
 	return {}
 
+func sample_future(seconds: float) -> Dictionary:
+	var along := distance+speed*seconds
+	if stunt_spec.is_empty() or along<loop_length: return sample_at_distance(along)
+	along -= loop_length
+	var lap := stunt_lap+1
+	for _attempt in range(100):
+		var next_route := Stunts.route(stunt_spec,stunt_bridge,lap)
+		for i in range(next_route.size()):
+			var a: Vector3 = stunt_world.cell_position(next_route[i].pos)
+			var b: Vector3 = stunt_world.cell_position(next_route[(i+1)%next_route.size()].pos)
+			a.y = next_route[i].height; b.y = next_route[(i+1)%next_route.size()].height
+			var length := Vector2(a.x-b.x,a.z-b.z).length()
+			if along<length: return {"position":a.lerp(b,along/length)}
+			along -= length
+		lap += 1
+	return {"position":position}
+
 func apply_sample(sample: Dictionary) -> void:
 	position = sample.position
 	segment = sample.segment
@@ -107,19 +133,50 @@ func step(delta: float) -> void:
 	# Ordinary physics ticks produce exact time-stamped sweeps at every corner.
 	# A diagnostic jump exceeding a whole circuit uses bounded conservative
 	# route occupancy instead of allocating an unbounded number of loop sweeps.
-	if travel >= loop_length:
+	if not stunt_spec.is_empty():
+		trace_stunts(travel)
+	elif travel >= loop_length:
 		full_loop_sweep = true
 		for i in range(points.size()):
 			sweeps.append({"from": points[i], "to": points[(i + 1) % points.size()], "t0": 0.0, "t1": 1.0})
 	else:
 		trace_step(travel)
-	distance += travel
+	if stunt_spec.is_empty(): distance += travel
 	apply_sample(sample_at_distance(distance))
 	var desired := segment_facing(segment)
 	var turn := angle_difference(facing, desired)
 	facing = lerp_angle(facing, desired, 1.0 - exp(-12.0 * delta))
 	rotation.y = facing
 	pose(delta, turn)
+
+func trace_stunts(travel: float) -> void:
+	var remaining := travel
+	var spent := 0.0
+	while remaining>0.000001:
+		var amount := minf(remaining,loop_length-distance)
+		var begin := sweeps.size()
+		trace_step(amount)
+		for i in range(begin,sweeps.size()):
+			sweeps[i].t0 = (spent+float(sweeps[i].t0)*amount)/travel
+			sweeps[i].t1 = (spent+float(sweeps[i].t1)*amount)/travel
+		distance += amount
+		spent += amount
+		remaining -= amount
+		if distance>=loop_length-0.00001:
+			stunt_lap += 1
+			route.assign(Stunts.route(stunt_spec,stunt_bridge,stunt_lap))
+			points.clear(); lengths.clear(); starts.clear(); loop_length = 0
+			for node in route:
+				var point: Vector3 = stunt_world.cell_position(node.pos)
+				point.y = node.height
+				points.append(point)
+			for i in range(points.size()):
+				starts.append(loop_length)
+				var offset := points[(i+1)%points.size()]-points[i]
+				var length := Vector2(offset.x,offset.z).length()
+				lengths.append(length)
+				loop_length += length
+			distance = 0
 
 func trace_step(travel: float) -> void:
 	var remaining := travel

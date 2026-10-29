@@ -24,6 +24,7 @@ var traffic: Node3D
 var journey: Node3D
 var park_hazards: Node3D
 var brake_input := false
+var grind_input := false
 var skaters: Array = []
 const CELL = 1.8
 var level: Dictionary = {}
@@ -133,6 +134,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	elapsed = 0
 	input_vector = Vector2.ZERO
 	brake_input = false
+	grind_input = false
 	long_hop_input = false
 	journey = null
 	park_hazards = null
@@ -545,7 +547,7 @@ func _physics_process(delta: float) -> void:
 		crossing.advance(delta,player)
 	else:
 		crossing.advance(delta, player)
-		if is_instance_valid(journey): journey.step(delta,input_vector,long_hop_input,brake_input)
+		if is_instance_valid(journey): journey.step(delta,input_vector,long_hop_input,brake_input,grind_input)
 		else: player.step(delta, input_vector)
 		update_camera(minf(1, delta * 8))
 	traffic.step(delta)

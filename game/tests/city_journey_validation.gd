@@ -118,9 +118,21 @@ func run() -> void:
 	rejected(bad, "Declared ramp landing cannot be water")
 	bad = map.duplicate(true); bad.spawn = [7,3]; bad.exit = [7,11]
 	check(not Data.reachable(bad), "Launch connection is directional")
+	map = base(); map.city_journey.rails = [{"from":[6,17],"to":[6,10],"height":2.6,"entry":[6,21],"exit":[6,6]}]
+	check(Data.validate(map).is_empty(),"High rail accepts visible aligned approaches")
+	bad = map.duplicate(true); bad.city_journey.rails[0].erase("entry")
+	rejected(bad,"High rail cannot omit its entry ramp")
+	bad = map.duplicate(true); bad.city_journey.rails[0].entry = [8,21]
+	rejected(bad,"Reject diagonal rail approach")
+	bad = map.duplicate(true); bad.city_journey.islands = [{"rect":[5,5,3,3]}]
+	rejected(bad,"Reject reversed dry island")
+	map = JSON.parse_string(FileAccess.get_file_as_string("res://levels/city_journey_01_blocks_park.json"))
+	var stunt: Dictionary = map.objects.filter(func(o): return o.has("bridge_stunts"))[0]
+	stunt.bridge_stunts.bridge = 99
+	rejected(map,"Reject missing stunt bridge")
 	# Existing shipped content uses no new fields; preserve its validator contract.
 	check_existing_levels("res://levels")
-	for name in ["city_journey_01_blocks_park.json", "city_journey_02_skate_escape.json"]:
+	for name in ["city_journey_01_blocks_park.json", "city_journey_02_skate_escape.json", "city_journey_03_frozen_blocks.json"]:
 		if FileAccess.file_exists("res://levels/" + name):
 			var authored: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://levels/" + name))
 			var error := Data.validate(authored)

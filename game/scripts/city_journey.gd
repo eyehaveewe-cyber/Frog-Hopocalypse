@@ -18,6 +18,8 @@ var bridge_index := -1
 var grind_index := -1
 var grind_direction := 1.0
 var grind_mount := false
+var grind_mount_target := Vector3.ZERO
+var grind_armed := false
 var jump_held := false
 var launch_cooldown := 0.0
 var board: Node3D
@@ -75,21 +77,34 @@ func support_height(p: Vector3) -> float:
 		if i == bridge_index or height <= world.player.position.y+0.35:
 			bridge_index = i
 			return height
+	for rail in config.get("rails",[]):
+		for endpoint in ["entry","exit"]:
+			if not rail.has(endpoint): continue
+			var foot: Vector3 = world.cell_position(rail[endpoint])
+			var lip: Vector3 = world.cell_position(rail.from if endpoint == "entry" else rail.to)
+			var nearest := Geometry3D.get_closest_point_to_segment(Vector3(p.x,0,p.z),foot,lip)
+			if Vector2(nearest.x-p.x,nearest.z-p.z).length()<0.75:
+				var fraction := foot.distance_to(nearest)/foot.distance_to(lip)
+				var height := float(rail.height)*fraction
+				if not airborne or p.y>=height-0.1: return height
 	for ramp in config.get("ramps", []):
 		var sample := ramp_sample(ramp,p)
 		if sample.inside and (not airborne or world.player.position.y >= float(ramp.rise)*sample.along/sample.length-0.1):
 			return float(ramp.rise)*sample.along/sample.length
 	return 0.0
 
-func step(delta: float, input: Vector2, jump: bool, brake: bool) -> void:
+func step(delta: float, input: Vector2, jump: bool, brake: bool, grind: bool = false) -> void:
 	var actor: CharacterBody3D = world.player
 	var desired := Vector3(input.x,0,input.y).limit_length()
 	var pressed := jump and not jump_held
 	jump_held = jump
 	launch_cooldown = maxf(0,launch_cooldown-delta)
+	grind_armed = grind
 	on_ice = false
 	for ice in config.get("ice", []):
 		if rect_has(ice.rect,grid_point(actor.position)): on_ice = true
+	for island in config.get("islands",[]):
+		if rect_has(island.rect,grid_point(actor.position)): on_ice = false
 	if desired.length_squared()>0.01: facing=desired
 	if grind_index >= 0:
 		advance_grind(delta,desired,pressed,brake)
@@ -109,22 +124,24 @@ func step(delta: float, input: Vector2, jump: bool, brake: bool) -> void:
 		vertical_speed=4.4
 		airborne=true
 		bridge_index=-1
-	if is_skating() and not airborne and not brake and launch_cooldown<=0:
+	if is_skating() and grind and not brake and launch_cooldown<=0 and momentum.length()>1.0:
 		for i in range(config.get("rails",[]).size()):
-			var rail: Dictionary=config.rails[i]
-			var start: Vector3=world.cell_position(rail.from)
-			var end: Vector3=world.cell_position(rail.to)
-			var forward: Vector3=(end-start).normalized()
-			for direction in [1.0,-1.0]:
-				var entry: Vector3=start if direction>0 else end
-				if Vector2(actor.position.x-entry.x,actor.position.z-entry.z).length()<0.85 and desired.dot(forward*direction)>0.75:
-					grind_index=i
-					grind_direction=direction
-					grind_mount=true
-					rails_used+=1
-					momentum=forward*direction*maxf(4.8,momentum.length())
-					pose(delta)
-					return
+			var rail: Dictionary = config.rails[i]
+			var start: Vector3 = world.cell_position(rail.from)+Vector3(0,float(rail.height),0)
+			var end: Vector3 = world.cell_position(rail.to)+Vector3(0,float(rail.height),0)
+			var forward := (end-start).normalized()
+			var nearest := Geometry3D.get_closest_point_to_segment(actor.position,start,end)
+			var alignment := momentum.normalized().dot(forward)
+			if actor.position.distance_to(nearest)<1.12 and absf(alignment)>0.65:
+				grind_index = i
+				grind_direction = signf(alignment)
+				grind_mount = true
+				grind_mount_target = nearest
+				rails_used += 1
+				airborne = false
+				momentum = forward*grind_direction*maxf(4.8,momentum.length())
+				pose(delta)
+				return
 	var before:=actor.position
 	var proposed:=before+momentum*delta
 	var support:=support_height(proposed)
@@ -173,7 +190,7 @@ func advance_grind(delta: float, input: Vector3, jump: bool, brake: bool) -> voi
 	var forward: Vector3=(end-start).normalized()*grind_direction
 	var target: Vector3=(end if grind_direction>0 else start)+Vector3(0,float(rail.height),0)
 	if grind_mount:
-		var entry: Vector3=(start if grind_direction>0 else end)+Vector3(0,float(rail.height),0)
+		var entry: Vector3=grind_mount_target
 		var mount_motion: Vector3=entry-world.player.position
 		sweep_move(mount_motion.limit_length(6.0*delta))
 		if world.player.position.distance_to(entry)<0.02: grind_mount=false
@@ -203,17 +220,28 @@ func pose(delta: float) -> void:
 		for wheel in board.find_children("Wheel_*","Node3D",true,false): wheel.rotation.x-=momentum.length()*delta/0.065
 
 func stats() -> Dictionary:
-	return {"movement":config.get("movement","walk"),"speed":momentum.length(),"airborne":airborne,"grinding":grind_index>=0,"ice":on_ice,"surface_height":surface_height,"ramps_used":ramps_used,"rails_used":rails_used}
+	return {"movement":config.get("movement","walk"),"speed":momentum.length(),"airborne":airborne,"grinding":grind_index>=0,"ice":on_ice,"surface_height":surface_height,"ramps_used":ramps_used,"rails_used":rails_used,"grind_armed":grind_armed}
 
 func build_geometry() -> void:
 	for ice in config.get("ice",[]):
-		var rect: Array=ice.rect
-		var a: Vector3=world.cell_position([rect[0],rect[1]])
-		var b: Vector3=world.cell_position([rect[2],rect[3]])
-		Art.box(self,Vector3(b.x-a.x+CELL,0.035,b.z-a.z+CELL),(a+b)*0.5+Vector3(0,0.025,0),Color("a9d9e5"))
-		for i in range(int(rect[0])+1,int(rect[2]),2):
-			var line: Vector3=world.cell_position([i,(rect[1]+rect[3])*0.5])
-			Art.box(self,Vector3(0.025,0.01,b.z-a.z),line+Vector3(0,0.048,0),Color("d8f4f1"))
+		var rect: Array = ice.rect
+		for y in range(int(rect[1]),int(rect[3])+1):
+			for x in range(int(rect[0]),int(rect[2])+1):
+				if world.level.tiles[y][x] in ["wall","water"]: continue
+				var island_cell := false
+				for island in config.get("islands",[]):
+					if rect_has(island.rect,Vector2(x,y)): island_cell = true
+				if island_cell: continue
+				var center: Vector3 = world.cell_position([x,y])
+				Art.box(self,Vector3(CELL,0.025,CELL),center+Vector3(0,0.018,0),Color("a9d9e5"))
+				if (x+y*3)%7 == 0:
+					var crack := Art.box(self,Vector3(0.025,0.006,CELL*0.6),center+Vector3(0,0.035,0),Color("d8f4f1"))
+					crack.rotation.y = 0.55
+	for island in config.get("islands",[]):
+		var r: Array = island.rect
+		var a: Vector3 = world.cell_position([r[0],r[1]])
+		var b: Vector3 = world.cell_position([r[2],r[3]])
+		Art.box(self,Vector3(b.x-a.x+CELL,0.025,b.z-a.z+CELL),(a+b)*0.5+Vector3(0,0.018,0),Color("d1b887"))
 	for bridge in config.get("bridges",[]): build_bridge(bridge)
 	for ramp in config.get("ramps",[]):
 		var a: Vector3=world.cell_position(ramp.from)
@@ -223,12 +251,15 @@ func build_geometry() -> void:
 	for rail in config.get("rails",[]):
 		var a: Vector3=world.cell_position(rail.from)+Vector3(0,float(rail.height),0)
 		var b: Vector3=world.cell_position(rail.to)+Vector3(0,float(rail.height),0)
-		Kit.bar(self,"RideableRail",a,b,0.10,Color("e8c674"))
+		Kit.bar(self,"RideableRail",a,b,0.20,Color("e8c674"))
 		for point in [a,a.lerp(b,0.5),b]:
 			Art.box(self,Vector3(0.08,point.y,0.08),Vector3(point.x,point.y*0.5,point.z),Color("637d85"))
 		var direction: Vector3=(b-a).normalized()
-		slope_panel(a-direction*0.9-Vector3(0,a.y,0),a,0.65,Color("738e91"))
-		slope_panel(b,b+direction*0.9-Vector3(0,b.y,0),0.65,Color("738e91"))
+		var entry: Vector3 = world.cell_position(rail.entry) if rail.has("entry") else a-direction*0.9-Vector3(0,a.y,0)
+		var exit: Vector3 = world.cell_position(rail.exit) if rail.has("exit") else b+direction*0.9-Vector3(0,b.y,0)
+		slope_panel(entry,a,1.1,Color("738e91"))
+		slope_panel(b,exit,1.1,Color("738e91"))
+		Art.cylinder(self,0.28,0.28,0.06,entry+Vector3(0,0.06,0),Color("6fe0db"))
 	for building in config.get("buildings",[]):
 		var rect: Array=building.rect
 		var a: Vector3=world.cell_position([rect[0],rect[1]])

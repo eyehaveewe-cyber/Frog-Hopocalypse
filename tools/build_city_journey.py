@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the two authored City Journey levels; no random generation or old-map edits."""
+"""Rebuild the three authored City Journey levels; no random generation or old-map edits."""
 import json
 from pathlib import Path
 
@@ -10,7 +10,7 @@ def blank(name, w, h, spawn, goal, movement):
     return dict(version=1, name=name, theme="nyc", width=w, height=h, spawn=spawn,
                 exit=goal, tiles=[["wall"] * w for _ in range(h)], objects=[],
                 traffic=[], crossings=[], checkpoints=[], signs=[], draw_distance=25,
-                city_journey=dict(movement=movement, ice=[], bridges=[], ramps=[], rails=[], buildings=[], parks=[]),
+                city_journey=dict(movement=movement, ice=[], bridges=[], ramps=[], rails=[], buildings=[], parks=[], islands=[]),
                 park_encounters=[])
 
 
@@ -102,7 +102,10 @@ def blocks_and_park():
     roach(d, "loading-lane-roaches-b", [[13,43],[17,43],[17,45],[13,45]], 2.8)
     roach(d, "alley-roaches-a", [[7,27],[11,27],[11,25],[7,25]], 2.1)
     roach(d, "alley-roaches-b", [[7,24],[10,24],[10,23],[7,23]], 2.7)
-    skater(d, "overpass-skater", [[20.7,34],[21.3,34],[21.3,40],[20.7,40]], 4.3, 1, 2.0)
+    for side,seed in [(-1,41),(1,127)]:
+        x = 19.6 if side<0 else 22.4
+        skater(d,f"overpass-rail-hopper-{side}",[[x,40.2],[21,40.2],[21,34],[x,34]],4.3 if side<0 else 4.8,1 if side<0 else 2,2.0)
+        d["objects"][-1]["bridge_stunts"] = dict(bridge=0,seed=seed,side=side)
     skater(d, "park-west-skater", [[7,12],[12,12],[12,16],[7,16]], 4.0, 0)
     skater(d, "park-center-skater", [[20.8,10.5],[23,10.5],[23,15.5],[20.8,15.5]], 4.8, 2)
     skater(d, "park-east-skater", [[30,11],[32,11],[32,16],[30,16]], 4.3, 1)
@@ -126,8 +129,8 @@ def blocks_and_park():
     d["checkpoints"] = [[19,44],[19,30],[11,17],[38,18],[41,36]]
     sign(d,[6,55],"WESTSIDE → Go north through the jam. Read the red/green signals; stopped traffic leaves gaps, not a protected crossing.")
     sign(d,[8,46],"DELIVERY BLOCK → Turn right toward the overpass. Roaches patrol both sidewalk lanes.")
-    sign(d,[19,44],"OVERPASS ↑ Climb the ramp. Cars stay below; the skateboarder shares your deck.")
-    sign(d,[19,30],"PARK ENTRANCE ← Turn left, then north. The rustling bush warns before a lunge.")
+    sign(d,[19,44],"OVERPASS ↑ Climb the ramp. Cars stay below; rail hoppers jump onto your deck.")
+    sign(d,[19,30],"PARK ENTRANCE ← Turn left, then north. Watch the quick bush lunge.")
     sign(d,[11,17],"CENTRAL PARK → Use the pond openings. Watch a swing or flock finish before crossing its path.")
     sign(d,[38,18],"EASTSIDE RETURN ↓ Wider sidewalks ahead. The camera looks into your travel direction.")
     sign(d,[41,24],"ICE RINK ↓ Momentum carries you. Release early or hold Shift to brake; give the skating duet room.")
@@ -138,56 +141,88 @@ def blocks_and_park():
     return d
 
 
+def frozen_blocks():
+    d = blank("City Journey 02 · Frozen Blocks",49,61,[7,56],[41,5],"walk")
+    d["district"] = "FROZEN BLOCKS • ISLAND HOP"
+    d["description"] = "A frozen district with open ice, alternating water barriers, dry skateboard islands, roaches and three skating duets. Brake before the edges."
+    rect(d,[1,1,47,59],"floor")
+    for r in [[1,40,36,42],[13,26,47,28],[1,12,33,14]]: rect(d,r,"water")
+    d["city_journey"]["ice"] = [dict(rect=[1,1,47,59])]
+    islands = [[19,47,26,53],[28,32,35,37],[14,17,21,23],[29,4,36,9]]
+    d["city_journey"]["islands"] = [dict(rect=r) for r in islands]
+    for i,r in enumerate(islands):
+        x0,y0,x1,y1=r
+        skater(d,f"island-rider-{i}",[[x0+1,y0+1],[x1-1,y0+1],[x1-1,y1-1],[x0+1,y1-1]],3.8+i*.3,i%3)
+    for i,points in enumerate([
+        [[8,49],[15,49],[15,52],[8,52]],[[37,44],[43,44],[43,47],[37,47]],
+        [[9,31],[16,31],[16,34],[9,34]],[[5,18],[11,18],[11,22],[5,22]],
+        [[35,17],[43,17],[43,21],[35,21]],[[38,6],[44,6],[44,9],[38,9]]]):
+        roach(d,f"ice-roaches-{i}",points,2.2+(i%3)*.3)
+    d["park_encounters"] = [dict(id="ice-pair-south",kind="ice_duet",pos=[33,49],radius=3.1),
+        dict(id="ice-pair-middle",kind="ice_duet",pos=[20,33],radius=3.5,phase=1.2),
+        dict(id="ice-pair-north",kind="ice_duet",pos=[29,19],radius=3.1,phase=2.2)]
+    for p in [[3,56],[46,46],[3,31],[45,18],[40,3]]: prop(d,"bench",p,90)
+    d["checkpoints"] = [[40,44],[8,30],[39,17]]
+    for p,text in [([7,56],"FROZEN DISTRICT: Ice carries your momentum. Shift / Brake stops you. Cross east, then weave north around the open water."),
+                   ([40,44],"NORTH ON ICE: Turn west after the first water barrier. Tan islands have dry footing and skateboarders."),
+                   ([8,30],"WEST GAP: Brake before the water, then go north. Watch roaming roaches and the paired skaters."),
+                   ([39,17],"FINAL GAP: Turn north around the east end of the water. Skate Escape follows this district.")]: sign(d,p,text)
+    d["journey_route"] = [[7,56],[40,56],[40,44],[40,35],[8,35],[8,30],[8,19],[39,19],[39,17],[39,8],[41,5]]
+    return d
+
+
 def skate_escape():
-    d = blank("City Journey 02 · Skate Escape",37,43,[9,38],[30,4],"skate")
-    d["district"] = "SKATE ESCAPE • RIDE TO THE NORTH GATE"
-    d["description"] = "Keep speed through three ramps to clear walls, use the rail lines, and read the other skaters before entering each court. Arrows/WASD steer, Space ollies, Shift brakes."
-    for bounds in [[3,32,15,40],[3,22,16,30],[15,22,26,26],[28,16,33,27],
-                   [26,11,33,17],[26,3,33,9]]:
-        rect(d,bounds,"floor")
-    # Each jump crosses a complete barrier; walking around the ramp does not
-    # remove the wall. Water and perimeter walls close off off-route shortcuts.
-    for bounds in [[8,33,10,39],[8,23,10,30],[15,23,26,25],[29,12,31,26],[29,3,31,9]]:
-        rect(d,bounds)
+    d = blank("City Journey 03 · Skate Escape",61,61,[10,56],[53,5],"skate")
+    d["district"] = "SKATE ESCAPE • HIGHWAY RAIL RUN"
+    d["description"] = "Three larger courts, cars and roach patrols. Hold G near a rail to latch; grind above four highway lanes or time the crossing below. Ramps launch over three walls."
+    for r in [[3,46,22,58],[3,33,24,43],[20,33,40,36],[27,19,44,36],[27,13,43,23],[46,13,57,24],[46,3,57,8]]: rect(d,r,"floor")
+    # The three complete barriers require actual ramp clearance.
+    for r in [[9,47,11,57],[9,42,11,43],[39,17,43,19],[46,17,49,19],[52,12,54,22],[52,3,54,8]]: rect(d,r)
     d["city_journey"]["ramps"] = [
-        dict(from_=[9,35],to=[9,33],rise=.8,landing=[9,29]),
-        dict(from_=[23,24],to=[25,24],rise=.8,landing=[29,24]),
-        dict(from_=[30,14],to=[30,12],rise=.8,landing=[30,8])]
-    for ramp in d["city_journey"]["ramps"]:
-        ramp["from"] = ramp.pop("from_")
+        {"from":[10,49],"to":[10,47],"rise":.8,"landing":[10,43]},
+        {"from":[40,18],"to":[42,18],"rise":.8,"landing":[46,18]},
+        {"from":[53,14],"to":[53,12],"rise":.8,"landing":[53,8]}]
     d["city_journey"]["rails"] = [
-        {"from":[5,28],"to":[5,24],"height":.65},
-        {"from":[29,21],"to":[29,16],"height":.65}]
-    # A pond separates the alternate practice line from the first ramp run-up.
-    rect(d,[12,34,14,37],"water")
-    # Routes cross the approaches but never place a rider on a landing center.
-    skater(d,"practice-rider",[[4,37],[7,37],[7,39],[4,39]],3.2,0)
-    skater(d,"first-court-rider",[[6,25],[13,25],[13,28],[6,28]],4.7,1)
-    skater(d,"rail-court-rider",[[28.3,18],[32.3,18],[32.3,21],[28.3,21]],4.5,2)
-    skater(d,"last-court-rider",[[27,5],[32,5],[32,8],[27,8]],4.0,0)
-    roach(d,"skate-service-roach",[[12,23],[15,23],[15,25],[12,25]],2.0)
-    for p,r in [([4,33],90),([14,29],0),([33,25],90),([33,4],0)]:
-        prop(d,"bench",p,r)
-    for p in [[4,40],[15,32],[16,22],[33,15],[26,4]]:
-        prop(d,"traffic_cone",p)
-    prop(d,"trash_can",[3,23])
-    prop(d,"pizza_cart",[3,39])
-    d["city_journey"]["buildings"] = [dict(rect=[18,31,33,39],height=4.5),dict(rect=[3,3,22,18],height=5.5)]
-    d["checkpoints"] = [[9,29],[30,25],[30,8]]
-    sign(d,[9,38],"RIDE NORTH: Arrows / WASD steer. Shift brakes. Space ollies. Build speed up the gold ramp to clear the wall.")
-    sign(d,[9,29],"FIRST COURT → The left rail offers a straight grind. Turn right toward the next ramp; watch the crossing rider.")
-    sign(d,[21,24],"RAMP → Keep rolling east. Brake after landing, then turn north.")
-    sign(d,[30,25],"RAIL LINE ↑ Approach a rail end along its length to grind. Space leaves the rail; Shift brakes.")
-    sign(d,[30,15],"FINAL RAMP ↑ Keep your speed. Wait for a clear landing before committing.")
-    sign(d,[30,8],"NORTH GATE ↑ One final skater loop. Clear it to finish the ride.")
-    d["journey_route"] = [[9,38],[9,35],[9,33],[9,29],[9,24],[21,24],[23,24],[25,24],
-                          [30,24],[30,17],[30,14],[30,12],[30,8],[30,4]]
+        {"from":[6,42],"to":[6,34],"height":.75},
+        {"from":[34,32],"to":[34,24],"height":2.6,"entry":[34,36],"exit":[34,20]},
+        {"from":[38,32],"to":[38,24],"height":2.6,"entry":[38,36],"exit":[38,20]},
+        {"from":[49,22],"to":[49,15],"height":.75}]
+    for row,direction,speed,spacing,offset in [(39,1,5.5,13.0,1.5),(38,-1,5.0,14.0,8.0)]:
+        lane(d,row,[3,24],direction,speed,spacing,offset,["sedan","taxi","bus"],dict(stopped=2.0,moving=3.8,phase=1.0 if row==38 else 0))
+    for row,direction,speed,offset in [(30,1,7.0,2.0),(29,-1,7.6,6.0),(27,1,6.7,9.0),(26,-1,7.8,3.0)]:
+        lane(d,row,[27,44],direction,speed,14.5,offset,["bus","truck","sedan","taxi"])
+    d["crossings"] = [10,16,34,38,41]
+    rect(d,[17,49,20,53],"water")
+    rect(d,[16,41,20,43],"water")
+    rect(d,[28,15,32,18],"water")
+    skater(d,"start-court-rider",[[5,52],[15,52],[15,55],[5,55]],4.5,0)
+    skater(d,"jam-court-rider",[[12,34],[21,34],[21,36],[12,36]],5.0,1)
+    skater(d,"highway-entry-rider",[[29,33],[32,33],[32,36],[29,36]],4.7,2)
+    skater(d,"north-ramp-rider",[[35,15],[41,15],[41,21],[35,21]],4.4,0)
+    skater(d,"east-court-rider",[[47,16],[51,16],[51,21],[47,21]],5.1,1)
+    skater(d,"exit-rider",[[48,4],[56,4],[56,7],[48,7]],4.8,2)
+    for i,points in enumerate([[[12,47],[15,47],[15,50],[12,50]],[[5,34],[10,34],[10,36],[5,36]],
+        [[22,34],[26,34],[26,36],[22,36]],[[41,31],[43,31],[43,33],[41,33]],
+        [[29,20],[32,20],[32,22],[29,22]],[[48,22],[55,22],[55,24],[48,24]]]):
+        roach(d,f"skate-roaches-{i}",points,2.4+(i%3)*.3)
+    for p,r in [([4,48],90),([21,55],0),([23,41],90),([28,23],0),([57,15],90),([47,8],90)]: prop(d,"bench",p,r)
+    for p in [[4,57],[16,46],[23,33],[27,34],[43,22],[47,14],[56,8]]: prop(d,"traffic_cone",p)
+    prop(d,"dumpster",[21,47]); prop(d,"newsstand",[3,41],90); prop(d,"pizza_cart",[4,54],90)
+    d["checkpoints"] = [[10,43],[23,35],[34,21],[48,18],[53,8]]
+    for p,text in [([10,56],"RIDE NORTH: Steer with WASD / arrows. Space jumps; Shift brakes. Hold G / Grind near a rail to latch. Gold ramps launch over walls."),
+        ([10,43],"JAM COURT: Cross the stopped traffic gaps. Roaches and riders occupy the sidewalk; the long left rail is optional."),
+        ([23,35],"HIGHWAY RAILS: Blue entry ramps climb above traffic. Hold G at the gold rail to latch. Space jumps off, Shift releases. Ground crossings stay dangerous."),
+        ([34,21],"NORTH COURT: Brake and turn east. Build speed up the gold ramp past the pond."),
+        ([48,18],"EAST COURT: Reposition north for the last ramp. The side rail and roaches change your line."),
+        ([53,8],"EXIT COURT: One last fast rider circuit before the north gate.")]: sign(d,p,text)
+    d["journey_route"] = [[10,56],[10,43],[10,40.5],[10,36],[23,35],[34,36],[34,32],[34,24],[34,20],[39,21],[40,18],[46,18],[53,18],[53,8],[53,5]]
     return d
 
 
 def write():
     maps = [("city_journey_01_blocks_park.json",blocks_and_park()),
-            ("city_journey_02_skate_escape.json",skate_escape())]
+            ("city_journey_02_skate_escape.json",skate_escape()),
+            ("city_journey_03_frozen_blocks.json",frozen_blocks())]
     for filename,d in maps:
         target = ROOT / "game" / "levels" / filename
         target.write_text(json.dumps(d,indent=2)+"\n")

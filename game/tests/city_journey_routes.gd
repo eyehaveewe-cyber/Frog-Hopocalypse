@@ -43,17 +43,7 @@ func forecast_clear(target: Vector3,speed: float) -> bool:
 			if world.journey.rect_has(bridge.rect,grid): p.y=world.journey.bridge_height(bridge,grid)
 		for e in park:
 			var dt:=0.04 if frame>0 else 0.0
-			e.clock+=dt
-			if e.kind!="ice_duet":
-				if e.state=="idle":
-					if p.distance_to(e.anchor.position)<6.0:
-						e.state="warning";e.time=0.0
-				else:
-					e.time+=dt
-					var stage: int=["warning","attack","recovery"].find(e.state)
-					var length: float=world.park_hazards.DURATIONS[e.kind][stage]
-					if e.time>=length:
-						e.time-=length;e.state=["attack","recovery","idle"][stage]
+			world.park_hazards.advance_state(e,dt,p)
 			for danger in world.park_hazards.danger_points(e):
 				var radius: float=1.17 if e.kind=="pigeons" else .90
 				if p.y<.95 and horizontal(p,danger)<radius: return false
@@ -64,7 +54,7 @@ func forecast_clear(target: Vector3,speed: float) -> bool:
 			var halfx:=float(v.length)*.5+.42
 			if absf(p.z-v.node.position.z)<.98 and absf(p.x-cx)<halfx: return false
 		for rider in world.skaters:
-			var s: Dictionary=rider.sample_at_distance(rider.distance+rider.speed*t)
+			var s: Dictionary=rider.sample_future(t)
 			if absf(p.y-s.position.y)<.8 and horizontal(p,s.position)<1.00: return false
 	return true
 func wait_clear(target: Vector3,speed: float) -> bool:
@@ -83,15 +73,15 @@ func drive(target_cell: Array, stop: bool = true, forecast: bool = true) -> bool
 	var target: Vector3=world.cell_position(target_cell)
 	var skating: bool=world.journey.is_skating()
 	var speed:=7.5 if skating else 4.2
-	if forecast and not await wait_clear(target,speed):
-		print("WAIT BLOCKED at ",world.journey.grid_point(world.player.position)," target=",target_cell," result=",world.result)
+	if forecast and world.journey.grind_index<0 and not await wait_clear(target,speed):
+		print("WAIT BLOCKED at ",world.journey.grid_point(world.player.position)," target=",target_cell," y=",world.player.position.y," stats=",world.journey.stats()," result=",world.result)
 		return false
 	var distance:=horizontal(world.player.position,target)
 	var budget:=ceili(distance/speed/STEP)+300
 	for _i in range(budget):
 		if world.result=="LEVEL COMPLETE!": return true
 		if not world.result.is_empty():
-			print("HIT at ",world.journey.grid_point(world.player.position)," target=",target_cell," result=",world.result)
+			print("HIT at ",world.journey.grid_point(world.player.position)," target=",target_cell," y=",world.player.position.y," stats=",world.journey.stats()," result=",world.result)
 			return false
 		var offset:=Vector2(target.x-world.player.position.x,target.z-world.player.position.z)
 		if offset.length()<(.17 if stop else .4):
@@ -120,7 +110,7 @@ func run() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--level="): only=int(arg.trim_prefix("--level="))
 		if arg=="--both-phases": phases=[0.0,.75]
-	for index in ([0,1] if only==0 else [only-1]):
+	for index in ([0,2,1] if only==0 else [only-1]):
 		for phase in phases: await run_route(index,phase)
 	print("CITY JOURNEY ROUTES: %d checks, %d failures" % [checks,failures])
 	quit(1 if failures else 0)
@@ -143,14 +133,16 @@ func run_route(index: int,phase: float) -> void:
 	for _i in range(roundi(phase/STEP)): await tick()
 	var route: Array=map.journey_route.duplicate(true)
 	if index==0:
-		route=[[6,55],[6,52],[8,47],[12,46],[12,42],[19,42],[19,44],[20,44],[20,31],[19,30],[12,29],[12,23],[11,23],[11,17],[12,12],[21,12],[23,11],[30,11],[32,12],[38,12],[38,18],[38,20],[41,20],[41,24],[44,24],[44,35],[41,36],[41,42],[41,48],[41,55]]
+		route=[[6,55],[6,52],[8,47],[12,46],[12,42],[19,42],[19,44],[20,44],[20,31],[19,30],[12,29],[12,23],[11,23],[11,17],[13,17],[13,12],[19.8,12],[24,12],[29,12],[33,12],[38,12],[38,18],[38,20],[41,20],[41,24],[44,24],[44,35],[41,36],[41,42],[41,48],[41,55]]
 	if index==1:
-		# Keep full approach speed through each lip; ride the optional west rail.
-		route=[[9,38],[9,29],[5,29],[5,28],[5,22],[10,22],[10,26],[16,26],[21,24],[30,24],[29,22],[29,21],[29,15],[30,15],[30,8],[30,4]]
+		route=[[10,56],[10,43],[10,41],[10,36],[23,35],[34,36],[34,32],[34,24],[34,20],[39,21],[40,18],[46,18],[53,18],[53,8],[53,5]]
+		world.grind_input=true
+	if index==2:
+		route=[[7,56],[45,56],[45,44],[45,37],[4,37],[4,33],[4.5,33],[4.5,29],[3,29],[3,24],[46,24],[46.5,24],[46.5,8],[46.5,3],[41,3],[41,5]]
 	var success:=true
 	for i in range(1,route.size()):
 		print("LEG ",i," ",route[i]," time=",world.elapsed)
-		var stop: bool=not(index==1 and route[i] in [[5,28],[29,21]])
+		var stop: bool=not(index==1 and route[i] in [[34,32],[34,24]])
 		if not await drive(route[i],stop):
 			success=false
 			break
@@ -159,6 +151,8 @@ func run_route(index: int,phase: float) -> void:
 	if index==0:
 		check(app.checkpoint_history.size()==5,"City continuous route claimed all five retry checkpoints")
 		check(max_height>=1.99 and ice_frames>60,"City route traversed raised bridge and sliding rink")
+	elif index==2:
+		check(ice_frames>600,"Frozen district traversed sliding ice with active roaches and skaters")
 	else:
 		check(world.journey.ramps_used>=3 and world.journey.rails_used>=1,"Skate route launched three walls and rode a rail")
 	print("ROUTE EVIDENCE: level=%d phase=%.2f simulated=%.2fs waited=%.2fs traveled=%.2fm height=%.2fm ice_frames=%d ramps=%d rails=%d result=%s" % [index+1,phase,world.elapsed,waited_frames*STEP,traveled,max_height,ice_frames,world.journey.ramps_used,world.journey.rails_used,world.result])

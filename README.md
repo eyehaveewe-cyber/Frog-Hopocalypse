@@ -1,8 +1,10 @@
+Latest: quick pose-led knife/purse attacks, a seed–feed–return pigeon routine, two bridge rail hoppers, **Frozen Blocks** and a larger **61 × 61 Skate Escape**. Hold **G / Grind** to latch onto rails, including raised highway crossings. **Levels → City Journey** now offers city/park → ice → skate, with existing skate progress retained. [Controls, changes and verification](docs/ICE_SKATE_UPDATE.md).
+
 City Journey adds a **49 × 59 city-and-park route**, followed by **Skate Escape**, unlocked by finishing it. Cross stop/go traffic, share an elevated bridge with skaters, dodge park encounters, slide past an ice-skating duet, then ride a board over walls and along rails. Find it under **Levels → City Journey**. [Controls, verification and limits](docs/CITY_JOURNEY_RELEASE.md).
 
 The earlier twelve-stage NYC revision remains available. The user found it much easier than its intended difficulty; the new City Journey adds movement mechanics and connected city routes. Human difficulty still needs playtesting. [Earlier revision evidence](docs/NYC_DIFFICULTY_PASS.md).
 
-One game, Baby Mode first: the frog screen now starts Baby Mode, and all 35 campaign levels share one executable, editor, outfits and progression. NYC and Streetlife no longer open a separate game. [Implementation and checks](docs/HOPAN_ONE_GAME.md).
+One game, Baby Mode first: the frog screen now starts Baby Mode, and all 36 campaign levels share one executable, editor, outfits and progression. NYC and Streetlife no longer open a separate game. [Implementation and checks](docs/HOPAN_ONE_GAME.md).
 
 Earlier release notes below are historical.
 
