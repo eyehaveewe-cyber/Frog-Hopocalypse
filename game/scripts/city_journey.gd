@@ -26,6 +26,17 @@ var board: Node3D
 var facing := Vector3(0,0,-1)
 var ramps_used := 0
 var rails_used := 0
+# Zendelves e351fcb7: procedural kickflip/shove-it, adapted to this frog rig.
+const TRICK_DURATION := 0.75
+var trick_direction := 0
+var trick_elapsed := 0.0
+var trick_duration := TRICK_DURATION
+var trick_full_turn := true
+var trick_amplitude := TAU
+var lateral_input := 0
+var skate_rest: Dictionary = {}
+var rider_pose := "standing"
+var board_wheels: Array[Node] = []
 
 func setup(level: Dictionary, owner_world: Node3D) -> void:
 	name = "CityJourney"
@@ -40,7 +51,10 @@ func setup(level: Dictionary, owner_world: Node3D) -> void:
 		donor.free()
 		world.player.add_child(board)
 		board.scale = Vector3(2.8,1.0,1.4)
-		world.player.visual.position.y = 0.20
+		board_wheels = board.find_children("Wheel_*","Node3D",true,false)
+		for part in world.player.visual.get_children():
+			if part is Node3D: skate_rest[part] = part.transform
+		pose(0.0)
 
 func is_skating() -> bool:
 	return config.get("movement", "walk") == "skate"
@@ -108,6 +122,7 @@ func step(delta: float, input: Vector2, jump: bool, brake: bool, grind: bool = f
 	if desired.length_squared()>0.01: facing=desired
 	if grind_index >= 0:
 		advance_grind(delta,desired,pressed,brake)
+		update_trick(delta,input)
 		pose(delta)
 		return
 	var target_speed := SKATE_SPEED if is_skating() else 4.2
@@ -171,6 +186,7 @@ func step(delta: float, input: Vector2, jump: bool, brake: bool, grind: bool = f
 		actor.position.y=support_height(actor.position)
 	surface_height=support_height(actor.position)
 	actor.velocity=momentum+Vector3(0,vertical_speed,0)
+	update_trick(delta,input)
 	pose(delta)
 
 func sweep_move(motion: Vector3) -> void:
@@ -207,20 +223,89 @@ func advance_grind(delta: float, input: Vector3, jump: bool, brake: bool) -> voi
 	world.player.position.y=float(rail.height)
 	surface_height=float(rail.height)
 
+func update_trick(delta: float, input: Vector2) -> void:
+	var lateral := -1 if input.x < -0.55 else (1 if input.x > 0.55 else 0)
+	if not is_skating(): return
+	if not airborne:
+		trick_direction = 0
+		trick_elapsed = 0.0
+	elif trick_direction == 0 and lateral != 0 and lateral != lateral_input:
+		trick_direction = lateral
+		trick_elapsed = 0.0
+		# Anticipate touchdown using current ballistic state and support. Early
+		# inputs complete a full turn; late ones use a smaller return-to-zero
+		# flourish rather than visibly snapping an unfinished rotation on landing.
+		var above := maxf(0.0,world.player.position.y-surface_height)
+		var remaining := maxf(delta,(vertical_speed+sqrt(vertical_speed*vertical_speed+2.0*GRAVITY*above))/GRAVITY)
+		trick_duration = minf(TRICK_DURATION,maxf(delta,remaining*0.85))
+		trick_full_turn = remaining >= 0.40
+		trick_amplitude = TAU if trick_full_turn else TAU*0.22*clampf(remaining/0.40,0.0,1.0)
+	if airborne and trick_direction != 0:
+		trick_elapsed = minf(trick_duration,trick_elapsed+delta)
+	lateral_input = lateral
+
 func pose(delta: float) -> void:
-	var actor: CharacterBody3D=world.player
-	var direction:=momentum.normalized() if momentum.length_squared()>0.01 else facing
-	actor.direction=direction
-	actor.visual.rotation.y=lerp_angle(actor.visual.rotation.y,atan2(-direction.x,-direction.z),1.0-exp(-14.0*delta))
-	actor.visual.position.y=0.20 if is_skating() else (0.02 if on_ice else absf(sin(world.elapsed*16))*0.10*minf(1,momentum.length()))
-	actor.visual.rotation.z=sin(world.elapsed*8)*0.035 if grind_index>=0 else 0.0
+	var actor: CharacterBody3D = world.player
+	var direction := momentum.normalized() if momentum.length_squared()>0.01 else facing
+	actor.direction = direction
+	actor.visual.rotation.y = lerp_angle(actor.visual.rotation.y,atan2(-direction.x,-direction.z),1.0-exp(-14.0*delta))
+	if not is_skating():
+		actor.visual.position.y = 0.02 if on_ice else absf(sin(world.elapsed*16))*0.10*minf(1,momentum.length())
+		actor.visual.rotation.z = 0
+		return
+	# Move the original authored frog's independent limbs/body instead of
+	# replacing its model: HatSocket, materials, skin and suit stay intact.
+	for part in skate_rest:
+		if not is_instance_valid(part): continue
+		part.transform = skate_rest[part]
+		var name: String = part.name
+		if name.begins_with("HindLeg"):
+			var side := -1.0 if name.ends_with("L") else 1.0
+			part.position = Vector3(side*0.27,0.30,side*0.25)
+			part.scale *= Vector3(0.80,1.5,0.72)
+		elif name.begins_with("HindShin"):
+			var side := -1.0 if name.ends_with("L") else 1.0
+			part.visible = true
+			part.position = Vector3(side*0.26,0.15,side*0.30)
+			part.scale *= Vector3(1.0,2.1,0.60)
+		elif name.begins_with("HindToe"):
+			var side := -1.0 if name.contains("L") else 1.0
+			var toe := int(name.right(1))
+			part.position = Vector3(side*(0.21+toe*0.045),0.015,side*0.32)
+			part.rotation.y = side*(toe-1)*0.2
+		elif name.begins_with("ForeArm"):
+			var side := -1.0 if name.ends_with("L") else 1.0
+			part.position = Vector3(side*0.53,0.62,-0.12)
+			part.rotation = Vector3(0,side*PI/2,side*0.15)
+		elif name.begins_with("ForeToe"):
+			var side := -1.0 if name.contains("L") else 1.0
+			var toe := int(name.right(1))
+			part.position = Vector3(side*(0.72+toe*0.03),0.62,-0.16+toe*0.05)
+			part.rotation = Vector3(0,side*PI/2,side*0.15)
+		else:
+			part.position.y += 0.44
+			if part is MeshInstance3D and part.scale.x>0.6 and part.scale.z>0.5:
+				part.scale.y *= 1.25
+	var progress := clampf(trick_elapsed/trick_duration,0,1)
+	var eased := smoothstep(0.0,1.0,progress)
+	var hop := sin(progress*PI) if trick_direction != 0 else 0.0
+	var rotation_amount := trick_amplitude*(eased if trick_full_turn else hop)
+	actor.visual.position.y = 0.20+hop*0.18
+	actor.visual.rotation.x = -0.08 if airborne else 0.03*sin(world.elapsed*6.0)*minf(momentum.length()/5.0,1.0)
+	actor.visual.rotation.z = (sin(world.elapsed*8)*0.075 if grind_index>=0 else 0.0) + trick_direction*hop*0.12
+	rider_pose = "grind" if grind_index>=0 else ("trick_left" if trick_direction<0 else ("trick_right" if trick_direction>0 else ("jump" if airborne else "standing")))
 	if is_instance_valid(board):
-		board.rotation.y=actor.visual.rotation.y
-		board.rotation.x=-0.10 if airborne and vertical_speed>0 else 0.0
-		for wheel in board.find_children("Wheel_*","Node3D",true,false): wheel.rotation.x-=momentum.length()*delta/0.065
+		board.position.y = -0.08*hop
+		board.rotation = Vector3(0,actor.visual.rotation.y,0)
+		# Zendelves's kickflip spins around the board's long axis; its shove-it
+		# spins around the vertical axis. Both settle back to the same deck pose.
+		if trick_direction<0: board.rotate_object_local(Vector3.FORWARD,rotation_amount)
+		elif trick_direction>0: board.rotate_object_local(Vector3.UP,rotation_amount)
+		elif airborne and vertical_speed>0: board.rotation.x=-0.10
+		for wheel in board_wheels: wheel.rotation.x -= momentum.length()*delta/0.065
 
 func stats() -> Dictionary:
-	return {"movement":config.get("movement","walk"),"speed":momentum.length(),"airborne":airborne,"grinding":grind_index>=0,"ice":on_ice,"surface_height":surface_height,"ramps_used":ramps_used,"rails_used":rails_used,"grind_armed":grind_armed}
+	return {"movement":config.get("movement","walk"),"speed":momentum.length(),"airborne":airborne,"grinding":grind_index>=0,"ice":on_ice,"surface_height":surface_height,"ramps_used":ramps_used,"rails_used":rails_used,"grind_armed":grind_armed,"rider_pose":rider_pose,"trick_direction":trick_direction,"trick_name":"kickflip" if trick_direction<0 else ("shove-it" if trick_direction>0 else ""),"trick_progress":clampf(trick_elapsed/trick_duration,0,1)}
 
 func build_geometry() -> void:
 	for ice in config.get("ice",[]):

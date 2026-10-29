@@ -1,3 +1,5 @@
+Skate Escape now gives the frog a standing skateboard stance and airborne left/right tricks adapted from Zendelves. [Controls and evidence](docs/SKATE_FROG_TRICKS.md).
+
 Latest: quick pose-led knife/purse attacks, a seed–feed–return pigeon routine, two bridge rail hoppers, **Frozen Blocks** and a larger **61 × 61 Skate Escape**. Hold **G / Grind** to latch onto rails, including raised highway crossings. **Levels → City Journey** now offers city/park → ice → skate, with existing skate progress retained. [Controls, changes and verification](docs/ICE_SKATE_UPDATE.md).
 
 City Journey adds a **49 × 59 city-and-park route**, followed by **Skate Escape**, unlocked by finishing it. Cross stop/go traffic, share an elevated bridge with skaters, dodge park encounters, slide past an ice-skating duet, then ride a board over walls and along rails. Find it under **Levels → City Journey**. [Controls, verification and limits](docs/CITY_JOURNEY_RELEASE.md).

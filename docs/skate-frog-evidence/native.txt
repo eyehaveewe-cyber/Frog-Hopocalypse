@@ -1,0 +1,61 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Skateboard rider uses standing pose on ground
+PASS: Equipped outfit remains visible while skating
+PASS: Jump becomes airborne at 30 Hz, side -1
+PASS: Directional jump picks the correct trick at 30 Hz
+PASS: Zendelves trick identity matches side -1
+PASS: Opposite steering cannot start a second trick in same jump at 30 Hz
+PASS: Landing clears trick and restores standing at 30 Hz
+PASS: Jump becomes airborne at 30 Hz, side 1
+PASS: Directional jump picks the correct trick at 30 Hz
+PASS: Zendelves trick identity matches side 1
+PASS: Opposite steering cannot start a second trick in same jump at 30 Hz
+PASS: Landing clears trick and restores standing at 30 Hz
+PASS: Jump becomes airborne at 60 Hz, side -1
+PASS: Directional jump picks the correct trick at 60 Hz
+PASS: Zendelves trick identity matches side -1
+PASS: Opposite steering cannot start a second trick in same jump at 60 Hz
+PASS: Landing clears trick and restores standing at 60 Hz
+PASS: Jump becomes airborne at 60 Hz, side 1
+PASS: Directional jump picks the correct trick at 60 Hz
+PASS: Zendelves trick identity matches side 1
+PASS: Opposite steering cannot start a second trick in same jump at 60 Hz
+PASS: Landing clears trick and restores standing at 60 Hz
+PASS: Jump becomes airborne at 120 Hz, side -1
+PASS: Directional jump picks the correct trick at 120 Hz
+PASS: Zendelves trick identity matches side -1
+PASS: Opposite steering cannot start a second trick in same jump at 120 Hz
+PASS: Landing clears trick and restores standing at 120 Hz
+PASS: Jump becomes airborne at 120 Hz, side 1
+PASS: Directional jump picks the correct trick at 120 Hz
+PASS: Zendelves trick identity matches side 1
+PASS: Opposite steering cannot start a second trick in same jump at 120 Hz
+PASS: Landing clears trick and restores standing at 120 Hz
+PASS: Trick physics stays consistent across 30–120 Hz for side -1
+PASS: Trick physics stays consistent across 30–120 Hz for side 1
+PASS: Late trick test begins while airborne
+Late trick landing rotation delta, side -1: 0.001 rad
+PASS: Late trick board settles smoothly on touchdown, side -1
+PASS: Late trick test begins while airborne
+Late trick landing rotation delta, side 1: 0.001 rad
+PASS: Late trick board settles smoothly on touchdown, side 1
+PASS: Reach ramp launch with ordinary movement
+PASS: ramp trick starts late while descending
+Late ramp trick landing rotation, side -1: 0.000 rad
+PASS: Late ramp trick lands smoothly, side -1
+PASS: Reach ramp launch with ordinary movement
+PASS: ramp trick starts late while descending
+Late ramp trick landing rotation, side 1: 0.000 rad
+PASS: Late ramp trick lands smoothly, side 1
+PASS: Reach rail launch with ordinary movement
+PASS: rail trick starts late while descending
+Late rail trick landing rotation, side -1: 0.001 rad
+PASS: Late rail trick lands smoothly, side -1
+PASS: Reach rail launch with ordinary movement
+PASS: rail trick starts late while descending
+Late rail trick landing rotation, side 1: 0.000 rad
+PASS: Late rail trick lands smoothly, side 1
+PASS: Walking levels do not acquire skateboard tricks
+PASS: Walking frog retains ordinary pose
+SKATE FROG TRICKS: 52 checks, 0 failures

@@ -209,7 +209,7 @@ def skate_escape():
     for p in [[4,57],[16,46],[23,33],[27,34],[43,22],[47,14],[56,8]]: prop(d,"traffic_cone",p)
     prop(d,"dumpster",[21,47]); prop(d,"newsstand",[3,41],90); prop(d,"pizza_cart",[4,54],90)
     d["checkpoints"] = [[10,43],[23,35],[34,21],[48,18],[53,8]]
-    for p,text in [([10,56],"RIDE NORTH: Steer with WASD / arrows. Space jumps; Shift brakes. Hold G / Grind near a rail to latch. Gold ramps launch over walls."),
+    for p,text in [([10,56],"RIDE NORTH: Steer with WASD / arrows. Space jumps; press left or right in air for tricks. Shift brakes. Hold G / Grind near a rail to latch."),
         ([10,43],"JAM COURT: Cross the stopped traffic gaps. Roaches and riders occupy the sidewalk; the long left rail is optional."),
         ([23,35],"HIGHWAY RAILS: Blue entry ramps climb above traffic. Hold G at the gold rail to latch. Space jumps off, Shift releases. Ground crossings stay dangerous."),
         ([34,21],"NORTH COURT: Brake and turn east. Build speed up the gold ramp past the pond."),

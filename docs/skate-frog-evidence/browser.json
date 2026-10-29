@@ -1,0 +1,52 @@
+{
+  "checks": [
+    "Third City Journey level loads with a standing skateboard frog",
+    "Airborne left input starts its matching Zendelves trick",
+    "left landing restores the standing pose",
+    "Airborne right input starts its matching Zendelves trick",
+    "right landing restores the standing pose",
+    "No captured browser or Godot console errors"
+  ],
+  "errors": [],
+  "observations": [
+    {
+      "action": "left",
+      "elapsed": 2.68333333333333,
+      "journey": {
+        "airborne": true,
+        "grind_armed": false,
+        "grinding": false,
+        "ice": false,
+        "movement": "skate",
+        "rails_used": 0,
+        "ramps_used": 0,
+        "rider_pose": "trick_left",
+        "speed": 6.41437911987305,
+        "surface_height": 0,
+        "trick_direction": -1,
+        "trick_name": "kickflip",
+        "trick_progress": 0.896358504561273
+      }
+    },
+    {
+      "action": "right",
+      "elapsed": 2.63333333333333,
+      "journey": {
+        "airborne": true,
+        "grind_armed": false,
+        "grinding": false,
+        "ice": false,
+        "movement": "skate",
+        "rails_used": 0,
+        "ramps_used": 0,
+        "rider_pose": "trick_right",
+        "speed": 5.36744022369385,
+        "surface_height": 0,
+        "trick_direction": 1,
+        "trick_name": "shove-it",
+        "trick_progress": 0.92879259614765
+      }
+    }
+  ],
+  "scope": "Real Skate Escape via normal menus and keyboard; saved-profile fixture unlocks the existing stage. Chromium software rendering; no physical device or human animation-quality claim."
+}
