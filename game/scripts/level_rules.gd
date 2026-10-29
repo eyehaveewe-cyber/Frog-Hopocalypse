@@ -23,7 +23,7 @@ static func cards(level: Dictionary) -> Array:
  var result: Array = []
  if level.has("city_journey"):
   if level.city_journey.get("movement") == "skate":
-   result.append({"id":"city-skate-v2","title":"TAKE THE BOARD","body":"WASD / arrows steer and push. Shift or Brake slows you down. Space or Jump ollies. Approach ramps straight with speed to clear walls; approach a rail along its length to grind. Watch for other riders. Flags are retry checkpoints."})
+   result.append({"id":"city-skate-v3","title":"TAKE THE BOARD","body":"WASD / arrows steer and push. Shift or Brake slows you down. Space or Jump ollies. While airborne, press left or right for a trick. Approach ramps straight with speed; hold G or Grind near an aligned rail to latch. Watch for other riders. Flags are retry checkpoints."})
   elif level.city_journey.get("islands",[]).size()>0:
    result.append({"id":"city-ice-v1","title":"FROZEN BLOCKS","body":"The district is ice. Momentum continues after you release a direction. Counter-steer or hold Shift / Brake to stop before water. Tan islands give dry footing; skateboarders stay on them while roaches and ice dancers cross the ice. Flags save retry points."})
   else:

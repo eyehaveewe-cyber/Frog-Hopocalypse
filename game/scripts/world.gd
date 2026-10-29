@@ -508,7 +508,7 @@ func show_route_segment(a: Array, b: Array) -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(player):
-		player.idle_dance(delta,active and not halted and not map_view and not intro_active and result.is_empty() and not editing and input_vector.length_squared()<.001 and not long_hop_input and (tile_rules==null or not tile_rules.jumping))
+		player.idle_dance(delta,not (is_instance_valid(journey) and journey.is_skating()) and active and not halted and not map_view and not intro_active and result.is_empty() and not editing and input_vector.length_squared()<.001 and not long_hop_input and (tile_rules==null or not tile_rules.jumping))
 	if halted or map_view:
 		return
 	if intro_active:

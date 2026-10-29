@@ -1,3 +1,7 @@
+2026-10-29 — Standing skateboard frog and airborne tricks
+
+Skate Escape uses an upright riding pose and an airborne kickflip on a fresh left input or shove-it on a fresh right input. The motion adapts the existing procedural tricks in Zendelves. See docs/SKATE_FROG_TRICKS.md.
+
 2026-10-29 — Faster park attacks, Frozen Blocks and highway grinding
 
 Removed painted attack guides; quickened and rebuilt knife/purse actions. Pigeons now gather on tossed seed, feed, fly onward and return to perch. Added two bridge rail hoppers, a whole ice district and an expanded 61×61 skateboard map with manual G/Grind latching, cars and roach patrols. Existing skate save indices and unlocks remain valid. See docs/ICE_SKATE_UPDATE.md and docs/ice-skate-evidence.
