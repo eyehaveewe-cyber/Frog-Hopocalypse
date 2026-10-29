@@ -138,7 +138,8 @@ func run_route(index: int,phase: float) -> void:
 		route=[[10,56],[10,43],[10,41],[10,36],[23,35],[34,36],[34,32],[34,24],[34,20],[39,21],[40,18],[46,18],[53,18],[53,8],[53,5]]
 		world.grind_input=true
 	if index==2:
-		route=[[7,56],[45,56],[45,44],[45,37],[4,37],[4,33],[4.5,33],[4.5,29],[3,29],[3,24],[46,24],[46.5,24],[46.5,8],[46.5,3],[41,3],[41,5]]
+		route=[]
+		for y in range(57,2,-1): route.append([24,y])
 	var success:=true
 	for i in range(1,route.size()):
 		print("LEG ",i," ",route[i]," time=",world.elapsed)

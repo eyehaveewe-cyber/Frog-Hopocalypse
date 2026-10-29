@@ -142,32 +142,35 @@ def blocks_and_park():
 
 
 def frozen_blocks():
-    d = blank("City Journey 02 · Frozen Blocks",49,61,[7,56],[41,5],"walk")
-    d["district"] = "FROZEN BLOCKS • ISLAND HOP"
-    d["description"] = "A frozen district with open ice, alternating water barriers, dry skateboard islands, roaches and three skating duets. Brake before the edges."
-    rect(d,[1,1,47,59],"floor")
-    for r in [[1,40,36,42],[13,26,47,28],[1,12,33,14]]: rect(d,r,"water")
+    d = blank("City Journey 02 · Frozen Blocks",49,61,[24,57],[24,3],"walk")
+    d["description"] = "Four sealed ice gauntlets. Cross dense opposing skater lines and overlapping square circuits; roaches occupy braking and exit approaches."
+    d["district"] = "FROZEN BLOCKS • CROSS THE CIRCUITS"
+    rect(d,[1,1,47,59],"water")
+    rect(d,[22,2,26,58],"floor")
     d["city_journey"]["ice"] = [dict(rect=[1,1,47,59])]
-    islands = [[19,47,26,53],[28,32,35,37],[14,17,21,23],[29,4,36,9]]
-    d["city_journey"]["islands"] = [dict(rect=r) for r in islands]
-    for i,r in enumerate(islands):
-        x0,y0,x1,y1=r
-        skater(d,f"island-rider-{i}",[[x0+1,y0+1],[x1-1,y0+1],[x1-1,y1-1],[x0+1,y1-1]],3.8+i*.3,i%3)
-    for i,points in enumerate([
-        [[8,49],[15,49],[15,52],[8,52]],[[37,44],[43,44],[43,47],[37,47]],
-        [[9,31],[16,31],[16,34],[9,34]],[[5,18],[11,18],[11,22],[5,22]],
-        [[35,17],[43,17],[43,21],[35,21]],[[38,6],[44,6],[44,9],[38,9]]]):
-        roach(d,f"ice-roaches-{i}",points,2.2+(i%3)*.3)
-    d["park_encounters"] = [dict(id="ice-pair-south",kind="ice_duet",pos=[33,49],radius=3.1),
-        dict(id="ice-pair-middle",kind="ice_duet",pos=[20,33],radius=3.5,phase=1.2),
-        dict(id="ice-pair-north",kind="ice_duet",pos=[29,19],radius=3.1,phase=2.2)]
-    for p in [[3,56],[46,46],[3,31],[45,18],[40,3]]: prop(d,"bench",p,90)
-    d["checkpoints"] = [[40,44],[8,30],[39,17]]
-    for p,text in [([7,56],"FROZEN DISTRICT: Ice carries your momentum. Shift / Brake stops you. Cross east, then weave north around the open water."),
-                   ([40,44],"NORTH ON ICE: Turn west after the first water barrier. Tan islands have dry footing and skateboarders."),
-                   ([8,30],"WEST GAP: Brake before the water, then go north. Watch roaming roaches and the paired skaters."),
-                   ([39,17],"FINAL GAP: Turn north around the east end of the water. Skate Escape follows this district.")]: sign(d,p,text)
-    d["journey_route"] = [[7,56],[40,56],[40,44],[40,35],[8,35],[8,30],[8,19],[39,19],[39,17],[39,8],[41,5]]
+    for room,y in enumerate([41,30,19,8]):
+        rect(d,[18,y,30,y+7],"floor")
+        # Two interlocking square circuits cross the entire usable room.
+        # The perimeter is water: there is no bank or outside promenade.
+        for band,yy in enumerate([y+1,y+4]):
+            loop=[[18,yy],[30,yy],[30,yy+2],[18,yy+2]]
+            for rider in range(4):
+                points=loop[rider:]+loop[:rider]
+                if band: points=list(reversed(points))
+                skater(d,f"ice-line-{room}-{band}-{rider}",points,4.8+((room+band+rider)%3)*.3,rider%3)
+                d["objects"][-1]["ice_skater"]=True
+        roach(d,f"edge-bug-{room}",[[19,y+3],[21,y+3],[21,y+4],[19,y+4]],2.6+room*.15)
+        roach(d,f"exit-bug-{room}",[[23,y-1],[25,y-1],[25,y],[23,y]],2.6+room*.2)
+    # Approach bugs punish parking on the obvious central launch line.
+    for i,y in enumerate([50,39,28,17]):
+        roach(d,f"approach-bug-{i}",[[22,y],[26,y],[26,y+1],[22,y+1]],2.8+(i%2)*.3)
+    d["checkpoints"]=[[24,38],[24,16]]
+    sign(d,[24,57],"FROZEN TRAFFIC: Four sealed circuits. Brake before each crossing. Both directions matter; the outside edges are water.")
+    sign(d,[24,49],"FIRST CIRCUIT: Skaters loop in squares. Cross one line, settle your slide, then read the next. Roaches can steal your waiting space.")
+    sign(d,[24,38],"CHECKPOINT: Two circuits ahead. Opposing squares overlap; rushing through both at once is dangerous.")
+    sign(d,[24,16],"FINAL CIRCUIT: Watch the exit bugs as well as the skaters. No outside route around the traffic.")
+    d["journey_route"]=[[24,57],[24,3]]
+    d["difficulty_gates"]=[dict(row=y+1,left=18,right=30) for y in [41,30,19,8]]
     return d
 
 
