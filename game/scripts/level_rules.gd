@@ -21,6 +21,11 @@ static func charge_hops(level: Dictionary) -> int:
 
 static func cards(level: Dictionary) -> Array:
  var result: Array = []
+ if level.has("city_journey"):
+  if level.city_journey.get("movement") == "skate":
+   result.append({"id":"city-skate-v1","title":"TAKE THE BOARD","body":"WASD / arrows steer and push. Shift or Brake slows you down. Space or Jump ollies. Approach ramps straight with speed to clear walls; approach a rail along its length to grind. Watch for other riders. Flags are retry checkpoints."})
+  else:
+   result.append({"id":"city-blocks-v1","title":"BLOCKS, BRIDGE & PARK","body":"Follow the marked route north, across the bridge, through the park and back south. Wait for traffic openings. Watch warning marks before park attacks. Ice carries your momentum: counter-steer or hold Shift / Brake. Flags save retry points. M opens a paused overhead map."})
  if level.get("game_mode", "hopan") == "tile":
   result.append({"id":"tile-v2", "title":"TILE HOPS", "body":"A direction hops one tile. Tap Long hop or press Space, then choose a direction to jump two. Shift + direction also works. Walls stop both."})
   if charged(level):

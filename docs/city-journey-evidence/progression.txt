@@ -1,0 +1,14 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Fresh journey progress cannot select Skate Escape
+PASS: Blocks & Park available without clearing other city sets
+PASS: City starts walking with new traversal runtime
+PASS: City win signal awards unlock
+PASS: City unlock survives profile save/reload
+PASS: Older city and Baby Mode clears survive new unlock
+PASS: Persisted city clear unlocks Skate Escape
+PASS: Skate Escape creates actual board movement
+PASS: Skate controls expose jump instead of tile long-hop
+PASS: Retry restores skateboard checkpoint without stale failure state
+PASS: Returning to Baby Mode leaves ordinary walking unchanged
+CITY PROGRESSION: 11 checks, 0 failures

@@ -1,0 +1,265 @@
+{
+  "checks": [
+    "Baby Mode remains the first menu action",
+    "Fresh profile shows Skate Escape locked until Blocks & Park is cleared",
+    "Clicking the locked skate stage cannot start it",
+    "Large city level loads through the real menu",
+    "City starts with ordinary walking controls and no immediate collision",
+    "Large city overhead map pauses hazards",
+    "Normal keyboard input moves into the outbound city route",
+    "City retry restores the spawn before reaching a checkpoint",
+    "Saved-profile fixture with the first stage cleared can select Skate Escape",
+    "Keyboard steering accelerates the playable skateboard",
+    "Shift brakes the moving skateboard",
+    "Space triggers an actual skateboard ollie",
+    "Pause stops skateboard simulation",
+    "Old city and Baby Mode progress, plus the skate unlock, survive browser reload",
+    "Saved outfit and frog color survive the new stages",
+    "Landscape touch layout exposes separate Jump and Brake controls",
+    "Touch joystick accelerates the skateboard",
+    "Holding the on-screen Brake slows the skateboard",
+    "The on-screen Jump triggers an airborne skateboard ollie",
+    "Release export starts without exposing the debug probe",
+    "No captured browser or engine console errors"
+  ],
+  "errors": [],
+  "screenshots": [
+    "docs/city-journey-evidence/fresh-profile-levels.png",
+    "docs/city-journey-evidence/city-start-play.png",
+    "docs/city-journey-evidence/city-overview.png",
+    "docs/city-journey-evidence/city-outbound-play.png",
+    "docs/city-journey-evidence/skate-start-play.png",
+    "docs/city-journey-evidence/skate-controls-play.png",
+    "docs/city-journey-evidence/skate-overview.png",
+    "docs/city-journey-evidence/skate-mobile-play.png",
+    "docs/city-journey-evidence/release-main.png"
+  ],
+  "observations": [
+    {
+      "kind": "acceleration",
+      "samples": [
+        {
+          "elapsed": 2.3,
+          "player": [
+            -16.2000007629395,
+            30.6000003814697
+          ],
+          "journey": {
+            "airborne": false,
+            "grinding": false,
+            "ice": false,
+            "movement": "skate",
+            "rails_used": 0,
+            "ramps_used": 0,
+            "speed": 0,
+            "surface_height": 0
+          },
+          "result": ""
+        },
+        {
+          "elapsed": 2.51666666666666,
+          "player": [
+            -16.2000007629395,
+            30.3472232818604
+          ],
+          "journey": {
+            "airborne": false,
+            "grinding": false,
+            "ice": false,
+            "movement": "skate",
+            "rails_used": 0,
+            "ramps_used": 0,
+            "speed": 2.16666650772095,
+            "surface_height": 0
+          },
+          "result": ""
+        },
+        {
+          "elapsed": 2.73333333333333,
+          "player": [
+            -16.2000007629395,
+            29.6250019073486
+          ],
+          "journey": {
+            "airborne": false,
+            "grinding": false,
+            "ice": false,
+            "movement": "skate",
+            "rails_used": 0,
+            "ramps_used": 0,
+            "speed": 4.33333349227905,
+            "surface_height": 0
+          },
+          "result": ""
+        },
+        {
+          "elapsed": 2.73333333333333,
+          "player": [
+            -16.2000007629395,
+            29.6250019073486
+          ],
+          "journey": {
+            "airborne": false,
+            "grinding": false,
+            "ice": false,
+            "movement": "skate",
+            "rails_used": 0,
+            "ramps_used": 0,
+            "speed": 4.33333349227905,
+            "surface_height": 0
+          },
+          "result": ""
+        }
+      ]
+    },
+    {
+      "kind": "ollie",
+      "samples": [
+        {
+          "elapsed": 4.56666666666666,
+          "journey": {
+            "airborne": false,
+            "grinding": false,
+            "ice": false,
+            "movement": "skate",
+            "rails_used": 0,
+            "ramps_used": 0,
+            "speed": 0,
+            "surface_height": 0.664871569223238
+          },
+          "result": ""
+        },
+        {
+          "elapsed": 4.79999999999999,
+          "journey": {
+            "airborne": true,
+            "grinding": false,
+            "ice": false,
+            "movement": "skate",
+            "rails_used": 0,
+            "ramps_used": 0,
+            "speed": 0,
+            "surface_height": 0.664871569223238
+          },
+          "result": ""
+        },
+        {
+          "elapsed": 5.01666666666665,
+          "journey": {
+            "airborne": true,
+            "grinding": false,
+            "ice": false,
+            "movement": "skate",
+            "rails_used": 0,
+            "ramps_used": 0,
+            "speed": 0,
+            "surface_height": 0.664871569223238
+          },
+          "result": ""
+        },
+        {
+          "elapsed": 5.23333333333332,
+          "journey": {
+            "airborne": true,
+            "grinding": false,
+            "ice": false,
+            "movement": "skate",
+            "rails_used": 0,
+            "ramps_used": 0,
+            "speed": 0,
+            "surface_height": 0.664871569223238
+          },
+          "result": ""
+        }
+      ]
+    },
+    {
+      "kind": "touch-buttons",
+      "brake": [
+        {
+          "airborne": true,
+          "grinding": false,
+          "ice": false,
+          "movement": "skate",
+          "rails_used": 0,
+          "ramps_used": 1,
+          "speed": 5.22539758682251,
+          "surface_height": 0
+        },
+        {
+          "airborne": true,
+          "grinding": false,
+          "ice": false,
+          "movement": "skate",
+          "rails_used": 0,
+          "ramps_used": 1,
+          "speed": 5.22539758682251,
+          "surface_height": 0
+        },
+        {
+          "airborne": true,
+          "grinding": false,
+          "ice": false,
+          "movement": "skate",
+          "rails_used": 0,
+          "ramps_used": 1,
+          "speed": 0.425397276878357,
+          "surface_height": 0
+        },
+        {
+          "airborne": true,
+          "grinding": false,
+          "ice": false,
+          "movement": "skate",
+          "rails_used": 0,
+          "ramps_used": 1,
+          "speed": 0,
+          "surface_height": 0
+        }
+      ],
+      "jump": [
+        {
+          "airborne": false,
+          "grinding": false,
+          "ice": false,
+          "movement": "skate",
+          "rails_used": 0,
+          "ramps_used": 1,
+          "speed": 0,
+          "surface_height": 0
+        },
+        {
+          "airborne": false,
+          "grinding": false,
+          "ice": false,
+          "movement": "skate",
+          "rails_used": 0,
+          "ramps_used": 1,
+          "speed": 0,
+          "surface_height": 0
+        },
+        {
+          "airborne": true,
+          "grinding": false,
+          "ice": false,
+          "movement": "skate",
+          "rails_used": 0,
+          "ramps_used": 1,
+          "speed": 0,
+          "surface_height": 0
+        },
+        {
+          "airborne": true,
+          "grinding": false,
+          "ice": false,
+          "movement": "skate",
+          "rails_used": 0,
+          "ramps_used": 1,
+          "speed": 0,
+          "surface_height": 0
+        }
+      ]
+    }
+  ],
+  "scope": "Actual Chromium/WebGL with SwiftShader; menu, keyboard, touch and read-only observations. Skate access uses a saved-profile fixture, not a claimed browser win. Native tests cover full traversal. No physical mobile hardware, human difficulty rating or frame-rate claim."
+}

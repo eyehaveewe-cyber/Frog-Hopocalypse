@@ -1,0 +1,87 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Baby Mode is the first set
+PASS: First frog-screen action starts Baby Mode
+PASS: Loads baby level 1 in the shared world
+PASS: Structural route: Moonlit Oasis
+PASS: Loads baby level 2 in the shared world
+PASS: Structural route: Pharaoh's Courtyard
+PASS: Loads baby level 3 in the shared world
+PASS: Structural route: Violet Mire
+PASS: Loads baby level 4 in the shared world
+PASS: Structural route: Little Frog Crossing
+PASS: Loads human level 1 in the shared world
+PASS: Structural route: Hardbutt
+PASS: Loads human level 2 in the shared world
+PASS: Structural route: Gloopbutt
+PASS: Loads human level 3 in the shared world
+PASS: Structural route: Treebutt
+PASS: Loads human level 4 in the shared world
+PASS: Structural route: Frogbutt
+PASS: Loads bonus level 1 in the shared world
+PASS: Structural route: Shelby
+PASS: Loads bonus level 2 in the shared world
+PASS: Structural route: Your Move Garden
+PASS: Loads bonus level 3 in the shared world
+PASS: Structural route: Cramerton
+PASS: Loads tile level 1 in the shared world
+PASS: Structural route: Big Hop Boulevard
+PASS: Loads tile level 2 in the shared world
+PASS: Structural route: Your Move Crossing
+PASS: Loads tile level 3 in the shared world
+PASS: Structural route: Shardwater Sanctuary
+PASS: Loads tile level 4 in the shared world
+PASS: Structural route: The Seed Vault
+PASS: Loads tile level 5 in the shared world
+PASS: Structural route: Twenty-Five Terraces
+PASS: Loads sync level 1 in the shared world
+PASS: Structural route: One Step Ahead
+PASS: Loads sync level 2 in the shared world
+PASS: Structural route: Needle Clock
+PASS: Loads sync level 3 in the shared world
+PASS: Structural route: Shard Switchyard
+PASS: Loads sync level 4 in the shared world
+PASS: Structural route: Stillwater Circuit
+PASS: Loads sync level 5 in the shared world
+PASS: Structural route: Rush Hourglass
+PASS: Loads nyc level 1 in the shared world
+PASS: Structural route: NYC 01 · Central Park
+PASS: Loads nyc level 2 in the shared world
+PASS: Structural route: NYC 02 · Brownstone Blocks
+PASS: Loads nyc level 3 in the shared world
+PASS: Structural route: NYC 03 · East River Piers
+PASS: Loads nyc level 4 in the shared world
+PASS: Structural route: NYC 04 · Broadway After Dark
+PASS: Loads nyc level 5 in the shared world
+PASS: Structural route: NYC 05 · Midtown Rush Hour
+PASS: Loads nyc level 6 in the shared world
+PASS: Structural route: NYC 06 · Brooklyn Skate Circle
+PASS: Loads streetlife level 1 in the shared world
+PASS: Structural route: STREETLIFE 01 · Stoop Patrol
+PASS: Loads streetlife level 2 in the shared world
+PASS: Structural route: STREETLIFE 02 · Newsstand Weave
+PASS: Loads streetlife level 3 in the shared world
+PASS: Structural route: STREETLIFE 03 · Ferry Railwalk
+PASS: Loads streetlife level 4 in the shared world
+PASS: Structural route: STREETLIFE 04 · Banked Boulevard
+PASS: Loads streetlife level 5 in the shared world
+PASS: Structural route: STREETLIFE 05 · Sanitation Courts
+PASS: Loads streetlife level 6 in the shared world
+PASS: Structural route: STREETLIFE 06 · Block Party
+PASS: Loads city_journey level 1 in the shared world
+PASS: Structural route: City Journey 01 · Blocks, Bridge & Central Park
+PASS: Loads city_journey level 2 in the shared world
+PASS: Structural route: City Journey 02 · Skate Escape
+PASS: All 35 campaign levels are present
+PASS: NYC moving traffic is instantiated
+PASS: NYC traffic advances in the shared physics loop
+PASS: Streetlife has its actual animated roaches
+PASS: Streetlife retains its skaters
+PASS: City clears use common campaign progression
+PASS: City and Baby progression survive one profile reload
+PASS: Conflicting former editor IDs keep both levels
+PASS: Save import is repeatable without duplicates
+PASS: Combined library writes with existing durable save mechanism
+PASS: Both former editors' levels reload into the same library
+PASS: Shared editor creates valid NYC actors
+ONE GAME: 84 checks, 0 failures

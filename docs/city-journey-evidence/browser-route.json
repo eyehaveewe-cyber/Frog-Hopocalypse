@@ -1,0 +1,76 @@
+{
+  "success": false,
+  "trace": [
+    {
+      "cell": [
+        6,
+        52
+      ],
+      "elapsed": 5.31666666666665,
+      "player": [
+        -32.4000015258789,
+        41.3680229187012
+      ]
+    },
+    {
+      "cell": [
+        8,
+        47
+      ],
+      "elapsed": 8.41666666666666,
+      "result": "SQUISHED!",
+      "player": [
+        -30.8193893432617,
+        38.6086616516113
+      ]
+    },
+    {
+      "cell": [
+        6,
+        52
+      ],
+      "elapsed": 4.64999999999999,
+      "player": [
+        -32.4000015258789,
+        41.3666229248047
+      ]
+    },
+    {
+      "cell": [
+        8,
+        47
+      ],
+      "elapsed": 7.84999999999998,
+      "result": "SQUISHED!",
+      "player": [
+        -30.7580280303955,
+        38.6092529296875
+      ]
+    },
+    {
+      "cell": [
+        6,
+        52
+      ],
+      "elapsed": 9.03333333333336,
+      "player": [
+        -32.4000015258789,
+        41.2602233886719
+      ]
+    },
+    {
+      "cell": [
+        8,
+        47
+      ],
+      "elapsed": 11.3666666666668,
+      "result": "SQUISHED!",
+      "player": [
+        -31.1270980834961,
+        36.8151969909668
+      ]
+    }
+  ],
+  "errors": [],
+  "scope": "Continuous real touch-joystick input from the normal city spawn. No teleport or gameplay-state injection. This partial route targets the overpass, not full-level acceptance."
+}
