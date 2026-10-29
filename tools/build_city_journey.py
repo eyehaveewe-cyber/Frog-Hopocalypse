@@ -153,7 +153,7 @@ def frozen_blocks():
         # Two interlocking square circuits cross the entire usable room.
         # The perimeter is water: there is no bank or outside promenade.
         for band,yy in enumerate([y+1,y+4]):
-            loop=[[18,yy],[30,yy],[30,yy+2],[18,yy+2]]
+            loop=[[17.65,yy],[30.35,yy],[30.35,yy+2],[17.65,yy+2]]
             for rider in range(4):
                 points=loop[rider:]+loop[:rider]
                 if band: points=list(reversed(points))
