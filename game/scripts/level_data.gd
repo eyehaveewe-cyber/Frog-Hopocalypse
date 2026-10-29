@@ -511,6 +511,7 @@ static func validate_streetlife(d: Dictionary) -> String:
 					return "Ramp rise must be between 0.2 and 1.2 world units."
 		if obj.type != "skater":
 			continue
+		if not obj.get("ice_skater",false) is bool: return "Ice skater must be true or false."
 		if not finite_number(obj.get("variant", 0)) or obj.get("variant", 0) != int(obj.get("variant", 0)) or obj.get("variant", 0) < 0 or obj.get("variant", 0) > 2:
 			return "Choose one of the three skater variants."
 		if not finite_number(obj.get("speed", 3.2)) or obj.get("speed", 3.2) < 2 or obj.get("speed", 3.2) > 5.5:

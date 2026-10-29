@@ -1,3 +1,7 @@
+2026-10-29 — Frozen Blocks mandatory traffic overhaul
+
+Replaced perimeter bypass with four sealed traffic rooms:32 ice skaters on overlapping square circuits and12 strategically placed roaches. Verified no bypass at any gate, sampled windows through all16 traffic lines, and actual browser rush collision. Full completion and human difficulty remain open. See docs/FROZEN_TRAFFIC_OVERHAUL.md.
+
 2026-10-29 — Standing skateboard frog and airborne tricks
 
 Skate Escape uses an upright riding pose and an airborne kickflip on a fresh left input or shove-it on a fresh right input. The motion adapts the existing procedural tricks in Zendelves. See docs/SKATE_FROG_TRICKS.md.

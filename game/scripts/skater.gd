@@ -32,6 +32,7 @@ var leg_r: Node3D
 var head: Node3D
 var wheels: Array[Node] = []
 var rest: Dictionary = {}
+var ice_skater := false
 var facing := 0.0
 var stunt_spec: Dictionary = {}
 var stunt_bridge: Dictionary = {}
@@ -68,12 +69,22 @@ func setup(obj: Dictionary, world: Node3D) -> void:
 	add_child(visual)
 	rider = visual.get_node("RiderRoot")
 	board = visual.get_node("Board")
+	ice_skater = obj.get("ice_skater",false)
+	board.visible = not ice_skater
 	body = rider.get_node("Body")
 	arm_l = rider.get_node("ArmL")
 	arm_r = rider.get_node("ArmR")
 	leg_l = rider.get_node("LegL")
 	leg_r = rider.get_node("LegR")
 	head = rider.get_node("Head")
+	if ice_skater:
+		for leg in [leg_l,leg_r]:
+			var blade := MeshInstance3D.new()
+			blade.name = "IceBlade"
+			var shape := BoxMesh.new();shape.size=Vector3(0.035,0.07,0.36)
+			blade.mesh=shape;blade.position=Vector3(0,-0.55,0)
+			var material:=StandardMaterial3D.new();material.albedo_color=Color("d8edf3")
+			blade.material_override=material;leg.add_child(blade)
 	wheels = board.find_children("Wheel_*", "Node3D", true, false)
 	for part in [rider, board, body, arm_l, arm_r, leg_l, leg_r, head]:
 		rest[part] = {"position": part.position, "rotation": part.rotation, "scale": part.scale}
