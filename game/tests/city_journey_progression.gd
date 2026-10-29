@@ -46,6 +46,12 @@ func run() -> void:
 	app.retry()
 	await physics_frame
 	check(app.world.position_cell(app.world.player.position) == Vector2i(point[0],point[1]) and app.world.result.is_empty(),"Retry restores skateboard checkpoint without stale failure state")
+	check(app.JOURNEY_LEVELS[1].ends_with("city_journey_02_skate_escape.json"),"Existing skateboard save index remains stable")
+	app.builtin_index = 0
+	check(app.next_campaign_index()==2,"City completion leads to Frozen Blocks")
+	app.builtin_index = 2
+	check(app.next_campaign_index()==1,"Frozen Blocks leads to Skate Escape")
+	check(app.load_builtin(2,"city_journey"),"New ice level loads using preserved city unlock")
 	app.load_builtin(0,"baby")
 	check(app.world.journey == null,"Returning to Baby Mode leaves ordinary walking unchanged")
 	app.queue_free()

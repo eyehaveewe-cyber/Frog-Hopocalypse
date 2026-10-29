@@ -6,12 +6,12 @@ const {chromium} = require('playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const out = 'docs/city-journey-evidence';
+const out = 'docs/ice-skate-evidence';
 const debugURL = process.env.HOPAN_TEST_URL || 'http://127.0.0.1:8115/';
 const releaseURL = process.env.HOPAN_RELEASE_URL || 'http://127.0.0.1:8116/';
 const checks=[], errors=[], screenshots=[], observations=[];
 fs.mkdirSync(out,{recursive:true});
-const levels=['city_journey_01_blocks_park.json','city_journey_02_skate_escape.json'].map(file=>JSON.parse(fs.readFileSync('game/levels/'+file)));
+const levels=['city_journey_01_blocks_park.json','city_journey_02_skate_escape.json','city_journey_03_frozen_blocks.json'].map(file=>JSON.parse(fs.readFileSync('game/levels/'+file)));
 function check(ok,message){assert.ok(ok,message);checks.push(message);console.log('PASS: '+message);}
 function listen(page){page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});}
 async function state(page){return page.evaluate(()=>window.hopanState);}
@@ -22,7 +22,7 @@ async function clickWhere(page, choose, touch=false){
   const c=await page.locator('canvas').boundingBox();
   const x=c.x+b.x*c.width/s.ui_size[0],y=c.y+b.y*c.height/s.ui_size[1];
   if(b.y>24&&b.y<s.ui_size[1]-24){if(touch)await page.touchscreen.tap(x,y);else await page.mouse.click(x,y);await page.waitForTimeout(350);return;}
-  await page.mouse.move(c.x+c.width*.65,c.y+c.height*.55);await page.mouse.wheel(0,b.y<24?-180:180);await page.waitForTimeout(160);
+  await page.mouse.move(Math.min(c.x+c.width-20,Math.max(c.x+20,x)),c.y+c.height*.55);await page.mouse.wheel(0,b.y<24?-180:180);await page.waitForTimeout(160);
  }
  throw Error('Requested game button unavailable in viewport');
 }
@@ -109,11 +109,20 @@ async function run(){
   assert.deepEqual(restored.city_progress,{nyc:[0,2],streetlife:[1],city_journey:[0]});
   check(restored.completed_stages.length===4,'Old city and Baby Mode progress, plus the skate unlock, survive browser reload');
   check(restored.hat==='morning'&&restored.skin==='purple_white','Saved outfit and frog color survive the new stages');
+  await choose(skate,2);
+  const frozen=await state(skate);
+  check(frozen.stage===2&&frozen.journey.ice&&frozen.map.width===49&&frozen.map.height===61,'Frozen Blocks loads between city and skate in the menu');
+  await shot(skate,'frozen-start-play');
+  await click(skate,'Map');await skate.waitForFunction(()=>hopanState.map_view);await shot(skate,'frozen-overview');
+  await click(skate,'3D view');await skate.waitForFunction(()=>!hopanState.map_view);
+  await keyFor(skate,'d',800);const iceStart=await state(skate);await skate.waitForTimeout(450);const iceCoast=await state(skate);
+  check(iceCoast.player[0]>iceStart.player[0]+.2,'Frozen district coasts after releasing steering');
+  await sampleKeys(skate,['Shift'],600);check((await state(skate)).journey.speed<.2,'Brake stops ice sliding in the actual browser');
   await saved.close();
 
   const mobile=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true,userAgent:'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/131.0.0.0 Mobile Safari/537.36'});await seedProfile(mobile);
   const phone=current=await mobile.newPage();listen(phone);await phone.goto(debugURL+'?browser-test=1&splash=6');await ready(phone);await choose(phone,1,true);
-  check((await state(phone)).buttons.some(b=>b.text==='Jump · Space')&&(await state(phone)).buttons.some(b=>b.text==='Brake · Shift'),'Landscape touch layout exposes separate Jump and Brake controls');
+  check((await state(phone)).buttons.some(b=>b.text==='Grind · G')&&(await state(phone)).buttons.some(b=>b.text==='Jump · Space')&&(await state(phone)).buttons.some(b=>b.text==='Brake · Shift'),'Landscape touch layout exposes Grind, Jump and Brake controls');
   const cdp=await mobile.newCDPSession(phone),touchStart=await state(phone);
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:110,y:290,id:0}]});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:110,y:245,id:0}]});await phone.waitForTimeout(500);

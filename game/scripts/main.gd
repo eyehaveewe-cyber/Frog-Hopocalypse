@@ -31,7 +31,7 @@ const BONUS_LEVELS = ["res://levels/bonus/Shelby.json", MOVE_DEMO, "res://levels
 const SYNC_LEVELS = ["res://levels/your_move/one_step_ahead.json", "res://levels/your_move/needle_clock.json", "res://levels/your_move/shard_switchyard.json", "res://levels/your_move/stillwater_circuit.json", "res://levels/your_move/rush_hourglass.json"]
 const NYC_LEVELS = ["res://levels/nyc_01_central_park.json", "res://levels/nyc_02_brownstone_blocks.json", "res://levels/nyc_03_east_river_piers.json", "res://levels/nyc_04_broadway.json", "res://levels/nyc_05_midtown_rush_hour.json", "res://levels/nyc_06_brooklyn_skate_circle.json"]
 const STREETLIFE_LEVELS = ["res://levels/streetlife_01_stoop_patrol.json", "res://levels/streetlife_02_newsstand_weave.json", "res://levels/streetlife_03_ferry_railwalk.json", "res://levels/streetlife_04_banked_boulevard.json", "res://levels/streetlife_05_sanitation_courts.json", "res://levels/streetlife_06_block_party.json"]
-const JOURNEY_LEVELS = ["res://levels/city_journey_01_blocks_park.json", "res://levels/city_journey_02_skate_escape.json"]
+const JOURNEY_LEVELS = ["res://levels/city_journey_01_blocks_park.json", "res://levels/city_journey_02_skate_escape.json", "res://levels/city_journey_03_frozen_blocks.json"]
 var city_progress := {"nyc": [], "streetlife": [], "city_journey": []}
 const SET_TITLES = {"baby": "Baby Mode", "human": HUMAN_TITLE, "bonus": "Bonus", "tile": "Tile Hop", "sync": "Moves When You Move", "nyc": "New York City", "streetlife": "NYC Streetlife", "city_journey": "City Journey"}
 const HAT_NAMES = {"none": "No hat", "pharaoh": "Pharaoh headdress", "baby": "Baby frog hat", "hourglass": "Hourglass pyramid hat", "morning": "Morning suit + top hat"}
@@ -127,6 +127,8 @@ var completed_tile_stages: Array = []
 var completed_sync_stages: Array = []
 var long_hop_button: Button
 var brake_button: Button
+var grind_button: Button
+var skate_grind_touch := false
 var skate_jump_touch := false
 var skate_brake_touch := false
 var long_hop_indicator: Label
@@ -335,6 +337,11 @@ func build_ui() -> void:
 	brake_button.button_down.connect(func(): skate_brake_touch = true)
 	brake_button.button_up.connect(func(): skate_brake_touch = false)
 	brake_button.hide()
+	grind_button = button(self,"Grind · G",func(): pass)
+	grind_button.focus_mode = Control.FOCUS_NONE
+	grind_button.button_down.connect(func(): skate_grind_touch = true)
+	grind_button.button_up.connect(func(): skate_grind_touch = false)
+	grind_button.hide()
 	pause_button = button(top, "Pause", toggle_pause)
 	edit_button = button(top, "Editor", func():
 		if mode == "edit":
@@ -506,6 +513,7 @@ func build_ui() -> void:
 	move_child(long_hop_button, get_child_count()-1)
 	move_child(long_hop_help, get_child_count()-1)
 	move_child(brake_button, get_child_count()-1)
+	move_child(grind_button, get_child_count()-1)
 	overlay = Control.new()
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -716,7 +724,7 @@ func show_levels() -> void:
 			if key in ["nyc", "streetlife"]:
 				description += " · timing & route planning"
 			elif key == "city_journey":
-				description += " · City blocks → park → unlock skateboarding"
+				description += " · City & park → Frozen Blocks → Skate Escape"
 			add_set_selector(key, description)
 	joystick.hide()
 
@@ -874,8 +882,8 @@ func load_builtin(index: int, set_key: String = "baby") -> bool:
 	if set_key == "human" and not human_set_unlocked():
 		status("Complete Baby Mode to unlock " + HUMAN_TITLE + ".")
 		return false
-	if set_key == "city_journey" and index == 1 and 0 not in city_progress.city_journey:
-		status("Finish City Journey · Blocks & Park to unlock Skate Escape.")
+	if set_key == "city_journey" and index in [1,2] and 0 not in city_progress.city_journey:
+		status("Finish Blocks & Park to unlock Frozen Blocks and Skate Escape.")
 		return false
 	var paths: Array = paths_for_set(set_key)
 	if index < 0 or index >= paths.size():
@@ -925,7 +933,7 @@ func start_play(from_editor: bool = true) -> void:
 	if exit_preview:
 		world.begin_exit_preview()
 	mode_label.visible = not (mobile_ui and level.get("game_mode") == "tile")
-	mode_label.text = "PLAYTEST" if from_editor else ((str(SET_TITLES[campaign_set]).to_upper() + " · %d / %d") % [builtin_index + 1, campaign_paths().size()] if campaign_level else "CUSTOM LEVEL")
+	mode_label.text = "PLAYTEST" if from_editor else ((str(SET_TITLES[campaign_set]).to_upper() + " · %d / %d") % [campaign_stage_number(), campaign_paths().size()] if campaign_level else "CUSTOM LEVEL")
 	edit_button.hide()
 	pause_button.text = "Pause"
 	pause_button.show()
@@ -1070,7 +1078,7 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 	else:
 		paragraph(overlay_box, "One small frog. One magnificent escape.")
 		if campaign_level and campaign_set == "city_journey" and builtin_index == 0:
-			paragraph(overlay_box, "Skate Escape unlocked! Ride, grind rails and launch over walls.")
+			paragraph(overlay_box, "Frozen Blocks and Skate Escape unlocked! Next: a whole frozen district.")
 		if mode == "play" and campaign_level:
 			if set_complete:
 				if campaign_set == "human":
@@ -1084,9 +1092,9 @@ func present_result(reason: String, set_complete: bool, earned_hat: bool) -> voi
 					paragraph(overlay_box, "All five Moves When You Move stages cleared!" if campaign_set == "sync" else ("Tile Hop demos cleared!" if campaign_set == "tile" else str(SET_TITLES[campaign_set])+" cleared!"))
 				if earned_hat:
 					paragraph(overlay_box, "Unlocked: " + ("Hourglass pyramid hat" if campaign_set == "sync" else "Baby frog hat") + "! Equipped now. Press Hat to cycle your unlocked hats.")
-		if mode == "play" and campaign_level and builtin_index < campaign_paths().size() - 1:
-			button(overlay_box, "Next level →", func(): play_builtin(builtin_index + 1, campaign_set), true)
-	var has_continuation := mode == "play" and campaign_level and (builtin_index < campaign_paths().size() - 1 or campaign_set in ["baby", "human"])
+		if mode == "play" and campaign_level and next_campaign_index() >= 0:
+			button(overlay_box, "Next level →", func(): play_builtin(next_campaign_index(), campaign_set), true)
+	var has_continuation := mode == "play" and campaign_level and (next_campaign_index() >= 0 or campaign_set in ["baby", "human"])
 	if not set_complete or has_continuation:
 		if reason != "LEVEL COMPLETE!":
 			paragraph(overlay_box, retry_description())
@@ -2190,6 +2198,7 @@ func reset_touch() -> void:
 	thumb = Vector2.ZERO
 	skate_jump_touch = false
 	skate_brake_touch = false
+	skate_grind_touch = false
 	touch_index = -1
 	tile_touch_queued = false
 	if is_instance_valid(touch_knob):
@@ -2212,16 +2221,28 @@ func update_long_hop_indicator() -> void:
 	var journey: bool = not level.get("city_journey",{}).is_empty() and mode in ["play","test"]
 	var playing: bool = journey and not overlay.visible and not world.map_view and world.result.is_empty()
 	brake_button.visible = playing
+	grind_button.visible = playing and level.city_journey.get("movement") == "skate"
+	grind_button.position = view_container.global_position + Vector2(maxf(8,view_container.size.x-180),maxf(80,view_container.size.y-216))
+	grind_button.size = Vector2(166,56)
+	grind_button.text = "GRINDING · Jump off" if journey and is_instance_valid(world.journey) and world.journey.grind_index>=0 else "Grind · G"
+	grind_button.tooltip_text = "Hold near an aligned rail to latch. Jump or Brake leaves it."
 	brake_button.position = view_container.global_position + Vector2(maxf(8,view_container.size.x-180),maxf(96,view_container.size.y-146))
 	brake_button.size = Vector2(166,56)
 	if journey:
 		long_hop_button.visible = playing and level.city_journey.get("movement") == "skate"
-		long_hop_help.visible = long_hop_button.visible
+		long_hop_help.visible = long_hop_button.visible and not mobile_ui
 		long_hop_button.position = view_container.global_position + Vector2(maxf(8,view_container.size.x-180),maxf(96,view_container.size.y-76))
 		long_hop_button.size = Vector2(166,64)
-		long_hop_help.position = long_hop_button.position - Vector2(10,190)
+		if mobile_ui:
+			var origin := view_container.global_position
+			var right := maxf(8,view_container.size.x-164)
+			grind_button.position = origin+Vector2(right,maxf(108,view_container.size.y-174))
+			brake_button.position = origin+Vector2(right,maxf(164,view_container.size.y-118))
+			long_hop_button.position = origin+Vector2(right,maxf(220,view_container.size.y-62))
+			for control in [grind_button,brake_button,long_hop_button]: control.size=Vector2(156,50)
+		long_hop_help.position = long_hop_button.position - Vector2(10,258)
 		long_hop_help.size = Vector2(186,42)
-		long_hop_help.text = "Steer: WASD / arrows\nRamps launch · rails catch"
+		long_hop_help.text = "Hold G near a rail to latch\nSpace jumps off · Shift brakes"
 		long_hop_indicator.text = "OLLIE"
 		return
 	long_hop_help.visible = long_hop_button.visible and not overlay.visible and not world.map_view and world.result.is_empty()
@@ -2255,7 +2276,7 @@ func _process(delta: float) -> void:
 			JavaScriptBridge.eval("window.hopanEditorUnsaved=" + ("true" if unsaved else "false"),true)
 	if browser_test:
 		probe_timer += delta
-		if probe_timer > 0.2:
+		if probe_timer > (0.05 if level.width<=25 else 0.2):
 			probe_timer = 0
 			publish_browser_probe()
 	if view_container.size != last_view_size or view.size != last_render_size:
@@ -2281,6 +2302,7 @@ func _process(delta: float) -> void:
 			movement = thumb
 	world.input_vector = movement.limit_length()
 	var controls_active: bool = mode in ["play", "test"] and not overlay.visible and not typing and not world.map_view and not world.halted and not world.intro_active
+	world.grind_input = controls_active and (Input.is_physical_key_pressed(KEY_G) or skate_grind_touch)
 	world.brake_input = controls_active and (Input.is_physical_key_pressed(KEY_SHIFT) or skate_brake_touch)
 	world.long_hop_input = controls_active and ((Input.is_physical_key_pressed(KEY_SPACE) or skate_jump_touch) if level.get("city_journey",{}).get("movement") == "skate" else (Input.is_physical_key_pressed(KEY_SHIFT) or long_hop_button.button_pressed))
 	update_long_hop_indicator()
@@ -2352,7 +2374,7 @@ func publish_browser_probe() -> void:
 		"voice_history": voice.history, "voice_playing": voice.player.playing, "voice_queue": voice.queue, "voice_gesture": voice.gesture_received, "sound_enabled": sound_enabled, "begin_pending": begin_pending, "return_warning_armed": return_warning_armed,
 		"exit_preview": exit_preview, "intro_active": world.intro_active, "intro_time": world.intro_time, "result_time": world.result_time,
 		"camera_target": [world.camera_target.x, world.camera_target.y, world.camera_target.z], "pose_y": world.player.visual.position.y,
-		"journey": world.journey.stats() if is_instance_valid(world.journey) else {}, "backdrops": world.backdrops.stats() if is_instance_valid(world.backdrops) else {}, "landmarks": world.landmarks.stats() if is_instance_valid(world.landmarks) else {}, "background_view": world.background_view, "backdrop_points": backdrop_points, "rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "hop_resource": world.tile_rules.checkpoint_state() if world.tile_rules != null else {}, "hop_help":long_hop_help.text, "long_hops_used":world.tile_rules.long_hops_used if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_variant": splash_variant, "splash_portrait": splash_art.texture in [SPLASH_PORTRAIT, SPLASH_LAYERED_PORTRAIT], "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
+		"park_poses":world.park_hazards.encounters.map(func(e): return {"kind":e.kind,"state":e.state,"time":e.time}) if is_instance_valid(world.park_hazards) else [], "stunt_poses":world.skaters.filter(func(r):return not r.stunt_spec.is_empty()).map(func(r):return {"state":r.state,"height":r.height,"lap":r.stunt_lap,"position":[r.position.x,r.position.y,r.position.z]}), "journey": world.journey.stats() if is_instance_valid(world.journey) else {}, "backdrops": world.backdrops.stats() if is_instance_valid(world.backdrops) else {}, "landmarks": world.landmarks.stats() if is_instance_valid(world.landmarks) else {}, "background_view": world.background_view, "backdrop_points": backdrop_points, "rule_notice": rule_notice_open, "seen_rules": seen_rule_ids, "charge_remaining": world.tile_rules.charge_remaining if world.tile_rules != null else 0, "hop_resource": world.tile_rules.checkpoint_state() if world.tile_rules != null else {}, "hop_help":long_hop_help.text, "long_hops_used":world.tile_rules.long_hops_used if world.tile_rules != null else 0, "splash_menu": splash_menu, "splash_variant": splash_variant, "splash_portrait": splash_art.texture in [SPLASH_PORTRAIT, SPLASH_LAYERED_PORTRAIT], "long_hop_state": long_hop_indicator.text if long_hop_button.visible else "", "tile_mode": world.tile_rules != null, "tile_hops": world.tile_rules.hop_count if world.tile_rules != null else 0, "tile_beats": world.tile_rules.beat_count if world.tile_rules != null else 0, "hop_active": world.tile_rules.jumping if world.tile_rules != null else false, "hop_airborne": world.tile_rules.airborne() if world.tile_rules != null else false, "tile_unlocked": tile_mode_unlocked(), "compatibility_mode": compatibility_mode, "map_view": world.map_view, "projection": world.camera.projection, "render_size": [view.size.x, view.size.y], "retro": view_container.material != null}
 	JavaScriptBridge.eval("window.hopanState = " + JSON.stringify(state), true)
 
 func _input(event: InputEvent) -> void:
@@ -2521,6 +2543,19 @@ func patrol_cell_open(cell: Vector2i) -> bool:
 			return false
 	return true
 
+# Stable stored indices preserve old Skate Escape clears at index1.
+func journey_order() -> Array:
+	return [0,2,1]
+
+func campaign_stage_number() -> int:
+	return journey_order().find(builtin_index)+1 if campaign_set == "city_journey" else builtin_index+1
+
+func next_campaign_index() -> int:
+	if campaign_set == "city_journey":
+		var position := journey_order().find(builtin_index)
+		return journey_order()[position+1] if position >= 0 and position+1<journey_order().size() else -1
+	return builtin_index+1 if builtin_index+1<campaign_paths().size() else -1
+
 func paths_for_set(set_key: String) -> Array:
 	match set_key:
 		"baby": return BUILTINS
@@ -2572,11 +2607,11 @@ func add_set_selector(set_key: String, difficulty: String) -> void:
 		stages.visible = not stages.visible
 		expand.text = "-" if stages.visible else "+")
 	var paths := paths_for_set(set_key)
-	for i in range(paths.size()):
-		var index := i
+	for i in (journey_order() if set_key == "city_journey" else range(paths.size())):
+		var index: int = i
 		var stage := Data.load_json(paths[i])
 		if not stage.is_empty():
-			var locked: bool = set_key == "city_journey" and index == 1 and 0 not in city_progress.city_journey
+			var locked: bool = set_key == "city_journey" and index in [1,2] and 0 not in city_progress.city_journey
 			var stage_button := button(stages, ("Locked · " if locked else "Play · ") + str(stage.name), func(): play_builtin(index, set_key))
 			stage_button.disabled = locked
-			if locked: stage_button.tooltip_text = "Finish Blocks & Park to unlock skateboarding."
+			if locked: stage_button.tooltip_text = "Finish Blocks & Park to unlock this level."

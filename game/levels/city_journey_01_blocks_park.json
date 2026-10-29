@@ -3149,11 +3149,11 @@
       ]
     },
     {
-      "id": "overpass-skater",
+      "id": "overpass-rail-hopper--1",
       "type": "skater",
       "pos": [
-        20.7,
-        34
+        19.6,
+        40.2
       ],
       "rotation": 0,
       "solid": false,
@@ -3162,15 +3162,23 @@
       "route": [
         {
           "pos": [
-            20.7,
-            34
+            19.6,
+            40.2
           ],
           "height": 2.0,
           "trick": "push"
         },
         {
           "pos": [
-            21.3,
+            21,
+            40.2
+          ],
+          "height": 2.0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            21,
             34
           ],
           "height": 2.0,
@@ -3178,21 +3186,69 @@
         },
         {
           "pos": [
-            21.3,
-            40
-          ],
-          "height": 2.0,
-          "trick": "cruise"
-        },
-        {
-          "pos": [
-            20.7,
-            40
+            19.6,
+            34
           ],
           "height": 2.0,
           "trick": "push"
         }
-      ]
+      ],
+      "bridge_stunts": {
+        "bridge": 0,
+        "seed": 41,
+        "side": -1
+      }
+    },
+    {
+      "id": "overpass-rail-hopper-1",
+      "type": "skater",
+      "pos": [
+        22.4,
+        40.2
+      ],
+      "rotation": 0,
+      "solid": false,
+      "speed": 4.8,
+      "variant": 2,
+      "route": [
+        {
+          "pos": [
+            22.4,
+            40.2
+          ],
+          "height": 2.0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            21,
+            40.2
+          ],
+          "height": 2.0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            21,
+            34
+          ],
+          "height": 2.0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            22.4,
+            34
+          ],
+          "height": 2.0,
+          "trick": "push"
+        }
+      ],
+      "bridge_stunts": {
+        "bridge": 0,
+        "seed": 127,
+        "side": 1
+      }
     },
     {
       "id": "park-west-skater",
@@ -3333,19 +3389,10 @@
       ]
     },
     {
-      "id": "tree-8",
-      "type": "tree",
-      "pos": [
-        6,
-        7
-      ],
-      "rotation": 0
-    },
-    {
       "id": "tree-9",
       "type": "tree",
       "pos": [
-        9,
+        6,
         7
       ],
       "rotation": 0
@@ -3354,13 +3401,22 @@
       "id": "tree-10",
       "type": "tree",
       "pos": [
+        9,
+        7
+      ],
+      "rotation": 0
+    },
+    {
+      "id": "tree-11",
+      "type": "tree",
+      "pos": [
         11,
         9
       ],
       "rotation": 0
     },
     {
-      "id": "tree-11",
+      "id": "tree-12",
       "type": "tree",
       "pos": [
         6,
@@ -3369,7 +3425,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-12",
+      "id": "tree-13",
       "type": "tree",
       "pos": [
         13,
@@ -3378,7 +3434,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-13",
+      "id": "tree-14",
       "type": "tree",
       "pos": [
         21,
@@ -3387,7 +3443,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-14",
+      "id": "tree-15",
       "type": "tree",
       "pos": [
         22,
@@ -3396,7 +3452,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-15",
+      "id": "tree-16",
       "type": "tree",
       "pos": [
         30,
@@ -3405,7 +3461,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-16",
+      "id": "tree-17",
       "type": "tree",
       "pos": [
         31,
@@ -3414,7 +3470,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-17",
+      "id": "tree-18",
       "type": "tree",
       "pos": [
         38,
@@ -3423,7 +3479,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-18",
+      "id": "tree-19",
       "type": "tree",
       "pos": [
         41,
@@ -3432,7 +3488,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-19",
+      "id": "tree-20",
       "type": "tree",
       "pos": [
         42,
@@ -3441,7 +3497,7 @@
       "rotation": 0
     },
     {
-      "id": "tree-20",
+      "id": "tree-21",
       "type": "tree",
       "pos": [
         37,
@@ -3450,7 +3506,7 @@
       "rotation": 0
     },
     {
-      "id": "prop-21",
+      "id": "prop-22",
       "type": "city_prop",
       "variant": "bench",
       "pos": [
@@ -3461,7 +3517,7 @@
       "solid": true
     },
     {
-      "id": "prop-22",
+      "id": "prop-23",
       "type": "city_prop",
       "variant": "bench",
       "pos": [
@@ -3472,7 +3528,7 @@
       "solid": true
     },
     {
-      "id": "prop-23",
+      "id": "prop-24",
       "type": "city_prop",
       "variant": "bench",
       "pos": [
@@ -3483,7 +3539,7 @@
       "solid": true
     },
     {
-      "id": "prop-24",
+      "id": "prop-25",
       "type": "city_prop",
       "variant": "bench",
       "pos": [
@@ -3494,7 +3550,7 @@
       "solid": true
     },
     {
-      "id": "prop-25",
+      "id": "prop-26",
       "type": "city_prop",
       "variant": "bench",
       "pos": [
@@ -3505,7 +3561,7 @@
       "solid": true
     },
     {
-      "id": "prop-26",
+      "id": "prop-27",
       "type": "city_prop",
       "variant": "trash_can",
       "pos": [
@@ -3516,7 +3572,7 @@
       "solid": true
     },
     {
-      "id": "prop-27",
+      "id": "prop-28",
       "type": "city_prop",
       "variant": "trash_can",
       "pos": [
@@ -3527,7 +3583,7 @@
       "solid": true
     },
     {
-      "id": "prop-28",
+      "id": "prop-29",
       "type": "city_prop",
       "variant": "trash_can",
       "pos": [
@@ -3538,7 +3594,7 @@
       "solid": true
     },
     {
-      "id": "prop-29",
+      "id": "prop-30",
       "type": "city_prop",
       "variant": "trash_can",
       "pos": [
@@ -3549,7 +3605,7 @@
       "solid": true
     },
     {
-      "id": "prop-30",
+      "id": "prop-31",
       "type": "city_prop",
       "variant": "trash_can",
       "pos": [
@@ -3560,7 +3616,7 @@
       "solid": true
     },
     {
-      "id": "prop-31",
+      "id": "prop-32",
       "type": "city_prop",
       "variant": "trash_can",
       "pos": [
@@ -3571,7 +3627,7 @@
       "solid": true
     },
     {
-      "id": "prop-32",
+      "id": "prop-33",
       "type": "city_prop",
       "variant": "trash_can",
       "pos": [
@@ -3582,7 +3638,7 @@
       "solid": true
     },
     {
-      "id": "prop-33",
+      "id": "prop-34",
       "type": "city_prop",
       "variant": "newsstand",
       "pos": [
@@ -3593,7 +3649,7 @@
       "solid": true
     },
     {
-      "id": "prop-34",
+      "id": "prop-35",
       "type": "city_prop",
       "variant": "dumpster",
       "pos": [
@@ -3604,7 +3660,7 @@
       "solid": true
     },
     {
-      "id": "prop-35",
+      "id": "prop-36",
       "type": "city_prop",
       "variant": "pizza_cart",
       "pos": [
@@ -3615,7 +3671,7 @@
       "solid": true
     },
     {
-      "id": "prop-36",
+      "id": "prop-37",
       "type": "city_prop",
       "variant": "mailbox",
       "pos": [
@@ -3777,14 +3833,14 @@
         19,
         44
       ],
-      "text": "OVERPASS \u2191 Climb the ramp. Cars stay below; the skateboarder shares your deck."
+      "text": "OVERPASS \u2191 Climb the ramp. Cars stay below; rail hoppers jump onto your deck."
     },
     {
       "pos": [
         19,
         30
       ],
-      "text": "PARK ENTRANCE \u2190 Turn left, then north. The rustling bush warns before a lunge."
+      "text": "PARK ENTRANCE \u2190 Turn left, then north. Watch the quick bush lunge."
     },
     {
       "pos": [
@@ -3917,7 +3973,8 @@
           17
         ]
       }
-    ]
+    ],
+    "islands": []
   },
   "park_encounters": [
     {

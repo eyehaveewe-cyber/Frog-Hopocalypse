@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS ambusher stays idle while distant
+PASS ambusher uses quick pose anticipation
+PASS ambusher has no painted queued attack path
+PASS ambusher wind-up is harmless
+PASS ambusher begins attack within0.35s
+PASS ambusher fast swept attack hits at actual path
+PASS ambusher ignores raised deck
+PASS ambusher recovery offers safe crossing
+PASS purse stays idle while distant
+PASS purse uses quick pose anticipation
+PASS purse has no painted queued attack path
+PASS purse wind-up is harmless
+PASS purse begins attack within0.35s
+PASS purse fast swept attack hits at actual path
+PASS purse ignores raised deck
+PASS Purse contact follows attached visible bag
+PASS Purse strap stays attached to swinging hand
+PASS purse recovery offers safe crossing
+PASS Seed toss precedes flock danger
+PASS Visible seed scatters through an arc
+PASS Toss animation preserves small seed model scale
+PASS Feeding flock remains a dangerous occupied patch
+PASS Flock completes seed, swoop, feed, departure, return and perch loop
+PASS Pigeons stay over seed while pecking instead of flying past
+PASS Pigeons return behind and onto keeper
+PASS Flock uses seed rather than painted line
+PASS ambusher quick cycle agrees at30/60/120Hz
+PASS purse quick cycle agrees at30/60/120Hz
+PASS pigeons quick cycle agrees at30/60/120Hz
+PASS Duet skaters move on actual rink orbit
+PASS Duet partners keep mirrored formation
+PASS Duet collision follows visible skating position
+PASS Duet leaves an inside crossing option
+PASS Jam holds cars fully stopped for red interval
+PASS Jam integrates only moving half of boundary frame
+PASS Jam complete cycle has expected travel
+PASS Existing continuous lanes retain original speed
+PASS Jam motion is stable at 30 Hz
+PASS Localized street uses its own wrap span at 30 Hz
+PASS Stopped car still occupies its lane at 30 Hz
+PASS Bridge deck clears stopped taxi at 30 Hz
+PASS Jam motion is stable at 60 Hz
+PASS Localized street uses its own wrap span at 60 Hz
+PASS Stopped car still occupies its lane at 60 Hz
+PASS Bridge deck clears stopped taxi at 60 Hz
+PASS Jam motion is stable at 120 Hz
+PASS Localized street uses its own wrap span at 120 Hz
+PASS Stopped car still occupies its lane at 120 Hz
+PASS Bridge deck clears stopped taxi at 120 Hz
+CITY PARK HAZARDS: 49 checks, 0 failures

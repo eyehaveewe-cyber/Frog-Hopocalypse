@@ -27,7 +27,7 @@ func run() -> void:
 			check(app.Data.reachable(app.level),"Structural route: "+str(app.level.name))
 			count += 1
 			await process_frame
-	check(count == 35,"All 35 campaign levels are present")
+	check(count == 36,"All 36 campaign levels are present")
 	app.play_builtin(0,"nyc")
 	check(app.world.traffic.vehicles.size() > 0,"NYC moving traffic is instantiated")
 	var clock: float = app.world.traffic.clock

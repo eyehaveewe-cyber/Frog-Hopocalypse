@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Runtime fixture validates: park_motion
+PASS: Runtime fixture validates: bridge_motion
+PASS: Runtime fixture validates: highway_grind
+PASS: Passing a rail does not latch without Grind
+PASS: Holding Grind latches the aligned rail once
+PASS: Jump releases rail into a physical airborne hop
+PASS: Visible entry ramp and Grind carry frog above actual bus/truck lanes
+PASS: Highway grind reaches the far side with swept collision
+PASS: Frozen Blocks instantiates roaches, island riders and three duet pairs
+PASS: Tan island gives dry footing inside the frozen district
+PASS: Open district ground uses sliding ice
+PASS: Both sides of overpass have rail-hopping skaters
+PASS: Take-off point changes at the next seeded lap
+PASS: Lap seam and rail jumps remain continuous
+PASS: Stunt route includes airborne jumps and skating on deck
+PASS: Seeded rail-hop motion agrees at30/60/120Hz
+ICE/SKATE FEATURES: 16 checks, 0 failures

@@ -39,7 +39,7 @@ for path in [old/'index.html',old/'game/index.html']:
 (dist/'build.json').write_text(json.dumps({
     'game_source_commit':args.source_commit,
     'release_label':args.release_label,
-    'campaign_levels':35,
+    'campaign_levels':36,
     'preserved_riversim':previous['preserved_riversim'],
     'save_libraries':'One editor imports both previous libraries; existing backups retained.',
     'evidence':args.evidence

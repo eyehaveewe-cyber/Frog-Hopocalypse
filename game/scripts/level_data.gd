@@ -1,5 +1,6 @@
 extends RefCounted
 ## The editor, bundled maps and runtime all consume this versioned format.
+const BridgeStunts = preload("res://scripts/bridge_stunts.gd")
 const Props = preload("res://scripts/streetlife_specs.gd")
 const CITY_PROPS = ["bench", "trash_can", "dumpster", "pizza_cart", "mailbox", "traffic_cone", "manhole", "newsstand", "skate_rail", "skate_ramp"]
 const SKATE_TRICKS = ["cruise", "push", "grind", "ramp"]
@@ -157,7 +158,9 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 				if not editor_snapshot and i > 0 and not road_segment_open(d, route[i-1],route[i]):
 					return "Car patrol routes must follow connected road tiles with square turns."
 		if obj.type in ["pillar", "tree", "critter", "roach", "skater", "emitter", "city_prop"] or obj.get("solid", false):
-			if not editor_snapshot and d.tiles[int(obj.pos[1])][int(obj.pos[0])] in ["wall", "cheese_wall", "water"]:
+			var object_cell := Vector2i(roundi(obj.pos[0]),roundi(obj.pos[1])) if obj.type == "skater" else Vector2i(obj.pos[0],obj.pos[1])
+			if object_cell.x<0 or object_cell.y<0 or object_cell.x>=w or object_cell.y>=h: return "Place actors within playable tiles."
+			if not editor_snapshot and d.tiles[object_cell.y][object_cell.x] in ["wall", "cheese_wall", "water"]:
 				return "Place solid objects, critters and traps on dry terrain."
 		if obj.type in ["critter", "roach"]:
 			if obj.has("patrol_loop") and not obj.patrol_loop is bool:
@@ -424,8 +427,8 @@ static func validate_city_journey(d: Dictionary) -> String:
 		if d.get("game_mode", "hopan") != "hopan" or d.theme != "nyc": return "City traversal is available on continuous NYC levels."
 		if journey.get("movement", "walk") not in ["walk", "skate"]: return "City movement must be walk or skate."
 		for key in journey:
-			if key not in ["movement", "ice", "bridges", "ramps", "rails", "buildings", "parks"]: return "Unknown city journey field: " + str(key)
-		for key in ["ice", "bridges", "ramps", "rails", "buildings", "parks"]:
+			if key not in ["movement", "ice", "bridges", "ramps", "rails", "buildings", "parks", "islands"]: return "Unknown city journey field: " + str(key)
+		for key in ["ice", "bridges", "ramps", "rails", "buildings", "parks", "islands"]:
 			if not journey.get(key, []) is Array or journey.get(key, []).size() > 16: return "City traversal supports up to 16 features of each kind."
 		for building in journey.get("buildings", []):
 			if not building is Dictionary or not rect_valid(building.get("rect"), d.width, d.height): return "City buildings need ordered interior rectangles of whole cells."
@@ -437,6 +440,8 @@ static func validate_city_journey(d: Dictionary) -> String:
 			if not patch is Dictionary or not rect_valid(patch.get("rect"), d.width, d.height): return "Ice needs an ordered interior rectangle of whole cells."
 		for park in journey.get("parks", []):
 			if not park is Dictionary or not rect_valid(park.get("rect"), d.width, d.height): return "Parks need ordered interior rectangles of whole cells."
+		for island in journey.get("islands",[]):
+			if not island is Dictionary or not rect_valid(island.get("rect"),d.width,d.height): return "Dry islands need ordered interior rectangles."
 		for bridge in journey.get("bridges", []):
 			if not bridge is Dictionary or not rect_valid(bridge.get("rect"), d.width, d.height): return "Bridges need ordered interior rectangles of whole cells."
 			if bridge.get("axis") not in ["x", "z"]: return "Bridge axis must be x or z."
@@ -451,7 +456,15 @@ static func validate_city_journey(d: Dictionary) -> String:
 				var b := Vector2(feature.to[0], feature.to[1])
 				if (a.x != b.x and a.y != b.y) or a.distance_to(b) < 0.5 or a.distance_to(b) > 16: return "Skate features need distinct cardinal endpoints 0.5 to 16 cells apart."
 				var height_key := "rise" if key == "ramps" else "height"
-				if not finite_number(feature.get(height_key)) or feature[height_key] < 0.2 or feature[height_key] > 1.2: return "Skate ramp and rail heights must be between 0.2 and 1.2."
+				if not finite_number(feature.get(height_key)) or feature[height_key] < 0.2 or feature[height_key] > (3.2 if key == "rails" else 1.2): return "Ramps support heights0.2–1.2; rails support0.2–3.2."
+				if key == "rails":
+					for endpoint in ["entry","exit"]:
+						if not feature.has(endpoint): continue
+						if not point_valid(feature[endpoint],d.width,d.height): return "Rail approaches must be inside the map."
+						var foot := Vector2(feature[endpoint][0],feature[endpoint][1])
+						var lip := a if endpoint == "entry" else b
+						if absf((lip-foot).cross((b-a).normalized()))>0.001 or foot.distance_to(lip)<1 or foot.distance_to(lip)>6: return "Rail approaches need aligned endpoints 1 to 6 cells long."
+					if feature.height>1.2 and (not feature.has("entry") or not feature.has("exit")): return "High rails require visible entry and exit approaches."
 				if key == "ramps":
 					for step in range(ceili(a.distance_to(b) * 2) + 1):
 						var point := a.lerp(b, float(step) / maxf(1, ceili(a.distance_to(b) * 2)))
@@ -502,14 +515,24 @@ static func validate_streetlife(d: Dictionary) -> String:
 			return "Choose one of the three skater variants."
 		if not finite_number(obj.get("speed", 3.2)) or obj.get("speed", 3.2) < 2 or obj.get("speed", 3.2) > 5.5:
 			return "Skater speed must be between 2 and 5.5 world units per second."
-		var route: Variant = obj.get("route")
+		var stunts: Variant = obj.get("bridge_stunts",{})
+		if not stunts is Dictionary: return "Bridge stunts must be an object."
+		var stunt_bridge: Dictionary = {}
+		if not stunts.is_empty():
+			var bridges: Array = d.get("city_journey",{}).get("bridges",[])
+			if not finite_number(stunts.get("bridge")) or stunts.bridge != int(stunts.bridge) or stunts.bridge<0 or stunts.bridge>=bridges.size(): return "Stunt skaters need a valid bridge index."
+			if not finite_number(stunts.get("seed")) or stunts.seed!=int(stunts.seed) or stunts.seed<0 or stunts.seed>1000000 or not finite_number(stunts.get("side")) or absf(float(stunts.side)) != 1.0: return "Stunt skaters need a bounded seed and left or right side."
+			stunt_bridge = bridges[int(stunts.bridge)]
+			var axis: int = 0 if stunt_bridge.axis == "x" else 1
+			if stunt_bridge.rect[axis+2]-stunt_bridge.rect[axis]+1-stunt_bridge.ramp_cells*2<5: return "Bridge stunts need at least five cells of level deck."
+		var route: Variant = obj.get("route") if stunts.is_empty() else BridgeStunts.route(stunts,stunt_bridge,0)
 		if not route is Array or route.size() < 4 or route.size() > 32:
 			return "A skater needs a closed loop of 4 to 32 route points."
 		for node in route:
 			if not node is Dictionary or not point_valid(node.get("pos"), d.width, d.height):
 				return "Skater route points must be inside the map."
 			var surface := bridge_surface_height(d, Vector2(node.pos[0], node.pos[1]))
-			if not finite_number(node.get("height", 0.0)) or node.get("height", 0.0) < 0 or (node.get("height", 0.0) > 1.2 and absf(float(node.height) - surface) > 0.06):
+			if not finite_number(node.get("height", 0.0)) or node.get("height", 0.0) < 0 or (node.get("height", 0.0) > 1.2 and (absf(float(node.height) - surface) > 0.06 if stunts.is_empty() else (node.height < surface or node.height > surface+1.2))):
 				return "Elevated skater routes must match a bridge surface; ground tricks stay below 1.2."
 			if node.get("trick", "cruise") not in SKATE_TRICKS:
 				return "Unknown skateboard action."
@@ -528,13 +551,13 @@ static func validate_streetlife(d: Dictionary) -> String:
 			for sample_index in range(ceili(length * 4) + 1):
 				var point := a.lerp(b, float(sample_index) / maxf(1, ceili(length * 4)))
 				var route_height := lerpf(float(route[i].get("height", 0)), float(route[(i + 1) % route.size()].get("height", 0)), float(sample_index) / maxf(1, ceili(length * 4)))
-				if route_height > 1.2 and absf(route_height - bridge_surface_height(d, point)) > 0.06:
+				if stunts.is_empty() and route_height > 1.2 and absf(route_height - bridge_surface_height(d, point)) > 0.06:
 					return "Elevated skater segments must follow the bridge surface."
 				var x := roundi(point.x)
 				var y := roundi(point.y)
 				for obstacle in d.objects:
 					if obstacle.type == "city_prop" and obstacle.get("solid", false) and obstacle.get("variant") in CITY_PROPS and obstacle.variant not in ["skate_rail", "skate_ramp"] and Props.covers(obstacle, point, 0.42):
-						return "Skater loops must avoid solid street props."
+						return "Skater %s crosses solid prop %s." % [obj.id,obstacle.id]
 				if x < 0 or y < 0 or x >= d.width or y >= d.height or d.tiles[y][x] in ["wall", "water"]:
 					return "Skate loops need dry, open ground along every segment."
 	return ""
