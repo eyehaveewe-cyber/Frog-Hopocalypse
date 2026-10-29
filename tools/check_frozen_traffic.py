@@ -18,8 +18,10 @@ assert len([o for o in m['objects'] if o['type']=='roach'])==12
 for gate in m['difficulty_gates']:
  row=gate['row']; cut={(x,row) for x in range(m['width'])}
  assert not reachable(cut),f'Bypass around gate {row}'
- spans=[o for o in m['objects'] if o.get('ice_skater') and any(n['pos']==[18,row] for n in o['route']) and any(n['pos']==[30,row] for n in o['route'])]
+ spans=[o for o in m['objects'] if o.get('ice_skater') and any(n['pos']==[17.65,row] for n in o['route']) and any(n['pos']==[30.35,row] for n in o['route'])]
  assert len(spans)==4,f'Missing traffic line {row}'
+ # Collision envelope must reach beyond the continuous playable edges, not just cell centers.
+ assert (17.65-17.5)*1.8<.74 and (30.5-30.35)*1.8<.74
 print('PASS: Four unavoidable full-width traffic gates, 32 square-loop ice skaters, 12 approach/exit roaches; no perimeter bypass')
 # Read-only route sampling: a moving frog can cross each individual traffic line.
 # This is a local timing-window check, not a full-level controller playthrough.
