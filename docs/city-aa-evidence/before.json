@@ -1,0 +1,96 @@
+{
+  "obs": [
+    {
+      "label": "baby",
+      "render_size": [
+        426,
+        232
+      ],
+      "ui_size": [
+        1280,
+        800
+      ],
+      "retro": true,
+      "map_view": false,
+      "campaign_set": "baby",
+      "stage": 0
+    },
+    {
+      "label": "city",
+      "render_size": [
+        426,
+        232
+      ],
+      "ui_size": [
+        1280,
+        800
+      ],
+      "retro": true,
+      "map_view": false,
+      "campaign_set": "city_journey",
+      "stage": 0
+    },
+    {
+      "label": "city-map",
+      "render_size": [
+        1280,
+        698
+      ],
+      "ui_size": [
+        1280,
+        800
+      ],
+      "retro": false,
+      "map_view": true,
+      "campaign_set": "city_journey",
+      "stage": 0
+    },
+    {
+      "label": "frozen",
+      "render_size": [
+        426,
+        232
+      ],
+      "ui_size": [
+        1280,
+        800
+      ],
+      "retro": true,
+      "map_view": false,
+      "campaign_set": "city_journey",
+      "stage": 2
+    },
+    {
+      "label": "skate",
+      "render_size": [
+        426,
+        232
+      ],
+      "ui_size": [
+        1280,
+        800
+      ],
+      "retro": true,
+      "map_view": false,
+      "campaign_set": "city_journey",
+      "stage": 1
+    },
+    {
+      "label": "mobile-city",
+      "render_size": [
+        844,
+        286
+      ],
+      "ui_size": [
+        844,
+        390
+      ],
+      "retro": false,
+      "map_view": false,
+      "campaign_set": "city_journey",
+      "stage": 0
+    }
+  ],
+  "errors": [],
+  "scope": "Actual Chromium SwiftShader renderer; touch emulated, no physical hardware or FPS claims."
+}

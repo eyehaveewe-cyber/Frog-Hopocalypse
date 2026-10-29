@@ -1,3 +1,5 @@
+City Journey now renders at higher resolution with 2× anti-aliasing to smooth its zoomed-out views. [Comparison and hardware tradeoff](docs/CITY_JOURNEY_ANTIALIAS.md).
+
 Frozen Blocks difficulty overhaul: four sealed traffic rooms,32 ice skaters on overlapping square circuits, and12 approach/exit roaches. The outside bypasses are closed. [Design and verification limits](docs/FROZEN_TRAFFIC_OVERHAUL.md).
 
 Skate Escape now gives the frog a standing skateboard stance and airborne left/right tricks adapted from Zendelves. [Controls and evidence](docs/SKATE_FROG_TRICKS.md).
