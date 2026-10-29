@@ -193,7 +193,7 @@ func hits_player(from: Vector3, to: Vector3) -> bool:
 		if full_loop_sweep:
 			# Only used for deliberate skips longer than a complete circuit. There
 			# is no trustworthy sub-frame timing then; conservatively test the route.
-			if minf(start.y, finish.y) > maxf(from.y, to.y) + FROG_CLEARANCE:
+			if minf(start.y, finish.y) > maxf(from.y, to.y) + FROG_CLEARANCE or minf(from.y,to.y)>maxf(start.y,finish.y)+FROG_CLEARANCE:
 				continue
 			if segments_close(Vector2(start.x, start.z), Vector2(finish.x, finish.z), Vector2(from.x, from.z), Vector2(to.x, to.z)):
 				return true
@@ -202,14 +202,16 @@ func hits_player(from: Vector3, to: Vector3) -> bool:
 		var player_end := from.lerp(to, float(sweep.t1))
 		var low := 0.0
 		var high := 1.0
-		var clearance_start := start.y - player_start.y - FROG_CLEARANCE
-		var clearance_end := finish.y - player_end.y - FROG_CLEARANCE
-		if clearance_start > 0.0 and clearance_end > 0.0:
-			continue
-		if clearance_start > 0.0:
-			low = clearance_start / (clearance_start - clearance_end)
-		elif clearance_end > 0.0:
-			high = -clearance_start / (clearance_end - clearance_start)
+		var height_start := start.y - player_start.y
+		var height_delta := finish.y - player_end.y-height_start
+		if absf(height_delta)<0.000001:
+			if absf(height_start)>FROG_CLEARANCE: continue
+		else:
+			var near_time:=(-FROG_CLEARANCE-height_start)/height_delta
+			var far_time:=(FROG_CLEARANCE-height_start)/height_delta
+			low=maxf(low,minf(near_time,far_time))
+			high=minf(high,maxf(near_time,far_time))
+			if low>high: continue
 		var relative_start := Vector2(player_start.x - start.x, player_start.z - start.z)
 		var relative_end := Vector2(player_end.x - finish.x, player_end.z - finish.z)
 		var a := relative_start.lerp(relative_end, low)

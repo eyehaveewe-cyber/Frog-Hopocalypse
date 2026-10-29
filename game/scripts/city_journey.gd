@@ -1,0 +1,274 @@
+extends Node3D
+## Optional traversal for the City Journey levels. Ordinary campaigns keep Actor.step.
+## Heights are authored game geometry in metres, with the same swept body collision
+## as walking: a skateboard only clears a wall when its body is physically above it.
+const Art = preload("res://scripts/art.gd")
+const Kit = preload("res://scripts/nyc_streetlife_art.gd")
+const CELL := 1.8
+const GRAVITY := 12.0
+const SKATE_SPEED := 7.5
+var world: Node3D
+var config: Dictionary
+var momentum := Vector3.ZERO
+var vertical_speed := 0.0
+var airborne := false
+var on_ice := false
+var surface_height := 0.0
+var bridge_index := -1
+var grind_index := -1
+var grind_direction := 1.0
+var grind_mount := false
+var jump_held := false
+var launch_cooldown := 0.0
+var board: Node3D
+var facing := Vector3(0,0,-1)
+var ramps_used := 0
+var rails_used := 0
+
+func setup(level: Dictionary, owner_world: Node3D) -> void:
+	name = "CityJourney"
+	world = owner_world
+	config = level.get("city_journey", {}).duplicate(true)
+	build_geometry()
+	Art.batch_static(self, [], CELL*6)
+	if is_skating():
+		var donor := Kit.skater(0)
+		board = donor.get_node("Board")
+		donor.remove_child(board)
+		donor.free()
+		world.player.add_child(board)
+		board.scale = Vector3(2.8,1.0,1.4)
+		world.player.visual.position.y = 0.20
+
+func is_skating() -> bool:
+	return config.get("movement", "walk") == "skate"
+
+func grid_point(p: Vector3) -> Vector2:
+	return Vector2(p.x/CELL+(world.level.width-1)*0.5,p.z/CELL+(world.level.height-1)*0.5)
+
+func rect_has(rect: Array, p: Vector2) -> bool:
+	return p.x >= rect[0]-0.5 and p.x <= rect[2]+0.5 and p.y >= rect[1]-0.5 and p.y <= rect[3]+0.5
+
+func bridge_height(bridge: Dictionary, p: Vector2) -> float:
+	var axis := 0 if bridge.get("axis", "z") == "x" else 1
+	var rect: Array = bridge.rect
+	var edge_distance := minf(p[axis]-(float(rect[axis])-0.5),float(rect[axis+2])+0.5-p[axis])
+	return float(bridge.height)*clampf(edge_distance/float(bridge.ramp_cells),0,1)
+
+func ramp_sample(ramp: Dictionary, position: Vector3) -> Dictionary:
+	var start: Vector3 = world.cell_position(ramp.from)
+	var end: Vector3 = world.cell_position(ramp.to)
+	var forward := (end-start).normalized()
+	var offset := position-start
+	var along := offset.dot(forward)
+	var width_distance := (offset-forward*along).length()
+	return {"start":start,"end":end,"forward":forward,"along":along,"length":start.distance_to(end),"inside":along>=0 and along<=start.distance_to(end) and width_distance<=CELL*0.9}
+
+func support_height(p: Vector3) -> float:
+	var grid := grid_point(p)
+	var bridges: Array = config.get("bridges", [])
+	if bridge_index >= 0 and not rect_has(bridges[bridge_index].rect,grid): bridge_index = -1
+	for i in range(bridges.size()):
+		if not rect_has(bridges[i].rect,grid): continue
+		var height := bridge_height(bridges[i],grid)
+		# Enter at a ramp foot; crossing underneath a deck never lifts the frog.
+		if i == bridge_index or height <= world.player.position.y+0.35:
+			bridge_index = i
+			return height
+	for ramp in config.get("ramps", []):
+		var sample := ramp_sample(ramp,p)
+		if sample.inside and (not airborne or world.player.position.y >= float(ramp.rise)*sample.along/sample.length-0.1):
+			return float(ramp.rise)*sample.along/sample.length
+	return 0.0
+
+func step(delta: float, input: Vector2, jump: bool, brake: bool) -> void:
+	var actor: CharacterBody3D = world.player
+	var desired := Vector3(input.x,0,input.y).limit_length()
+	var pressed := jump and not jump_held
+	jump_held = jump
+	launch_cooldown = maxf(0,launch_cooldown-delta)
+	on_ice = false
+	for ice in config.get("ice", []):
+		if rect_has(ice.rect,grid_point(actor.position)): on_ice = true
+	if desired.length_squared()>0.01: facing=desired
+	if grind_index >= 0:
+		advance_grind(delta,desired,pressed,brake)
+		pose(delta)
+		return
+	var target_speed := SKATE_SPEED if is_skating() else 4.2
+	if brake:
+		momentum = momentum.move_toward(Vector3.ZERO,18.0*delta)
+	elif is_skating() or on_ice:
+		if desired.length_squared()>0.001:
+			momentum=momentum.move_toward(desired*target_speed,(2.6 if on_ice else (3.0 if airborne else 10.0))*delta)
+		else:
+			momentum=momentum.move_toward(Vector3.ZERO,(0.45 if on_ice else 1.15)*delta)
+	else:
+		momentum=desired*target_speed
+	if pressed and is_skating() and not airborne:
+		vertical_speed=4.4
+		airborne=true
+		bridge_index=-1
+	if is_skating() and not airborne and not brake and launch_cooldown<=0:
+		for i in range(config.get("rails",[]).size()):
+			var rail: Dictionary=config.rails[i]
+			var start: Vector3=world.cell_position(rail.from)
+			var end: Vector3=world.cell_position(rail.to)
+			var forward: Vector3=(end-start).normalized()
+			for direction in [1.0,-1.0]:
+				var entry: Vector3=start if direction>0 else end
+				if Vector2(actor.position.x-entry.x,actor.position.z-entry.z).length()<0.85 and desired.dot(forward*direction)>0.75:
+					grind_index=i
+					grind_direction=direction
+					grind_mount=true
+					rails_used+=1
+					momentum=forward*direction*maxf(4.8,momentum.length())
+					pose(delta)
+					return
+	var before:=actor.position
+	var proposed:=before+momentum*delta
+	var support:=support_height(proposed)
+	if is_skating() and not airborne and launch_cooldown<=0 and momentum.length()>=2.5:
+		for ramp in config.get("ramps",[]):
+			var old_sample:=ramp_sample(ramp,before)
+			var next_sample:=ramp_sample(ramp,proposed)
+			if old_sample.inside and next_sample.along>next_sample.length and momentum.dot(next_sample.forward)>2.5:
+				airborne=true
+				vertical_speed=6.8
+				launch_cooldown=0.45
+				ramps_used+=1
+				break
+	if not airborne and support<before.y-0.35:
+		airborne=true
+		vertical_speed=0.0
+	var vertical_motion:=support-before.y
+	if airborne:
+		vertical_motion=vertical_speed*delta-0.5*GRAVITY*delta*delta
+		vertical_speed-=GRAVITY*delta
+	sweep_move(momentum*delta+Vector3(0,vertical_motion,0))
+	if airborne and actor.position.y<=support and vertical_speed<=0:
+		actor.position.y=support
+		vertical_speed=0
+		airborne=false
+	elif not airborne:
+		actor.position.y=support_height(actor.position)
+	surface_height=support_height(actor.position)
+	actor.velocity=momentum+Vector3(0,vertical_speed,0)
+	pose(delta)
+
+func sweep_move(motion: Vector3) -> void:
+	var actor: CharacterBody3D=world.player
+	var hit:=actor.move_and_collide(motion)
+	if hit:
+		var normal:=hit.get_normal()
+		if absf(normal.y)<0.7:
+			momentum=momentum.slide(normal)
+		elif normal.y<0 and vertical_speed>0: vertical_speed=0
+		actor.move_and_collide(hit.get_remainder().slide(normal))
+
+func advance_grind(delta: float, input: Vector3, jump: bool, brake: bool) -> void:
+	var rail: Dictionary=config.rails[grind_index]
+	var start: Vector3=world.cell_position(rail.from)
+	var end: Vector3=world.cell_position(rail.to)
+	var forward: Vector3=(end-start).normalized()*grind_direction
+	var target: Vector3=(end if grind_direction>0 else start)+Vector3(0,float(rail.height),0)
+	if grind_mount:
+		var entry: Vector3=(start if grind_direction>0 else end)+Vector3(0,float(rail.height),0)
+		var mount_motion: Vector3=entry-world.player.position
+		sweep_move(mount_motion.limit_length(6.0*delta))
+		if world.player.position.distance_to(entry)<0.02: grind_mount=false
+		return
+	var remaining: float=(target-world.player.position).dot(forward)
+	if jump or brake or input.dot(forward)<-0.4 or remaining<=0.15:
+		grind_index=-1
+		airborne=true
+		vertical_speed=4.4 if jump else 0.0
+		launch_cooldown=0.4
+		return
+	momentum=forward*6.0
+	sweep_move(forward*minf(remaining,6.0*delta))
+	world.player.position.y=float(rail.height)
+	surface_height=float(rail.height)
+
+func pose(delta: float) -> void:
+	var actor: CharacterBody3D=world.player
+	var direction:=momentum.normalized() if momentum.length_squared()>0.01 else facing
+	actor.direction=direction
+	actor.visual.rotation.y=lerp_angle(actor.visual.rotation.y,atan2(-direction.x,-direction.z),1.0-exp(-14.0*delta))
+	actor.visual.position.y=0.20 if is_skating() else (0.02 if on_ice else absf(sin(world.elapsed*16))*0.10*minf(1,momentum.length()))
+	actor.visual.rotation.z=sin(world.elapsed*8)*0.035 if grind_index>=0 else 0.0
+	if is_instance_valid(board):
+		board.rotation.y=actor.visual.rotation.y
+		board.rotation.x=-0.10 if airborne and vertical_speed>0 else 0.0
+		for wheel in board.find_children("Wheel_*","Node3D",true,false): wheel.rotation.x-=momentum.length()*delta/0.065
+
+func stats() -> Dictionary:
+	return {"movement":config.get("movement","walk"),"speed":momentum.length(),"airborne":airborne,"grinding":grind_index>=0,"ice":on_ice,"surface_height":surface_height,"ramps_used":ramps_used,"rails_used":rails_used}
+
+func build_geometry() -> void:
+	for ice in config.get("ice",[]):
+		var rect: Array=ice.rect
+		var a: Vector3=world.cell_position([rect[0],rect[1]])
+		var b: Vector3=world.cell_position([rect[2],rect[3]])
+		Art.box(self,Vector3(b.x-a.x+CELL,0.035,b.z-a.z+CELL),(a+b)*0.5+Vector3(0,0.025,0),Color("a9d9e5"))
+		for i in range(int(rect[0])+1,int(rect[2]),2):
+			var line: Vector3=world.cell_position([i,(rect[1]+rect[3])*0.5])
+			Art.box(self,Vector3(0.025,0.01,b.z-a.z),line+Vector3(0,0.048,0),Color("d8f4f1"))
+	for bridge in config.get("bridges",[]): build_bridge(bridge)
+	for ramp in config.get("ramps",[]):
+		var a: Vector3=world.cell_position(ramp.from)
+		var b: Vector3=world.cell_position(ramp.to)+Vector3(0,float(ramp.rise),0)
+		slope_panel(a,b,CELL*1.8,Color("d6ad68"))
+		Kit.bar(self,"RampLip",b+Vector3(-0.1,0.04,0),b+Vector3(0.1,0.04,0),0.09,Color("ffe59c"))
+	for rail in config.get("rails",[]):
+		var a: Vector3=world.cell_position(rail.from)+Vector3(0,float(rail.height),0)
+		var b: Vector3=world.cell_position(rail.to)+Vector3(0,float(rail.height),0)
+		Kit.bar(self,"RideableRail",a,b,0.10,Color("e8c674"))
+		for point in [a,a.lerp(b,0.5),b]:
+			Art.box(self,Vector3(0.08,point.y,0.08),Vector3(point.x,point.y*0.5,point.z),Color("637d85"))
+		var direction: Vector3=(b-a).normalized()
+		slope_panel(a-direction*0.9-Vector3(0,a.y,0),a,0.65,Color("738e91"))
+		slope_panel(b,b+direction*0.9-Vector3(0,b.y,0),0.65,Color("738e91"))
+	for building in config.get("buildings",[]):
+		var rect: Array=building.rect
+		var a: Vector3=world.cell_position([rect[0],rect[1]])
+		var b: Vector3=world.cell_position([rect[2],rect[3]])
+		var height: float=building.get("height",4.0)
+		var center: Vector3=(a+b)*0.5
+		var size:=Vector3(b.x-a.x+CELL,height,b.z-a.z+CELL)
+		Art.textured(Art.box(self,size,center+Vector3(0,height*0.5,0),Color("80777a")),"brick")
+		Art.box(self,size*Vector3(1.02,0,1.02)+Vector3(0,0.18,0),center+Vector3(0,height,0),Color("b6b8ae"))
+		for side in [-1,1]:
+			for floor_index in range(1,int(height)):
+				for x in range(int(rect[0]),int(rect[2])+1,2):
+					var p: Vector3=world.cell_position([x,rect[1]])
+					p.z=center.z+side*(size.z*0.5+0.02)
+					p.y=floor_index+0.3
+					Art.box(self,Vector3(0.65,0.55,0.03),p,Color("d6ce9a"))
+
+func slope_panel(a: Vector3,b: Vector3,width: float,color: Color) -> void:
+	var length:=a.distance_to(b)
+	var panel:=Art.box(self,Vector3(width,0.12,length),(a+b)*0.5-Vector3(0,0.06,0),color)
+	panel.look_at(b)
+
+func build_bridge(bridge: Dictionary) -> void:
+	var rect: Array=bridge.rect
+	var axis:=0 if bridge.get("axis","z")=="x" else 1
+	var other:=1-axis
+	var center:=Vector2((rect[0]+rect[2])*0.5,(rect[1]+rect[3])*0.5)
+	var stations: Array=[float(rect[axis])-0.5,float(rect[axis])-0.5+float(bridge.ramp_cells),float(rect[axis+2])+0.5-float(bridge.ramp_cells),float(rect[axis+2])+0.5]
+	var heights: Array=[0.0,float(bridge.height),float(bridge.height),0.0]
+	var width: float=(float(rect[other+2])-float(rect[other])+1)*CELL
+	for i in range(3):
+		var ag:=center;ag[axis]=stations[i]
+		var bg:=center;bg[axis]=stations[i+1]
+		var a: Vector3=world.cell_position([ag.x,ag.y])+Vector3(0,heights[i],0)
+		var b: Vector3=world.cell_position([bg.x,bg.y])+Vector3(0,heights[i+1],0)
+		slope_panel(a,b,width,Color("929d99"))
+		for side in [-1,1]:
+			var lateral:=Vector3.ZERO;lateral[0 if other==0 else 2]=side*width*0.5
+			Kit.bar(self,"BridgeGuardrail",a+lateral+Vector3(0,0.65,0),b+lateral+Vector3(0,0.65,0),0.10,Color("e5cd87"))
+			var body:=Art.solid(self,Vector3(0.10,0.8,a.distance_to(b)),(a+b)*0.5+lateral+Vector3(0,0.4,0))
+			body.look_at(b+lateral+Vector3(0,0.4,0))
+			for point in [a,b]:
+				Art.box(self,Vector3(0.09,0.75,0.09),point+lateral+Vector3(0,0.375,0),Color("657b7b"))

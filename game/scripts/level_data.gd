@@ -239,6 +239,8 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 					if accessible_fragments == 3: break
 			if accessible_fragments < 3:
 				return "The first required long hop needs three fragments reachable by short hops before the gap. Move fragments onto the starting side or open a short-hop route."
+	var journey_error := validate_city_journey(d)
+	if not journey_error.is_empty(): return journey_error
 	var streetlife_error := validate_streetlife(d)
 	return validate_traffic(d) if streetlife_error.is_empty() else streetlife_error
 
@@ -299,10 +301,22 @@ static func reachable(d: Dictionary, allow_long_hop: bool = true, target: Array 
 			blocked[Vector2i(int(o.pos[0]), int(o.pos[1]))] = true
 	var queue: Array[Vector2i] = [start]
 	var visited: Dictionary = {start: true}
+	var ramp_links: Array = []
+	if d.get("city_journey", {}) is Dictionary and d.get("city_journey", {}).get("movement", "walk") == "skate" and validate_city_journey(d).is_empty():
+		ramp_links = d.city_journey.get("ramps", [])
 	while not queue.is_empty():
 		var p: Vector2i = queue.pop_front()
 		if p == goal:
 			return true
+		# A declared skateboard launch links two ground regions. This is structural
+		# access, not a promise that any approach speed clears the wall at runtime.
+		if not ramp_links.is_empty():
+			for ramp in ramp_links:
+				if not ramp.has("landing") or p != Vector2i(roundi(ramp.from[0]), roundi(ramp.from[1])): continue
+				var landing := Vector2i(roundi(ramp.landing[0]), roundi(ramp.landing[1]))
+				if not visited.has(landing) and not blocked.has(landing):
+					visited[landing] = true
+					queue.append(landing)
 		for offset in [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN]:
 			for distance in ([1,2] if d.get("game_mode") == "tile" and allow_long_hop else [1]):
 				var n: Vector2i = p + offset * distance
@@ -386,6 +400,82 @@ static func spike_segment_open(d: Dictionary, from: Array, to: Array) -> bool:
 		if not spike_cell_open(d,start+direction*i): return false
 	return true
 
+static func rect_valid(rect: Variant, w: int, h: int) -> bool:
+	if not rect is Array or rect.size() != 4: return false
+	for number in rect:
+		if not finite_number(number) or number != int(number): return false
+	return rect[0] >= 1 and rect[1] >= 1 and rect[2] < w - 1 and rect[3] < h - 1 and rect[0] <= rect[2] and rect[1] <= rect[3]
+
+static func bridge_surface_height(d: Dictionary, point: Vector2) -> float:
+	var height := 0.0
+	for bridge in d.get("city_journey", {}).get("bridges", []):
+		var rect: Array = bridge.rect
+		if point.x < rect[0] - 0.5 or point.x > rect[2] + 0.5 or point.y < rect[1] - 0.5 or point.y > rect[3] + 0.5: continue
+		var axis := 0 if bridge.axis == "x" else 1
+		var along := point.x if axis == 0 else point.y
+		var distance: float = minf(along - float(rect[axis]) + 0.5, float(rect[axis + 2]) + 0.5 - along)
+		height = maxf(height, float(bridge.height) * clampf(distance / float(bridge.ramp_cells), 0, 1))
+	return height
+
+static func validate_city_journey(d: Dictionary) -> String:
+	var journey: Variant = d.get("city_journey", {})
+	if not journey is Dictionary: return "City journey must be an object."
+	if not journey.is_empty():
+		if d.get("game_mode", "hopan") != "hopan" or d.theme != "nyc": return "City traversal is available on continuous NYC levels."
+		if journey.get("movement", "walk") not in ["walk", "skate"]: return "City movement must be walk or skate."
+		for key in journey:
+			if key not in ["movement", "ice", "bridges", "ramps", "rails", "buildings", "parks"]: return "Unknown city journey field: " + str(key)
+		for key in ["ice", "bridges", "ramps", "rails", "buildings", "parks"]:
+			if not journey.get(key, []) is Array or journey.get(key, []).size() > 16: return "City traversal supports up to 16 features of each kind."
+		for building in journey.get("buildings", []):
+			if not building is Dictionary or not rect_valid(building.get("rect"), d.width, d.height): return "City buildings need ordered interior rectangles of whole cells."
+			if not finite_number(building.get("height")) or building.height < 1 or building.height > 7: return "City building height must be between 1 and 7 world units."
+			for y in range(int(building.rect[1]), int(building.rect[3]) + 1):
+				for x in range(int(building.rect[0]), int(building.rect[2]) + 1):
+					if d.tiles[y][x] != "wall": return "City buildings must sit entirely on blocked wall footprints."
+		for patch in journey.get("ice", []):
+			if not patch is Dictionary or not rect_valid(patch.get("rect"), d.width, d.height): return "Ice needs an ordered interior rectangle of whole cells."
+		for park in journey.get("parks", []):
+			if not park is Dictionary or not rect_valid(park.get("rect"), d.width, d.height): return "Parks need ordered interior rectangles of whole cells."
+		for bridge in journey.get("bridges", []):
+			if not bridge is Dictionary or not rect_valid(bridge.get("rect"), d.width, d.height): return "Bridges need ordered interior rectangles of whole cells."
+			if bridge.get("axis") not in ["x", "z"]: return "Bridge axis must be x or z."
+			if not finite_number(bridge.get("height")) or bridge.height < 1.6 or bridge.height > 4: return "Bridge height must be between 1.6 and 4 world units."
+			if not finite_number(bridge.get("ramp_cells")) or bridge.ramp_cells != int(bridge.ramp_cells) or bridge.ramp_cells < 1 or bridge.ramp_cells > 8: return "Bridge ramps need 1 to 8 whole cells."
+			var axis := 0 if bridge.axis == "x" else 1
+			if bridge.rect[axis + 2] - bridge.rect[axis] + 1 < bridge.ramp_cells * 2 + 1: return "Bridge length must include both ramps and a level deck."
+		for key in ["ramps", "rails"]:
+			for feature in journey.get(key, []):
+				if not feature is Dictionary or not point_valid(feature.get("from"), d.width, d.height) or not point_valid(feature.get("to"), d.width, d.height): return "Skate features need two endpoints inside the map."
+				var a := Vector2(feature.from[0], feature.from[1])
+				var b := Vector2(feature.to[0], feature.to[1])
+				if (a.x != b.x and a.y != b.y) or a.distance_to(b) < 0.5 or a.distance_to(b) > 16: return "Skate features need distinct cardinal endpoints 0.5 to 16 cells apart."
+				var height_key := "rise" if key == "ramps" else "height"
+				if not finite_number(feature.get(height_key)) or feature[height_key] < 0.2 or feature[height_key] > 1.2: return "Skate ramp and rail heights must be between 0.2 and 1.2."
+				if key == "ramps":
+					for step in range(ceili(a.distance_to(b) * 2) + 1):
+						var point := a.lerp(b, float(step) / maxf(1, ceili(a.distance_to(b) * 2)))
+						if not checkpoint_open(d, [roundi(point.x), roundi(point.y)], true): return "Ramp approaches must stay on clear dry ground up to the lip."
+				if key == "ramps" and feature.has("landing"):
+					if journey.get("movement", "walk") != "skate" or not point_valid(feature.landing, d.width, d.height): return "Declared ramp landings need skate movement and an interior point."
+					var landing := Vector2(feature.landing[0], feature.landing[1])
+					var direction := (b - a).normalized()
+					var distance := (landing - b).dot(direction)
+					if landing.x != floorf(landing.x) or landing.y != floorf(landing.y) or absf((landing - b).cross(direction)) > 0.001 or distance < 2 or distance > 4: return "Ramp landings need whole cells 2 to 4 cells beyond the lip in its launch direction."
+					if not checkpoint_open(d, feature.landing, true) or not checkpoint_open(d, feature.from, true): return "Ramp approach and landing need clear dry ground."
+	var encounters: Variant = d.get("park_encounters", [])
+	if not encounters is Array or encounters.size() > 24: return "Park encounters support up to 24 hazards."
+	var ids := {}
+	for encounter in encounters:
+		if not encounter is Dictionary or not encounter.get("id") is String or encounter.id.is_empty() or ids.has(encounter.id): return "Park encounters need unique IDs."
+		ids[encounter.id] = true
+		if encounter.get("kind") not in ["ambusher", "pigeons", "purse", "ice_duet"] or not point_valid(encounter.get("pos"), d.width, d.height): return "Park encounters need a known kind and an interior position."
+		var direction: Variant = encounter.get("direction", [0, 1])
+		if not direction is Array or direction.size() != 2 or not finite_number(direction[0]) or not finite_number(direction[1]) or absf(float(direction[0])) + absf(float(direction[1])) != 1 or (direction[0] != 0 and direction[1] != 0): return "Park hazard direction must be a cardinal unit vector."
+		if not finite_number(encounter.get("phase", 0)) or encounter.get("phase", 0) < 0 or encounter.get("phase", 0) > 60: return "Park hazard phase must be between 0 and 60 seconds."
+		if not finite_number(encounter.get("radius", 2.0)) or encounter.get("radius", 2.0) < 0.5 or encounter.get("radius", 2.0) > 8: return "Park duet radius must be between 0.5 and 8 world units."
+	return ""
+
 static func validate_streetlife(d: Dictionary) -> String:
 	var area: Variant = d.get("skate_area", {})
 	if not area is Dictionary:
@@ -418,8 +508,9 @@ static func validate_streetlife(d: Dictionary) -> String:
 		for node in route:
 			if not node is Dictionary or not point_valid(node.get("pos"), d.width, d.height):
 				return "Skater route points must be inside the map."
-			if not finite_number(node.get("height", 0.0)) or node.get("height", 0.0) < 0 or node.get("height", 0.0) > 1.2:
-				return "Skater route heights must be between 0 and 1.2."
+			var surface := bridge_surface_height(d, Vector2(node.pos[0], node.pos[1]))
+			if not finite_number(node.get("height", 0.0)) or node.get("height", 0.0) < 0 or (node.get("height", 0.0) > 1.2 and absf(float(node.height) - surface) > 0.06):
+				return "Elevated skater routes must match a bridge surface; ground tricks stay below 1.2."
 			if node.get("trick", "cruise") not in SKATE_TRICKS:
 				return "Unknown skateboard action."
 			if not area.is_empty() and Vector2(node.pos[0] - area.center[0], node.pos[1] - area.center[1]).length() > float(area.diameter) * 0.5:
@@ -436,6 +527,9 @@ static func validate_streetlife(d: Dictionary) -> String:
 			# pond or ordinary solid prop between valid endpoints.
 			for sample_index in range(ceili(length * 4) + 1):
 				var point := a.lerp(b, float(sample_index) / maxf(1, ceili(length * 4)))
+				var route_height := lerpf(float(route[i].get("height", 0)), float(route[(i + 1) % route.size()].get("height", 0)), float(sample_index) / maxf(1, ceili(length * 4)))
+				if route_height > 1.2 and absf(route_height - bridge_surface_height(d, point)) > 0.06:
+					return "Elevated skater segments must follow the bridge surface."
 				var x := roundi(point.x)
 				var y := roundi(point.y)
 				for obstacle in d.objects:
@@ -470,11 +564,19 @@ static func validate_traffic(d: Dictionary) -> String:
 		for kind in lane.vehicles:
 			if kind not in ["taxi", "sedan", "bus", "truck"]:
 				return "Unknown traffic vehicle."
-		for x in range(1, int(d.width) - 1):
+		var columns: Variant = lane.get("columns", [1, int(d.width) - 2])
+		if not columns is Array or columns.size() != 2 or not finite_number(columns[0]) or not finite_number(columns[1]) or columns[0] != int(columns[0]) or columns[1] != int(columns[1]) or columns[0] < 1 or columns[1] >= d.width - 1 or columns[1] - columns[0] < 3: return "Traffic columns need an ordered interior span of at least four whole cells."
+		var jam: Variant = lane.get("jam", {})
+		if not jam is Dictionary: return "Traffic jam timing must be an object."
+		if not jam.is_empty():
+			for key in ["stopped", "moving"]:
+				if not finite_number(jam.get(key)) or jam[key] < 0.5 or jam[key] > 15: return "Traffic jam windows must last 0.5 to 15 seconds."
+			if not finite_number(jam.get("phase", 0)) or jam.get("phase", 0) < 0 or jam.get("phase", 0) > 60: return "Traffic jam phase must be between 0 and 60 seconds."
+		for x in range(int(columns[0]), int(columns[1]) + 1):
 			if d.tiles[int(row)][x] != "road":
 				return "A traffic lane needs a complete interior road row."
 		for obj in d.objects:
-			if absf(float(obj.pos[1]) - float(row)) < 0.85:
+			if absf(float(obj.pos[1]) - float(row)) < 0.85 and obj.pos[0] >= columns[0] - 0.5 and obj.pos[0] <= columns[1] + 0.5 and not (obj.type == "skater" and bridge_surface_height(d, Vector2(obj.pos[0], obj.pos[1])) >= 1.6):
 				return "Keep traffic lanes clear of scenery and critters."
 		if int(d.spawn[1]) == int(row) or int(d.exit[1]) == int(row):
 			return "Place the start and exit on a safe sidewalk."

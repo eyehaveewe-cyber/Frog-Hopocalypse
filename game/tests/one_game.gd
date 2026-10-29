@@ -19,6 +19,7 @@ func run() -> void:
 	check(app.overlay_box.find_children("*","Button",true,false)[0].text == "Play Baby Mode", "First frog-screen action starts Baby Mode")
 	app.completed_stages = [0,1,2,3]
 	app.completed_human_stages = [0,1,2,3]
+	app.city_progress.city_journey = [0] # Returning-player fixture unlocks Skate Escape.
 	var count := 0
 	for key in app.SET_TITLES:
 		for i in range(app.paths_for_set(key).size()):
@@ -26,7 +27,7 @@ func run() -> void:
 			check(app.Data.reachable(app.level),"Structural route: "+str(app.level.name))
 			count += 1
 			await process_frame
-	check(count == 33,"All 33 campaign levels are present")
+	check(count == 35,"All 35 campaign levels are present")
 	app.play_builtin(0,"nyc")
 	check(app.world.traffic.vehicles.size() > 0,"NYC moving traffic is instantiated")
 	var clock: float = app.world.traffic.clock
@@ -40,7 +41,7 @@ func run() -> void:
 	app.world.finish("LEVEL COMPLETE!")
 	check(5 in app.city_progress.streetlife,"City clears use common campaign progression")
 	app.save_profile()
-	app.city_progress = {"nyc":[],"streetlife":[]}
+	app.city_progress = {"nyc":[],"streetlife":[],"city_journey":[]}
 	app.load_profile()
 	check(5 in app.city_progress.streetlife and app.completed_stages.size()==4,"City and Baby progression survive one profile reload")
 	var base: Dictionary = app.Data.blank("Earlier save")

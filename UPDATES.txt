@@ -1,3 +1,7 @@
+2026-10-29 — City Journey and unlockable Skate Escape
+
+Added a large connected city/park level and a playable skateboard course to the same game (35 total campaign levels). Timed traffic jams, elevated bridge collisions, roach patrols, telegraphed park attacks, sliding ice and a paired skating routine. Skate Escape uses acceleration, braking, ollies, ramp wall-jumps and rail grinds. Existing campaigns and saved progress remain. See docs/CITY_JOURNEY_RELEASE.md for controls, actual checks and limitations.
+
 2026-10-21 — Five Moves When You Move stages and hourglass reward
 
 1. Published v48 at https://hopan.fiiendward.chatgpt.site.

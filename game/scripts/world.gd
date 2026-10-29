@@ -18,7 +18,12 @@ const Props = preload("res://scripts/streetlife_specs.gd")
 const Streetlife = preload("res://scripts/nyc_streetlife_art.gd")
 const Roach = preload("res://scripts/roach.gd")
 const Skater = preload("res://scripts/skater.gd")
+const CityJourney = preload("res://scripts/city_journey.gd")
+const ParkHazards = preload("res://scripts/park_hazards.gd")
 var traffic: Node3D
+var journey: Node3D
+var park_hazards: Node3D
+var brake_input := false
 var skaters: Array = []
 const CELL = 1.8
 var level: Dictionary = {}
@@ -127,6 +132,10 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	halted = false
 	elapsed = 0
 	input_vector = Vector2.ZERO
+	brake_input = false
+	long_hop_input = false
+	journey = null
+	park_hazards = null
 	claimed_checkpoints.clear()
 	checkpoint_flags.clear()
 	critters.clear()
@@ -189,6 +198,10 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 				if city:
 					texture_kind = "asphalt" if tile == "road" else ("city_pavers" if tile == "path" else "concrete")
 					color = Color.WHITE
+					if tile == "floor":
+						for park in level.get("city_journey",{}).get("parks",[]):
+							var bounds: Array = park.rect
+							if x >= bounds[0] and x <= bounds[2] and z >= bounds[1] and z <= bounds[3]: texture_kind = "grass"
 				if tunnel_terrain == "road":
 					texture_kind = "road"
 					color = Color.WHITE
@@ -317,6 +330,14 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	player.visual.scale = Vector3.ONE * (1.5 if level.get("game_mode", "hopan") == "tile" else 1.12)
 	player.position = cell_position(level.spawn)
 	geometry.add_child(player)
+	if not level.get("city_journey", {}).is_empty():
+		journey = CityJourney.new()
+		geometry.add_child(journey)
+		journey.setup(level, self)
+	if not level.get("park_encounters", []).is_empty():
+		park_hazards = ParkHazards.new()
+		geometry.add_child(park_hazards)
+		park_hazards.setup(level, self)
 	if edit:
 		var start := Art.cylinder(geometry, 0.65, 0.65, 0.025, player.position + Vector3(0, 0.015, 0), Color("90b88b"))
 		start.name = "StartMarker"
@@ -332,6 +353,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	geometry.add_child(route_root)
 	underlay.name = "HorizonOcean"
 	var excluded: Array = [player, cursor, gate, route_root, crossing, spikes, landmarks, backdrops, underlay, traffic] + critters + skaters
+	if is_instance_valid(journey): excluded.append(journey)
+	if is_instance_valid(park_hazards): excluded.append(park_hazards)
 	for pickup in hop_pickups: excluded.append(pickup.node)
 	for emitter in emitters:
 		excluded.append(emitter.model)
@@ -382,8 +405,15 @@ func update_camera(weight: float) -> void:
 		preview_camera()
 		return
 	if not editing and not map_view and is_instance_valid(player):
-		camera_target = camera_target.lerp(player.position + Vector3(0, 0.25, -2.0), weight)
-		camera.position = camera_target + Vector3(0, 4.6, 8.0)
+		var lead := Vector3(0, 0.25, -2.0)
+		var offset := Vector3(0,4.6,8.0)
+		if is_instance_valid(journey):
+			# More overhead coverage and forward lead make the southbound return leg
+			# readable without reversing controls or abruptly rotating the camera.
+			lead = Vector3(journey.facing.x*2.8,0.25,journey.facing.z*2.8)
+			offset = Vector3(0,10.5,8.0)
+		camera_target = camera_target.lerp(player.position + lead, weight)
+		camera.position = camera_target + offset
 	else:
 		camera.position = camera_target + Vector3(0, 30, 22)
 	camera.look_at(camera_target + landmark_focus_offset())
@@ -515,12 +545,19 @@ func _physics_process(delta: float) -> void:
 		crossing.advance(delta,player)
 	else:
 		crossing.advance(delta, player)
-		player.step(delta, input_vector)
+		if is_instance_valid(journey): journey.step(delta,input_vector,long_hop_input,brake_input)
+		else: player.step(delta, input_vector)
 		update_camera(minf(1, delta * 8))
 	traffic.step(delta)
 	if traffic.hits_player(previous_player,player.position):
 		finish("SQUISHED!")
 		return
+	if is_instance_valid(park_hazards):
+		park_hazards.step(delta)
+		var park_hit: String = park_hazards.hits_player(previous_player,player.position)
+		if not park_hit.is_empty():
+			finish(park_hit)
+			return
 	for rider in skaters:
 		rider.step(delta)
 		if rider.hits_player(previous_player,player.position):
@@ -591,6 +628,9 @@ func update_level_hint() -> void:
 		if distance < closest:
 			closest = distance
 			text = entry.text.replace("\n", " · ")
+	if is_instance_valid(park_hazards):
+		var warning: String = park_hazards.get_hint()
+		if not warning.is_empty(): text = warning
 	if not text.is_empty() and text != last_hint:
 		last_hint = text
 		hint_changed.emit(text)

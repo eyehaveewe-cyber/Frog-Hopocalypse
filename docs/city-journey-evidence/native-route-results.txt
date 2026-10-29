@@ -1,0 +1,109 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Route level validates: 0
+LEG 1 [6, 52] time=0.01666666666667
+LEG 2 [8, 47] time=1.5
+LEG 3 [12, 46] time=6.99999999999998
+LEG 4 [12, 42] time=8.91666666666669
+LEG 5 [19, 42] time=10.8166666666668
+LEG 6 [19, 44] time=14.0166666666669
+LEG 7 [20, 44] time=15.0833333333337
+LEG 8 [20, 31] time=15.7333333333337
+LEG 9 [19, 30] time=21.4833333333334
+LEG 10 [12, 29] time=22.3166666666667
+LEG 11 [12, 23] time=25.7666666666665
+LEG 12 [11, 23] time=28.533333333333
+LEG 13 [11, 17] time=29.1666666666663
+LEG 14 [12, 12] time=31.9499999999995
+LEG 15 [21, 12] time=34.266666666666
+LEG 16 [23, 11] time=38.3166666666658
+LEG 17 [30, 11] time=39.4666666666657
+LEG 18 [32, 12] time=42.5999999999989
+LEG 19 [38, 12] time=43.6999999999988
+LEG 20 [38, 18] time=46.3999999999986
+LEG 21 [38, 20] time=49.1666666666652
+LEG 22 [41, 20] time=50.1499999999984
+LEG 23 [41, 24] time=51.6333333333317
+LEG 24 [44, 24] time=53.5499999999982
+LEG 25 [44, 35] time=55.0499999999982
+LEG 26 [41, 36] time=59.9666666666645
+LEG 27 [41, 42] time=61.4999999999978
+LEG 28 [41, 48] time=64.2499999999976
+LEG 29 [41, 55] time=66.9499999999975
+PASS: Full continuous live-hazard route reaches exit: City Journey 01 · Blocks, Bridge & Central Park phase=0.0
+PASS: City continuous route claimed all five retry checkpoints
+PASS: City route traversed raised bridge and sliding rink
+ROUTE EVIDENCE: level=1 phase=0.00 simulated=69.73s waited=3.12s traveled=264.53m height=2.00m ice_frames=257 ramps=0 rails=0 result=LEVEL COMPLETE!
+PASS: Route level validates: 0
+LEG 1 [6, 52] time=0.78333333333333
+LEG 2 [8, 47] time=2.26666666666666
+LEG 3 [12, 46] time=6.99999999999998
+LEG 4 [12, 42] time=8.91666666666669
+LEG 5 [19, 42] time=10.8166666666668
+LEG 6 [19, 44] time=14.0166666666669
+LEG 7 [20, 44] time=15.0833333333337
+LEG 8 [20, 31] time=15.7333333333337
+LEG 9 [19, 30] time=21.4833333333334
+LEG 10 [12, 29] time=22.3166666666667
+LEG 11 [12, 23] time=25.7666666666665
+LEG 12 [11, 23] time=28.533333333333
+LEG 13 [11, 17] time=29.1666666666663
+LEG 14 [12, 12] time=31.9499999999995
+LEG 15 [21, 12] time=34.266666666666
+LEG 16 [23, 11] time=38.3166666666658
+LEG 17 [30, 11] time=39.4666666666657
+LEG 18 [32, 12] time=42.5999999999989
+LEG 19 [38, 12] time=43.6999999999988
+LEG 20 [38, 18] time=46.3999999999986
+LEG 21 [38, 20] time=49.1666666666652
+LEG 22 [41, 20] time=50.1499999999984
+LEG 23 [41, 24] time=51.6333333333317
+LEG 24 [44, 24] time=53.5499999999982
+LEG 25 [44, 35] time=55.0499999999982
+LEG 26 [41, 36] time=59.9666666666645
+LEG 27 [41, 42] time=61.4999999999978
+LEG 28 [41, 48] time=64.2499999999976
+LEG 29 [41, 55] time=66.9499999999975
+PASS: Full continuous live-hazard route reaches exit: City Journey 01 · Blocks, Bridge & Central Park phase=0.75
+PASS: City continuous route claimed all five retry checkpoints
+PASS: City route traversed raised bridge and sliding rink
+ROUTE EVIDENCE: level=1 phase=0.75 simulated=69.73s waited=2.35s traveled=264.53m height=2.00m ice_frames=257 ramps=0 rails=0 result=LEVEL COMPLETE!
+PASS: Route level validates: 1
+LEG 1 [9, 29] time=0.03333333333333
+LEG 2 [5, 29] time=2.96666666666666
+LEG 3 [5, 28] time=4.61666666666666
+LEG 4 [5, 22] time=5.19999999999999
+LEG 5 [10, 22] time=7.29999999999998
+LEG 6 [10, 26] time=9.1666666666667
+LEG 7 [16, 26] time=10.7833333333334
+LEG 8 [21, 24] time=12.9000000000002
+LEG 9 [30, 24] time=14.816666666667
+LEG 10 [29, 22] time=17.7000000000003
+LEG 11 [29, 21] time=19.0166666666669
+LEG 12 [29, 15] time=19.5000000000002
+LEG 13 [30, 15] time=21.75
+LEG 14 [30, 8] time=22.65
+LEG 15 [30, 4] time=25.0833333333332
+PASS: Full continuous live-hazard route reaches exit: City Journey 02 · Skate Escape phase=0.0
+PASS: Skate route launched three walls and rode a rail
+ROUTE EVIDENCE: level=2 phase=0.00 simulated=26.18s waited=0.00s traveled=139.11m height=2.73m ice_frames=0 ramps=3 rails=2 result=LEVEL COMPLETE!
+PASS: Route level validates: 1
+LEG 1 [9, 29] time=0.78333333333333
+LEG 2 [5, 29] time=3.71666666666666
+LEG 3 [5, 28] time=5.36666666666665
+LEG 4 [5, 22] time=5.94999999999998
+LEG 5 [10, 22] time=8.04999999999998
+LEG 6 [10, 26] time=9.91666666666674
+LEG 7 [16, 26] time=11.5333333333335
+LEG 8 [21, 24] time=13.6500000000003
+LEG 9 [30, 24] time=15.566666666667
+LEG 10 [29, 22] time=18.4500000000002
+LEG 11 [29, 21] time=19.7666666666668
+LEG 12 [29, 15] time=20.2500000000001
+LEG 13 [30, 15] time=22.5
+LEG 14 [30, 8] time=23.4
+LEG 15 [30, 4] time=25.8333333333331
+PASS: Full continuous live-hazard route reaches exit: City Journey 02 · Skate Escape phase=0.75
+PASS: Skate route launched three walls and rode a rail
+ROUTE EVIDENCE: level=2 phase=0.75 simulated=26.93s waited=0.00s traveled=139.11m height=2.73m ice_frames=0 ramps=3 rails=2 result=LEVEL COMPLETE!
+CITY JOURNEY ROUTES: 14 checks, 0 failures

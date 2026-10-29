@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Walk up actual overpass ramp onto 2m deck
+PASS: Bridge support stays attached across deck
+PASS: Walk down opposite ramp to street height
+PASS: Cross full overpass without wall bypass or teleport
+PASS: Approaching bridge laterally stays underneath instead of snapping upward
+PASS: Ice retains readable sliding momentum after input release
+PASS: Brake stops ice sliding under player control
+PASS: Dry walking still stops promptly
+PASS: Forward ramp traversal launches once at lip
+PASS: Ramp jump reaches visible clearance over wall
+PASS: Actual swept body clears wall after ramp launch
+PASS: Ramp flight lands back on ground
+PASS: Same wall still blocks skateboard without ramp
+PASS: Ordinary ollie cannot bypass tall route wall
+PASS: Holding jump does not cause automatic repeated jumps
+PASS: Aligned approach mounts and grinds the authored rail
+PASS: Grind exits rail forward into normal riding
+PASS: Rail exit returns safely to street
+PASS: 30/60/120Hz acceleration travel agrees within 10cm
+PASS: Ramp clears and lands past wall at 30Hz
+PASS: Ramp clears and lands past wall at 60Hz
+PASS: Ramp clears and lands past wall at 120Hz
+PASS: Ramp flight travel stays within 15cm between 30 and 120Hz
+PASS: Ground skater cannot hit frog on overpass
+PASS: Ground skater remains dangerous at same height
+PASS: Overpass skater cannot hit frog underneath
+City journey movement: 26 checks, 0 failures
