@@ -1,0 +1,132 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Map validates: 0
+PASS: Live traversal has a safe-sidewalk route: NYC 01 · Central Park
+PASS: Full route reaches the exit with traffic and AI active: NYC 01 · Central Park
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 01 · Central Park
+NYC ROUTE: NYC 01 · Central Park, phase=0.00, 20 cells, 2 bands, 1.35s waiting, 9.77s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 1
+PASS: Live traversal has a safe-sidewalk route: NYC 02 · Brownstone Blocks
+PASS: Full route reaches the exit with traffic and AI active: NYC 02 · Brownstone Blocks
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 02 · Brownstone Blocks
+NYC ROUTE: NYC 02 · Brownstone Blocks, phase=0.00, 36 cells, 4 bands, 4.02s waiting, 19.27s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 2
+PASS: Live traversal has a safe-sidewalk route: NYC 03 · East River Piers
+PASS: Full route reaches the exit with traffic and AI active: NYC 03 · East River Piers
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 03 · East River Piers
+NYC ROUTE: NYC 03 · East River Piers, phase=0.00, 34 cells, 3 bands, 2.80s waiting, 17.18s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 3
+PASS: Live traversal has a safe-sidewalk route: NYC 04 · Broadway After Dark
+PASS: Full route reaches the exit with traffic and AI active: NYC 04 · Broadway After Dark
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 04 · Broadway After Dark
+NYC ROUTE: NYC 04 · Broadway After Dark, phase=0.00, 44 cells, 3 bands, 3.15s waiting, 21.78s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 4
+PASS: Live traversal has a safe-sidewalk route: NYC 05 · Midtown Rush Hour
+PASS: Full route reaches the exit with traffic and AI active: NYC 05 · Midtown Rush Hour
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 05 · Midtown Rush Hour
+NYC ROUTE: NYC 05 · Midtown Rush Hour, phase=0.00, 56 cells, 4 bands, 6.92s waiting, 30.73s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 5
+PASS: Live traversal has a safe-sidewalk route: NYC 06 · Brooklyn Skate Circle
+PASS: Full route reaches the exit with traffic and AI active: NYC 06 · Brooklyn Skate Circle
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 06 · Brooklyn Skate Circle
+NYC ROUTE: NYC 06 · Brooklyn Skate Circle, phase=0.00, 26 cells, 0 bands, 0.00s waiting, 10.95s simulated, result=LEVEL COMPLETE!
+NYC ROUTES: 24 checks, 0 failures
+PASS: Map validates: 0
+PASS: Live traversal has a safe-sidewalk route: NYC 01 · Central Park
+PASS: Full route reaches the exit with traffic and AI active: NYC 01 · Central Park
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 01 · Central Park
+NYC ROUTE: NYC 01 · Central Park, phase=0.75, 20 cells, 2 bands, 0.58s waiting, 9.77s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 1
+PASS: Live traversal has a safe-sidewalk route: NYC 02 · Brownstone Blocks
+PASS: Full route reaches the exit with traffic and AI active: NYC 02 · Brownstone Blocks
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 02 · Brownstone Blocks
+NYC ROUTE: NYC 02 · Brownstone Blocks, phase=0.75, 36 cells, 4 bands, 3.27s waiting, 19.27s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 2
+PASS: Live traversal has a safe-sidewalk route: NYC 03 · East River Piers
+PASS: Full route reaches the exit with traffic and AI active: NYC 03 · East River Piers
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 03 · East River Piers
+NYC ROUTE: NYC 03 · East River Piers, phase=0.75, 34 cells, 3 bands, 2.05s waiting, 17.18s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 3
+PASS: Live traversal has a safe-sidewalk route: NYC 04 · Broadway After Dark
+PASS: Full route reaches the exit with traffic and AI active: NYC 04 · Broadway After Dark
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 04 · Broadway After Dark
+NYC ROUTE: NYC 04 · Broadway After Dark, phase=0.75, 44 cells, 3 bands, 2.40s waiting, 21.78s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 4
+PASS: Live traversal has a safe-sidewalk route: NYC 05 · Midtown Rush Hour
+PASS: Full route reaches the exit with traffic and AI active: NYC 05 · Midtown Rush Hour
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 05 · Midtown Rush Hour
+NYC ROUTE: NYC 05 · Midtown Rush Hour, phase=0.75, 56 cells, 4 bands, 6.17s waiting, 30.73s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 5
+PASS: Live traversal has a safe-sidewalk route: NYC 06 · Brooklyn Skate Circle
+PASS: Full route reaches the exit with traffic and AI active: NYC 06 · Brooklyn Skate Circle
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 06 · Brooklyn Skate Circle
+NYC ROUTE: NYC 06 · Brooklyn Skate Circle, phase=0.75, 26 cells, 0 bands, 3.47s waiting, 15.17s simulated, result=LEVEL COMPLETE!
+NYC ROUTES: 48 checks, 0 failures
+PASS: Map validates: 0
+PASS: Live traversal has a safe-sidewalk route: NYC 01 · Central Park
+PASS: Full route reaches the exit with traffic and AI active: NYC 01 · Central Park
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 01 · Central Park
+NYC ROUTE: NYC 01 · Central Park, phase=1.50, 20 cells, 2 bands, 3.77s waiting, 13.70s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 1
+PASS: Live traversal has a safe-sidewalk route: NYC 02 · Brownstone Blocks
+PASS: Full route reaches the exit with traffic and AI active: NYC 02 · Brownstone Blocks
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 02 · Brownstone Blocks
+NYC ROUTE: NYC 02 · Brownstone Blocks, phase=1.50, 36 cells, 4 bands, 2.52s waiting, 19.27s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 2
+PASS: Live traversal has a safe-sidewalk route: NYC 03 · East River Piers
+PASS: Full route reaches the exit with traffic and AI active: NYC 03 · East River Piers
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 03 · East River Piers
+NYC ROUTE: NYC 03 · East River Piers, phase=1.50, 34 cells, 3 bands, 1.30s waiting, 17.18s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 3
+PASS: Live traversal has a safe-sidewalk route: NYC 04 · Broadway After Dark
+PASS: Full route reaches the exit with traffic and AI active: NYC 04 · Broadway After Dark
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 04 · Broadway After Dark
+NYC ROUTE: NYC 04 · Broadway After Dark, phase=1.50, 44 cells, 3 bands, 7.53s waiting, 27.67s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 4
+PASS: Live traversal has a safe-sidewalk route: NYC 05 · Midtown Rush Hour
+PASS: Full route reaches the exit with traffic and AI active: NYC 05 · Midtown Rush Hour
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 05 · Midtown Rush Hour
+NYC ROUTE: NYC 05 · Midtown Rush Hour, phase=1.50, 56 cells, 4 bands, 5.42s waiting, 30.73s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 5
+PASS: Live traversal has a safe-sidewalk route: NYC 06 · Brooklyn Skate Circle
+PASS: Full route reaches the exit with traffic and AI active: NYC 06 · Brooklyn Skate Circle
+PASS: Live traversal crossed avenue bands without stopping traffic: NYC 06 · Brooklyn Skate Circle
+NYC ROUTE: NYC 06 · Brooklyn Skate Circle, phase=1.50, 26 cells, 0 bands, 2.72s waiting, 15.17s simulated, result=LEVEL COMPLETE!
+NYC ROUTES: 72 checks, 0 failures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Authored skate plaza loads for contact inspection
+PASS: Actual authored rail supports instantiate
+PASS: GrindRail mesh top is 0.650000 world units
+PASS: GrindRail mesh top is 0.650000 world units
+PASS: plaza-skater-0 at 30 Hz keeps planted soles within 0.025 of deck
+PASS: plaza-skater-0 at 30 Hz trucks contact actual rails within 0.00001
+SKATER CONTACT: plaza-skater-0, 30 Hz, sole error=0.016500, rail error=0.000000, rail samples=74, states=["push", "cruise", "ramp", "grind"]
+PASS: plaza-skater-1 at 30 Hz keeps planted soles within 0.025 of deck
+SKATER CONTACT: plaza-skater-1, 30 Hz, sole error=0.016500, rail error=0.000000, rail samples=0, states=["push", "ramp", "cruise"]
+PASS: plaza-skater-2 at 30 Hz keeps planted soles within 0.025 of deck
+PASS: plaza-skater-2 at 30 Hz trucks contact actual rails within 0.00001
+SKATER CONTACT: plaza-skater-2, 30 Hz, sole error=0.016500, rail error=0.000000, rail samples=89, states=["push", "ramp", "grind", "cruise"]
+PASS: plaza-skater-0 at 60 Hz keeps planted soles within 0.025 of deck
+PASS: plaza-skater-0 at 60 Hz trucks contact actual rails within 0.00001
+PASS: plaza-skater-0 at 60 Hz matches the 30 Hz route position
+SKATER CONTACT: plaza-skater-0, 60 Hz, sole error=0.016500, rail error=0.000000, rail samples=147, states=["push", "cruise", "ramp", "grind"]
+PASS: plaza-skater-1 at 60 Hz keeps planted soles within 0.025 of deck
+PASS: plaza-skater-1 at 60 Hz matches the 30 Hz route position
+SKATER CONTACT: plaza-skater-1, 60 Hz, sole error=0.016500, rail error=0.000000, rail samples=0, states=["push", "ramp", "cruise"]
+PASS: plaza-skater-2 at 60 Hz keeps planted soles within 0.025 of deck
+PASS: plaza-skater-2 at 60 Hz trucks contact actual rails within 0.00001
+PASS: plaza-skater-2 at 60 Hz matches the 30 Hz route position
+SKATER CONTACT: plaza-skater-2, 60 Hz, sole error=0.016500, rail error=0.000000, rail samples=178, states=["push", "ramp", "grind", "cruise"]
+PASS: plaza-skater-0 at 120 Hz keeps planted soles within 0.025 of deck
+PASS: plaza-skater-0 at 120 Hz trucks contact actual rails within 0.00001
+PASS: plaza-skater-0 at 120 Hz matches the 30 Hz route position
+SKATER CONTACT: plaza-skater-0, 120 Hz, sole error=0.016500, rail error=0.000000, rail samples=294, states=["push", "cruise", "ramp", "grind"]
+PASS: plaza-skater-1 at 120 Hz keeps planted soles within 0.025 of deck
+PASS: plaza-skater-1 at 120 Hz matches the 30 Hz route position
+SKATER CONTACT: plaza-skater-1, 120 Hz, sole error=0.016500, rail error=0.000000, rail samples=0, states=["push", "ramp", "cruise"]
+PASS: plaza-skater-2 at 120 Hz keeps planted soles within 0.025 of deck
+PASS: plaza-skater-2 at 120 Hz trucks contact actual rails within 0.00001
+PASS: plaza-skater-2 at 120 Hz matches the 30 Hz route position
+SKATER CONTACT: plaza-skater-2, 120 Hz, sole error=0.016500, rail error=0.000000, rail samples=358, states=["push", "ramp", "grind", "cruise"]
+SKATER CONTACTS: 25 checks, 0 failures

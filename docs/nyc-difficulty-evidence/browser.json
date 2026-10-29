@@ -1,0 +1,142 @@
+{
+  "checks": [
+    "Baby Mode remains the first main-menu action",
+    "NYC 01 · Central Park: selected from the real level menu and renders the packaged candidate layout",
+    "NYC 01 · Central Park: overhead inspection pauses the hazards",
+    "NYC 02 · Brownstone Blocks: selected from the real level menu and renders the packaged candidate layout",
+    "NYC 02 · Brownstone Blocks: overhead inspection pauses the hazards",
+    "NYC 03 · East River Piers: selected from the real level menu and renders the packaged candidate layout",
+    "NYC 03 · East River Piers: overhead inspection pauses the hazards",
+    "NYC 04 · Broadway After Dark: selected from the real level menu and renders the packaged candidate layout",
+    "NYC 04 · Broadway After Dark: overhead inspection pauses the hazards",
+    "NYC 05 · Midtown Rush Hour: selected from the real level menu and renders the packaged candidate layout",
+    "NYC 05 · Midtown Rush Hour: overhead inspection pauses the hazards",
+    "NYC 06 · Brooklyn Skate Circle: selected from the real level menu and renders the packaged candidate layout",
+    "NYC 06 · Brooklyn Skate Circle: overhead inspection pauses the hazards",
+    "New York City: ordinary movement reaches the southern wall and cannot pass through it",
+    "New York City: R retries the selected level at its original spawn",
+    "New York City: keyboard controls move the frog into the level after retry",
+    "Central Park: rushing straight into the pond triggers a real gameplay failure",
+    "Central Park: retry after water failure returns to the safe spawn",
+    "STREETLIFE 01 · Stoop Patrol: selected from the real level menu and renders the packaged candidate layout",
+    "STREETLIFE 01 · Stoop Patrol: overhead inspection pauses the hazards",
+    "STREETLIFE 02 · Newsstand Weave: selected from the real level menu and renders the packaged candidate layout",
+    "STREETLIFE 02 · Newsstand Weave: overhead inspection pauses the hazards",
+    "STREETLIFE 03 · Ferry Railwalk: selected from the real level menu and renders the packaged candidate layout",
+    "STREETLIFE 03 · Ferry Railwalk: overhead inspection pauses the hazards",
+    "STREETLIFE 04 · Banked Boulevard: selected from the real level menu and renders the packaged candidate layout",
+    "STREETLIFE 04 · Banked Boulevard: overhead inspection pauses the hazards",
+    "STREETLIFE 05 · Sanitation Courts: selected from the real level menu and renders the packaged candidate layout",
+    "STREETLIFE 05 · Sanitation Courts: overhead inspection pauses the hazards",
+    "STREETLIFE 06 · Block Party: selected from the real level menu and renders the packaged candidate layout",
+    "STREETLIFE 06 · Block Party: overhead inspection pauses the hazards",
+    "NYC Streetlife: ordinary movement reaches the southern wall and cannot pass through it",
+    "NYC Streetlife: R retries the selected level at its original spawn",
+    "NYC Streetlife: keyboard controls move the frog into the level after retry",
+    "Returning-player city clears and Baby Mode progress survive both redesigned sets and reload",
+    "Existing outfit and frog color survive reload",
+    "New York City: touch joystick moves the frog in landscape emulation",
+    "New York City: touch opens the overhead map",
+    "NYC Streetlife: touch joystick moves the frog in landscape emulation",
+    "NYC Streetlife: touch opens the overhead map",
+    "Normal release starts without exposing the debug probe",
+    "No captured browser or engine console errors"
+  ],
+  "errors": [],
+  "selections": [
+    {
+      "set": "nyc",
+      "stage": 0,
+      "name": "NYC 01 · Central Park",
+      "traffic": 18,
+      "skaters": 0
+    },
+    {
+      "set": "nyc",
+      "stage": 1,
+      "name": "NYC 02 · Brownstone Blocks",
+      "traffic": 18,
+      "skaters": 0
+    },
+    {
+      "set": "nyc",
+      "stage": 2,
+      "name": "NYC 03 · East River Piers",
+      "traffic": 28,
+      "skaters": 0
+    },
+    {
+      "set": "nyc",
+      "stage": 3,
+      "name": "NYC 04 · Broadway After Dark",
+      "traffic": 33,
+      "skaters": 0
+    },
+    {
+      "set": "nyc",
+      "stage": 4,
+      "name": "NYC 05 · Midtown Rush Hour",
+      "traffic": 44,
+      "skaters": 0
+    },
+    {
+      "set": "nyc",
+      "stage": 5,
+      "name": "NYC 06 · Brooklyn Skate Circle",
+      "traffic": 0,
+      "skaters": 3
+    },
+    {
+      "set": "streetlife",
+      "stage": 0,
+      "name": "STREETLIFE 01 · Stoop Patrol",
+      "traffic": 0,
+      "skaters": 0
+    },
+    {
+      "set": "streetlife",
+      "stage": 1,
+      "name": "STREETLIFE 02 · Newsstand Weave",
+      "traffic": 0,
+      "skaters": 3
+    },
+    {
+      "set": "streetlife",
+      "stage": 2,
+      "name": "STREETLIFE 03 · Ferry Railwalk",
+      "traffic": 0,
+      "skaters": 2
+    },
+    {
+      "set": "streetlife",
+      "stage": 3,
+      "name": "STREETLIFE 04 · Banked Boulevard",
+      "traffic": 11,
+      "skaters": 1
+    },
+    {
+      "set": "streetlife",
+      "stage": 4,
+      "name": "STREETLIFE 05 · Sanitation Courts",
+      "traffic": 0,
+      "skaters": 2
+    },
+    {
+      "set": "streetlife",
+      "stage": 5,
+      "name": "STREETLIFE 06 · Block Party",
+      "traffic": 21,
+      "skaters": 3
+    }
+  ],
+  "screenshots": [
+    "docs/nyc-difficulty-evidence/nyc-5-map.png",
+    "docs/nyc-difficulty-evidence/nyc-6-play.png",
+    "docs/nyc-difficulty-evidence/streetlife-6-play.png",
+    "docs/nyc-difficulty-evidence/streetlife-6-map.png",
+    "docs/nyc-difficulty-evidence/nyc-mobile.png",
+    "docs/nyc-difficulty-evidence/streetlife-mobile.png",
+    "docs/nyc-difficulty-evidence/release-main.png"
+  ],
+  "scope": "Chromium WebGL with SwiftShader. Actual mouse/keyboard/touch events and read-only debug-export observations. The normal release startup is separately checked. Not physical mobile hardware, human attempt counts, or full browser-route completion."
+}

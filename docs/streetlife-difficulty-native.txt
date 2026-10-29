@@ -1,0 +1,95 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Map validates: 0
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 01 · Stoop Patrol
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 01 · Stoop Patrol
+PASS: Live simulation advanced throughout the route: STREETLIFE 01 · Stoop Patrol
+STREETLIFE ROUTE: STREETLIFE 01 · Stoop Patrol, phase=0.00, 42 cells, 0 bands, 0.22s waiting, 17.98s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 1
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 02 · Newsstand Weave
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 02 · Newsstand Weave
+PASS: Live simulation advanced throughout the route: STREETLIFE 02 · Newsstand Weave
+STREETLIFE ROUTE: STREETLIFE 02 · Newsstand Weave, phase=0.00, 24 cells, 0 bands, 0.00s waiting, 10.12s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 2
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 03 · Ferry Railwalk
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 03 · Ferry Railwalk
+PASS: Live simulation advanced throughout the route: STREETLIFE 03 · Ferry Railwalk
+STREETLIFE ROUTE: STREETLIFE 03 · Ferry Railwalk, phase=0.00, 46 cells, 0 bands, 0.87s waiting, 20.40s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 3
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 04 · Banked Boulevard
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 04 · Banked Boulevard
+PASS: Live simulation advanced throughout the route: STREETLIFE 04 · Banked Boulevard
+STREETLIFE ROUTE: STREETLIFE 04 · Banked Boulevard, phase=0.00, 44 cells, 1 bands, 2.35s waiting, 21.03s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 4
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 05 · Sanitation Courts
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 05 · Sanitation Courts
+PASS: Live simulation advanced throughout the route: STREETLIFE 05 · Sanitation Courts
+STREETLIFE ROUTE: STREETLIFE 05 · Sanitation Courts, phase=0.00, 56 cells, 0 bands, 0.68s waiting, 24.45s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 5
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 06 · Block Party
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 06 · Block Party
+PASS: Live simulation advanced throughout the route: STREETLIFE 06 · Block Party
+STREETLIFE ROUTE: STREETLIFE 06 · Block Party, phase=0.00, 48 cells, 2 bands, 1.83s waiting, 22.20s simulated, result=LEVEL COMPLETE!
+STREETLIFE ROUTES: 24 checks, 0 failures
+PASS: Map validates: 0
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 01 · Stoop Patrol
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 01 · Stoop Patrol
+PASS: Live simulation advanced throughout the route: STREETLIFE 01 · Stoop Patrol
+STREETLIFE ROUTE: STREETLIFE 01 · Stoop Patrol, phase=0.75, 42 cells, 0 bands, 0.87s waiting, 19.40s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 1
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 02 · Newsstand Weave
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 02 · Newsstand Weave
+PASS: Live simulation advanced throughout the route: STREETLIFE 02 · Newsstand Weave
+STREETLIFE ROUTE: STREETLIFE 02 · Newsstand Weave, phase=0.75, 24 cells, 0 bands, 0.03s waiting, 10.90s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 2
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 03 · Ferry Railwalk
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 03 · Ferry Railwalk
+PASS: Live simulation advanced throughout the route: STREETLIFE 03 · Ferry Railwalk
+STREETLIFE ROUTE: STREETLIFE 03 · Ferry Railwalk, phase=0.75, 46 cells, 0 bands, 5.52s waiting, 25.80s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 3
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 04 · Banked Boulevard
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 04 · Banked Boulevard
+PASS: Live simulation advanced throughout the route: STREETLIFE 04 · Banked Boulevard
+STREETLIFE ROUTE: STREETLIFE 04 · Banked Boulevard, phase=0.75, 44 cells, 1 bands, 1.60s waiting, 21.03s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 4
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 05 · Sanitation Courts
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 05 · Sanitation Courts
+PASS: Live simulation advanced throughout the route: STREETLIFE 05 · Sanitation Courts
+STREETLIFE ROUTE: STREETLIFE 05 · Sanitation Courts, phase=0.75, 56 cells, 0 bands, 0.00s waiting, 24.52s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 5
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 06 · Block Party
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 06 · Block Party
+PASS: Live simulation advanced throughout the route: STREETLIFE 06 · Block Party
+STREETLIFE ROUTE: STREETLIFE 06 · Block Party, phase=0.75, 48 cells, 2 bands, 1.08s waiting, 22.20s simulated, result=LEVEL COMPLETE!
+STREETLIFE ROUTES: 48 checks, 0 failures
+PASS: Map validates: 0
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 01 · Stoop Patrol
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 01 · Stoop Patrol
+PASS: Live simulation advanced throughout the route: STREETLIFE 01 · Stoop Patrol
+STREETLIFE ROUTE: STREETLIFE 01 · Stoop Patrol, phase=1.50, 42 cells, 0 bands, 6.42s waiting, 25.70s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 1
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 02 · Newsstand Weave
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 02 · Newsstand Weave
+PASS: Live simulation advanced throughout the route: STREETLIFE 02 · Newsstand Weave
+STREETLIFE ROUTE: STREETLIFE 02 · Newsstand Weave, phase=1.50, 24 cells, 0 bands, 0.50s waiting, 12.12s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 2
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 03 · Ferry Railwalk
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 03 · Ferry Railwalk
+PASS: Live simulation advanced throughout the route: STREETLIFE 03 · Ferry Railwalk
+STREETLIFE ROUTE: STREETLIFE 03 · Ferry Railwalk, phase=1.50, 46 cells, 0 bands, 4.77s waiting, 25.80s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 3
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 04 · Banked Boulevard
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 04 · Banked Boulevard
+PASS: Live simulation advanced throughout the route: STREETLIFE 04 · Banked Boulevard
+STREETLIFE ROUTE: STREETLIFE 04 · Banked Boulevard, phase=1.50, 44 cells, 1 bands, 0.85s waiting, 21.03s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 4
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 05 · Sanitation Courts
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 05 · Sanitation Courts
+PASS: Live simulation advanced throughout the route: STREETLIFE 05 · Sanitation Courts
+STREETLIFE ROUTE: STREETLIFE 05 · Sanitation Courts, phase=1.50, 56 cells, 0 bands, 3.83s waiting, 29.10s simulated, result=LEVEL COMPLETE!
+PASS: Map validates: 5
+PASS: Live traversal has a safe-sidewalk route: STREETLIFE 06 · Block Party
+PASS: Full route reaches the exit with traffic and AI active: STREETLIFE 06 · Block Party
+PASS: Live simulation advanced throughout the route: STREETLIFE 06 · Block Party
+STREETLIFE ROUTE: STREETLIFE 06 · Block Party, phase=1.50, 48 cells, 2 bands, 0.33s waiting, 22.20s simulated, result=LEVEL COMPLETE!
+STREETLIFE ROUTES: 72 checks, 0 failures

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "STREETLIFE 05 · Sanitation Courts",
+  "name": "STREETLIFE 05 \u00b7 Sanitation Courts",
   "theme": "nyc",
   "width": 25,
   "height": 25,
@@ -99,6 +99,33 @@
     ],
     [
       "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -143,33 +170,6 @@
       "floor",
       "floor",
       "floor",
-      "water",
-      "water",
-      "water",
-      "water",
-      "floor",
-      "floor",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
       "floor",
       "floor",
       "floor",
@@ -185,9 +185,9 @@
       "wall",
       "wall",
       "wall",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "path",
+      "path",
       "wall",
       "wall",
       "wall",
@@ -203,33 +203,6 @@
       "wall",
       "wall",
       "wall",
-      "wall"
-    ],
-    [
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
-      "floor",
       "wall"
     ],
     [
@@ -342,33 +315,6 @@
     ],
     [
       "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "floor",
-      "floor",
-      "floor",
-      "wall",
-      "wall",
-      "wall",
-      "wall",
-      "wall"
-    ],
-    [
-      "wall",
       "floor",
       "floor",
       "floor",
@@ -396,6 +342,33 @@
     ],
     [
       "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "path",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall",
+      "wall"
+    ],
+    [
+      "wall",
       "floor",
       "floor",
       "floor",
@@ -405,9 +378,9 @@
       "floor",
       "floor",
       "floor",
-      "water",
-      "water",
-      "water",
+      "floor",
+      "floor",
+      "floor",
       "floor",
       "floor",
       "floor",
@@ -459,6 +432,33 @@
       "floor",
       "floor",
       "floor",
+      "water",
+      "water",
+      "water",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "wall"
+    ],
+    [
+      "wall",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
+      "floor",
       "floor",
       "floor",
       "floor",
@@ -508,9 +508,9 @@
       "wall",
       "wall",
       "wall",
-      "floor",
-      "floor",
-      "floor",
+      "wall",
+      "path",
+      "wall",
       "wall",
       "wall",
       "wall",
@@ -808,7 +808,7 @@
       "type": "city_prop",
       "variant": "bench",
       "pos": [
-        14,
+        15,
         4
       ],
       "rotation": 0,
@@ -857,126 +857,6 @@
       ],
       "rotation": 0,
       "solid": false
-    },
-    {
-      "id": "set5-roach-15",
-      "type": "roach",
-      "pos": [
-        6,
-        20
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.15,
-      "waypoints": [
-        [
-          6,
-          20
-        ],
-        [
-          8,
-          20
-        ],
-        [
-          8,
-          22
-        ],
-        [
-          6,
-          22
-        ]
-      ]
-    },
-    {
-      "id": "set5-roach-16",
-      "type": "roach",
-      "pos": [
-        13,
-        16
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.35,
-      "waypoints": [
-        [
-          13,
-          16
-        ],
-        [
-          14,
-          16
-        ],
-        [
-          14,
-          17
-        ],
-        [
-          13,
-          17
-        ]
-      ]
-    },
-    {
-      "id": "set5-roach-17",
-      "type": "roach",
-      "pos": [
-        18,
-        10
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.2,
-      "waypoints": [
-        [
-          18,
-          10
-        ],
-        [
-          20,
-          10
-        ],
-        [
-          20,
-          11
-        ],
-        [
-          18,
-          11
-        ]
-      ]
-    },
-    {
-      "id": "set5-roach-18",
-      "type": "roach",
-      "pos": [
-        8,
-        4
-      ],
-      "rotation": 0,
-      "solid": false,
-      "behavior": "patrol",
-      "speed": 1.3,
-      "waypoints": [
-        [
-          8,
-          4
-        ],
-        [
-          10,
-          4
-        ],
-        [
-          10,
-          5
-        ],
-        [
-          8,
-          5
-        ]
-      ]
     },
     {
       "id": "set5-skate_rail-19",
@@ -1109,12 +989,168 @@
           "trick": "cruise"
         }
       ]
+    },
+    {
+      "id": "set5-roach-15",
+      "type": "roach",
+      "pos": [
+        5,
+        19
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.85,
+      "waypoints": [
+        [
+          5,
+          19
+        ],
+        [
+          7,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "set5-roach-16",
+      "type": "roach",
+      "pos": [
+        16,
+        13
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 2.0,
+      "waypoints": [
+        [
+          16,
+          13
+        ],
+        [
+          19,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "set5-roach-17",
+      "type": "roach",
+      "pos": [
+        17,
+        11
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 1.7,
+      "waypoints": [
+        [
+          17,
+          11
+        ],
+        [
+          19,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "set5-roach-18",
+      "type": "roach",
+      "pos": [
+        6,
+        5
+      ],
+      "rotation": 0,
+      "solid": false,
+      "behavior": "patrol",
+      "speed": 2.0,
+      "waypoints": [
+        [
+          6,
+          5
+        ],
+        [
+          9,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "hard5-exit",
+      "type": "roach",
+      "solid": false,
+      "rotation": 0,
+      "pos": [
+        11,
+        4
+      ],
+      "waypoints": [
+        [
+          11,
+          4
+        ],
+        [
+          14,
+          4
+        ]
+      ],
+      "behavior": "patrol",
+      "speed": 1.9
+    },
+    {
+      "id": "hard5-court-return",
+      "type": "skater",
+      "solid": false,
+      "rotation": 0,
+      "variant": 0,
+      "pos": [
+        5,
+        8
+      ],
+      "speed": 3.8,
+      "route": [
+        {
+          "pos": [
+            5,
+            8
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            17,
+            8
+          ],
+          "height": 0,
+          "trick": "cruise"
+        },
+        {
+          "pos": [
+            17,
+            10
+          ],
+          "height": 0,
+          "trick": "push"
+        },
+        {
+          "pos": [
+            5,
+            10
+          ],
+          "height": 0,
+          "trick": "cruise"
+        }
+      ]
     }
   ],
   "traffic": [],
   "crossings": [],
-  "hint": "Change alleys at each refuse court. Cross the grind line behind the returning board.",
-  "description": "Three offset court gates make the frog weave from a refuse alley into a delivery court and a north grind line. Slow roaches mark the direct routes; benches and mailboxes identify wider waiting pockets.",
+  "hint": "Each court changes the next alley. Watch the narrow gates and both riders in the grind court.",
+  "description": "Three offset refuse gates now require deliberate patrol crossings. A second board cuts across the rail court, followed by a final guarded opening. Court interiors remain safe places to inspect the next crossing.",
   "design_purpose": "Switch crossing lines through refuse courts, then time one rail return.",
   "required_gates": [
     {
@@ -1143,6 +1179,30 @@
         23,
         6
       ]
+    }
+  ],
+  "difficulty_target": "Hard: timing and route planning. Human attempt count not calibrated.",
+  "signs": [
+    {
+      "pos": [
+        12,
+        23
+      ],
+      "text": "Read each refuse alley before crossing. The next gate changes sides."
+    },
+    {
+      "pos": [
+        18,
+        14
+      ],
+      "text": "Do not stop in the narrow opening. The next landing is guarded too."
+    },
+    {
+      "pos": [
+        18,
+        11
+      ],
+      "text": "Two boards cross the grind court. Choose when to enter, then keep moving."
     }
   ]
 }
