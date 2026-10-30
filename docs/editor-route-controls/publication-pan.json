@@ -1,0 +1,41 @@
+{
+  "source": "d6d798583eabf5c093695f710d9eb65ed997dfcb",
+  "saved": {
+    "id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_a647097b00e481919d107f1482cab760",
+    "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+    "version_number": 99,
+    "source": {
+      "commit_sha": "be283476fb446273af933cd43bcff4c9d649399a"
+    },
+    "archive_storage": {
+      "archive_format": "tar",
+      "sediment_file_id": "file_0000000080d081f5aa9b0ff445af98eb",
+      "content_hash": "sha256:a7ed142d61d77b08a1f432ab50f01fae5db0966146face540b34fe75e8e51360",
+      "size_bytes": 58511360,
+      "file_count": 30
+    },
+    "screenshot_url": null,
+    "deployment_id": null
+  },
+  "deployment": {
+    "id": "appgdep_6ae40b1e84c4819185d78d127cec297d",
+    "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+    "title": "Hopán",
+    "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_a647097b00e481919d107f1482cab760",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://hopan.fiiendward.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6ad43a1975c08191965b198fbd79aac1",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-30T03:12:38.138520+00:00"
+  },
+  "checks": {
+    "native_route": 13,
+    "native_return": 10,
+    "browser": "Actual route drawing, middle drag, zoom, accept. No captured errors.",
+    "preservation": "14 hosting/RiverSim files unchanged"
+  }
+}
