@@ -1,0 +1,8 @@
+{
+  "errors": [],
+  "checks": [
+    "Visible Back to editor button clicked in actual playtest",
+    "Same level editor reopened"
+  ],
+  "scope": "Chromium software rendering; edit preservation additionally verified natively"
+}

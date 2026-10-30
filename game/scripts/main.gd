@@ -53,6 +53,7 @@ const RULE_INK = preload("res://art/rules/hopan-rule-ink.ttf")
 const LandmarkModels = preload("res://scripts/landmark_models.gd")
 const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/scenery/heron_marsh.json", "res://levels/scenery/temple_horizon_1x.json", "res://levels/scenery/temple_horizon_80x.json", "res://levels/scenery/courtyard_gardens.json", "res://levels/scenery/jungle_river.json"]
 const CHARGE_DEMO = "res://levels/tile_hop/charge_trial.json"
+var return_editor_button: Button
 var rule_button: Button
 var hop_rule_picker: OptionButton
 var hop_charge_picker: SpinBox
@@ -552,6 +553,11 @@ func build_ui() -> void:
 	overlay_box.add_theme_constant_override("separation", 8 if mobile_ui else 14)
 	margin(overlay_panel, 16 if mobile_ui else 28).add_child(overlay_box)
 	build_joystick()
+	return_editor_button = button(self, "Back to editor", return_to_editor)
+	return_editor_button.name = "ReturnToEditor"
+	return_editor_button.custom_minimum_size = Vector2(180, 44)
+	return_editor_button.tooltip_text = "End this playtest and return to your level. Unsaved edits are kept."
+	return_editor_button.hide()
 	rule_button = button(self, "Rules", func(): show_level_rules(false))
 	rule_button.custom_minimum_size = Vector2(72, 44)
 	rule_button.tooltip_text = "Level rules · F1"
@@ -978,6 +984,11 @@ func enter_editor() -> void:
 	sync_editor()
 	status("Build your maze. Space: playtest · Save keeps a local copy · Export creates portable JSON.")
 
+func return_to_editor() -> void:
+	if mode != "test": return
+	reset_touch()
+	enter_editor()
+
 func playtest() -> void:
 	start_play(true)
 
@@ -1073,6 +1084,7 @@ func update_result_presentation() -> void:
 func present_result(reason: String, set_complete: bool, earned_hat: bool) -> void:
 	var complete_title: String = str(SET_TITLES.get(campaign_set, "Level")).to_upper() + " COMPLETE!"
 	reset_overlay(complete_title if set_complete else reason, "%.1f seconds  ·  %d deaths" % [world.elapsed, deaths])
+	if mode == "test": button(overlay_box, "Back to editor", return_to_editor)
 	if reason != "LEVEL COMPLETE!":
 		paragraph(overlay_box, {"CROAKED!": "That critter had other plans.", "SPLASHED!": "Ride the logs to stay above the water.", "HIT!": "Ancient security systems still work.", "SQUISHED!": "Wait on the bank for a wider gap in traffic.", "SPIKED!": "Watch the copper track before the spike ball slams."}.get(reason, ""))
 	else:
@@ -1121,6 +1133,7 @@ func show_pause_overlay() -> void:
 	joystick.hide()
 	reset_overlay("Taking a breather.", "The maze will wait. So will the critters.")
 	button(overlay_box, "Resume", toggle_pause, true)
+	if mode == "test": button(overlay_box, "Back to editor", return_to_editor)
 	paragraph(overlay_box, retry_description())
 	button(overlay_box, retry_action_text(), retry)
 	if not checkpoint_spawn.is_empty():
@@ -2292,6 +2305,8 @@ func _process(delta: float) -> void:
 		configure_view()
 		world.fit_camera()
 		configure_splash_layout()
+	return_editor_button.visible = mode == "test" and not overlay.visible
+	return_editor_button.position = view_container.global_position + Vector2(12, 52)
 	rule_button.visible = mode in ["play", "test"] and not overlay.visible and world.result.is_empty()
 	rule_button.position = view_container.global_position + Vector2(maxf(0, view_container.size.x - 86), 52)
 	update_result_presentation()

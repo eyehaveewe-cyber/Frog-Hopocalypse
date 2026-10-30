@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Clearly labelled return control appears in playtest
+PASS: Return remains available in map view
+PASS: Visible button returns to editor
+PASS: Unsaved level edits survive round trip
+PASS: Returning to same edit session does not request discard
+PASS: Pause includes explicit Back to editor action
+PASS: Paused return preserves edits
+PASS: Result includes return action
+PASS: Completion return preserves edits
+PASS: Normal campaign play has no edit-return button
+PLAYTEST RETURN: 0 failures
