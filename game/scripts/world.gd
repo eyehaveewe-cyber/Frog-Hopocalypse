@@ -180,6 +180,9 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 		for x in range(int(level.width)):
 			var p := cell_position([x, z])
 			var tile: String = level.tiles[z][x]
+			var paint_value: Variant = level.get("tile_colors", {}).get("%d,%d" % [x,z], "")
+			var painted: bool = paint_value is String and Color.html_is_valid(paint_value)
+			var paint_color: Color = Color.from_string(paint_value, Color.WHITE) if painted else Color.WHITE
 			var tunnel_terrain := LaneTunnels.border_terrain(lane_tunnel_plans,x,z,int(level.width))
 			var tint: float = 0.025 * ((x * 3 + z * 7) % 4)
 			if tile == "water" or tunnel_terrain == "water":
@@ -207,7 +210,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 				if tunnel_terrain == "road":
 					texture_kind = "road"
 					color = Color.WHITE
-				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind)
+				Art.textured(Art.box(geometry, Vector3(CELL, 0.2, CELL), p + Vector3(0, -0.1, 0), color), texture_kind, paint_color if painted and tile in ["floor", "path"] else Color.WHITE)
 			if city:
 				var crosswalk: bool = x in level.get("crossings", [])
 				if tile == "road": Streets.road(geometry,p,x,crosswalk)
@@ -215,7 +218,7 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 					for side in [-1,1]:
 						if z+side >= 0 and z+side < level.height and level.tiles[z+side][x] == "road": Streets.sidewalk_edge(geometry,p,side,crosswalk)
 			if tile == "cheese_wall":
-				Art.textured(Art.box(geometry, Vector3(CELL, 0.65, CELL), p + Vector3(0, 0.325, 0), Color.WHITE), "cheese")
+				Art.textured(Art.box(geometry, Vector3(CELL, 0.65, CELL), p + Vector3(0, 0.325, 0), Color.WHITE), "cheese", paint_color if painted else Color.WHITE)
 				var cheese_body := Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
 				cheese_body.collision_layer = 8
 			if tile == "wall":
@@ -223,8 +226,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 				var height := 1.45 if perimeter else (0.3 if z == level.height - 1 else 0.55)
 				if city and z in road_rows and x in [0,level.width-1]: height = 0.025
 				if tunnel_terrain.is_empty():
-					Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), wall_texture)
-					Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), cap_texture)
+					Art.textured(Art.box(geometry, Vector3(CELL, height, CELL), p + Vector3(0, height / 2, 0), wall_color), wall_texture, paint_color if painted else Color.WHITE)
+					Art.textured(Art.box(geometry, Vector3(CELL + 0.025, 0.10, CELL + 0.025), p + Vector3(0, height, 0), wall_color.lightened(0.2)), cap_texture, paint_color if painted else Color.WHITE)
 				Art.solid(geometry, Vector3(CELL, 1.4, CELL), p + Vector3(0, 0.5, 0))
 	if city:
 		City.district(geometry,int(level.width),int(level.height),CELL)

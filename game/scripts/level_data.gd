@@ -71,6 +71,19 @@ static func validate(d: Variant, editor_snapshot: bool = false) -> String:
 		for tile in row:
 			if tile not in TILES:
 				return "Unknown terrain type."
+	var colors: Variant = d.get("tile_colors", {})
+	if not colors is Dictionary or colors.size() > w * h:
+		return "Tile colors must be a map of grid cells to colors."
+	for key in colors:
+		if not key is String or not colors[key] is String or not Color.html_is_valid(colors[key]):
+			return "Tile colors must use valid HTML colors."
+		var parts: PackedStringArray = str(key).split(",")
+		if parts.size() != 2 or not parts[0].is_valid_int() or not parts[1].is_valid_int():
+			return "Tile color coordinates must use x,y."
+		var x := int(parts[0])
+		var y := int(parts[1])
+		if x < 0 or x >= w or y < 0 or y >= h or key != "%d,%d" % [x,y]:
+			return "Tile color coordinates must be inside the map."
 	for key in ["spawn", "exit"]:
 		if key == "exit" and not d.has("exit"):
 			return "Exit gate is missing. Add an exit coordinate [x, y] on a walkable tile to the level JSON, then import again."

@@ -94,6 +94,7 @@ var theme_picker: OptionButton
 var themed_tool_buttons: Dictionary = {}
 var saved_picker: OptionButton
 var tool_label: Label
+var tile_paint_picker: ColorPickerButton
 var inspector: VBoxContainer
 var undo_button: Button
 var redo_button: Button
@@ -456,7 +457,7 @@ func build_ui() -> void:
 	palette.add_theme_constant_override("h_separation", 6)
 	palette.add_theme_constant_override("v_separation", 6)
 	tools.add_child(palette)
-	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["hop_fragment", "Hop fragment"], ["hop_seed", "Hop seed"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["backdrop", "Distant backdrop"], ["critter", "Critter"], ["roach", "Roach"], ["skater", "Skater"], ["city_prop", "Street prop"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"]]:
+	for entry in [["floor", "Floor"], ["path", "Path"], ["wall", "Wall"], ["cheese_wall", "Cheese wall"], ["water", "Water"], ["road", "Road"], ["car", "Car"], ["patrol_car", "Patrol car"], ["log", "Log"], ["spawn", "Frog start"], ["exit", "Exit gate"], ["checkpoint", "Checkpoint"], ["hop_fragment", "Hop fragment"], ["hop_seed", "Hop seed"], ["pillar", "Pillar"], ["tree", "Tree"], ["mushroom", "Mushroom"], ["decoration", "Pot"], ["landmark_sphinx", "Sphinx"], ["landmark_osiris", "Osiris statue"], ["landmark_pyramid", "Pyramid"], ["landmark_moss_tree", "Moss tree"], ["landmark_heron", "Heron"], ["backdrop", "Distant backdrop"], ["critter", "Critter"], ["roach", "Roach"], ["skater", "Skater"], ["city_prop", "Street prop"], ["seam_worm", "Seam worm"], ["spike_ball", "Spike ball"], ["emitter", "Dart trap"], ["select", "Select"], ["erase", "Erase"], ["route", "Patrol route"], ["paint_color", "Paint color"]]:
 		var key: String = entry[0]
 		var b := button(palette, entry[1], func(): set_tool(key))
 		if key in ["tree", "pillar", "decoration"]: themed_tool_buttons[key] = b
@@ -467,6 +468,13 @@ func build_ui() -> void:
 		compact.content_margin_top = 4
 		compact.content_margin_bottom = 4
 		b.add_theme_stylebox_override("normal", compact)
+	tools.add_child(label("Tile paint color", 13, LIME))
+	tile_paint_picker = ColorPickerButton.new()
+	tile_paint_picker.color = Color("e8a84c")
+	tile_paint_picker.edit_alpha = false
+	tile_paint_picker.custom_minimum_size = Vector2(0, 40)
+	tile_paint_picker.tooltip_text = "Choose a color, then use Paint color on walls or floors. Right-click restores the original."
+	tools.add_child(tile_paint_picker)
 	inspector = VBoxContainer.new()
 	inspector.add_theme_constant_override("separation", 8)
 	tools.add_child(inspector)
@@ -1507,6 +1515,8 @@ func accept_patrol_route()->void:
 func set_tool(key: String) -> void:
 	tool = key
 	tool_label.text = "TOOL  /  " + key.replace("_", " ").to_upper()
+	if key == "paint_color":
+		status("Choose a color, then click or drag on walls and floors. Right-click restores the original color.")
 	if key == "route":
 		status("Click waypoints, then Accept route to finish." if not selected_object().is_empty() else "Select a critter, patrol car or spike ball, then draw its route.")
 
@@ -1534,6 +1544,22 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		return
 	var point: Array = [cell.x, cell.y]
 	var index := object_at(cell)
+	if tool == "paint_color":
+		if not world.inside(cell) or level.tiles[cell.y][cell.x] not in ["floor", "path", "wall", "cheese_wall"]:
+			status("Paint color works on floor, path and wall tiles.")
+			return
+		var key := "%d,%d" % [cell.x, cell.y]
+		var colors: Dictionary = level.get("tile_colors", {})
+		var color := "#" + tile_paint_picker.color.to_html(false)
+		if (erase and not colors.has(key)) or (not erase and colors.get(key, "") == color): return
+		if not stroke_changed:
+			record_undo()
+			stroke_changed = true
+		if not level.has("tile_colors"): level.tile_colors = {}
+		if erase: level.tile_colors.erase(key)
+		else: level.tile_colors[key] = color
+		rebuild()
+		return
 	if tool == "select" and not erase:
 		selection = level.objects[index].id if index >= 0 else ""
 		refresh_inspector()
@@ -1626,17 +1652,20 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 		rebuild()
 		return
 	if not world.inside(cell) and index < 0: return
+	var old_terrain: String = level.tiles[cell.y][cell.x] if world.inside(cell) else ""
 	if erase or tool == "erase":
 		if index >= 0:
 			level.objects.remove_at(index)
 			selection = ""
 		else:
 			level.tiles[cell.y][cell.x] = "floor"
+			if old_terrain != "floor": level.get("tile_colors", {}).erase("%d,%d" % [cell.x, cell.y])
 	elif tool in Data.TILES:
 		if tool in ["wall", "cheese_wall", "water"] and (point == level.spawn or point == level.exit):
 			status("Move the frog or exit before painting a hazard here.")
 			return
 		level.tiles[cell.y][cell.x] = tool
+		if old_terrain != tool: level.get("tile_colors", {}).erase("%d,%d" % [cell.x, cell.y])
 		if tool in ["wall", "cheese_wall", "water"]:
 			for i in range(level.objects.size() - 1, -1, -1):
 				if level.objects[i].pos == point or (level.objects[i].get("behavior") == "seam_patrol" and not Data.seam_point_open(level, level.objects[i].pos)):
@@ -1646,6 +1675,7 @@ func edit_cell(cell: Vector2i, erase: bool = false) -> void:
 			status("The start and exit need different cells.")
 			return
 		level.tiles[cell.y][cell.x] = "path"
+		if old_terrain != "path": level.get("tile_colors", {}).erase("%d,%d" % [cell.x, cell.y])
 		if index >= 0:
 			level.objects.remove_at(index)
 		level[tool] = point
