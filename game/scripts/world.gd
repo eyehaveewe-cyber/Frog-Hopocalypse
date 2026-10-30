@@ -371,6 +371,18 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	active = not edit
 
 var editor_zoom:float=1.0
+var editor_pan:=Vector3.ZERO
+
+func pan_editor(delta:Vector2)->void:
+	if not editing:return
+	var center:=get_viewport().get_visible_rect().size*.5
+	var plane:=Plane(Vector3.UP,0)
+	var a:Variant=plane.intersects_ray(camera.project_ray_origin(center),camera.project_ray_normal(center))
+	var b:Variant=plane.intersects_ray(camera.project_ray_origin(center+delta),camera.project_ray_normal(center+delta))
+	if a!=null and b!=null:
+		editor_pan+=a-b
+		fit_camera()
+
 
 func fit_camera() -> void:
 	if level.is_empty() or not is_instance_valid(camera):
@@ -383,7 +395,7 @@ func fit_camera() -> void:
 		camera.size = maxf(level.height * CELL * 0.86 + 2.8, (level.width * CELL + 2.5) / maxf(aspect, 0.1))
 		if editing and background_view: camera.size = maxf((level.height+32) * CELL * 0.86+2.8, ((level.width+32)*CELL+2.5)/maxf(aspect,0.1))
 		if editing:camera.size *= editor_zoom
-		camera_target = Vector3.ZERO
+		camera_target = editor_pan if editing else Vector3.ZERO
 	else:
 		camera.projection = Camera3D.PROJECTION_PERSPECTIVE
 		camera.fov = 63 if touch_mode else 58

@@ -3,6 +3,7 @@ extends Control
 var app
 var points:Array[Vector2]=[]
 func _ready()->void:
+ z_index=100
  mouse_filter=Control.MOUSE_FILTER_IGNORE
  clip_contents=true
 func _process(_dt:float)->void:

@@ -55,6 +55,7 @@ const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/s
 const CHARGE_DEMO = "res://levels/tile_hop/charge_trial.json"
 var editor_zoom_controls: HBoxContainer
 var accept_route_button: Button
+var editor_panning := false
 var route_overlay: Control
 var return_editor_button: Button
 var rule_button: Button
@@ -558,9 +559,11 @@ func build_ui() -> void:
 	build_joystick()
 	route_overlay=preload("res://scripts/editor_route_overlay.gd").new();route_overlay.app=self;add_child(route_overlay)
 	editor_zoom_controls=HBoxContainer.new();add_child(editor_zoom_controls)
+	editor_zoom_controls.tooltip_text="Pan: middle-drag or Shift + right-drag. Right-click still erases."
 	button(editor_zoom_controls,"Zoom in +",func(): zoom_editor(.8))
 	button(editor_zoom_controls,"Zoom out −",func(): zoom_editor(1.25))
-	button(editor_zoom_controls,"Fit level",func(): world.editor_zoom=1.0;world.fit_camera())
+	button(editor_zoom_controls,"Fit level",func(): world.editor_zoom=1.0;world.editor_pan=Vector3.ZERO;world.fit_camera())
+	var pan_hint:=Label.new();pan_hint.text="Pan: middle-drag / Shift + right-drag";editor_zoom_controls.add_child(pan_hint)
 	accept_route_button=button(self,"Accept route",accept_patrol_route)
 	accept_route_button.tooltip_text="Finish drawing this patrol. Its waypoints remain in your level."
 	return_editor_button = button(self, "Back to editor", return_to_editor)
@@ -1227,6 +1230,8 @@ func viewport_position(global: Vector2) -> Vector2:
 	return (global - view_container.global_position) * Vector2(view.size) / view_container.size.max(Vector2.ONE)
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		editor_panning=false;stroke=false
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and is_instance_valid(world) and mode in ["play", "test"] and world.active and not paused and not overlay.visible:
 		toggle_pause()
 
@@ -2510,6 +2515,10 @@ func _input(event: InputEvent) -> void:
 	if mode != "edit" or overlay.visible:
 		return
 	if event is InputEventMouseButton:
+		if event.button_index==MOUSE_BUTTON_MIDDLE or (event.button_index==MOUSE_BUTTON_RIGHT and (event.shift_pressed or editor_panning)):
+			editor_panning=event.pressed and view_container.get_global_rect().has_point(event.position)
+			stroke=false
+			get_viewport().set_input_as_handled();return
 		if event.pressed and view_container.get_global_rect().has_point(event.position) and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
 			zoom_editor(.8 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.25);get_viewport().set_input_as_handled();return
 		if event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT]:
@@ -2521,6 +2530,11 @@ func _input(event: InputEvent) -> void:
 				stroke_changed = false
 				last_cell = world.pick(viewport_position(event.position))
 				edit_cell(last_cell, event.button_index == MOUSE_BUTTON_RIGHT)
+	elif event is InputEventMouseMotion and editor_panning:
+		if not (Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE) or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)):
+			editor_panning=false;return
+		world.pan_editor(event.relative*Vector2(view.size)/view_container.size)
+		get_viewport().set_input_as_handled();return
 	elif event is InputEventMouseMotion and stroke and view_container.get_global_rect().has_point(event.position):
 		var cell: Vector2i = world.pick(viewport_position(event.position))
 		if cell != last_cell and tool not in ["select", "route", "spawn", "exit"]:
