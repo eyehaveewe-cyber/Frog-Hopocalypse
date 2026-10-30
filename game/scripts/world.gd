@@ -370,6 +370,8 @@ func load_level(data: Dictionary, edit: bool = false, hat: Variant = "pharaoh", 
 	fit_camera()
 	active = not edit
 
+var editor_zoom:float=1.0
+
 func fit_camera() -> void:
 	if level.is_empty() or not is_instance_valid(camera):
 		return
@@ -380,6 +382,7 @@ func fit_camera() -> void:
 		var aspect := size.x / maxf(1, size.y)
 		camera.size = maxf(level.height * CELL * 0.86 + 2.8, (level.width * CELL + 2.5) / maxf(aspect, 0.1))
 		if editing and background_view: camera.size = maxf((level.height+32) * CELL * 0.86+2.8, ((level.width+32)*CELL+2.5)/maxf(aspect,0.1))
+		if editing:camera.size *= editor_zoom
 		camera_target = Vector3.ZERO
 	else:
 		camera.projection = Camera3D.PROJECTION_PERSPECTIVE

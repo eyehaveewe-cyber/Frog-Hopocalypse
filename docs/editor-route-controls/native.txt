@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Start and waypoint flags are projected in route editing
+PASS: Accept is available for a drawn route
+PASS: Zoom in retains screen-space flags
+PASS: Zoom out restores scale
+PASS: Accept exits route mode and hides annotations
+PASS: Accept preserves route data
+PASS: Deselection hides route UI
+PASS: Rebuilding preserves editor zoom
+ROUTE CONTROLS: 0 failures

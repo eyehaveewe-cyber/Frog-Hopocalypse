@@ -53,6 +53,9 @@ const RULE_INK = preload("res://art/rules/hopan-rule-ink.ttf")
 const LandmarkModels = preload("res://scripts/landmark_models.gd")
 const SCENERY_DEMOS = ["res://levels/scenery/temple_shore.json", "res://levels/scenery/heron_marsh.json", "res://levels/scenery/temple_horizon_1x.json", "res://levels/scenery/temple_horizon_80x.json", "res://levels/scenery/courtyard_gardens.json", "res://levels/scenery/jungle_river.json"]
 const CHARGE_DEMO = "res://levels/tile_hop/charge_trial.json"
+var editor_zoom_controls: HBoxContainer
+var accept_route_button: Button
+var route_overlay: Control
 var return_editor_button: Button
 var rule_button: Button
 var hop_rule_picker: OptionButton
@@ -553,6 +556,13 @@ func build_ui() -> void:
 	overlay_box.add_theme_constant_override("separation", 8 if mobile_ui else 14)
 	margin(overlay_panel, 16 if mobile_ui else 28).add_child(overlay_box)
 	build_joystick()
+	route_overlay=preload("res://scripts/editor_route_overlay.gd").new();route_overlay.app=self;add_child(route_overlay)
+	editor_zoom_controls=HBoxContainer.new();add_child(editor_zoom_controls)
+	button(editor_zoom_controls,"Zoom in +",func(): zoom_editor(.8))
+	button(editor_zoom_controls,"Zoom out −",func(): zoom_editor(1.25))
+	button(editor_zoom_controls,"Fit level",func(): world.editor_zoom=1.0;world.fit_camera())
+	accept_route_button=button(self,"Accept route",accept_patrol_route)
+	accept_route_button.tooltip_text="Finish drawing this patrol. Its waypoints remain in your level."
 	return_editor_button = button(self, "Back to editor", return_to_editor)
 	return_editor_button.name = "ReturnToEditor"
 	return_editor_button.custom_minimum_size = Vector2(180, 44)
@@ -1480,11 +1490,20 @@ func redo() -> void:
 	rebuild()
 	status("Redid the last edit.")
 
+func zoom_editor(factor:float)->void:
+	if mode!="edit":return
+	world.editor_zoom=clampf(world.editor_zoom*factor,.35,3.0);world.fit_camera()
+
+func accept_patrol_route()->void:
+	if mode!="edit" or tool!="route":return
+	if selected_object().get("waypoints",[]).is_empty():return
+	stroke=false;set_tool("select");status("Patrol route accepted. Save the level to keep it on this device.")
+
 func set_tool(key: String) -> void:
 	tool = key
 	tool_label.text = "TOOL  /  " + key.replace("_", " ").to_upper()
 	if key == "route":
-		status("Select a critter, patrol car or spike ball, then draw its route.")
+		status("Click waypoints, then Accept route to finish." if not selected_object().is_empty() else "Select a critter, patrol car or spike ball, then draw its route.")
 
 func rebuild(refresh_selection: bool = true) -> void:
 	world.load_level(level, true, hat, skin)
@@ -2305,6 +2324,12 @@ func _process(delta: float) -> void:
 		configure_view()
 		world.fit_camera()
 		configure_splash_layout()
+	editor_zoom_controls.visible=mode=="edit" and not overlay.visible
+	editor_zoom_controls.position=view_container.global_position+Vector2(12,view_container.size.y-52)
+	accept_route_button.visible=mode=="edit" and tool=="route" and not overlay.visible and selected_object().get("type","") in ["critter","patrol_car","spike_ball"]
+	accept_route_button.disabled=selected_object().get("waypoints",[]).is_empty()
+	accept_route_button.position=view_container.global_position+Vector2(12,12)
+	if mode=="edit" and is_instance_valid(world.route_root):world.route_root.visible=false
 	return_editor_button.visible = mode == "test" and not overlay.visible
 	return_editor_button.position = view_container.global_position + Vector2(12, 52)
 	rule_button.visible = mode in ["play", "test"] and not overlay.visible and world.result.is_empty()
@@ -2485,6 +2510,8 @@ func _input(event: InputEvent) -> void:
 	if mode != "edit" or overlay.visible:
 		return
 	if event is InputEventMouseButton:
+		if event.pressed and view_container.get_global_rect().has_point(event.position) and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+			zoom_editor(.8 if event.button_index==MOUSE_BUTTON_WHEEL_UP else 1.25);get_viewport().set_input_as_handled();return
 		if event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT]:
 			if not event.pressed:
 				stroke = false
