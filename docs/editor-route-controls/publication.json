@@ -1,0 +1,18 @@
+{
+  "deployment": {
+    "id": "appgdep_6ae404c2f2c8819190e8ea52bae9f3ad",
+    "project_id": "appgprj_6ad43a1975c08191965b198fbd79aac1",
+    "title": "Hopán",
+    "version_id": "appgprj_6ad43a1975c08191965b198fbd79aac1~appgver_6d8b5b12ac18819199aa04220ad446d5",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://hopan.fiiendward.chatgpt.site",
+    "has_mcp": false,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6ad43a1975c08191965b198fbd79aac1",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-30T02:45:30.554464+00:00"
+  },
+  "game_source": "916e2cbea1d85cde6b69e5d30f321c5ae65d8448"
+}
